@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('contributions',{"command-provider":["js/commandConfiguration.command-provider"],"states":["js/ui.states"]});

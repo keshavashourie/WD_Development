@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Importing Application Metadata" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Import Feature</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="kanchor163"></a>Import Feature</p>
+            <p class="_1body">The Import feature of the Designer adds object definitions (CDO, CLF, Field, and so on) contained in an import document to the current metadata configuration and optionally produces an audit log. The format of the Import document is XML following the structure of the Opcenter EX MDD or Opcenter EX CR metadata. The structure is very similar to what is displayed in the Designer, making it relatively easy to comprehend.</p>
+            <p class="_1body">If the utility encounters a discrepancy, for example, if the current value does not match the expected value, you are prompted to resolve the discrepancy. Refer to “<a href="Import_Document_Structure.htm#Expected" class="MCXref xref" xrefformat="{paratext}">Expected Value Processing</a>” for information.</p>
+            <p class="_1bodyKeepWithNext">The choices for resolving discrepancies are:</p>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Leave the current value unchanged</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Discontinue processing for this document</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Apply the change</td>
+                </tr>
+            </table>
+            <p class="_1body">The import feature displays an error message when an error occurs during the import process. The error message attempts to provide a specific reason for the failure. For example, there may be an issue with a specific object. Errors are logged in the Event Viewer and in a log file containing detailed information explaining why the process failed. Log files are saved at the file path C:\Program Files (x86)\Camstar\Logs by default.</p>
+            <p class="Head3-Side"><a name="How_to_Import_Camstar_Manufacturing_Metadata"></a>How to Import  Metadata</p>
+            <p class="_1bodyKeepWithNext">Follow these steps to import Opcenter EX MDD or Opcenter EX CR metadata:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Start Designer. <span class="Emphasis">The Login window appears.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Make sure the Metadata database field on the login window is pointing to the MDB into which you want to import configurations, and log in as required.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Select <span class="User_Entry">Import</span> from the <span class="User_Entry">File</span> menu. <span class="Emphasis">The Import InSite Metadata window appears.</span><br /></td>
+                </tr>
+            </table>
+            <p class="AboveAndBelow_Frame">&#160;</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Click the <span class="User_Entry">Browse</span> button to select an import document. <span class="Emphasis">A window opens from which you can find and select the file.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Select the import document (select the full path if necessary) and click <span class="User_Entry">Open</span>. <span class="Emphasis">The Import InSite Metadata window appears.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Click <span class="User_Entry">View Document</span> to view the import document and examine the contents if you want.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Click <span class="User_Entry">Import</span> to add the metadata contained in the import document to the current configuration. <span class="Emphasis">A record of the changes that were made to the current metadata configuration is displayed when the import process is completed. The changes are saved to a log file by default.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 62px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Allow some time for the import process to complete; the duration depends upon the volume of definitions being imported. The status of the import process is displayed in the status window.<br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Select the appropriate action and click <span class="User_Entry">Continue</span>.</td>
+                </tr>
+            </table>
+            <p class="_3body">You need to resolve the discrepancy each time you encounter one.</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Click <span class="User_Entry">Close</span> at the completion of the import process. <span class="Emphasis">The imported metadata changes appear in the Designer.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">Click <b>Update DB</b>. <i>A dialog box appears asking you to confirm you want to save the current MDB file and update the database according to the settings in the Preferences dialog box.</i> </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>11.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;11.&lt;/b&gt;">Click <b>Yes</b>. <i>A status bar appears at the bottom of the window to indicate the update is in progress. The application saves and updates the database.</i></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

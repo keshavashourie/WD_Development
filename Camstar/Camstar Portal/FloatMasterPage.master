@@ -1,0 +1,68 @@
+<%-- Copyright Siemens 2023   --%>
+<%@ master language="C#" codefile="FloatMasterPage.master.cs" autoeventwireup="true" inherits="Camstar.Portal.FloatMasterPage" %>
+
+<!doctype html>
+<html>
+<head runat="server">
+    <title>Opcenter Execution</title>
+    <asp:PlaceHolder runat="server">
+            <%= this.styleSheetString %>
+    </asp:PlaceHolder>
+</head>
+<body class="FloatBody <%=currentTheme%>-theme  FloatMaster-page">
+    <div id="mod" class="mod" style="display:none"></div>
+    <div id="modImage" class="modImage" style="display:none">
+        <div>
+            <img src="Images/med-snake.gif" alt="" />
+        </div>
+    </div>
+    <form id="AJAXForm" runat="server">
+    <cwpf:WebPartFrameworkManager ID="WebPartManager" runat="server">
+    </cwpf:WebPartFrameworkManager>
+    <asp:ScriptManager ID="ScriptManager" runat="server" EnablePartialRendering="false">
+        
+        <Scripts>
+
+            <asp:scriptreference path="~/Scripts/jquery/jquery.min.js" />
+            <asp:scriptreference path="~/Scripts/jquery/jquery-ui.min.js" />
+            <asp:ScriptReference Path="~/Scripts/jquery/jquery.alerts.js" />
+            <asp:ScriptReference Path="~/Scripts/jquery/jquery.camstar.js" />
+            <asp:ScriptReference Path="~/Scripts/ClientFramework/MicrosoftAjaxExt.js" />
+            <asp:ScriptReference Path="~/Scripts/ClientFramework/Camstar.Ajax/CamstarAjax.js" />
+            <asp:ScriptReference Path="~/Scripts/ClientFramework/Camstar.UI/Control.js" />
+            <asp:ScriptReference Path="~/Scripts/ClientFramework/CamstarPortal.WebControls/Modal.js" />
+            <asp:ScriptReference Path="~/Scripts/Camstar.js" />
+            <asp:ScriptReference Path="~/Scripts/FloatingFrame.js" />
+            <asp:ScriptReference Path="~/Scripts/WebParts.js" />
+            <asp:ScriptReference Path="~/Scripts/Controls.js" />
+            <asp:ScriptReference Name="workspaceoverride"/>
+            <asp:ScriptReference Path="~/Scripts/User/User.js" />
+            <asp:scriptreference path="~/Scripts/User/SmartScan.js" />
+        </Scripts>
+           
+    </asp:ScriptManager>
+    <cwfw:Label runat="server" Visible="false" ID="YesLabel" LabelName="Web_Yes" LabelType="Designer"></cwfw:Label>
+    <cwfw:Label runat="server" Visible="false" ID="NoLabel" LabelName="Web_No" LabelType="Designer"></cwfw:Label>
+    <cwfw:Label runat="server" Visible="false" ID="OkLabel" LabelName="OKButton" LabelType="Designer"></cwfw:Label>
+    <cwfw:Label runat="server" Visible="false" ID="CloseLabel" LabelName="Web_Close" LabelType="Designer"></cwfw:Label>
+    <cwfw:Label runat="server" Visible="false" ID="MessageTitleLabel" LabelName="ConfirmationMessageTitle" LabelType="Designer"></cwfw:Label>
+    <cwpf:WebPartBaseZone ID="StaticZoneTop" HeaderText="Static Zone Top" style="width:100%" CssClassBrowse="HorizontalFloatStaticZoneBrowse" CssClassDesign="HorizontalFloatStaticZoneDesign" runat="server">
+        <ZoneTemplate>
+            <cwpfc:StatusBarControl ID="StatusBar" runat="server"/>
+        </ZoneTemplate>
+    </cwpf:WebPartBaseZone>
+    <div id="DynamicContentDiv" class="ContentPanel">
+        <div id="TemplateContentDiv" class="ContentPanel">
+            <asp:ContentPlaceHolder ID="AJAXContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>                                    
+        <cwpf:WebPartBaseZone ID="StaticZoneBottom" HeaderText="Static Zone Bottom" CssClassBrowse="HorizontalFloatStaticZoneBrowse" CssClassDesign="HorizontalFloatStaticZoneDesign" runat="server">
+            <ZoneTemplate>
+                <cwpfc:ButtonsBarControl ID="ButtonsBar" runat="server" />
+            </ZoneTemplate>
+        </cwpf:WebPartBaseZone>
+    </div>
+    <csc:floatingframe id="FloatingFrame" runat="server" />
+    </form>
+</body>
+</html>

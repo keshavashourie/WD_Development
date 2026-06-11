@@ -1,0 +1,144 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-textbox.directive",
+        "js/aw-panel-body.directive",
+        "js/aw-panel.directive",
+        "js/aw-row.directive",
+        "js/aw-panel-footer.directive",
+        "js/aw-button.directive",
+        "js/aw-popup2.directive",
+        "js/aw-widget.directive",
+        "js/aw-tab-set.directive",
+        "js/aw-radiobutton.directive",
+        "js/aw-list.directive",
+        "js/aw-listbox.directive",
+        "js/aw-label.directive",
+        "js/aw-property-non-edit-val.directive"
+    ],
+    "actions": {
+        "loadLeftList": {
+            "actionType": "dataProvider",
+            "method": "leftSideDataProvider"
+        },
+        "loadRightList": {
+            "actionType": "dataProvider",
+            "method": "rightSideDataProvider"
+        },
+        "closePopupWindow": {
+            "actionType": "JSFunction",
+            "method": "hide",
+            "inputData": {
+                "popupId": "{{data.popupId}}",
+                "targetEvent": "{{$event}}"
+            },
+            "deps": "js/popupService"
+        },
+        "updateViewFunction": {
+            "actionType": "JSFunction",
+            "method": "updateViewFunction",
+            "deps": "js/mom.acb.component.service"
+        },
+        "createLeftSideData": {
+            "actionType": "JSFunction",
+            "method": "createLeftSideData",
+            "inputData": {
+                "radioViewList": "{{data.radioViewList}}"
+            },
+            "outputData": {
+                "leftSideData": "leftSideData",
+                "radioViewList.dbValue": "radioViewList.dbValue"
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "createRightSideData": {
+            "actionType": "JSFunction",
+            "method": "createRightSideData",
+            "inputData": {
+                "radioViewList": "{{data.radioViewList}}"
+            },
+            "outputData": {
+                "rightSideData": "rightSideData"
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "updateAcbConfig": {
+            "actionType": "JSFunction",
+            "method": "updateAcbConfig",
+            "inputData": {
+                "popupId": "{{data.popupId}}",
+                "targetEvent": "{{$event}}"
+            },
+            "events": {
+                "success": [ {
+                        "name": "saveSuccessMessageEvent"
+                    },
+                    {
+                        "name": "updateParentView"
+                    }
+                ]
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "updateSearchViewFunction": {
+            "actionType": "JSFunction",
+            "method": "updateFilterViewFunction",
+            "deps": "js/mom.acb.component.service"
+        }
+    },
+    "data": {},
+    "dataProviders": {
+        "leftSideDataProvider": {
+            "action": "createLeftSideData",
+            "response": "{{data.leftSideData}}",
+            "totalFound": "{{data.totalLeftFound}}"
+        },
+        "rightSideDataProvider": {
+            "action": "createRightSideData",
+            "response": "{{data.rightSideData}}",
+            "totalFound": "{{data.totalRightFound}}"
+        }
+    },
+    "conditions": {
+        "showTableSettings": {
+            "expression": "data.selectedTab.tabKey === 'tableCol'"
+        },
+        "showListSettings": {
+            "expression": "data.selectedTab.tabKey === 'listProp'"
+        },
+        "showLabels": {
+            "expression": "false"
+        },
+        "reverseCommands": {
+            "expression": "false"
+        }
+    },
+    "i18n": {},
+    "onEvent": [ {
+            "eventId": "aw.closePopup",
+            "action": "closePopupWindow"
+        },
+        {
+            "eventId": "acbTableSettings.contentLoaded",
+            "action": "loadLeftList"
+        },
+        {
+            "eventId": "acbTableSettings.contentLoaded",
+            "action": "loadRightList"
+        },
+        {
+            "eventId": "saveSuccessMessageEvent",
+            "message": "saveSuccessMessage"
+        },
+        {
+            "eventId": "updateParentView",
+            "action": "updateViewFunction"
+        }
+    ],
+    "messages": {
+        "saveSuccessMessage": {
+            "messageType": "INFO",
+            "messageText": "Preferences Saved Successfully."
+        }
+    }
+}

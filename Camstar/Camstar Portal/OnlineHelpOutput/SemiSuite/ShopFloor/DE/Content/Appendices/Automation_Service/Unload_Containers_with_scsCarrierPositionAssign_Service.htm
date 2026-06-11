@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalHelp.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Anhang D: Automatisierungsdienste" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Entladen von Containern mit dem "scsCarrierPositionAssign"-Dienst</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top">Entladen von Containern mit dem "scsCarrierPositionAssign"-Dienst</a>
+            </p>
+            <p class="_1body" style="color: #000000;">Container können über einen Automatisierungslayer aus einem Behälter entladen werden, indem ein Dienst namens "scsCarrierPositionAssign" verwendet wird. Sie können bestimmte Container entladen oder alle Container aus einem Behälter entladen. Um die angegebenen Container zu entladen, müssen Sie den Containernamen und Behälternamen angeben und die Einrichtungsaktion mit 1 angeben. Um alle Container aus dem Behälter zu entladen, können Sie den Behälternamen angeben und "Alle entladen" auf "Wahr" festlegen.</p>
+            <p class="_1body" style="color: #000000;">Sie müssen keine Informationen zur Slot-Position während des Entladeprozesses angeben. Die Anwendung ermittelt die zugehörige Slot-Position automatisch und löst sie. </p>
+            <table class="AutoNumber_p_Note1body" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Es ist wichtig, den richtigen Containernamen während des Entladeprozesses einzugeben, wenn für ihn nicht "Alle entladen" mit "Wahr" konfiguriert ist. Wenn der Container nicht im Behälter gefunden wird, zeigt die Anwendung einen Fehler an. </td>
+                </tr>
+            </table>
+            <p class="Head3">Beispiel zum Entladen angegebener Container aus einem Behälter </p>
+            <p class="_1body" style="color: #000000;">Der folgende Code zeigt ein Beispiel für das Entladen angegebener Container aus einem Behälter. Sie müssen den Behälternamen &lt;Behälter&gt; und den Containernamen &lt;Container __CDOTypeName="Lot"&gt; angeben und die Einrichtungsaktion für das Entladen (1) angeben. <br /></p>
+            <p class="ProgramCode0">
+                <br />&lt;__InSite __version="1.1" __encryption="3"&gt;
+</p>
+            <p class="ProgramCode1">    &lt;__service __serviceType="scsCarrierPositionAssign"&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__inputData&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Carrier&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[Carrier Name]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/Carrier&gt;
+</p>
+            <p class="ProgramCode3">&lt;CloseCarrierContainer&gt;&lt;![CDATA[false]]&gt;&lt;/CloseCarrierContainer&gt;
+</p>
+            <p class="ProgramCode3">            &lt;Details&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__listItem&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;Container __CDOTypeName="Lot"&gt;
+                        </p>
+            <p class="ProgramCode6">&lt;__name&gt;&lt;![CDATA[Container Name]]&gt;&lt;/__name&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;/Container&gt;
+                    </p>
+            <p class="ProgramCode5" style="color: #ff0000;">&lt;SetupAction&gt;&lt;![CDATA[1]]&gt;&lt;/SetupAction&gt;
+                </p>
+            <p class="ProgramCode4">&lt;/__listItem&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/Details&gt;
+            </p>
+            <p class="ProgramCode3" style="color: #ff0000;">&lt;UnloadAll&gt;&lt;![CDATA[false]]&gt;&lt;/UnloadAll&gt;
+</p>
+            <p class="ProgramCode2">        &lt;/__inputData&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+</p>
+            <p class="ProgramCode2">        &lt;/__execute&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__requestData&gt;
+</p>
+            <p class="ProgramCode3">            &lt;CompletionMsg&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/CompletionMsg&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__requestData&gt;
+</p>
+            <p class="ProgramCode1">    &lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="Head3">Beispiel zum Entlsaden aller Container aus einem Behälter </p>
+            <p class="_1body" style="color: #000000;">Der folgende Code zeigt das Beispiel zum Entladen aller Container aus einem Behälter. Sie müssen den Behälternamen angeben und "Alle entladen" auf "Wahr" festlegen. </p>
+            <p class="ProgramCode0">
+&lt;__InSite __version="1.1" __encryption="3"&gt;
+&#160;</p>
+            <p class="ProgramCode1"> &#160; &lt;__service __serviceType="scsCarrierPositionAssign"&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;__inputData&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;Carrier&gt;
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[Carrier Name]]&gt;&lt;/__name&gt;
+&#160; &#160; &#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode3">&lt;/Carrier&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;CloseCarrierContainer&gt;&lt;![CDATA[false]]&gt;&lt;/CloseCarrierContainer&gt;
+&#160;</p>
+            <p class="ProgramCode3"><span style="color: #ff0000;"> &#160; &#160; &#160; &#160; &lt;UnloadAll&gt;&lt;![CDATA[true]]&gt;&lt;/UnloadAll&gt;</span>
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;/__inputData&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;/__execute&gt;
+</p>
+            <p class="ProgramCode2"> &#160; &#160; &#160; &lt;__requestData&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;CompletionMsg&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;/CompletionMsg&gt;
+&#160;</p>
+            <p class="ProgramCode2"> &#160; &#160; &#160; &lt;/__requestData&gt;
+</p>
+            <p class="ProgramCode1"> &lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;
+
+</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

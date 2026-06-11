@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="执行" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>执行体系结构</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top"></a>SPC 执行体系结构<a name="kanchor36"></a></p>
+            <p class="_1bodyKeepWithNext" style="color: #000000;"><a name="kanchor37"></a>本主题介绍了 SPC 执行架构的工作原理。内联 SPC 使用内部 SPC 通用组件，该组件包含两个引擎：SPC 计算引擎和 SPC 显示引擎。这些通用组件便于事务提供各种计算和可视化功能，以获得更好的体验车间。 </p>
+            <p class="_1bodyKeepWithNext">可以从车间事件中触发 SPC 处理，例如，操作员将数据输入到 WIP 数据设置中。在调用 SPC 之前，系统将事务数据提交给数据库。</p>
+            <p class="Head3-Side"><a name="kanchor38"></a>示例用例 </p>
+            <p class="_1body">制造商希望在生产过程中监视晶元厚度。如果晶片测量值超出既定范围，他们想要在将晶元切成模具之前使批次处于搁置状态。此外，他们需要了解测量是否趋于上限或下限范围，以便可以调查设备，从而确定是否需要维修。</p>
+            <p class="_1body">Opcenter Execution Semiconductor 管理员定义 WIP 数据设置以获取厚度测量值，并定义 SPC 设置以在测量值超出范围时执行失败操作。管理员将 SPC 设置与 WIP 数据设置相关联。</p>
+            <p class="_1body"> 在车间转出期间，WIP 数据设置要求提示操作员进行必需的测量。操作员输入测量值，应用程序开始执行在关联的 SPC 设置中配置的 SPC 请求。 </p>
+            <p class="_1body">Opcenter Execution Semiconductor 创建并临时保存 SPC 前执行数据，将车间事务数据提交给数据库，并执行名为 Trigger_SPC 的过程，传入保存的 SPC 数据。然后，Trigger_SPC 过程执行 SPC 事务。</p>
+            <p class="_1body">对于 SPC 事务数据列表中的每条记录，执行 SPC 事务会调用一个自定义过程（也称为执行 SPC），该过程又根据 SPC 设置配置调用适当的 SPC 引擎。</p>
+            <p class="_1body">所需的 SPC 引擎将厚度测量值标识为超出限制并将结果返回到 Opcenter Execution Semiconductor。执行 SPC 事务提交所有 SPC 后执行数据，将批次置于搁置状态，并向用户显示 SPC 结果（包括图表）。</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

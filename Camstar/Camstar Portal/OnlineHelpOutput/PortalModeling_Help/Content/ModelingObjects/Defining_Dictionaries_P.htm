@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalModeling.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="Execution Model Definitions" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Defining Dictionaries</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_TableIndent3body.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="DefiningDictionaries"></a>Defining Dictionaries<a name="kanchor253"></a></p>
+            <p class="_1body">Opcenter EX&#160;MDD and Opcenter EX&#160;CR enable you to create custom or translated user and system labels for the application. Labels in the application are messages and text, such as displayed field captions, error messages, transaction
+completion messages, string selection values, and so on. Custom and translated labels are organized and assigned to employees by using dictionaries.</p>
+            <p class="_1bodyKeepWithNext">You can group custom or translated labels under two types of dictionaries:</p>
+            <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Language - stores translated labels for specific languages.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Terminology - stores custom labels for industry-specific languages.  For example, Opcenter EX MDD and Opcenter EX CR  use the word Container to represent a discrete collection of product produced in a factory, and uses Employee to represent a person. You might want to use different words, such as Bin instead of Container and Associate instead of Employee, for your business.</td>
+                </tr>
+            </table>
+            <p class="_1body">The application displays labels based on the logged-in employee's associated dictionaries. The default labels and user-defined labels appear if an employee has no designated dictionary. Refer to "Defining Employees" for information on assigning dictionaries to an employee. </p>
+            <p class="_1body">The application allows you to assign both Language and Terminology dictionaries to an employee. Labels in the terminology dictionary are prioritized over labels in the language dictionary  if labels exist in both dictionaries. </p>
+            <p class="_1body" style="color: #000000;"><a name="CPR1183"></a>Dictionary labels are cached in both Application Server and Portal application caches. Opcenter EX MDD and Opcenter EX CR dictionary labels are stored within the database and cached in Portal's IIS cache. You must recycle the IIS application pool to refresh the cache. The dictionary label cache is updated when a dictionary modeling instance is updated. </p>
+            <p class="_1body" style="color: #000000;">On saving of a dictionary Modeling instance, the label cache is automatically refreshed out of the box if the save includes changes. </p>
+            <p class="_1body">You specify these dictionary types, or categories in the employee definition for assigning a dictionary to an employee.</p>
+            <p class="_1body" style="color: #000000;">You can optionally load dictionary labels using custom CSV&#160;files  in Management Studio.  Refer to the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics System&#160;Administration Guide</span> or the <span class="Emphasis">Opcenter Execution Core System&#160;Administration Guide</span> for information on loading custom dictionaries.</p>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="When_Defining_a_Dictionary"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Defining a Dictionary</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Dictionary contains the optional modeling definition User Label.</p>
+                    <p class="_1body">Dictionary is an optional field in the definition of Employee.</p>
+                    <p class="_1body">The Search button enables you to display search results filtered by any information you enter in the filter fields.</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 50px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">You must save the instance before performing a search.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="Dictionary_Page_Field_Definitions"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Dictionary Page Field Definitions</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">This table defines the fields unique to the Dictionary page.</p>
+                    <p class="_1bodyKeepWithNext">Refer to "<a href="../Getting Started/Modeling_Page.htm#Common" class="MCXref xref">Common Fields on Modeling Pages</a>" for information on the fields common to all modeling objects.</p>
+                    <table style="width: 95%;caption-side: top;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Field</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Definition</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">Type</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">Details</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Category Filter</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Filter limiting your search to a particular label category in Designer (for example: CSICompletion) to translate only labels in that category.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Label Name Filter</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Name or partial name of the label to search for. </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Label Value Filter</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Particular text to search for in the label text. For example, entering Container will return every label in the application that includes the word “Container.”</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Search Results grid</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Grid displaying the results of the label search.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBodyIndented">Label ID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">System-generated ID of the label you are translating.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2" rowspan="3">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">Name</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Name of the label you are translating.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBodyIndented">Default Text</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Label text defined in the Designer or using the user label page that defines user labels. This is the text for which you are going to provide a translation.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBodyIndented">Label Text</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">Actual translated text that will be shown instead of the default text if a login user references this dictionary in the Language Dictionary or Terminology Dictionary field of the employee definition. </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="Dictionary_Detail_Pop_Up"></a>
+            </p>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="Dictionary_Detail_Pop_Up_Field_Definitions"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Edit Dictionary Detail Pop-Up Field Definitions</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">This table defines the fields on the Edit pop-up.</p>
+                    <table style="width: 95%;caption-side: top;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 100px;" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 100px;" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Field</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Definition</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">Type</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Label ID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">System-generated ID of the label you are translating.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Name</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Name of the label you are translating.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Default Text</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Label text defined in the Designer or using the user label page that defines user labels. This is the text for which you are going to provide a translation.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">Label Text</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">Actual translated text that will be shown instead of the default text if a login user references this dictionary in the Language Dictionary or Terminology Dictionary field of the Employee definition. <a name="end"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side">How to Define a Dictionary<a name="How_to_Define_a_Dictionary"></a><a name="kanchor254"></a></p>
+            <p class="_1bodyKeepWithNext">Follow these steps to define a Dictionary:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Open the <span class="User_Entry">Dictionary</span> page. <span class="Emphasis">The Dictionary page appears within the Modeling page.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Click <span class="User_Entry">New</span>. <span class="Emphasis">Blank fields appear for you to define a new instance.</span> </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Enter a name for the dictionary in the <span class="User_Entry">Dictionary</span> field.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Enter  optional information according to your business requirements. Refer to the field definitions table for information on the optional fields.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Click <span class="User_Entry">Save</span>. <span class="Emphasis">The application displays a success message indicating the modeling object was updated.</span></td>
+                </tr>
+            </table>
+            <p class="Head3-Side">How to Edit a Label in the Dictionary<a name="kanchor255"></a><a name="How_to_Edit_a_Label_in_the_Dictionary"></a></p>
+            <p class="_1bodyKeepWithNext">Follow these steps to edit a label in the Dictionary:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Perform the "<a href="#How_to_Define_a_Dictionary" class="MCXref xref">How to Define a Dictionary</a>" procedure.</td>
+                </tr>
+            </table>
+            <p class="_3body"> Or </p>
+            <p class="_3body">Select an existing Dictionary instance.</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Edit labels in this dictionary as follows:</td>
+                </tr>
+            </table>
+            <table style="caption-side: top;mc-table-style: url('../Resources/TableStyles/Horiz-rules_TableIndent3body.css');width: 90%;" class="TableStyle-Horiz-rules_TableIndent3body" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 150px;" />
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Head-Header1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">If you want to . . .</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Then . . .</p>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1" />
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body2">
+                            <p class="CellBody">Edit Opcenter EX MDD or Opcenter EX CR labels</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body2">
+                            <table class="AutoNumber_p_CellNumA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Select a category filter that starts with the prefix <span class="Emphasis">csi </span>from the Category Filter list to narrow your search to Opcenter EX MDD or Opcenter EX CR labels. You can also enter a partial User Label name in the Label Name Filter or a partial Label Value in the Label Value Filter.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellNumA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>b.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">Go to Step 3.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyB-Column1-Body1">
+                            <p class="CellBody">Edit user labels you created</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyA-Column1-Body1">
+                            <table class="AutoNumber_p_CellNumA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Type the User Label name in the Label Name Filter or the Label Value in the Label Value Filter to narrow the search to user labels that contain the text you entered.  Refer to "<a href="Defining_User_Labels_P.htm#How_to_Define_a_User_Label" class="MCXref xref">How to Define a User Label</a>."</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellNumA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>b.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">Sto to Step 3.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Click <span class="User_Entry">Search</span>. <span class="Emphasis">The Search Results grid displays the labels you requested.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Select a label in the grid and click <span class="User_Entry">Edit selected row</span>. <span class="Emphasis">The Edit pop-up appears.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Enter the translation for the label in the <span class="User_Entry">Label Text</span> field.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Click <span class="User_Entry">OK</span>. <span class="Emphasis">The Edit pop-up closes and the new Label Text appears in the Search Results grid.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Click <span class="User_Entry">Save</span>. <span class="Emphasis">The application displays a success message indicating the modeling object was updated.</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Configurable Logic Flows" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Adding High Performance CLFs</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Horiz-rules_TableIndent3body.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Adding High Performance CLFs</p>
+            <p class="_1body"><a name="kanchor192"></a>High Performance CLFs  are a category of CLFs that are processed on the database rather than the application server. A High Performance CLF is defined as part of a transaction and is sent to the database in the form of one or more database statements (INSERT, UPDATE, DELETE). Executing SQL statements on the database makes processing more efficient.</p>
+            <p class="_1body">High Performance Engine is a separately licensed feature. The High Performance CLF category does not appear if you are not licensed for this feature.</p>
+            <p class="_1body">Refer to the <i>Opcenter Execution Core Technical Reference: High Performance Engine</i> or the <i>Opcenter Execution Medical Device and Diagnostics Technical Reference: High Performance Engine</i> for information on High Performance Engine.</p>
+            <p class="_1body"><a name="When_Adding_Database_CLFs"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Adding High Performance CLFs</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">The application displays standard functions and database-specific functions in the list of Available Functions. You can add, rename, and remove High Performance CLFs like other CLFs.</p>
+                    <p class="_1body">When you add a  function to a High Performance CLF, parameters are available for the life of the High Performance CLF and are prefixed with DBCLF::. DBCLF:: variables are created by the database stored procedures. DBCLF:: variable references  are used only on the database. The application server ignores the DBCLF:: prefix and passes it  to the database.</p>
+                    <p class="_1body">When you select some  database functions such as ExecuteSingleSQL in the Available Functions list and drag it to the Logic Flow area, the application populates the Parameter Name in the Function Parameters area  with SQLStatementName. Other database functions do not have the SQLStatementName parameter; for example, SQLParameter has the Value parameter with a data type of Any and Multiplicity set to 0..1 </p>
+                    <p class="_1body">SQLStatementName uses Special Processing. The Select a Query pop-up appears when you click the ellipsis for this field. You can select an existing query, edit an existing query, or create a new query using this pop-up. Only  Advanced Query and NonQuery SQL&#160;types of queries are available. The Include all Workspaces check box is not selected by default, indicating that only queries within your workspace are available for selection. Selecting this check box enables you to select a query from other workspaces.</p>
+                    <p class="_1body">The Query Definitions pop-up appears if you select to edit a query.  You can edit only queries defined in the same workspace in which you are working.</p>
+                    <p class="_1body">Any parameters associated with the query are returned to the High Performance CLF after you select or edit a query. The application populates the Value column for the SQLStatementName parameter with the query name.   The list of all query parameters displays in the Logic Flow area.  This enables you to  populate the parameters associated with the query.</p>
+                    <p class="_1body">If you try to change the query to a new query, a warning appears asking if you want to reset the SQL parameter list for the current SQL statement. If yes, the application resets the query name and the parameters.  If not, the application preserves the existing parameters .</p>
+                    <p class="_1body">You can click the New button in the Select a Query  pop-up to create a new query.  An empty Query Definitions pop-up appears.</p>
+                </div>
+            </div>
+            <p class="Head3-Side">How to Add a High Performance CLF<a name="How_to_Add_a_Database_CLF"></a></p>
+            <p class="_1bodyKeepWithNext">Follow theses steps to add a High Performance CLF:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Open Designer.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Click <span class="User_Entry">CLFs</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Select the <span class="User_Entry">HighPerformance</span> category.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Click the <span class="User_Entry">Add</span> button located below the CLF list box. <span class="Emphasis">The application adds a new CLF   with a default name assigned to it</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 62px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">You can also right-click in the selection tree area and select <b>Add CLF Definition</b>.</td>
+                </tr>
+            </table>
+            <p class="_3body">When a CLF is first added, it is in Rename mode. </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Enter a name for this new CLF.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Enter a description for this CLF in the <span class="User_Entry">General</span> tab.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Change the setting for <b>Visibility in Designer</b> if needed.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Click the <b>Functions</b> tab.<br /></td>
+                </tr>
+            </table>
+            <p class="AboveAndBelow_Frame">&#160;</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Do you want to add standard functions or database functions to the High Performance CLF?</td>
+                </tr>
+            </table>
+            <table style="width: 85%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_TableIndent3body.css');" class="TableStyle-Horiz-rules_TableIndent3body" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 166px;" />
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 586px;" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">If you want to add . . .</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Then . . .</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body1">
+                            <p class="CellBody">Standard functions</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body1">
+                            <p class="CellBody">Complete steps 6-9 of "<a href="Adding_Functions_to_CLFs_and_Viewing_a_CLFs_Functions.htm#How_to_Add_Functions_to_a_User_CLF" class="MCXref xref">How to Add Functions to a User CLF</a>."</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyB-Column1-Body2">
+                            <p class="CellBody">Database functions</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyA-Column1-Body2">
+                            <p class="CellBody">Go to step 10.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">Drag a database function from the Available Functions list to the Logic Flow area.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>11.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;11.&lt;/b&gt;">Does the database function   have the SQLStatementName parameter?</td>
+                </tr>
+            </table>
+            <table style="width: 85%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_TableIndent3body.css');" class="TableStyle-Horiz-rules_TableIndent3body" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 166px;" />
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 586px;" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">If  . . .</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Then . . .</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body1">
+                            <p class="CellBody">Yes</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Go to step 12.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyB-Column1-Body2">
+                            <p class="CellBody">No</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyA-Column1-Body2">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Modify the function parameters as required. </td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>b.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">Go to step 14.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>12.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;12.&lt;/b&gt;">Click the ellipsis on the SQLStatementName row in the Function Parameters area. <i>The Select a Query pop-up appears.</i></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>13.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;13.&lt;/b&gt;">Do you want to select or edit a query, or create a new one?</td>
+                </tr>
+            </table>
+            <table style="width: 85%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_TableIndent3body.css');" class="TableStyle-Horiz-rules_TableIndent3body" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 143px;" />
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 385px;" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">If you want to . . .</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Then . . .</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body1">
+                            <p class="CellBody">Select a query</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Select a query from the list and click <b>Select</b><span>. </span><i>The application populates the Value column for the SQLStatementName parameter with the query name.</i></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body2">
+                            <p class="CellBody">Edit a query</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body2">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Select a query from the list and click <b>Edit</b>. <i>The Query Definitions pop-up appears.</i></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>b.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">Edit the definition of the query and click <b>OK</b>.  <i>The Select a Query pop-up appears.</i></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>c.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;c.&lt;/b&gt;">Ensure the edited query is selected and click <b>Select</b>. <i>The application populates the Value column for the SQLStatementName parameter with the query name.</i></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyB-Column1-Body1">
+                            <p class="CellBody">Create a new query
+                        </p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyA-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNumA" valign="top"><span class="Number"><b>a.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNumA" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Click <b>New</b>. <i>The Query Definitions pop-up appears.</i></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>b.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">Define the query and click <b>OK</b><span>. </span> <i>The Select a Query pop-up appears.</i></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Number"><b>c.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;c.&lt;/b&gt;">Ensure the new query is selected and click <b>Select</b>. <i>The application populates the Value column for the SQLStatementName parameter with the query name.</i></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>14.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;14.&lt;/b&gt;">Select <b>Save</b> from the <b>File</b> menu. <i>The application saves your changes.</i><a name="end"></a></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

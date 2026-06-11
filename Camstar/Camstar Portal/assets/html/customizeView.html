@@ -1,0 +1,27 @@
+<aw-popup2>
+    <aw-panel-body>
+        <aw-row height="4f">
+            <aw-radiobutton prop="data.radioViewList"></aw-radiobutton>
+        </aw-row>
+        <aw-row>
+            <aw-panel>
+                <aw-tab-set tabs="data.tabModels">
+                    <aw-panel-body exist-when="conditions.showTableSettings">
+                        <aw-include name="acbTableSettings"></aw-include>
+                    </aw-panel-body>
+                    <aw-panel-body exist-when="conditions.showListSettings">
+                        <aw-include name="acbListSettings"></aw-include>
+                    </aw-panel-body>
+                </aw-tab-set>
+            </aw-panel>
+        </aw-row>
+    </aw-panel-body>
+    <aw-panel-footer exist-when="conditions.showTableSettings">
+        <aw-button button-type="base" action="closePopupWindow" size="auto">Cancel</aw-button>
+        <aw-button action="updateAcbConfig" size="auto">Save</aw-button>
+    </aw-panel-footer>
+    <aw-panel-footer exist-when="conditions.showListSettings">
+        <aw-button button-type="base" action="closePopupWindow" size="auto">Cancel</aw-button>
+        <aw-button action="updateAcbConfigForList" size="auto">Save</aw-button>
+    </aw-panel-footer>
+</aw-popup2>

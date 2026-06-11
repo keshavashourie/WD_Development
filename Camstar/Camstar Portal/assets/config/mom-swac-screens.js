@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('mom-swac-screens',{"screens":{"apollo":"./Default.aspx?apolloLink=true&mode=apollo"},"default":"apollo"});

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="基于组织和角色过滤" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>基于角色过滤</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">基于角色过滤</p>
+            <p class="_1body">本节提供指导来帮助检索员工有权访问的角色的列表。基于角色过滤时，对“员工 ID”使用 csiAuthGetUsersRoles 数据库函数和一个参数，以返回组织和角色组合 (OrganizationId/RoleId) 的表。</p>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Example_Query"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor1"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />示例 查询</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="ProgramCode1">SELECT e.EventName</p>
+                    <p class="ProgramCode3">,o.OrganizationName</p>
+                    <p class="ProgramCode3">,r.RoleName</p>
+                    <p class="ProgramCode3">,emp.EmployeeName</p>
+                    <p class="ProgramCode1">FROM Event e</p>
+                    <p class="ProgramCode1">JOIN (SELECT OrganizationId, RoleId FROM csiAuthGetUsersRoles((SELECT EmployeeId from Employee where EmployeeName = 'CamstarAdmin'))) AS OwnerRoles</p>
+                    <p class="ProgramCode2">ON e.RoleId = OwnerRoles.RoleId AND e.OrganizationId = OwnerRoles.OrganizationId</p>
+                    <p class="ProgramCode2">JOIN RoleDef r ON e.RoleId = r.RoleId</p>
+                    <p class="ProgramCode2">JOIN Employee emp ON e.OwnerId = emp.EmployeeId</p>
+                    <p class="ProgramCode2">JOIN Organization o ON e.OrganizationId = o.OrganizationId</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Use"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />使用</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">我希望针对登录系统的用户有权访问的所有组织内的所有角色返回任务中心消息。我可以加入 csiAuthGetUsersRoles 函数，以获取用户的角色/组织组合。</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Out-of-the-Box_Implementation"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />默认实施</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">csiAuthGetUsersRoles 函数用于 GetToDoList 服务的逻辑。使用该函数的 Designer 查询为 GetToDoListEntries。</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

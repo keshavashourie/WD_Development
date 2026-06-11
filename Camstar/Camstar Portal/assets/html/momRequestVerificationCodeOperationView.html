@@ -1,0 +1,19 @@
+<aw-command-panel hide-title="true">
+    <aw-panel-header>
+        <aw-include name="momLoginPanelHeader" sub-panel-context="subPanelContext"></aw-include>
+    </aw-panel-header>
+    <aw-panel-body>
+        <aw-command-panel-section caption="{{subPanelContext.labels.requestVerificationCode}}">
+            <aw-textbox aw-enter-key="requestVerificationCode" prop="subPanelContext.email"></aw-textbox>
+        </aw-command-panel-section>
+    </aw-panel-body>
+    <aw-panel-footer mom-update-ctx-on-change="momValidRequestVerificationCodeOperationForm: awPanelBody.$valid && conditions.validRequestVerificationCodeData">
+        <aw-button action="cancelRequestVerificationCode" button-type="base">
+            {{subPanelContext.labels.cancel}}
+        </aw-button>
+        <aw-button action="requestVerificationCode" enable-when="awPanelBody.$valid && conditions.validRequestVerificationCodeData">
+            {{subPanelContext.labels.requestVerificationCode}}
+        </aw-button>
+        <aw-include name="momLoginCopyright" sub-panel-context="subPanelContext"></aw-include>
+    </aw-panel-footer>
+</aw-command-panel>

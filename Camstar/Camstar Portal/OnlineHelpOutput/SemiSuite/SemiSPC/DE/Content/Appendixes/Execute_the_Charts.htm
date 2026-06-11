@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Execute the Charts</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Execute the Charts</p>
+            <p class="_1body">Der Abschnitt "Execute the Charts" ist der primäre Abschnitt des Makros. Er führt die endgültige Kompilierung und die SPC-Ausführungsprozesse für jede konfigurierte SPC-Chart durch. Dieser letzte Abschnitt enthält Unterabschnitte, die für jede innerhalb der SPC-Einrichtung modellierte SPC-Chart neu verarbeitet werden.</p>
+            <p class="Head3-Side"><a name="Code"></a>Code in diesem Abschnitt</p>
+            <p class="ProgramCode0">##---------------------</p>
+            <p class="ProgramCode0">## Execute the charts</p>
+            <p class="ProgramCode0">##---------------------</p>
+            <p class="ProgramCode0">FOR $ChartIndex = 1 to CASE(ddsSPCSetupDetails.SPCSetupName)</p>
+            <p class="Head3-Side">Festlegen von Variablen für das Element</p>
+            <p class="_1body">Da dies der abschließende SPC-Auswertungsprozess des Makros ist, sind Variablen erforderlich, um jede SPC-Chart vollständig zu verarbeiten. Die folgende Liste beschreibt die erforderlichen Variablen:</p>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCChartName: Name der gerade verarbeiteten Statit-SPC-Chart.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCSetupDetailsId: Datenbank-InstanceId, die den SPC-Chartdetails zugeordnet ist.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ItemName: Generischer Name, der der gerade verarbeiteten SPC-Chart zugeordnet ist.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCRulesName: SPC-Regel, die während der aktuellen SPC-Analyse angewendet werden soll.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">FailureAction: Aktion, die auf der Basis der SPC-Analyseergebnisse auf das Semi Suite-Los angewendet werden soll.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">DisplayHistoricalLimits: Flag, das bestimmt, ob historische Limits angezeigt werden.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">RuleViolationMethod: Zu implementierender Regelverletzungsansatz:</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Datenpunktverletzung</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Letzte Datenpunktverletzung</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Letzte Gruppenverletzung</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SubGroupPlotMethod: Flag, das bestimmt, ob Daten standardmäßig, nach Wafer (WAFER) oder nach Los (LOT) gruppiert werden.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a name="SPCQueryOverrideName"></a>SPCQueryOverrideName: Der Name der "SPC-Abfrage-Überschreibung", die für das derzeit verarbeitete SPC-Chart konfiguriert ist.
+
+</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">DataValueNameOverride: Flag, das bestimmt, ob für das derzeit verarbeitete SPC-Chart "Datenwertname-Überschreibung" festgelegt ist.
+</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">
+ResultsetSizeLimitOverride: Der Wert für "Größenlimit für Ergebnismenge: Überschreibung" für das SPC-Chart, das derzeit verarbeitet wird.
+</td>
+                </tr>
+            </table>
+            <p class="_1body">Alle diese Werte sind Ergebnisse, die auf den vom Prozess "Fetch SPCSetupDetails" zurückgegebenen Daten basieren.</p>
+            <p class="Head3-Side" style="page-break-before:always">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Set some variables to the item</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SPCChartName = UPPERC(ddsSPCSetupDetails.SPCChartName($ChartIndex))</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SPCSetupDetailsId = ddsSPCSetupDetails.SPCSetupDetailsId($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%ItemName = ddsSPCSetupDetails.ItemName($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SPCRulesName = ddsSPCSetupDetails.SPCRulesName($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%FailureAction = ddsSPCSetupDetails.FailureAction($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%DisplayHistoricalLimits = ddsSPCSetupDetails.DisplayHistoricalLimits($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## 1 = Standard Process 2 = Last Data Point 3= Last Group</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%RuleViolationMethod = ddsSPCSetupDetails.RuleViolationMethod($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##replace SubGroupPlotMethod</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SubGroupPlotMethod = ddsSPCSetupDetails.SubGroupPlotMethod($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SPCQueryOverrideName = ddsSPCSetupDetails.QueryName($ChartIndex)
+</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	%DataValueNameOverride = ddsSPCSetupDetails.DataValueName($ChartIndex)	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">
+	$ResultsetSizeLimitOverride = ddsSPCSetupDetails.ResultsetSizeLimit($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%IsAnnotationRequired = ddsSPCSetupDetails.IsAnnotationRequired($ChartIndex)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF  %IsSPCBasicSetup == "true" THEN
+</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">		%BeforeReplace = %MainSQLQueryText
+		</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SQLQueryName = %MainSQLQueryName
+</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	END IF</p>
+            <p class="Head3-Side"><a name="Execute_the_Custom_Query"></a>Execute the Custom Query</p>
+            <p class="_1body">Diese SQL-Anweisung führt die benutzerdefinierte Abfrage aus.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Execute the Custom Query (Basic SPC)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	IF %IsSPCBasicSetup == "true" THEN	
+		</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF  %SPCQueryOverrideName &lt;&gt; "-1" OR $ResultsetSizeLimitOverride &gt; 0 OR %DataValueNameOverride &lt;&gt; "-1" THEN
+			</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$ParamValueSubStartPos = 1
+</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">			$ParamValueSubStopPos = 1			
+			</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">FOR $QueryIndex = 1 to CASE(ddsSPCSetupQuery.QueryText)	</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">			
+				%SQLQueryTextTemp = ddsSPCSetupQuery.QueryText($QueryIndex)
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				%SQLQueryNameTemp = ddsSPCSetupQuery.QueryName($QueryIndex)	</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				
+				##---------------------
+				</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## Replace Query Parameters in the QueryText with the ParamNames and ParamValues passed in
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				##---------------------
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				$ParamNameStartPos = 1
+				</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$ParamNameStopPos = 1
+				</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$ParamValueStartPos = 1
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				$ParamValueStopPos = 1
+				</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%CustomFilterParamExist = "false"
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				WHILE ($ParamNameStopPos &gt; 0)
+</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">					$ParamNameStopPos = INSTR($ParamNameStartPos, %ParamNamesList, %ParamDelimiter)
+					</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF ($ParamNameStopPos &gt; 0) THEN
+</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">						%ParamName = "?" &amp; MID(%ParamNamesList, $ParamNameStartPos, $ParamNameStopPos - $ParamNameStartPos)
+</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">						$ParamNameStartPos = $ParamNameStopPos + 1
+</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">						$ParamValueStopPos = INSTR($ParamValueStartPos, %ParamValuesList, %ParamDelimiter)
+</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">						IF ($ParamValueStopPos &gt; 0) THEN
+</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">							IF (%ParamName = "?CustomFilters") THEN
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								%CustomFilterParamExist = "true"
+</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">							ELSE IF (%ParamName = "?ConcatSymbol") THEN
+								</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+							</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">ELSE IF %ParamName = "?ResultSetSizeLimit" THEN
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								IF $ResultsetSizeLimitOverride &gt; 0 THEN
+									</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%ParamValue = "'" &amp; $ResultsetSizeLimitOverride &amp; "'"
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								ELSE </p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">
+									%ParamValue = "'" &amp; MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) &amp; "'"
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								END IF
+</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">							ELSE IF %ParamName = "?WIPDATANAME" THEN
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								%ParamValue = %ParamValue &amp; %ConcatSymbol &amp; " "
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								$ParamValueSubStopPos = INSTR($ParamValueSubStartPos, %ParamValue, " ")
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								IF $ParamValueSubStopPos &gt; 0 THEN
+									</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%ParamValueTemp = MID(%ParamValue, $ParamValueSubStartPos, $ParamValueSubStopPos - $ParamValueSubStartPos)
+</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">									%ParamValue = "'" &amp; MID(%ParamValue, $ParamValueSubStartPos, $ParamValueSubStopPos - $ParamValueSubStartPos) &amp; "'"
+</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">									$ParamValueSubStartPos = $ParamValueSubStopPos + 1
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								ELSE
+									</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%ParamValue = "''"
+								</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">END IF
+</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">
+            </p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">## Get a specific WIPDATANAME for chart that does not override the main query but has data value name override
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								IF %SPCQueryOverrideName = "-1" AND %SQLQueryNameTemp = %MainSQLQueryName THEN
+</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">									$DefaultDataValueNamePos = INSTR(1, %ParamValueTemp, ":")
+</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">									IF $DefaultDataValueNamePos &gt; 0 THEN
+										</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">IF %DataValueNameOverride &lt;&gt; "-1" THEN
+</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;"> 										%ParamValueTemp = %ParamValueTemp &amp; ":"
+											</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;"> $SpecificDataValueNameStartPos = $SpecificDataValueNameStartPos + $DefaultDataValueNamePos
+</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">							$SpecificDataValueNameStopPos = INSTR($SpecificDataValueNameStartPos, %ParamValueTemp, ":")
+</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">											 %ParamValue = "'" &amp; MID(%ParamValueTemp, $SpecificDataValueNameStartPos, $SpecificDataValueNameStopPos - $SpecificDataValueNameStartPos) &amp; "'"
+											</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;"> $SpecificDataValueNameStartPos = $SpecificDataValueNameStopPos - $DefaultDataValueNamePos + 1
+</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">										ELSE
+											</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">%ParamValue = "'" &amp; MID(%ParamValueTemp, 1, $DefaultDataValueNamePos - 1) &amp; "'"
+</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">										END IF
+</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">									END IF
+								</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">END IF
+</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">							ELSE
+</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">								%ParamValue = "'" &amp; MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) &amp; "'"
+</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">							END IF
+							$ParamValueStartPos = $ParamValueStopPos + 1
+						</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">ELSE
+							%ParamValue = "''"
+						</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">END IF
+						</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%SQLQueryTextTemp = CHANGE(%SQLQueryTextTemp, %ParamName, %ParamValue, 10)
+					</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				WEND
+</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">								
+				##---------------------
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				## Replace Query CustomFilters Parameter in the QueryText with with empty value
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				##---------------------
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				IF (%CustomFilterParamExist = "false") THEN
+</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">					%ParamName = "?CustomFilters"
+</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">					%ParamValue = ""
+</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">					%SQLQueryTextTemp = CHANGE(%SQLQueryTextTemp, %ParamName, %ParamValue, 10)
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				END IF	
+				
+				
+				</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## Set specific query for the chart
+</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				IF %SPCQueryOverrideName = %SQLQueryNameTemp THEN
+</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">					%SQLQueryName = %SQLQueryNameTemp			
+					</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%BeforeReplace = %SQLQueryTextTemp	</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">				
+				ELSE IF %SPCQueryOverrideName = "-1" AND %SQLQueryNameTemp = %MainSQLQueryName AND ($ResultsetSizeLimitOverride &gt; 0 OR %DataValueNameOverride &lt;&gt; "-1") THEN	</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">		
+					%BeforeReplace = %SQLQueryTextTemp						
+				</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF
+</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">			NEXT	</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">	
+		END IF
+
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##replace SubGroupPlotMethod		
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SQLQueryText = CHANGE(%BeforeReplace, "?SUBGROUPPLOTMETHOD", %SubGroupPlotMethod , 10)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">SET DEFAULTDATASET %SQLQueryName</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">BEGINSQL</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">@v[%SQLQueryText]</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDSQL</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;"><a name="Execute_the_Custom_Query_END"></a>END IF</p>
+            <p class="Head3-Side" style="page-break-before:always"><a name="Get"></a>Get SPC Query's Total Row</p>
+            <p class="_1body">Diese SQL-Anweisung bestimmt, wie viele Datenzeilen für die Anzeige historischer Datenpunkte erforderlich sind.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## ## Get SPC Query's total row</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %DisplayHistoricalLimits = "1" THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">SET DEFAULTDATASET SPCQueryRecordCount</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">BEGINSQL</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">SELECT COUNT(INSTANCEID) AS COUNT FROM (@v[%SQLQueryText]) </p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;"> QueryRecordCount</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">ENDSQL</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF SPCQueryRecordCount.COUNT(1) &lt;&gt; 0 THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">FOR $SPCQueryIndex = 1 to CASE(@v[%SQLQueryName].DATAVALUE)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$SPCQueryResultCount = $SPCQueryResultCount + 1</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="Head3-Side">Fetch SPCSetupDetailsData</p>
+            <p class="_1bodyKeepWithNext">Diese kleine SQL-Anweisung ruft Daten ab, mit denen im nächsten Unterabschnitt die X- oder Y-Variablen festgelegt werden. Diese Informationen werden in der Datentabelle der ausgewerteten SPC-Einrichtungsdetails konfiguriert. Auf der Basis des SPC-Charttyps könnte der Wert so konfiguriert werden, dass er der Y-Variable zugeordnet wird (wird später besprochen). Dieser Prozess kann mehrere Datensätze enthalten, gibt aber nur zwei Datenspalten zurück:</p>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">DataColumn: Datenspalte bezieht sich auf die SPC-Abfrage und das zugeordnete Feld innerhalb der in der SPC-Chart angezeigten SPC-Abfrage.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">IsYVariable: Dieser Wert wird im nächsten Prozess des Makros verwendet.</td>
+                </tr>
+            </table>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <div>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Fetch SPCSetupDetailsData</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">SET DEFAULTDATASET ddsSPCSetupDetailsData</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">BEGINSQL</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">SELECT</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">DataColumn</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">, CASE WHEN IsYVariable IS NULL THEN 0 ELSE IsYVariable END IsYVariable</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">FROM</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">A_SPCSetupDetailsData</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">WHERE</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDSQL</p>
+            </div>
+            <p class="Head3-Side">Set both the X and Y Variables</p>
+            <p class="_1body">Dieser Abschnitt des Makros legt die X-Variable, die Y-Variable und die Spalte (Wert) aus der Ergebnismenge der SPC-Abfrage fest, die in der SPC-Chart angezeigt werden. Obwohl die Ergebnismenge aus der Abfrage SPCSetupDetailsData je nach Konfiguration mehr als einen Datensatz zurückgeben könnte, basiert der DisplayValue der SPC-Chart auf der ersten zurückgegebenen DataColumn. Die Einstellung der X- und Y-Variablen hängt von der Konfiguration der IsYVariable und davon ab, ob weitere Datensätze in der Tabelle "Daten" der SPC-Einrichtungsdetails konfiguriert wurden.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <div>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Set both the X and Y Variables</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">%X_Variable = ""</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">%Y_Variable = ""</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">%DisplayValue = ""</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">FOR $DataIndex = 1 to CASE(ddsSPCSetupDetailsData.DataColumn)</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">%DataColumn = ddsSPCSetupDetailsData.DataColumn($DataIndex)</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF %DisplayValue = "" THEN</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">%DisplayValue = ddsSPCSetupDetailsData.DataColumn($DataIndex)</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">$IsYVariable = ddsSPCSetupDetailsData.IsYVariable($DataIndex)</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF $IsYVariable = 0 THEN</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF %X_Variable &lt;&gt; "?" AND %X_Variable &lt;&gt; "" THEN</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">%X_Variable = %X_Variable &amp; " " &amp; %DataColumn</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">%X_Variable = %DataColumn</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF %Y_Variable &lt;&gt; "?" AND %Y_Variable &lt;&gt; "" THEN</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">%Y_Variable = %Y_Variable &amp; " " &amp; %DataColumn</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">%Y_Variable = %DataColumn</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">NEXT</p>
+            </div>
+            <p class="Head3-Side" style="page-break-before:always"><a name="Fetch2"></a>Fetch SPCSetupDetailsParams</p>
+            <p class="_1body">"Fetch SPCSetupDetailsParams" führt eine SQL-Anweisung nur aus, um alle Chartparameternamen und Parameterwerte zurückzugeben, die in den Details der SPC-Einrichtung konfiguriert wurden. Diese Abfrage wertet auch die Chartparameter aus, die von der aktuell zugewiesenen SPC-Matrix überschrieben wurden.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <div>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Fetch SPCSetupDetailsParams</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">SET DEFAULTDATASET ddsSPCSetupDetailsParams</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">BEGINSQL</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">SELECT</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">P.ParamName,</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">CASE WHEN WDMP.ParamName IS NULL THEN</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">CASE WHEN MP.ParamName IS NULL THEN P.ParamValue ELSE MP.ParamValue END </p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">ELSE WDMP.ParamValue END ParamValue</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">FROM</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">A_SPCSetupDetails D</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">INNER JOIN A_SPCSetupDetailsParams P ON D.SPCSetupDetailsId = P.SPCSetupDetailsId</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">LEFT OUTER JOIN A_SPCMatrixParams MP ON D.SPCSetupDetailsName = MP.SPCSetupDetailsName</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">AND MP.SPCMatrixId = '@v[%SPCMatrixId]'</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">AND MP.ParamName = P.ParamName</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">LEFT OUTER JOIN A_SPCWIPDataMatrixParams WDMP ON D.SPCSetupDetailsName = WDMP.[Name]
+</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">			AND WDMP.WIPDataSetupDetailsId = '@v[%WIPDataSetupDetailsId]'
+			</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">AND WDMP.ParamName = P.ParamName</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">WHERE</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">D.SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">AND P.ParamType = 'CHART'</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDSQL</p>
+            </div>
+            <p class="Head3-Side" style="page-break-before:always"><a name="Fetch"></a>Fetch SPCBasicSetupDetailsParams</p>
+            <p class="_1body">"Fetch SPCBasciSetupDetailsParams" gibt die in den Details der SPC-Basiseinrichtung konfigurierten AXIS- und ANNVAR-Parameter zurück.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Fetch SPCBasicSetupDetailsParams</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">SET DEFAULTDATASET ddsSPCSBasicetupDetailsParams</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">BEGINSQL</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">case when D.SS_XAXISTRENDVALUE is null then 'NULL' else D.SS_XAXISTRENDVALUE end XAxisTrendValue</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, case when D.SS_XAXISDISPLAYVALUE is null then 'NULL' else D.SS_XAXISDISPLAYVALUE end XAxisDisplayValue</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, case when D.SS_ANNVARPRIMARYVALUE is null then 'NULL' else D.SS_ANNVARPRIMARYVALUE end ANNVARPrimaryValue</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, case when D.SS_ANNVARSECONDARYVALUE is null then 'NULL' else D.SS_ANNVARSECONDARYVALUE end ANNVARSecondaryValue</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, case when D.SS_ANNVARTERTIARYVALUE is null then 'NULL' else D.SS_ANNVARTERTIARYVALUE end ANNVARTertiaryValue</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">A_SPCSetupDetails D</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">D.SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDSQL</p>
+            <p class="Head3-Side" style="page-break-before:always"><a name="Prepare_the_Chart_Parameters"></a>Prepare the Chart Parameters</p>
+            <p class="_1body">Der Prozess "Prepare the Chart Parameters" erstreckt sich auf den Prozess "Fetch SPCSetupDetailsParams", der die Chartparameter lediglich abgerufen hat. Dieser Prozess generiert die Chartparameter-Zeichenkette, die später zur Ausführung auf der Basis der Name-Wert-Paare des Parameters an StatIt übergeben wird.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Prepare the Chart Parameters</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%ChartParams = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%SubGroupSize = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%AXISParamExists = "false"</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%ANNVARParamExists = "false"</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%IsSPCBasicSetup = "false"</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%BasicAXISParamValue = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%BasicANNVARParamValue = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">$subgroup = 0</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">$point = 0</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%AXISParamValue = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">external int checkvarname(%varname:v, $noexist:v)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF ddsSPCSetupCDOType.CDOName = "ss_SPCBasicSetup" THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%IsSPCBasicSetup = "true"</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF ddsSPCSBasicetupDetailsParams.XAxisDisplayValue &lt;&gt; "NULL" THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%BasicAXISParamValue = %SQLQueryName &amp; "." &amp; ddsSPCSBasicetupDetailsParams.XAxisDisplayValue</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF ddsSPCSBasicetupDetailsParams.XAxisTrendValue &lt;&gt; "NULL"  THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%BasicAXISParamValue = %BasicAXISParamValue &amp; " " &amp; %SQLQueryName &amp; "." &amp; ddsSPCSBasicetupDetailsParams.XAxisTrendValue</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF ddsSPCSBasicetupDetailsParams.ANNVARPrimaryValue &lt;&gt; "NULL" THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%BasicANNVARParamValue = %SQLQueryName &amp; "." &amp; ddsSPCSBasicetupDetailsParams.ANNVARPrimaryValue</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF ddsSPCSBasicetupDetailsParams.ANNVARSecondaryValue &lt;&gt; "NULL" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%BasicANNVARParamValue = %BasicANNVARParamValue &amp; " " &amp; %SQLQueryName &amp; "." &amp; ddsSPCSBasicetupDetailsParams.ANNVARSecondaryValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF ddsSPCSBasicetupDetailsParams.ANNVARTertiaryValue &lt;&gt; "NULL" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%BasicANNVARParamValue = %BasicANNVARParamValue &amp; " " &amp; %SQLQueryName &amp; "." &amp; ddsSPCSBasicetupDetailsParams.ANNVARTertiaryValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="page-break-after: always;margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	##---------------------
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Get SPC Chart Title
+</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	##---------------------	
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">SET DEFAULTDATASET SPCChartTitle
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">BEGINSQL
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">SELECT COUNT(SPCSetupDetailsId) AS COUNT FROM A_SPCSetupDetailsTitle A WHERE A.SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDSQL	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	
+	%IsTitleParamOverride = "false"				
+	</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF SPCChartTitle.COUNT(1) &lt;&gt; 0 AND %CustomChartTitle &lt;&gt; "" THEN
+</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">		$SpecificChartTitlePos = INSTR($SpecificChartTitleStartPos, %CustomChartTitle, "?")
+		</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF $SpecificChartTitlePos &gt; 0 THEN
+</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">			%ChartTitle = MID(%CustomChartTitle, $SpecificChartTitleStartPos, $SpecificChartTitlePos - $SpecificChartTitleStartPos)
+</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">			$SpecificChartTitleStartPos = $SpecificChartTitlePos + 1
+</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">			%ChartTitle = CHANGE(%ChartTitle, "'", """", 10)
+			</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /TITLE=" &amp; %ChartTitle
+</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">			%IsTitleParamOverride = "true"
+</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">		END IF
+</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">	END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF $db_norecords = 0 THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">FOR $ParamIndex = 1 to CASE(ddsSPCSetupDetailsParams.ParamName)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ParamName = UPPERC(ddsSPCSetupDetailsParams.ParamName($ParamIndex))</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ParamValue = ddsSPCSetupDetailsParams.ParamValue($ParamIndex)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">##replace param value SPCBasicSetup</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF %ParamName = "AXIS" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF %IsSPCBasicSetup = "true" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%ParamValue = %BasicAXISParamValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">ELSE IF %ParamName = "ANNVAR" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF %IsSPCBasicSetup = "true" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%ParamValue = %BasicANNVARParamValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">DOCASE (%ParamName)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">CASE "SUBGROUPSIZE":</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%SubGroupSize = %ParamValue</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$subgroup = decode(%ParamValue)##commented for SPC Enhancement</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">CASE "TITLE":</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF %ParamValue &lt;&gt; "?" AND %ParamValue &lt;&gt; "" THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /TITLE=" &amp; %ParamValue</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /TITLE=""" &amp; %ItemName &amp; """"</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">CASE "DIC":</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">##No Support</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">CASE OTHER:</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF %DisplayHistoricalLimits = "1" AND %SubGroupSize &lt;&gt; "" AND $SPCQueryResultCount &gt; 0 THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">IF %ParamName = "LCL" OR %ParamName = "CL" OR %ParamName = "UCL" OR %ParamName = "LSL" OR %ParamName = "SL" OR %ParamName = "USL" THEN</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">IF %DataBaseType = "Oracle" THEN</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">%BuildQuery = "mod(RN," &amp; %SubGroupSize &amp;") = 1"</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">ELSE IF %DataBaseType = "SQLServer" THEN</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">%BuildQuery = "RN % " &amp; %SubGroupSize &amp; " = 1"</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$PointsCount = CEIL($SPCQueryResultCount/$subgroup)</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">## Fetch Historical Limit</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">SET DEFAULTDATASET ddsSPCHistoricalLimits</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">BEGINSQL</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">RN</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">, LIMITS</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">(</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">CAST(ROW_NUMBER() OVER (ORDER BY STD.SPCTXNDATAID DESC) AS INT) RN</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">, STDD.ITEMNAME ITEMNAME</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">, STDD.@v[%ParamName] LIMITS</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">A_SPCTXNDATA STD</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">JOIN A_SPCTXNDATADETAILS STDD ON STD.SPCTXNDATAID = STDD.SPCTXNDATAID</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">JOIN A_SPCSETUP SS ON STD.SPCSETUPID = SS.SPCSETUPID</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">STD.SPCSETUPNAME = '@v[%SPCSetupName]'</p>
+            <p class="ProgramCode9" style="margin-bottom: 0.5em;">AND STDD.ITEMNAME = '@v[%ItemName]'</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">) Q1</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">@v[%BuildQuery]</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">AND RN &lt;= @v[%SubGroupSize] * @v[$PointsCount]</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">ORDER</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">BY RN DESC</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">ENDSQL</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">%ParamValue = ""</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$LimitsCount = 0</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">FOR $RNIndex = 1 to CASE(ddsSPCHistoricalLimits.RN)</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">$LimitsCount = $LimitsCount + 1</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$y = 1</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">FOR $x = 1 to $PointsCount</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">IF $x &lt; $LimitsCount THEN</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%ParamValue = %ParamValue &amp; ddsSPCHistoricalLimits.LIMITS($y) &amp; " "</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">$y = $y + 1</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%ParamValue = %ParamValue &amp; ddsSPCHistoricalLimits.LIMITS($y) &amp; " "</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">%ParamValue = TRIM(%ParamValue)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF %ParamValue &lt;&gt; "?" AND %ParamValue &lt;&gt; "" THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /" &amp; %ParamName &amp; "=" &amp; %ParamValue</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /" &amp; %ParamName</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF %ParamName = "AXIS" THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%PlotVariable = TRIM(%ParamValue)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">## There are two cases /Axis = 1 or 2 variables</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">$SpacePosition_ = INDEX(%PlotVariable, " ")</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">IF ($SpacePosition_ &gt; 0) THEN</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$len_ = LEN(%PlotVariable)</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$X_ = $len_ - $SpacePosition_</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$2ndId_ = $SpacePosition_ + 1</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">%PlotVariable = MID(%PlotVariable, $2ndId_, $X_)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%AXISParamExists = "true"</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%AXISParamValue = TRIM(%ParamValue)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF %ParamName = "ANNVAR" THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%ANNVARParamExists = "true"</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END CASE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;"><a name="execute_the_charts_missing_line"></a>IF %IsSPCBasicSetup = "true" AND %SPCChartName &lt;&gt; "STATS" AND %SPCChartName &lt;&gt; "GBAR" AND %SPCChartName &lt;&gt; "GROUP" AND %SPCChartName &lt;&gt; "DISPERSION" AND %SPCChartName &lt;&gt; "FREQ" AND&#160;%SPCChartName &lt;&gt;&#160;"GPC"&#160;THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">##&#160;To utilize charts that do not support the ANNVAR chart command,</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">##&#160;extend the previous line with the following (before the THEN&#160;clause):</p>
+            <p class="ProgramCode2_Red" style="margin-bottom: 0.5em;">AND %SPCChartName &lt;&gt; "[Chartname]"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF %AXISParamExists = "false" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /" &amp; "AXIS" &amp; "=" &amp; %BasicAXISParamValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%AXISParamExists = "true"</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%PlotVariable = TRIM(%BasicAXISParamValue)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## There are two cases /Axis = 1 or 2 variables</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$SpacePosition_ = INDEX(%PlotVariable, " ")</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF ($SpacePosition_ &gt; 0) THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$len_ = LEN(%PlotVariable)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$X_ = $len_ - $SpacePosition_</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$2ndId_ = $SpacePosition_ + 1</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%PlotVariable = MID(%PlotVariable, $2ndId_, $X_)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%AXISParamValue = %PlotVariable</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF	%ANNVARParamExists = "false" AND %BasicANNVARParamValue &lt;&gt; "" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%ChartParams = %ChartParams &amp; " /" &amp; "ANNVAR" &amp; "=" &amp; %BasicANNVARParamValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%ANNVARParamExists = "true"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="Head3-Side" style="page-break-before: always;"><a name="Set"></a>Set the Annotation Points</p>
+            <p class="_1body">
+			Der Prozess "Set the Annotations Points" wertet alle Daten in der zuvor ausgeführten Abfrage aus, um die zuvor aufgezeichneten Anmerkungen vor der abschließenden SPC-Analyse den Datenpunkten zuzuordnen.
+		</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Set the annotation points</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%AllowAnnotation = "false"</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%UniqueVariables = "true"</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF (%AXISParamExists = "true") AND (%ANNVARParamExists = "true") THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">##pull the queryname from AXISParam and set back to %SQLQueryName
+                </p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$DotPosition_ = INDEX(%AXISParamValue, ".")
+		</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF ($DotPosition_ &gt; 0) THEN			
+			</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%SQLQueryName = MID(%AXISParamValue, 1, $DotPosition_-1)
+</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">		END IF	</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF UPPERC(%PlotVariable) = UPPERC(%DisplayValue) THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%UniqueVariables = "false"</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">external int checkvarname(%varname:v, $noexist:v)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">$return = checkvarname(%PlotVariable, 1)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">$return2 = checkvarname(%DisplayValue, 1)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## GET THE GROUP BY VARIABLE DATASET</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%GroupByVariable = ""</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF %SubGroupPlotMethod = "0" THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%GroupByVariable = "BYLOTID"</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">ELSE IF %SubGroupPlotMethod = "1"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%GroupByVariable = "BYWAFERID"</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">$return3 = checkvarname(%SQLQueryName &amp; "." &amp; %GroupByVariable, 1)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## GET THE GROUP BY VARIABLE DATASET</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%OriginalValueVariable = %SQLQueryName &amp; ".ORIGINALVALUE"</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">$return4 = checkvarname(%OriginalValueVariable, 1)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF (($return = -2) AND ($subgroup &gt; 0)) THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF (($return2 = -2) AND (%UniqueVariables = "true"))   THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">VARIABLE RENAME @v[%DisplayValue] "DisplayValue"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">VARIABLE RENAME @v[%PlotVariable] "DataID"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$case = CASE(DataID)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$points = $case/$subgroup</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF $points &gt; 0 THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF %SubGroupSize &lt;&gt; "?" AND %SubGroupSize &lt;&gt; "" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF (%SPCChartName = "GMVRNG" OR %SPCChartName = "GICHART" OR %SPCChartName = "GUCHART" OR %SPCChartName = "GPCHART") THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">$subgroup = 1</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$subgroup = 1</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$return2 = checkvarname(%SubGroupSize, 1)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF ($subgroup = 1) THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ASSIGN tempG.Valid_cases $case*1 /nolist</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ELSE IF ($return2 = -2) THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">Group DisplayValue BY @v[%SubGroupSize] /save /savedataset=tempG /nolist</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ASSIGN tempG.Valid_cases $points*$subgroup /nolist</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">## Check the last group</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$lastGroupSize = MOD($case,$subgroup)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">IF ($lastGroupSize &gt; 0) THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">let tempG.lastGroup = $lastGroupSize</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">$sgCase = CASE(tempG.Valid_cases)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">insert tempG.lastGroup into tempG.Valid_cases at $sgCase /Append</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">variable delete tempG.lastGroup /nolist</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## get the group count for each for SubGroupPlotMethod</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF ($return3 = -2) AND %IsSPCBasicSetup = "true" AND %SubGroupPlotMethod &lt;&gt; "-1" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ASSIGN tempGROUP.Valid_cases 1 /nolist</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%GroupVariable = %SQLQueryName &amp; "." &amp; %GroupByVariable</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">GroupVariable = @v[%GroupVariable]</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$GroupVariableCount = CASE(GroupVariable)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$count = 0</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%compare = GroupVariable(1)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">FOR $i = 1 TO $GroupVariableCount</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">IF  GroupVariable($i) = %compare THEN</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$count = $count + 1</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">IF $i = $GroupVariableCount THEN</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">$sgCase = CASE(tempGROUP.Valid_cases)</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">let tempGROUP.currentGroup = $count</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">insert tempGROUP.currentGroup into tempGROUP.Valid_cases at $sgCase /Append</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$sgCase = CASE(tempGROUP.Valid_cases)</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">let tempGROUP.currentGroup = $count</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">insert tempGROUP.currentGroup into tempGROUP.Valid_cases at $sgCase /Append</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">%compare = GroupVariable($i)</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">$count = 1</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">IF $i = $GroupVariableCount THEN</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">$sgCase = CASE(tempGROUP.Valid_cases)</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">let tempGROUP.currentGroup = $count</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">insert tempGROUP.currentGroup into tempGROUP.Valid_cases at $sgCase /Append</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF ($return4 = -2) THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ORIGINALVALUE =  @v[%OriginalValueVariable]</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$points=CASE(tempG.Valid_cases)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">toDel.sg = 0</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$n=Case(tempG.Valid_cases)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">DO $j = 1,$n</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$groupCount=tempG.Valid_cases($j)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">ASSIGN toDel.temp $j /repeat=$groupCount</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$sgCase=CASE(toDel.sg)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">insert toDel.temp into toDel.sg at $sgCase /Append</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ENDDO</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">omit toDel.sg (1)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$points = CEIL($case/$subgroup)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF $points &gt; 0 THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ASSIGN toDel.sg 1 to $points /repeat=$subgroup /nolist</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">SORT toDel.sg by toDel.sg /nolist</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">$caseWhole = CASE(toDel.sg)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF $case &lt; $caseWhole THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$toOmit = $case+1</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">OMIT toDel.sg ($toOmit to $caseWhole)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">TABLE toDel.sg /save /nolist</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## pointURL will hold the URL string for each point (thus each subgroup)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">SASSIGN pointURL "" /repeat=$points /nolist</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## Loop through to push a temporary string into each case of pointURL</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF ($return3 = -2) AND %IsSPCBasicSetup = "true" AND %SubGroupPlotMethod &lt;&gt; "-1" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$points= CASE(tempGROUP.Valid_cases) - 1</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">SASSIGN pointURL "" /repeat=$points /nolist</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$t = 1</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%tmpStr = ""</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">FOR $i = 1 TO $points</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">FOR $s = 1 TO tempGROUP.Valid_cases($i + 1)</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">%tmpstr = %tmpstr &amp; DataID($t) &amp; "|" &amp; DisplayValue($t)</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">IF ($return4 = -2) THEN</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%tmpstr = %tmpstr &amp; "|" &amp; ORIGINALVALUE($t)</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">IF $s &lt;&gt; tempGROUP.Valid_cases($i + 1) THEN</p>
+            <p class="ProgramCode8" style="margin-bottom: 0.5em;">%tmpstr = %tmpstr &amp; ","</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">$t = $t + 1</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">pointURL($i) = %tmpStr</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%tmpStr = ""</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">SASSIGN pointURL "" /repeat=$points /nolist</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">FOR $i = 1 TO $points</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">$first = table.sg($i)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">If %UniqueVariables = "true" THEN</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">IF toDel.sg = $first THEN tmp = DataID &amp; "|" &amp; DisplayValue</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">IF toDel.sg = $first THEN tmp = DataID &amp; "|" &amp; DataID</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">missing permanent tmp /nolist</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%tmpstr=catvar(tmp, 44)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">pointURL($i) = %tmpStr</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">VARIABLE DELETE tmp /nolist</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">NEXT</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END&#160;IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">VARIABLE DELETE table., toDel.sg</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">pointURL = "javascript:annotate('VALUE', '"//pointURL//"')"</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">VARIABLE RENAME DataID %PlotVariable</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF %UniqueVariables = "true" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">VARIABLE RENAME DisplayValue %DisplayValue</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%AllowAnnotation = "true"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="Head3-Side" style="page-break-before:always">Finalize the Command</p>
+            <p class="_1body">Der Prozess "Finalize the Command" ist die letzte Vorbereitungsphase des SPC-ExecuteCommand vor dem SPC-Analyseprozess. Der ExecuteCommand ist eine Verkettung von Befehlen auf der Basis des Status von X_Variable und Y_Variable zusammen mit den Chartparametern und zugeordneten SPC-Regeln.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <div>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Finalize the command</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %X_Variable &lt;&gt; "?" AND %X_Variable &lt;&gt; "" THEN</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ExecuteCommand = %SPCChartName &amp; " " &amp; %X_Variable</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ExecuteCommand = %SPCChartName</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %Y_Variable &lt;&gt; "?" AND %Y_Variable &lt;&gt; "" THEN</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF %SPCChartName = "PROCCAB" THEN</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " GROUP " &amp; %Y_Variable</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " BY " &amp; %Y_Variable</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF %IsSPCBasicSetup = "true" AND %SubGroupPlotMethod &lt;&gt; "-1" THEN</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF %SubGroupPlotMethod = "0" THEN</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " BY " &amp; %SQLQueryName &amp; ".BYLOTID"</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">ELSE IF %SubGroupPlotMethod = "1" THEN</p>
+                <p class="ProgramCode3" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " BY " &amp; %SQLQueryName &amp; ".BYWAFERID"</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">ELSE IF %SubGroupSize &lt;&gt; "?" AND %SubGroupSize &lt;&gt; "" THEN</p>
+                <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " BY " &amp; %SubGroupSize</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %ChartParams &lt;&gt; "?" AND %ChartParams &lt;&gt; "" THEN</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " " &amp; %ChartParams</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %SPCRulesName &lt;&gt; "?" AND %SPCRulesName &lt;&gt; "" THEN</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " /RULES=" &amp; %SPCRulesName</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            </div>
+            <p class="Head3-Side" style="page-break-before:always">Execute the Command</p>
+            <p class="_1body">Der Prozess "Execute the Command" nimmt zunächst Voreinstellungen für einige Variablen vor, die unter Umständen für bestimmte QC-Charts erforderlich sind. Nach der Variableninitialisierung wird der ExecuteCommand an StatIt übergeben.</p>
+            <p class="Head4-Side">Code in diesem Abschnitt</p>
+            <div>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Initialize some QC system variables that may be initialized when the chart is plotted</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Only QC charts will use these variables</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">%qc_rulev_last_point = ''</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">%QC_RULES = "NONE"</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">$QC_NRULEV = 0</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Execute the command</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %AllowAnnotation = "true" THEN</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ExecuteCommand = %ExecuteCommand &amp; " /URL=@pointURL"</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">@v[%ExecuteCommand] /URL=@pointURL</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">ELSE</p>
+                <p class="ProgramCode1" style="margin-bottom: 0.5em;">@v[%ExecuteCommand]</p>
+                <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            </div>
+            <p class="Head3-Side">Check for a Rule Violation</p>
+            <p class="_1body">Der Prozess "Check for a Rule Violation" wird nach dem ExecuteCommand durchgeführt und bestimmt, ob es SPC-Regelverletzungen gab. Die folgenden Werte und weitere Ergebnisse werden an die Opcenter Execution Semiconductor-Anwendung zurückgegeben:</p>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCResult</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCTxnItemNames</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCTxnResults</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCTxnRuleViolationCounts</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCFailureAction</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCResultFilename</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">SPCErrorMessage</td>
+                </tr>
+            </table>
+            <p class="Head4-Side" style="page-break-before:always">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Check for a rule violation</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%QC_RULES = TRIM(UPPERC(%QC_RULES))</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## 1) Check on all data points</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF %RuleViolationMethod = "1" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF %QC_RULES &lt;&gt; "?" AND %QC_RULES &lt;&gt; "" AND %QC_RULES &lt;&gt; "NONE" AND $QC_NRULEV &gt; 0 THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%SPCResult = "FAIL"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## 2) Check on the last point</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %RuleViolationMethod = "2" THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF (len(%qc_rulev_last_point) &gt; 0 AND %QC_RULES &lt;&gt; "" AND %QC_RULES &lt;&gt; "NONE") THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">&#160;</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## Last Point</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%SPCResult = "FAIL"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## 3) Check on the last group instead of last point</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Case to check by wafers</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %RuleViolationMethod = "3" THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF (%QC_RULES &lt;&gt; "" AND %QC_RULES &lt;&gt; "NONE" AND %SPCChartName = "GICHART" AND %AXISParamExists = "true" AND ifexist("DATASET.")) THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">##&#160;To extend the LAST GROUP feature so that it works with other chart, </p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">## modify the %SPCChartName macro variable as follows, where [SPCCHARTTYPE] could be GXCHART:</p>
+            <p class="ProgramCode2_Red" style="margin-bottom: 0.5em;">%SPCChartName = "GICHART" OR %SPCChartName = "[SPC_CHARTTYP]"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">## This customized for GICHART chart</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$index_ = INDEX(%PlotVariable, ".")</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%DataSetName = ""</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF ($index_ &gt; 0) THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%DataSetName = MID(%PlotVariable, 1, $index_-1)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">## SPC Query must have column GROUPSEQ</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%GroupSEQVariable = %DataSetName &amp; ".GROUPSEQ"</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF (ifexist(%GroupSEQVariable)) THEN</p>
+            <p class="ProgramCode3" style="page-break-after: always;margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">## Renaming to variable to let Macro accessing</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">VARIABLE RENAME @v[%GroupSEQVariable] "GroupSEQVariable"</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$len_ = CASE(DATASET.Violating_Points)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">$LastGroupSEQ = GroupSEQVariable($len_)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">FOR $i = $len_, $i &gt; 0, $i = $i - 1</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">$CurGroupSEQ = GroupSEQVariable($i)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">%CurViolatingPoints = DATASET.Violating_Rules($i)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">IF ($CurGroupSEQ = $LastGroupSEQ) THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">## Checking for last group</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">IF (%CurViolatingPoints &lt;&gt; %_sysmiss AND %CurViolatingPoints &lt;&gt; "") THEN</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">dtv %CurViolatingPoints</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">%SPCResult = "FAIL"</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">## Exit</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">$i = 0</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode6" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">## Exit</p>
+            <p class="ProgramCode7" style="margin-bottom: 0.5em;">$i = 0.</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">END FOR</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">VARIABLE RENAME GroupSEQVariable %GroupSEQVariable</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ENDIF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %SPCResult = "FAIL" THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF %SPCFailureAction &lt;&gt; "HOLDALL" THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF %FailureAction = "HOLDALL" THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%SPCFailureAction = "HOLDALL"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">IF %FailureAction = "HOLD" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%SPCFailureAction = "HOLD"</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">ELSE&#160;IF %FailureAction = "FUTUREHOLD" THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">%SPCFailureAction = "FUTUREHOLD"</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnResults = %SPCTxnResults &amp; "FAIL" &amp; CHAR(2)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnRuleViolationCounts = %SPCTxnRuleViolationCounts &amp; $QC_NRULEV &amp; CHAR(2)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnResults = %SPCTxnResults &amp; "PASS" &amp; CHAR(2)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnRuleViolationCounts = %SPCTxnRuleViolationCounts &amp; "0" &amp; CHAR(2)</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="page-break-after: always;margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;"><a name="execute_the_charts_historical"></a>## Historical Data</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Enhancement for Historical Process Capability Data</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%ChartResult = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %SPCChartName = "GPC" THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## Process Capability</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; "ChartType=GPC," &amp; "ss_Mean=" &amp; #mean &amp; ",ss_CP=" &amp; #cp &amp; ",ss_CPK=" &amp; #cpk &amp; ",ss_PP=" &amp; #pp &amp; ",ss_PPK=" &amp; #ppk</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult  &amp; ",ss_RSD=" &amp; #std &amp; ",ss_SDU=" &amp; #sdu &amp; ",ss_SDL=" &amp; #sdl</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF IFDEF("#sd") and #sd &lt;&gt; #_sysmiss THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; ",ss_SD=" &amp; #sd</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## QC Charts cases</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; "ChartType=QC," &amp; "LCL=" &amp; #qc_save_last_lcl &amp; ",UCL=" &amp; #qc_save_last_ucl</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; ",ss_SubGroups=" &amp; $qc_nsg &amp; ",ss_Cases=" &amp; $ncase</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## Control Limits</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF IFDEF("#qc_save_last_lsl") and #qc_save_last_lsl &lt;&gt; #_sysmiss THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; ",LSL=" &amp; #qc_save_last_lsl</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF IFDEF("#qc_save_last_usl") and #qc_save_last_usl &lt;&gt; #_sysmiss THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; ",USL=" &amp; #qc_save_last_usl</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## OOC case</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">IF IFDEF("%qc_last_ooc_letter") THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; ",ss_RuleLetter=" &amp; %qc_last_ooc_letter &amp; ",ss_RuleDesc=" &amp; %qc_last_ooc_desc</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## Plotted Value</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">$nOp=Case(DATASET.Plotted_Values)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">#PlottedValue = DATASET.Plotted_Values($nOp)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%ChartResult = %ChartResult &amp; ",ss_PlottedValue=" &amp; #PlottedValue</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="page-break-after: always;margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">##&#160;Raw Data for Plotted Points</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## Raw Data and InstanceId</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">## --------------------------------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">%RawDataList = ""</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">$i = 0</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">$Ctr = 0</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF %AXISParamExists = "true" THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">DATASET.DataId = @v[%PlotVariable]</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">DATASET.DataValue = @v[%X_Variable]</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">$nOraw=Case(DATASET.DataValue)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">FOR $i = $nOraw - $subgroup + 1, $i &lt;= $nOraw, $i = $i + 1</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%InstanceId = DATASET.DataId($i)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">#RawData = DATASET.DataValue($i)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">$Ctr = $Ctr + 1</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">IF (%RawDataList &lt;&gt; "") THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">%RawDataList = %RawDataList &amp; ","</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">%RawDataList = %RawDataList &amp; "SPCTxnDataPointId=" &amp; %InstanceId &amp; ",ss_DataValue=" &amp; #RawData &amp; ",DisplaySequence=" &amp; $Ctr</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">END FOR</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">IF (%SPCTxnItemNames = "") THEN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnItemNames = %ItemName</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCStatitReturns = %ChartResult</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnDataPointReturns = %RawDataList</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">ELSE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnItemNames = %SPCTxnItemNames &amp; CHAR(2) &amp; %ItemName</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCStatitReturns = %SPCStatitReturns &amp; CHAR(2) &amp; %ChartResult</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">%SPCTxnDataPointReturns = %SPCTxnDataPointReturns &amp; CHAR(2) &amp; %RawDataList</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">NEXT<a name="execute_the_charts_page_end"></a></p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

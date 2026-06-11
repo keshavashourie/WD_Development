@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="PortalModeling.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="维护管理" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>使用业务规则自动创建维护电子邮件和工作</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">使用业务规则自动创建维护电子邮件和工作<a name="kanchor4"></a></p>
+            <p class="_1body">利用业务规则，可以将自定义处理逻辑添加到 Opcenter Execution Semiconductor 应用程序中。此表显示每个业务规则建模对象和提供用于协助维护的示例实例。</p>
+            <table style="width: 95%;margin-left: 25px;margin-right: auto;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">对象</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">随 Opcenter Execution Semiconductor 一同提供的实例</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">业务规则处理程序</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">StateChangeMaintainHandler</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">业务规则</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">StateChangeMaintainRules</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">计划的业务规则</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                            <p class="CellBody">StateChangeMaintain</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="_1body"> 可以在业务规则处理程序中定义自定义逻辑，然后将业务规则处理程序与用于维护的业务规则相关联。然后使用“计划的业务规则”将业务规则计划为自动执行。</p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 21px;" />
+                <col style="width: 40px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">电子邮件的传递由通知服务器控制，也由“建模”中配置的 SMTP 服务器控制。有关信息，请参考《<span class="Emphasis">Opcenter Execution Core 安装指南</span>》。</td>
+                </tr>
+            </table>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />定义业务规则处理程序之前</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">客户可能将数百个甚至数千个设备项指派给与制造流程对齐的组。Siemens 建议创建父设备组来包含子设备组，从而不必为各个设备组创建业务规则集。 </p>
+                </div>
+            </div>
+            <p class="_1bodyKeepWithNext">
+       此图说明了为自动创建电子邮件通知和维护工作定义父组以及配置所需对象的流程。该流程将对每个父组重复。        </p>
+            <p class="_1body">
+                <img src="../Resources/Images/business_object_modeling.png" />
+            </p>
+            <p class="Head3-Side"><a name="How"></a>如何定义自动通知业务规则处理程序 <a name="kanchor5"></a></p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 21px;" />
+                <col style="width: 40px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">下面的说明假设已为设备组或维护类指派了日期维护要求或重复日期维护要求（或者同时指派了这两种要求）。</td>
+                </tr>
+            </table>
+            <p class="_1bodyKeepWithNext">按照以下步骤定义自动通知业务规则处理程序：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">打开<span class="User_Entry">业务规则处理程序</span>页。<span class="Emphasis">随即“建模”页中将显示“业务规则处理程序”页。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">选择提供的实例：StateChangeMaintainHandler。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">单击<span class="User_Entry">复制</span>。<span class="Emphasis">将显示“复制”弹出窗口。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">输入与特定设备组相关的新的<span class="User_Entry">目标实例名称</span>，例如，PARENT_EQUIPMENT_GROUP01_BRH。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">单击<span class="User_Entry">复制</span>。<span class="Emphasis">弹出窗口将关闭。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">在<span class="User_Entry">脚本</span>区域中：找到以下行：GetNamedObject("SMTPTransportName","SMTPTransport",Transaction::EmailTransport);<br />将 "SMTPTransportName" 替换为“建模”中配置的 SMTP 传输的名称。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">在<span class="User_Entry">脚本</span>区域中，找到以下行：InitQueryParametersEx("ResourceGroupName","%",CLF::Param)。将引号内的 % 符号替换为实际设备组名称，例如 "PARENT_EQUIPMENT_GROUP_01"。 </td>
+                </tr>
+            </table>
+            <p class="_3body">在此示例中，该行如下所示：<br />InitQueryParametersEx("ResourceGroupName","PARENT_EQUIPMENT_GROUP_01",CLF::Param); </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">单击<span class="User_Entry">保存</span>。<span class="Emphasis">应用程序保存建模对象并显示成功消息。</span></td>
+                </tr>
+            </table>
+            <p class="Head3-Side">如何定义自动通知业务规则<a name="How_to_Define_a_Business_Rule"></a><a name="kanchor6"></a></p>
+            <p class="_1bodyKeepWithNext">按照以下步骤定义自动通知业务规则：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">打开<span class="User_Entry">业务规则</span>页。<span class="Emphasis">随即“建模”页中将显示“业务规则”页。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">选择提供的实例：StateChangeMaintainRules。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">单击<span class="User_Entry">复制</span>。<span class="Emphasis">将显示“复制”弹出窗口。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">输入与特定设备组相关的新的<span class="User_Entry">目标实例名称</span>，例如，PARENT_EQUIPMENT_GROUP01_BR。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">单击<span class="User_Entry">复制</span>。<span class="Emphasis">弹出窗口将关闭。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">从“处理程序”表格中删除所有内容。对于包含内容的每个行：</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_StepA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 70px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>a.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">选择该行。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_StepA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 70px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>b.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;"> 单击“处理程序”表格工具栏上的<span class="User_Entry">删除所选行</span>。<span class="Emphasis">应用程序将从表格中删除所选行。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">单击“处理程序”表格工具栏上的<span class="User_Entry">添加新行</span>。<span class="Emphasis">将显示一个新行。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">在<span class="User_Entry">处理程序</span>列中输入业务规则处理程序的名称。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">单击<span class="User_Entry">保存</span>。<span class="Emphasis">应用程序保存建模对象并显示成功消息。</span></td>
+                </tr>
+            </table>
+            <p class="Head3-Side">如何定义自动通知计划的业务规则<a name="How_to_Define_a_Scheduled_Business_Rule"></a><a name="kanchor7"></a></p>
+            <p class="_1bodyKeepWithNext">按照以下步骤定义自动通知计划的业务规则：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">打开<span class="User_Entry">计划的业务规则</span>页。<span class="Emphasis">随即“建模”页中将显示“计划的业务规则”页。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">选择提供的实例：StateChangeMaintain。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">单击<span class="User_Entry">复制</span>。<span class="Emphasis">将显示“复制”弹出窗口。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">输入与特定设备组相关的新的<span class="User_Entry">目标实例名称</span>，例如，PARENT_EQUIPMENT_GROUP01_SBR。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">单击<span class="User_Entry">复制</span>。<span class="Emphasis">弹出窗口将关闭。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">从<span class="User_Entry">业务规则</span>字段中选择相应的业务规则。（在此示例中，该业务规则是此前创建的规则 PARENT_EQUIPMENT_GROUP01_BR。）</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">根据安装的维护要求的“待处理”、“到期”和“逾期”设置输入计划信息。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">单击<span class="User_Entry">保存</span>。<span class="Emphasis">应用程序保存建模对象并显示成功消息。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 21px;" />
+                <col style="width: 40px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">创建计划的业务规则时，记得分隔计划以最大程度减小对服务器的影响。<a name="business_rules_to_automate_end"></a></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>附录 A：如何创建自定义规则文件</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2NoBreak" data-mc-conditions="Default.ScreenOnly">如何创建自定义规则文件</p>
+            <p class="Head2NoBreak">在开始之前</p>
+            <p class="_1body">此部分仅适用于原有 SPC。开发人员必须能够访问 Statit Custom QC 应用程序才能成功生成自定义规则文件。</p>
+            <p class="_1body">此流程的推荐方法是复制现有规则文件以用作基线并修改副本。为此，Siemens 建议复制 <a href="../SPC_Modeling/SPC_Rules.htm#QC_ATT" class="MCXref xref">QC_ATT</a> 规则文件 (qc_att.fcn)。</p>
+            <p class="_1body">有关信息，请参考“<a href="../SPC_Modeling/SPC_Rules.htm#Rules_Included_with_SPC_PDF" class="MCXref xref">SPC 随附的规则</a>”。</p>
+            <p class="Head2-Preface">QC 规则函数</p>
+            <p class="_1bodyKeepWithNext">所有规则均基于随 Opcenter Execution Semiconductor SPC 一同提供的三个标准规则函数之一。这些函数为 qc_rule1、qc_rule3 和 qc_rule4。</p>
+            <p class="Head3-Side">qc_rule1</p>
+            <p class="_1body">在对一行的 M 个点中的 N 个点（超出或在某些限制范围内）进行测试时使用此函数；N 可以等于 M。 </p>
+            <p class="Head4-Side" style="margin-left:25px">示例：</p>
+            <blockquote>
+                <p class="ProgramCode0">call qc_rule1(&#160;("A", "A) 1 point above Zone </p>
+                <p class="ProgramCode1">A",1,1,1,num(qc_ucl), 0,0,0, $found, $error)<br /></p>
+            </blockquote>
+            <p class="Head4-Side" style="margin-left:25px">参数：</p>
+            <p class="_1bodyKeepWithNext">此表包含 qc_rule1 参数及其描述的列表。</p>
+            <table style="width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col style="width: 148pt;" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col style="width: 30px;" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col style="width: 353px;" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1" style="text-align: center;">
+                            <p class="CellHead-Left">参数 <br />值</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">参数&#160;<br />名称</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">参数描述</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">“A”</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">%mark</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">用于标记符合准则的系列中的第 N 个点的单字符符号。</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">"A) 1 point above Zone A"</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">%string</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">与 %mark 对应的底部图例框中显示的文本（如有任何点符合准则）。&#160; 此字符串不得超过 65 个字符。</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$n</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">必须满足规则的最小点数</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$m</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">一次检查的点数。&#160; N 可以等于 M。</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$op1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">表示所使用的运算符：</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 测试大于</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 测试小于</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="height: 13pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">num(qc_ucl)</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$var1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">针对绘制点的测试中使用的变量数。</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">0</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$logop</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">表示测试是否涉及第二个变量或边界。&#160; 值为 0 表示没有其他测试。</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 表示第二个测试是否为 "and"</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 表示第二个测试是否为 "or"</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">0</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$op2</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">表示在测试中存在第二个变量时要使用的运算符：</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 测试大于</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 测试小于</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">0</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$var2</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">针对绘制点的组合测试中使用的变量数。</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">返回符合准则的点数。&#160; 如果用于测试的数据量不足，系统会将此变量设为 -1。</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                            <p class="CellBody">如果无错误发生，则为 0，否则为 1。</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side">qc_rule3</p>
+            <p class="_1bodyKeepWithNext">对长度为 N 的行中的多个点（递增和/或递减）进行测试时，使用此函数。</p>
+            <p class="Head4-Side" style="margin-left:25px">示例：</p>
+            <blockquote>
+                <p class="ProgramCode0">call qc_rule3(&#160;("D", "D) 6 points in a row increasing or</p>
+                <p class="ProgramCode1"> decreasing", 6, 1, $found, $error))</p>
+            </blockquote>
+            <p class="Head4-Side" style="margin-left:25px">参数：</p>
+            <p class="_1bodyKeepWithNext">此表包含 qc_rule3 参数及其描述的列表。</p>
+            <table style="width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">参数值</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">参数名称</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">参数描述</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">“D”</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">%mark</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">用于标记符合准则的系列中的第 N 个点的单个字符符号。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">"D) 6 points in a row increasing or decreasing"</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">%string</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">与 %mark 对应的底部图例框中显示的文本（如有任何点符合准则）。此字符串不得超过 65 个字符。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">6</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$n</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">要检查的行中各点之间的间隔数。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$bid</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">数字 1、2 或 3 中的一个。</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 需要同时测试递增和递减趋势</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 仅测试递减趋势</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">3 仅测试递增趋势。</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">返回符合准则的点数。如果用于测试的数据量不足，系统会将此变量设为 -1。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果没有错误，则为 0</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果发生错误，则为 1</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side">qc_rule4</p>
+            <p class="_1bodyKeepWithNext">当对长度为 N 的行（其中的点交替增加和减少）中的多个点进行测试时，使用此函数，反之亦然</p>
+            <p class="Head4-Side" style="margin-left:25px">示例：</p>
+            <blockquote>
+                <p class="ProgramCode0">call qc_rule4(&#160;("B", "B) 14 points in a row alternating up and </p>
+                <p class="ProgramCode1">down", 14, $found, $error)</p>
+            </blockquote>
+            <p class="Head4-Side" style="margin-left:25px">参数：</p>
+            <p class="_1bodyKeepWithNext">此表包含 qc_rule4 参数及其描述的列表。</p>
+            <table style="width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">参数值</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">参数名称</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">参数描述</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">“B”</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">%mark</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">用于标记符合准则的系列中的第 N 个点的单个字符符号。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">"B) 14 points in a row alternating up and down"</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">%string</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">与 %mark 对应的底部图例框中显示的文本（如有任何点符合准则）。此字符串不得超过 65 个字符。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">14</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$n</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">要检查的行中的点数。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">返回符合准则的点数。如果用于测试的数据量不足，系统会将此变量设为 -1。</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果没有错误，则为 0</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果发生错误，则为 1</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side">如何创建自定义规则文件</p>
+            <p class="_1bodyKeepWithNext">按照以下步骤创建自定义规则文件：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">使用 Windows 资源管理器，在 C:\Program Files (x86)\Statit CustomQC\fsrc 文件夹中找到 qc_att.fcn。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">将 qc_att.fcn 复制到同一文件夹，将副本命名为 MyQCRules.fcn。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">使用记事本或其他可用的文本编辑器打开新文件 (MyQCRules.fcn)。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">在文件的第一行，将 "function qc_att" 更改为 "function MyQCRules"，如下例所示：</td>
+                </tr>
+            </table>
+            <p class="Image_3body">
+                <img src="../Resources/Images/qc_rules.png" class="Max600Pixels" style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;" />
+            </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">向下滚动规则文件以查找显示名称。从 "AT＆amp; T" 更改为 "MyQCRules"，如下例所示：</td>
+                </tr>
+            </table>
+            <p class="Image_3body">
+                <img src="../Resources/Images/qc_rules_1.png" class="Max600Pixels" style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;width: 507px;height: 104px;" />
+            </p>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 63px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">与该文件关联的每个规则的声明和定义直接显示在显示名称下方。注意下图中的规范上限违反示例：
+        </td>
+                </tr>
+            </table>
+            <p class="Image_3body">
+                <img src="../Resources/Images/qc_rules_2.png" class="Max600Pixels" style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;width: 506px;height: 78px;" />
+            </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">根据提供的函数信息，继续添加、删除或修改文件 MyQCRules.fcn 中的规则。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">保存文件并关闭文本编辑器。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">通过桌面图标或从“开始”菜单打开 CustomQC。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">在 CustomQC 中，选择<span class="User_Entry">文件</span> &gt; <span class="User_Entry">进程编译器</span>并浏览<span class="User_Entry">进程源文件</span>字段以选择 MyQCRules.fcn。将输出定向至 C:\Program Files (x86)\Statit CustomQC\fcns\ MyQCRules.stf。必须指定 .STF 扩展，否则会默认选择 .STP。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">单击<span class="User_Entry">确定</span>。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>11.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;11.&lt;/b&gt;">使用 Windows 资源管理器，将 .stf 文件复制到 C:\Program Files (x86)\Statit e-Server\fcns。<span class="Emphasis">如果要从 Portal 和 e-Server 而不仅仅是在 CustomQC 中使用，则可以执行此操作。</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2022</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

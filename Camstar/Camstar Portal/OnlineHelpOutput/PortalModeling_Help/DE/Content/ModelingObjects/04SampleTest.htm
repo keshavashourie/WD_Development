@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalModeling.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="AQL-Stichprobendefinitionen" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Definieren von Stichprobentests</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Definieren von Stichprobentests<a name="kanchor742"></a></p>
+            <p class="_1body">Die Seite "Stichprobentest" ermöglicht es Ihnen, Stichprobentests zu erstellen, die anschließend gruppiert werden, um Stichprobenpläne zu erstellen. Die zwei Typen von Stichprobentests sind "Gezählt" und "Gemessen". </p>
+            <p class="_1body">Mit beiden Stichprobentesttypen können Sie den Container nach Stichprobengröße (wird für zerstörendes Prüfen verwendet) und nach Ablehnungszahl reduzieren, eine Abmelden-Transaktion auch dann ermöglichen, wenn der Container die Stichprobe nicht besteht, und automatisch ein Produktionsereignis erstellen, falls ein Fehler vorliegt.</p>
+            <p class="_1body">Wenn ein Stichprobentest aktualisiert wird, nachdem die Stichprobenanforderungen ermittelt und in den Container oder das Los geschrieben wurden, werden diese Anforderungen nicht angewandt. Container oder Lose mit Status "In Bearbeitung" sind nicht von Revisionsaktualisierungen betroffen. Doch der nächste Container oder das nächste Los ist von diesen Änderungen betroffen. </p>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="Understanding_Sample_Test_Types"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Zum Verständnis von Stichprobentesttypen</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Die zwei Typen von Stichprobentests sind "Gezählt" und "Gemessen".</p>
+                    <p class="Head4"><a name="kanchor743"></a><a name="Counted_Sample_Plan_Tests"></a>Gezählte Stichprobentests<a name="kanchor744"></a></p>
+                    <p class="_1bodyKeepWithNext">Ein gezählter Stichprobentest ermöglicht es Ihnen, die Anzahl von getesteten Stichproben und abgelehnten Stichproben aufzuzeichnen. Abgelehnte Stichproben werden aufgezeichnet, indem die Anzahl manuell neben dem entsprechenden Verlustgrund eingegeben wird. Die Liste von Verlustgründen, die bei der Sammlung von Stichprobendaten verfügbar ist, wird durch die AQL-Gruppe "Ablehnungsgrund" festgelegt. Die AQL-Gruppe "Ablehnungsgrund" wird für einen gezählten Test benötigt. Falls Sie Ablehnungen in Ausschuss umwandeln möchten, haben Sie zwei Möglichkeiten:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"> Sie können die Ablehnungen in Ausschuss umwandeln, indem Sie den entsprechenden Verlustgrund, der auf der Seite "Stichprobendaten sammeln" ausgewählt wurde, verwenden. Setzen Sie hierzu ein Häkchen in das Kontrollkästchen "Gezählte Ausschussablehnungen nach Grund". </td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Wandeln Sie die Ablehnungen mithilfe des Standardgrunds aus dem Feld "Standardgrund für Ausschussablehnungen" in Ausschuss um.</td>
+                        </tr>
+                    </table>
+                    <p class="Head4"><a name="kanchor745"></a><a name="Measured_Sample_Plan_Tests"></a>Gemessene Stichprobentests<a name="kanchor746"></a></p>
+                    <p class="_1body">Ein gemessener Stichprobentest ermöglicht es Ihnen, einen oder mehrere Datenpunktwerte einzugeben, die dann bezüglich entsprechender Grenzen ausgewertet werden. Die Stichprobe wird abgelehnt, falls einer der Werte außerhalb der festgelegten Grenzen liegt. Bei einem Stichprobentest müssen einer oder mehrere Stichprobendatenpunkte ausgewählt sein, falls es ein gemessener Stichprobentest ist. Wenn Ablehnungen in Ausschuss umgewandelt sollen, müssen Sie einen Verlustgrund aus dem Feld "Standardgrund für Ausschussablehnungen" auswählen.</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="When_Defining_Sample_Tests"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beim Definieren von Stichprobentests</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Die folgenden Regeln gelten beim Modellieren des Stichprobentests:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Das Feld "AQL-Gruppe für Ablehnungsgründe" ist erforderlich, wenn der Stichprobentyp gleich "Gezählt" ist.</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Mindestens ein Stichprobendatenpunkt ist erforderlich, wenn der Stichprobentyp gleich "Gemessen" ist. Wenn der Stichprobentyp gleich "Gezählt" ist, können Sie keine Stichprobendatenpunkte verwenden.</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Die folgenden Definitionsfelder für Produktionsereignisse müssen ausgefüllt werden, wenn bei einem fehlgeschlagenen Test ein Produktionsereignis erstellt werden soll. Weitere Informationen finden Sie unter "<a href="Defining_an_Organization_P.htm#top" class="MCXref xref">Definieren einer Organisation</a>". Wenn bei einem fehlgeschlagenen Test kein Produktionsereignis erstellt werden soll, lassen Sie diese Felder leer.</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 72px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Standardfehlermodus</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 72px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Klassifikation</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 72px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Unterklassifikation</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 72px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Standardbeschreibung für Produktionsereignis</td>
+                        </tr>
+                    </table>
+                    <p class="_1bodyKeepWithNext">Der Stichprobentest enthält die folgenden, optionalen Modellierungsdefinitionen:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Fehlermodus</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Klassifikation</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Unterklassifikation</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Verlustgrund</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Verlustgrundgruppe</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">Die Listen "Standardgrund für Ausschussablehnungen" und "Verringern um Stichprobengröße" werden beide mit dem Verlustgrund gefüllt. Die Liste "AQL-Gruppe für Ablehnungsgründe" wird hingegen mit der Verlustgrundgruppe gefüllt.</p>
+                    <p class="_1body">"Stichprobentest" ist ein erforderliches Feld in der Definition des Stichprobenplans.</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="Sample_Test_Field_Definitions"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Felddefinitionen der Seite "Stichprobentest"</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Diese Tabelle definiert die Felder, die nur auf der Seite "Stichprobentest" zu finden sind.</p>
+                    <p class="_1bodyKeepWithNext">Siehe auch "<a href="../Getting Started/Modeling_Page.htm#Common" class="MCXref xref">Gemeinsame Felder auf Modellierungsseiten</a>". Dieser Abschnitt enthält Informationen zu den Feldern, die alle Modellierungsobjekte aufweisen.</p>
+                    <table style="caption-side: top;width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="132px" class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Feld</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Definition</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">Typ</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">In Verarbeitung</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Anweisungen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Anweisungen zum Sammeln von Daten für den Stichprobentest. Sie können maximal 4000 Zeichen eingeben.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Stichprobentyp</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Typ des Stichprobentests, entweder "Gezählt" oder "Gemessen".</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Erforderlich</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Standardgrund für Ausschussablehnungen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Wenn Sie einen Verlustgrundcode aus der Liste auswählen, wird die Menge des Containers unter Verwendung dieses Verlustgrundcodes um die Ablehnungsanzahl reduziert.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Gezählte Ausschussablehnungen nach Grund</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Kontrollkästchen, das angibt, ob die Menge des Containers unter Verwendung des Verlustgrundcodes für die Ablehnung um die Ablehnungsanzahl reduziert wird.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Dieses Feld ist nur bei gezählten Stichprobentests verfügbar.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Verringern um Stichprobengröße</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Wenn Sie einen Verlustgrundcode in der Liste auswählen, wird die Menge des Containers unter Verwendung dieses Verlustgrundcodes um die Stichprobengröße reduziert. Dies wird in der Regel bei zerstörendem Prüfen verwendet.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">AQL-Gruppe für Ablehnungsgründe</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Liste aller Verlustgrundgruppen, aus denen Sie eine auswählen können, die in diesem Stichprobentest verwendet wird.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Dieses Feld ist erforderlich, wenn der Stichprobentyp "Gezählt" ist. Es ist jedoch nicht verfügbar, wenn der Stichprobentyp "Gemessen" ist.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Erforderlich</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Abmelden bei Fehler erlauben</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Kontrollkästchen, das angibt, ob ein Container auch dann zum nächsten Schritt bewegt werden kann, wenn er den Stichprobentest nicht besteht.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">Details</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Tabelle "Stichprobendatenpunkte"</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Liste aller Stichprobendatenpunkte Die ausgewählten Stichprobendatenpunkte sind für den Stichprobentest erforderlich.</p>
+                                    <p class="CellBody">Die Reihenfolge der Einträge in der Tabelle "Datenpunkte" entspricht der Anzeigereihenfolge auf der Seite "Stichprobendaten sammeln".</p>
+                                    <p class="CellBody">Sie können die Standardrevision auswählen oder den Stichprobendatenpunkt erweitern, um eine bestimmte Revision auszuwählen.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Dieses Feld ist erforderlich, wenn der Stichprobentyp gleich "Gemessen" ist.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">Produktionsereignis</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Standardfehlermodus</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Liste aller Standardfehlermodi. Wenn Sie einen Standardfehlermodus auswählen, wird dieser verwendet, um ein Produktionsereignis zu erstellen, wenn eine Stichprobe abgelehnt wird.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Alle Felder im Abschnitt "Produktionsereignis" sind erforderlich, wenn beim Nichtbestehen eines Tests ein Produktionsereignis erstellt werden soll.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Klassifikation</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Liste aller Klassifikationen. Wenn Sie eine Klassifikation auswählen, wird diese verwendet, um ein Produktionsereignis zu erstellen, wenn eine Stichprobe abgelehnt wird.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Alle Felder im Abschnitt "Produktionsereignis" sind erforderlich, wenn beim Nichtbestehen eines Tests ein Produktionsereignis erstellt werden soll.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Unterklassifikation</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Liste aller Unterklassifikationen. Wenn Sie eine Unterklassifikation auswählen, wird diese verwendet, um ein Produktionsereignis zu erstellen, wenn eine Stichprobe abgelehnt wird.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Alle Felder im Abschnitt "Produktionsereignis" sind erforderlich, wenn beim Nichtbestehen eines Tests ein Produktionsereignis erstellt werden soll.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">Standardbeschreibung für Produktionsereignis</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">Beschreibt das Produktionsereignis, das vorliegt, wenn eine Stichprobe abgelehnt wird. Sie können maximal 4000 Zeichen eingeben.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Alle Felder im Abschnitt "Produktionsereignis" sind erforderlich, wenn beim Nichtbestehen eines Tests ein Produktionsereignis erstellt werden soll.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How"></a>Vorgehensweise zum Definieren eines gemessenen Stichprobentests<a name="kanchor747"></a></p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um einen gemessenen Stichprobentest zu definieren:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Öffnen Sie die Seite <span class="User_Entry">Stichprobentest</span>. <span class="Emphasis">Die Seite "Stichprobentest" wird innerhalb der Seite "Modellierung" angezeigt.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Neu</span>. <span class="Emphasis">Es werden leere Felder zum Definieren einer neuen Instanz angezeigt.</span> </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Geben Sie den Namen des Stichprobentests in das Feld <span class="User_Entry">Stichprobentest</span> ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Geben Sie die Revision dieses Stichprobentests in das Feld <span class="User_Entry">Revision</span> ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Wählen Sie in der Liste <span class="User_Entry">Stichprobentyp</span> den Typ <span class="User_Entry">Gemessen</span> aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Erweitern Sie den Abschnitt <span class="User_Entry">Details</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Klicken Sie in der Tabelle "Stichprobendatenpunkte" auf <span class="User_Entry">Neue Zeile hinzufügen</span>. <span class="Emphasis">Eine neue Zeile wird angezeigt.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Wählen Sie entweder die Standardrevision oder eine bestimmte Revision der Instanz aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Geben Sie abhängig von den jeweiligen Geschäftsanforderungen optionale Informationen ein. Informationen zu den optionalen Feldern finden Sie in Tabelle mit den Felddefinition.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Speichern</span>. <span class="Emphasis">Die Anwendung speichert das Modellierungsobjekt und zeigt eine Erfolgsmeldung an</span>.</td>
+                </tr>
+            </table>
+            <p class="Head3-Side" style="page-break-before: avoid;"><a name="How2"></a>Vorgehensweise zum Definieren eines gezählten Stichprobentests<a name="kanchor748"></a></p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um einen gezählten Stichprobentest zu definieren:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Öffnen Sie die Seite <span class="User_Entry">Stichprobentest</span>. <span class="Emphasis">Die Seite "Stichprobentest" wird innerhalb der Seite "Modellierung" angezeigt.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Neu</span>. <span class="Emphasis">Es werden leere Felder zum Definieren einer neuen Instanz angezeigt.</span> </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Geben Sie den Namen des Stichprobentests in das Feld <span class="User_Entry">Stichprobentest</span> ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Geben Sie die Revision dieses Stichprobentests in das Feld <span class="User_Entry">Revision</span> ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;"> Wählen Sie in der Liste <span class="User_Entry">Stichprobentyp</span> den Typ <span class="User_Entry">Gezählt</span> aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;"> Wählen Sie aus der Liste <span class="User_Entry">AQL-Gruppe für Ablehnungsgründe</span> die Verlustgrundgruppe aus, die für diesen Stichprobentest verwendet werden soll. </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Geben Sie abhängig von den jeweiligen Geschäftsanforderungen optionale Informationen ein. Informationen zu den optionalen Feldern finden Sie in Tabelle mit den Felddefinition.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Speichern</span>. <span class="Emphasis">Die Anwendung speichert das Modellierungsobjekt und zeigt eine Erfolgsmeldung an</span>.</td>
+                </tr>
+            </table>
+            <p class="Head3-Side"><a name="How_to_Add_a_Production_Event_to_a_Sample_Test"></a>Vorgehensweise zum Hinzufügen eines Produktionsereignisses zu einem Stichprobentest<a name="kanchor749"></a></p>
+            <p class="_1bodyKeepWithNext" style="page-break-before: avoid;">Gehen Sie folgendermaßen vor, um einem Stichprobentest ein Produktionsereignis hinzuzufügen:</p>
+            <table class="AutoNumber_p_Step1" style="page-break-before: avoid; page-break-after: avoid; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Führen Sie die Schritte unter "<a href="#How" class="MCXref xref">Vorgehensweise zum Definieren eines gemessenen Stichprobentests</a>" aus. </td>
+                </tr>
+            </table>
+            <p class="_3body" style="page-break-after: avoid;page-break-before: avoid;">Oder</p>
+            <p class="_3body" style="page-break-after: avoid;page-break-before: avoid;">Führen Sie die Schritte im Verfahren "<a href="#How2" class="MCXref xref">Vorgehensweise zum Definieren eines gezählten Stichprobentests</a>" aus.</p>
+            <p class="_3body" style="page-break-after: avoid;page-break-before: avoid;"> Oder</p>
+            <p class="_3body" style="page-break-before: avoid;page-break-after: avoid;">Wählen Sie eine vorhandene Stichprobentest-Instanz aus.</p>
+            <table class="AutoNumber_p_Step1" style="page-break-before: avoid; page-break-after: avoid; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Erweitern Sie den Abschnitt <span class="User_Entry">Produktionsereignis</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Wählen Sie einen Fehlermodus aus der Liste <span class="User_Entry">Standardfehlermodus</span> aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Wählen Sie eine Klassifikation aus der Liste <span class="User_Entry">Klassifikation</span> aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Wählen Sie eine Unterklassifikation aus der Liste <span class="User_Entry">Unterklassifikation</span> aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Geben Sie eine Beschreibung des Produktionsereignisses in das Feld <span class="User_Entry">Standardbeschreibung für Produktionsereignis</span> ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note3body" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Note3body" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Speichern</span>. <span class="Emphasis">Die Anwendung zeigt eine Erfolgsmeldung an, die angibt, dass das Modellierungsobjekt aktualisiert wurde.</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

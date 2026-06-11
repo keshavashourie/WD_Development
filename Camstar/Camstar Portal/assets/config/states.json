@@ -1,0 +1,159 @@
+{
+  "states": {
+    "login": {
+      "url": "/login",
+      "data": {},
+      "view": "login",
+      "dependencies": [
+        "js/aw-include.directive"
+      ],
+      "template": "<aw-include name=\"login\"></aw-include>"
+    },
+    "commonRoot": {
+      "abstract": true,
+      "view": "commonRoot",
+      "template": "<aw-include name=\"commonRoot\"></aw-include>",
+      "dependencies": [
+        "js/aw-include.directive"
+      ]
+    },
+    "momErrorLocation": {
+      "url": "/error",
+      "type": "location",
+      "data": {},
+      "view": "commonLocation",
+      "parent": "commonRoot",
+      "template": "<aw-include name=\"commonLocation\"></aw-include>",
+      "dependencies": [
+        "js/aw-include.directive",
+        "js/aw.default.location.controller"
+      ],
+      "abstract": true,
+      "controller": "DefaultLocationCtrl"
+    },
+    "momErrorPage": {
+      "parent": "momErrorLocation",
+      "data": {
+        "label": "",
+        "context": {
+          "momPageEntity": {
+            "type": "Issue"
+          }
+        },
+        "nameToken": "",
+        "priority": 0
+      },
+      "url": "",
+      "type": "subLocation",
+      "controller": "MomNativeSubLocationCtrl",
+      "templateUrl": "/html/mom.basic.sublocation.html",
+      "dependencies": [
+        "js/mom.native.sublocation.controller"
+      ],
+      "reloadOnSearch": false
+    },
+    "momSwacLocation": {
+      "url": "",
+      "type": "location",
+      "data": {
+        "label": ""
+      },
+      "view": "commonLocation",
+      "parent": "commonRoot",
+      "template": "<aw-include name=\"commonLocation\"></aw-include>",
+      "dependencies": [
+        "js/aw-include.directive",
+        "js/aw.default.location.controller"
+      ],
+      "abstract": true,
+      "controller": "DefaultLocationCtrl"
+    },
+    "momSwacSublocation": {
+      "parent": "momSwacLocation",
+      "data": {
+        "label": "",
+        "nameToken": "",
+        "context": {
+          "hideRightWall": true
+        }
+      },
+      "url": "/screen/:screen",
+      "type": "subLocation",
+      "controller": "MomSwacSubLocationCtrl",
+      "templateUrl": "/html/mom.swac.sublocation.html",
+      "dependencies": [
+        "js/mom.swac.sublocation.controller"
+      ],
+      "reloadOnSearch": false
+    },
+    "portal": {
+      "url": "/containers/screen/apollo",
+      "data": {},
+      "view": "portal",
+      "dependencies": [
+        "js/aw-include.directive"
+      ],
+      "template": "<aw-include name=\"portal\"></aw-include>"
+    },
+    "portalPageList": {
+      "url": "/pageList",
+      "data": {},
+      "view": "portalPageList",
+      "dependencies": [
+        "js/aw-include.directive"
+      ],
+      "template": "<aw-include name=\"portalPageList\"></aw-include>"
+    },
+    "root": {
+      "abstract": true,
+      "view": "commonRoot",
+      "template": "<aw-include name=\"commonRoot\"></aw-include>",
+      "dependencies": [
+        "js/aw-include.directive"
+      ]
+    },
+    "errorLocation": {
+      "data": {
+        "browserSubTitle": {
+          "source": "/i18n/UIMessages",
+          "key": "MissingPageTitle"
+        },
+        "headerTitle": {
+          "source": "/i18n/UIMessages",
+          "key": "MissingPageTitle"
+        }
+      },
+      "type": "location",
+      "abstract": true,
+      "templateUrl": "/html/aw.default.location.html",
+      "controller": "DefaultLocationCtrl",
+      "dependencies": [
+        "js/aw.default.location.controller"
+      ],
+      "parent": "root"
+    },
+    "errorSubLocation": {
+      "controller": "ErrorSubLocationCtrl",
+      "data": {
+        "priority": 0,
+        "label": ""
+      },
+      "dependencies": [
+        "js/aw.error.sublocation.controller"
+      ],
+      "parent": "errorLocation",
+      "templateUrl": "/html/aw.error.sublocation.html",
+      "type": "subLocation",
+      "url": null,
+      "reloadOnSearch": false
+    },
+    "internalOAuth2State": {
+      "url": "/access_token={accessToken}",
+      "templateUrl": "/html/internalOAuth2State.html",
+      "controller": "internalOAuth2StateController",
+      "dependencies": [
+        "js/aw.internalOAuth2State.controller"
+      ]
+    }
+  }
+}

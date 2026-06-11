@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>管理工作区索引</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">管理工作区索引</p>
+            <p class="_1body">在 Designer 中定义的索引由在定义中读取并创建数据库索引的存储过程创建。在某些情况下，需要对现有索引（例如集群索引）进行更改，但 Designer 不支持更改，或者特定工作区需要其他列。为了支持这些情况，可以在索引创建流程中编写工作区特定存储过程以进行调用。这允许修改现有索引。每个活动工作区都可以有自己的过程，而索引创建流程则从最低到最高的活动工作区调用每一个过程。</p>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Managing_Workspace_Indexes"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />管理工作区索引</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body"> 在更新事务数据库或选中“创建索引”复选框的情况下创建数据库表时，将执行存储过程。执行 csiCreateIndexes 存储过程以在定义中读取并基于这些定义创建索引。 </p>
+                    <p class="_1body">根据工作区顺序按升序为每个活动工作区创建索引后，该过程将检查具有特定名称的存储过程是否存在，并在存在时调用它。例如，如果工作区 180、190 和 200 处于活动状态，且每个工作区都有一个自定义存储过程文件，则应用程序将按照 180、190 和 200 的顺序执行过程。</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 21px;" />
+                        <col style="width: 40px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">对索引所做的任何更改都将记录在替换工作区数据实用程序的日志文件中。有关替换工作区数据实用程序的信息，请参考《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics 安装指南</span>》或《<span class="Emphasis">Opcenter Execution Core 安装指南</span>》。</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">每个活动工作区只能存在一个存储过程。您必须遵循命名约定“Workspace_WSCode_CreateIndexes”，其中“WSCode”是工作区的代码，例如“180”或“190”。例如，“Workspace_200_CreateIndexes”必须是工作区 200 的存储过程的名称。</p>
+                    <p class="_1body">这里提供了 SQL Server 和 Oracle 数据库的示例存储程序文件，可作为创建自定义索引存储程序的起始点。示例文件位于以下位置：</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">C:\Program Files (x86)\Camstar\Insite Administration\Scripts\Oracle for Oracle databases。</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">C:\Program Files (x86)\Camstar\Insite Administration\Scripts\SqlServer for SQL databases。</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">必须在 Management Studio 中执行为数据库创建的脚本以创建存储过程。在更新事务数据库或选中“创建索引”复选框的情况下创建数据库表时，将执行存储过程。然后，csiCreateIndexes 过程将查找自定义过程并在索引创建流程中调用它。</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

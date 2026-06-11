@@ -1,0 +1,1102 @@
+##***************************************************************************
+## CEP SEMI SPC Macro
+##***************************************************************************
+## Description:
+##	Default macro to be used with the SEMI SPCSetup design.
+##
+##	The _SPCInterface function will call a macro file to plot the charts.
+##
+## Notes:
+##	SPCRules' Params are not used.
+##***************************************************************************
+##
+## © 2017 Siemens Product Lifecycle Management Software Inc. 
+## Web Site: www.camstar.com
+## 
+## Release Version: 6.13.00000.0001
+## Release Data: 02 September 2016
+##
+##***************************************************************************
+##---------------------------------------------------------------------------
+## Release Notes for 6.13.00000.0001 (02 September 2016):
+##---------------------------------------------------------------------------
+## 1)	Enhancement for Historical Process Capability Data
+##		- extend feature for retrieving more data from static for GPC chart type 
+##---------------------------------------------------------------------------
+## Release Notes for 6.12.00000.0001 (02 September 2016):
+##---------------------------------------------------------------------------
+## 1)	Enhancement for SPC Basic
+##		- Historical Limit
+##		- Replace ?CustomFilters SPC Query parameter
+##		- Construct value for AXIS param(Trend/Display)
+##		- Construct value ANNVAR param(Primary/Secondary/Tertiary)
+##		- Handle varied subgroup sizes annotaions points for subgroup by variable (ByLot/ByWafer)
+##		- Append original value into Annotation URL
+##		- Extended Rule Violation Checking	
+##***************************************************************************
+##---------------------------------------------------------------------------
+## Release Notes for 6.0.00000.0001 (04 June 2015):
+##---------------------------------------------------------------------------
+## 1)	Uprev to v6
+## 
+##---------------------------------------------------------------------------
+## Release Notes for 5.1.00091.0001 (12 September 2012):
+##---------------------------------------------------------------------------
+## 1)	Copied over from 4.5.45605.0003.
+## 
+##***************************************************************************
+
+##---------------------
+## Set Input Parameters
+##---------------------
+%SPCSetupName = {%SPCSetupName%}
+%SPCMatrixId = {%SPCMatrixId%}
+%ParamDelimiter = {%ParamDelimiter%}
+%ParamNamesList = {%ParamNames%}
+%ParamValuesList = {%ParamValues%}
+%WIPDataSetupDetailsId = {%WIPDataSetupDetailsId%}
+
+##---------------------
+## Set Output Parameters
+##---------------------
+%SPCFailureAction = ""
+%SPCResult = ""
+%SPCTxnItemNames = ""
+%SPCTxnResults = ""
+%SPCTxnRuleViolationCounts = ""
+$SPCQueryResultCount = 0
+%SPCStatitReturns = ""
+%SPCTxnDataPointReturns = ""
+
+##---------------------
+## Fetch SPCSetupQuery
+##---------------------
+SET DEFAULTDATASET ddsSPCSetupQuery
+BEGINSQL
+	SELECT
+		C.UserQueryName QueryName
+		, C.QueryText QueryText
+		, A.SPCSetupId SPCSetupId
+	FROM
+		A_SPCSetup A
+		INNER JOIN A_SPCSetupQuery B ON A.SPCSetupId = B.SPCSetupId
+		INNER JOIN UserQuery C ON B.SPCQueryId = C.UserQueryId
+	WHERE
+		A.SPCSetupName = '@v[%SPCSetUpName]'
+	ORDER BY
+		B.DisplaySequence
+ENDSQL
+
+##---------------------
+##Get DatabaeType
+##---------------------
+SET DEFAULTDATASET ddsDatabaseType
+BEGINSQL
+	SELECT 
+		 DB.DatabaseType AS "DatabaseType"
+	FROM 
+		DBDataSourceNames DB 
+	WHERE 
+		DBDataSourceUsageId=1
+ENDSQL
+
+%DataBaseType = ddsDatabaseType.DataBaseType(1)
+%ConcatSymbol = ""
+IF %DataBaseType = "Oracle" THEN
+	%ConcatSymbol = " || "
+ELSE IF %DataBaseType = "SQLServer"
+	%ConcatSymbol = " + "
+END IF
+%ParamNamesList = %ParamNamesList & "ConcatSymbol$"
+%ParamValuesList = %ParamValuesList & %ConcatSymbol & "$"
+##---------------------
+## Fetch SPCSetupCDOType
+##---------------------
+SET DEFAULTDATASET ddsSPCSetupCDOType
+BEGINSQL
+    SELECT 
+		CD.CDONAME CDOName
+	FROM 
+		A_SPCSETUP SS
+		JOIN CDODEFINITION CD ON SS.CDOTYPEID = CD.CDODEFID
+    WHERE 
+		SS.SPCSETUPNAME = '@v[%SPCSetUpName]'
+ENDSQL
+
+%IsSPCBasicSetup = "false"
+IF ddsSPCSetupCDOType.CDOName = "ss_SPCBasicSetup" THEN
+	%IsSPCBasicSetup = "true"
+END IF
+
+##----------------------------------------
+## Set the main query for SPC Basic Setup
+##----------------------------------------
+%MainSQLQueryName = ""
+%MainSQLQueryText = ""
+IF %IsSPCBasicSetup == "true" THEN
+	%MainSQLQueryName = ddsSPCSetupQuery.QueryName(1)
+END IF
+
+$ParamValueSubStartPos = 1
+$ParamValueSubStopPos = 1
+%CustomChartTitle = ""
+##---------------------
+## Execute SPCSetupQuery Queries
+##---------------------
+FOR $QueryIndex = 1 to CASE(ddsSPCSetupQuery.QueryText)
+	%SQLQueryText = ddsSPCSetupQuery.QueryText($QueryIndex)
+	%SQLQueryName = ddsSPCSetupQuery.QueryName($QueryIndex)
+	##---------------------
+	## Replace Query Parameters in the QueryText with the ParamNames and ParamValues passed in
+	##---------------------
+	$ParamNameStartPos = 1
+	$ParamNameStopPos = 1
+	$ParamValueStartPos = 1
+	$ParamValueStopPos = 1
+	%CustomFilterParamExist = "false"
+	WHILE ($ParamNameStopPos > 0)
+		$ParamNameStopPos = INSTR($ParamNameStartPos, %ParamNamesList, %ParamDelimiter)
+		IF ($ParamNameStopPos > 0) THEN
+			%ParamName = "?" & MID(%ParamNamesList, $ParamNameStartPos, $ParamNameStopPos - $ParamNameStartPos)
+			$ParamNameStartPos = $ParamNameStopPos + 1
+			$ParamValueStopPos = INSTR($ParamValueStartPos, %ParamValuesList, %ParamDelimiter)
+			IF ($ParamValueStopPos > 0) THEN
+				IF (%ParamName = "?CustomFilters") THEN
+					%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+					%CustomFilterParamExist = "true"
+				ELSE IF (%ParamName = "?ConcatSymbol") THEN
+					%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+				ELSE IF %ParamName = "?WIPDATANAME" THEN
+				    %ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+					%ParamValue = %ParamValue & %ConcatSymbol & " "
+					$ParamValueSubStopPos = INSTR($ParamValueSubStartPos, %ParamValue, " ")
+					IF $ParamValueSubStopPos > 0 THEN
+						%ParamValueTemp = MID(%ParamValue, $ParamValueSubStartPos, $ParamValueSubStopPos - $ParamValueSubStartPos)
+						%ParamValue = "'" & MID(%ParamValue, $ParamValueSubStartPos, $ParamValueSubStopPos - $ParamValueSubStartPos) & "'"
+						$ParamValueSubStartPos = $ParamValueSubStopPos + 1
+					ELSE
+						%ParamValue = "''"
+					END IF
+					
+					## Get the default WIPDATANAME in case multiple values
+					$DefaultDataValueNamePos = INSTR(1, %ParamValueTemp, ":")
+					IF $DefaultDataValueNamePos > 0 THEN
+						%ParamValue = "'" & MID(%ParamValueTemp, 1, $DefaultDataValueNamePos - 1) & "'"
+					END IF
+				ELSE IF (%ParamName = "?CustomTitle") THEN
+					%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) & "?"
+					%CustomChartTitle = %ParamValue
+				ELSE
+					%ParamValue = "'" & MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) & "'"
+				ENDIF
+				$ParamValueStartPos = $ParamValueStopPos + 1
+			ELSE
+				%ParamValue = "''"
+			END IF
+
+			%SQLQueryText = CHANGE(%SQLQueryText, %ParamName, %ParamValue, 10)
+		END IF
+	WEND	
+
+	##---------------------
+	## Replace Query CustomFilters Parameter in the QueryText with with empty value
+	##---------------------
+	IF (%CustomFilterParamExist = "false") THEN
+		%ParamName = "?CustomFilters"
+		%ParamValue = ""
+		%SQLQueryText = CHANGE(%SQLQueryText, %ParamName, %ParamValue, 10)
+	END IF
+
+	##---------------------
+	## Execute the Custom Query (Normal)
+	##---------------------
+	IF %IsSPCBasicSetup == "false" THEN
+		SET DEFAULTDATASET %SQLQueryName
+		BEGINSQL
+			@v[%SQLQueryText]
+		ENDSQL	
+	END IF
+	
+	IF %SQLQueryName = %MainSQLQueryName THEN
+		%MainSQLQueryText = %SQLQueryText
+	END IF
+NEXT
+
+##---------------------
+## Fetch SPCSetupDetails
+##---------------------
+SET DEFAULTDATASET ddsSPCSetupDetails
+BEGINSQL
+	SELECT
+		A.SPCSetupName
+		, B.SPCSetupDetailsId SPCSetupDetailsId
+		, B.SPCSetupDetailsName ItemName
+		, B.DisplaySequence DisplaySequence
+		, B.FailureAction FailureAction
+		, C.SPCChartName SPCChartName
+		, D.SPCRulesName SPCRulesName
+		, B.ss_DisplayHistoricalLimits DisplayHistoricalLimits
+		, CASE WHEN B.SS_SPCRULEDATAPOINTANALYSISMET IS NULL THEN '1' ELSE B.SS_SPCRULEDATAPOINTANALYSISMET END RuleViolationMethod
+		, CASE WHEN B.SS_SUBGROUPPLOTMETHOD IS NULL THEN '-1' ELSE B.SS_SUBGROUPPLOTMETHOD END SubGroupPlotMethod
+		, CASE WHEN E.UserQueryName IS NULL THEN '-1' ELSE E.UserQueryName END QueryName
+		, CASE WHEN B.scsDVNOverride IS NULL THEN '-1' ELSE B.scsDVNOverride END DataValueName
+		, CASE WHEN B.scsRSLOverride IS NULL THEN 0 ELSE B.scsRSLOverride END ResultsetSizeLimit
+		, CASE WHEN B.scsReqOverrideAnnotations IS NULL THEN 0 ELSE B.scsReqOverrideAnnotations END IsAnnotationRequired
+	FROM
+		A_SPCSetup A
+		INNER JOIN A_SPCSetupDetails B ON A.SPCSetupId = B.SPCSetupId
+		INNER JOIN A_SPCChart C ON B.SPCChartId = C.SPCChartId
+		LEFT OUTER JOIN A_SPCRules D ON B.SPCRulesId = D.SPCRulesId
+		LEFT OUTER JOIN UserQuery E ON B.scsSPCQueryOverrideId = E.UserQueryId
+	WHERE
+		A.SPCSetupName = '@v[%SPCSetupName]'
+	ORDER BY
+		B.DisplaySequence
+ENDSQL
+
+%BeforeReplace = %SQLQueryText
+
+$SpecificDataValueNameStartPos = 1
+
+$SpecificChartTitleStartPos = 1
+
+##---------------------
+## Execute the charts
+##---------------------
+FOR $ChartIndex = 1 to CASE(ddsSPCSetupDetails.SPCSetupName)
+	##---------------------
+	## Set some variables to the item
+	##---------------------
+	%SPCChartName = UPPERC(ddsSPCSetupDetails.SPCChartName($ChartIndex))
+	%SPCSetupDetailsId = ddsSPCSetupDetails.SPCSetupDetailsId($ChartIndex)
+	%ItemName = ddsSPCSetupDetails.ItemName($ChartIndex)
+	%SPCRulesName = ddsSPCSetupDetails.SPCRulesName($ChartIndex)
+	%FailureAction = ddsSPCSetupDetails.FailureAction($ChartIndex)	
+	%DisplayHistoricalLimits = ddsSPCSetupDetails.DisplayHistoricalLimits($ChartIndex)
+	## 1 = Standard Process 2 = Last Data Point 3= Last Group
+	%RuleViolationMethod = ddsSPCSetupDetails.RuleViolationMethod($ChartIndex)
+	%SubGroupPlotMethod = ddsSPCSetupDetails.SubGroupPlotMethod($ChartIndex)
+    %SPCQueryOverrideName = ddsSPCSetupDetails.QueryName($ChartIndex)
+	%DataValueNameOverride = ddsSPCSetupDetails.DataValueName($ChartIndex)	
+	$ResultsetSizeLimitOverride = ddsSPCSetupDetails.ResultsetSizeLimit($ChartIndex)
+	%IsAnnotationRequired = ddsSPCSetupDetails.IsAnnotationRequired($ChartIndex)
+		
+	IF  %IsSPCBasicSetup == "true" THEN
+		%BeforeReplace = %MainSQLQueryText
+		%SQLQueryName = %MainSQLQueryName
+	END IF
+
+	##---------------------
+	## Execute the Custom Query (Basic SPC)
+	##---------------------
+	IF %IsSPCBasicSetup == "true" THEN	
+		IF  %SPCQueryOverrideName <> "-1" OR $ResultsetSizeLimitOverride > 0 OR %DataValueNameOverride <> "-1" THEN
+			$ParamValueSubStartPos = 1
+			$ParamValueSubStopPos = 1			
+			FOR $QueryIndex = 1 to CASE(ddsSPCSetupQuery.QueryText)				
+				%SQLQueryTextTemp = ddsSPCSetupQuery.QueryText($QueryIndex)
+				%SQLQueryNameTemp = ddsSPCSetupQuery.QueryName($QueryIndex)					
+				##---------------------
+				## Replace Query Parameters in the QueryText with the ParamNames and ParamValues passed in
+				##---------------------
+				$ParamNameStartPos = 1
+				$ParamNameStopPos = 1
+				$ParamValueStartPos = 1
+				$ParamValueStopPos = 1
+				%CustomFilterParamExist = "false"
+				WHILE ($ParamNameStopPos > 0)
+					$ParamNameStopPos = INSTR($ParamNameStartPos, %ParamNamesList, %ParamDelimiter)
+					IF ($ParamNameStopPos > 0) THEN
+						%ParamName = "?" & MID(%ParamNamesList, $ParamNameStartPos, $ParamNameStopPos - $ParamNameStartPos)
+						$ParamNameStartPos = $ParamNameStopPos + 1
+						$ParamValueStopPos = INSTR($ParamValueStartPos, %ParamValuesList, %ParamDelimiter)
+						IF ($ParamValueStopPos > 0) THEN
+							IF (%ParamName = "?CustomFilters") THEN
+								%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+								%CustomFilterParamExist = "true"
+							ELSE IF (%ParamName = "?ConcatSymbol") THEN
+								%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+							ELSE IF %ParamName = "?ResultSetSizeLimit" THEN
+								IF $ResultsetSizeLimitOverride > 0 THEN
+									%ParamValue = "'" & $ResultsetSizeLimitOverride & "'"
+								ELSE 
+									%ParamValue = "'" & MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) & "'"
+								END IF
+							ELSE IF %ParamName = "?WIPDATANAME" THEN
+								%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)
+								%ParamValue = %ParamValue & %ConcatSymbol & " "
+								$ParamValueSubStopPos = INSTR($ParamValueSubStartPos, %ParamValue, " ")
+								IF $ParamValueSubStopPos > 0 THEN
+									%ParamValueTemp = MID(%ParamValue, $ParamValueSubStartPos, $ParamValueSubStopPos - $ParamValueSubStartPos)
+									%ParamValue = "'" & MID(%ParamValue, $ParamValueSubStartPos, $ParamValueSubStopPos - $ParamValueSubStartPos) & "'"
+									$ParamValueSubStartPos = $ParamValueSubStopPos + 1
+								ELSE
+									%ParamValue = "''"
+								END IF
+
+								## Get a specific WIPDATANAME for chart that does not override the main query but has data value name override
+								IF %SPCQueryOverrideName = "-1" AND %SQLQueryNameTemp = %MainSQLQueryName THEN
+									$DefaultDataValueNamePos = INSTR(1, %ParamValueTemp, ":")
+									IF $DefaultDataValueNamePos > 0 THEN
+										IF %DataValueNameOverride <> "-1" THEN
+											%ParamValueTemp = %ParamValueTemp & ":"
+											$SpecificDataValueNameStartPos = $SpecificDataValueNameStartPos + $DefaultDataValueNamePos
+											$SpecificDataValueNameStopPos = INSTR($SpecificDataValueNameStartPos, %ParamValueTemp, ":")
+											%ParamValue = "'" & MID(%ParamValueTemp, $SpecificDataValueNameStartPos, $SpecificDataValueNameStopPos - $SpecificDataValueNameStartPos) & "'"
+											$SpecificDataValueNameStartPos = $SpecificDataValueNameStopPos - $DefaultDataValueNamePos + 1
+										ELSE
+											%ParamValue = "'" & MID(%ParamValueTemp, 1, $DefaultDataValueNamePos - 1) & "'"
+										END IF
+									END IF
+								END IF
+							ELSE
+								%ParamValue = "'" & MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) & "'"
+							END IF
+							$ParamValueStartPos = $ParamValueStopPos + 1
+						ELSE
+							%ParamValue = "''"
+						END IF
+						%SQLQueryTextTemp = CHANGE(%SQLQueryTextTemp, %ParamName, %ParamValue, 10)
+					END IF
+				WEND
+								
+				##---------------------
+				## Replace Query CustomFilters Parameter in the QueryText with with empty value
+				##---------------------
+				IF (%CustomFilterParamExist = "false") THEN
+					%ParamName = "?CustomFilters"
+					%ParamValue = ""
+					%SQLQueryTextTemp = CHANGE(%SQLQueryTextTemp, %ParamName, %ParamValue, 10)
+				END IF	
+				
+				
+				## Set specific query for the chart
+				IF %SPCQueryOverrideName = %SQLQueryNameTemp THEN
+					%SQLQueryName = %SQLQueryNameTemp			
+					%BeforeReplace = %SQLQueryTextTemp					
+				ELSE IF %SPCQueryOverrideName = "-1" AND %SQLQueryNameTemp = %MainSQLQueryName AND ($ResultsetSizeLimitOverride > 0 OR %DataValueNameOverride <> "-1") THEN			
+					%BeforeReplace = %SQLQueryTextTemp						
+				END IF
+			NEXT		
+		END IF
+
+	##replace SubGroupPlotMethod		
+	%SQLQueryText = CHANGE(%BeforeReplace, "?SUBGROUPPLOTMETHOD", %SubGroupPlotMethod , 10)
+		
+	SET DEFAULTDATASET %SQLQueryName
+	BEGINSQL
+		@v[%SQLQueryText]
+	ENDSQL
+	
+	END IF
+	##---------------------
+	## ## Get SPC Query's total row
+	##---------------------	
+	IF %DisplayHistoricalLimits = "1" THEN	
+		SET DEFAULTDATASET SPCQueryRecordCount
+		BEGINSQL
+				SELECT COUNT(INSTANCEID) AS COUNT FROM (@v[%SQLQueryText]) QueryRecordCount
+		ENDSQL
+
+		IF SPCQueryRecordCount.COUNT(1) <> 0 THEN
+			FOR $SPCQueryIndex = 1 to CASE(@v[%SQLQueryName].DATAVALUE)
+				$SPCQueryResultCount = $SPCQueryResultCount + 1
+			NEXT
+		END IF	   
+	END IF
+	##---------------------
+	## Fetch SPCSetupDetailsData
+	##---------------------
+	SET DEFAULTDATASET ddsSPCSetupDetailsData
+	BEGINSQL
+		SELECT
+			DataColumn
+			, CASE WHEN IsYVariable IS NULL THEN 0 ELSE IsYVariable END IsYVariable
+		FROM
+			A_SPCSetupDetailsData
+		WHERE
+			SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'
+	ENDSQL
+	##---------------------
+	## Set both the X and Y Variables
+	##---------------------
+	%X_Variable = ""
+	%Y_Variable = ""
+	%DisplayValue = ""
+	FOR $DataIndex = 1 to CASE(ddsSPCSetupDetailsData.DataColumn)		
+		%DataColumn = ddsSPCSetupDetailsData.DataColumn($DataIndex)
+
+		IF %DisplayValue = "" THEN
+			%DisplayValue = ddsSPCSetupDetailsData.DataColumn($DataIndex)
+		END IF
+
+		$IsYVariable = ddsSPCSetupDetailsData.IsYVariable($DataIndex)
+		IF $IsYVariable = 0 THEN
+			IF %X_Variable <> "?" AND %X_Variable <> "" THEN
+				%X_Variable = %X_Variable & " " & %DataColumn
+			ELSE
+				%X_Variable = %DataColumn
+			END IF
+		ELSE
+			IF %Y_Variable <> "?" AND %Y_Variable <> "" THEN
+				%Y_Variable = %Y_Variable & " " & %DataColumn
+			ELSE
+				%Y_Variable = %DataColumn
+			END IF
+		END IF
+	NEXT
+	##---------------------
+	## Fetch SPCSetupDetailsParams
+	##---------------------
+	SET DEFAULTDATASET ddsSPCSetupDetailsParams
+	BEGINSQL
+		SELECT P.ParamName, 
+			CASE WHEN WDMP.ParamName IS NULL THEN 
+			CASE WHEN MP.ParamName IS NULL THEN P.ParamValue ELSE MP.ParamValue END 
+			ELSE WDMP.ParamValue END ParamValue
+		FROM A_SPCSetupDetails D
+		INNER JOIN A_SPCSetupDetailsParams P ON D.SPCSetupDetailsId = P.SPCSetupDetailsId
+		LEFT OUTER JOIN A_SPCMatrixParams MP ON D.SPCSetupDetailsName = MP.SPCSetupDetailsName
+			AND MP.SPCMatrixId = '@v[%SPCMatrixId]'
+			AND MP.ParamName = P.ParamName
+		LEFT OUTER JOIN A_SPCWIPDataMatrixParams WDMP ON D.SPCSetupDetailsName = WDMP.Name
+			AND WDMP.WIPDataSetupDetailsId = '@v[%WIPDataSetupDetailsId]'
+			AND WDMP.ParamName = P.ParamName
+		WHERE
+			D.SPCSetupDetailsId = '@v[%SPCSetupDetailsId]' AND 
+			P.ParamType = 'CHART' 
+	ENDSQL
+	##---------------------
+	## Fetch SPCBasicSetupDetailsParams
+	##---------------------
+	SET DEFAULTDATASET ddsSPCSBasicetupDetailsParams
+	BEGINSQL
+		SELECT
+			case when D.SS_XAXISTRENDVALUE is null then 'NULL' else D.SS_XAXISTRENDVALUE end XAxisTrendValue
+			, case when D.SS_XAXISDISPLAYVALUE is null then 'NULL' else D.SS_XAXISDISPLAYVALUE end XAxisDisplayValue
+			, case when D.SS_ANNVARPRIMARYVALUE is null then 'NULL' else D.SS_ANNVARPRIMARYVALUE end ANNVARPrimaryValue
+			, case when D.SS_ANNVARSECONDARYVALUE is null then 'NULL' else D.SS_ANNVARSECONDARYVALUE end ANNVARSecondaryValue
+			, case when D.SS_ANNVARTERTIARYVALUE is null then 'NULL' else D.SS_ANNVARTERTIARYVALUE end ANNVARTertiaryValue
+		FROM
+			A_SPCSetupDetails D
+		WHERE
+			D.SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'
+	ENDSQL	
+	##---------------------
+	## Prepare the Chart Parameters
+	##---------------------
+	%ChartParams = ""
+	%SubGroupSize = ""
+	%AXISParamExists = "false"
+	%ANNVARParamExists = "false"
+	%IsSPCBasicSetup = "false"
+	%BasicAXISParamValue = ""
+	%BasicANNVARParamValue = ""
+	$subgroup = 0
+	$point = 0
+
+	##IR9726143
+	%AXISParamValue = ""
+
+	external int checkvarname(%varname:v, $noexist:v)
+
+	IF ddsSPCSetupCDOType.CDOName = "ss_SPCBasicSetup" THEN
+		%IsSPCBasicSetup = "true"
+		IF ddsSPCSBasicetupDetailsParams.XAxisDisplayValue <> "NULL" THEN	
+			%BasicAXISParamValue = %SQLQueryName & "." & ddsSPCSBasicetupDetailsParams.XAxisDisplayValue
+		END IF
+		IF ddsSPCSBasicetupDetailsParams.XAxisTrendValue <> "NULL"  THEN
+			%BasicAXISParamValue = %BasicAXISParamValue & " " & %SQLQueryName & "." & ddsSPCSBasicetupDetailsParams.XAxisTrendValue
+		END IF
+		IF ddsSPCSBasicetupDetailsParams.ANNVARPrimaryValue <> "NULL" THEN
+			%BasicANNVARParamValue = %SQLQueryName & "." & ddsSPCSBasicetupDetailsParams.ANNVARPrimaryValue
+			IF ddsSPCSBasicetupDetailsParams.ANNVARSecondaryValue <> "NULL" THEN
+				%BasicANNVARParamValue = %BasicANNVARParamValue & " " & %SQLQueryName & "." & ddsSPCSBasicetupDetailsParams.ANNVARSecondaryValue
+				IF ddsSPCSBasicetupDetailsParams.ANNVARTertiaryValue <> "NULL" THEN
+					%BasicANNVARParamValue = %BasicANNVARParamValue & " " & %SQLQueryName & "." & ddsSPCSBasicetupDetailsParams.ANNVARTertiaryValue			
+				END IF
+			END IF
+		END IF
+	END IF
+
+	##---------------------
+	## Get SPC Chart Title
+	##---------------------	
+	SET DEFAULTDATASET SPCChartTitle
+	BEGINSQL
+	SELECT COUNT(SPCSetupDetailsId) AS COUNT FROM A_SPCSetupDetailsTitle A WHERE A.SPCSetupDetailsId = '@v[%SPCSetupDetailsId]'
+	ENDSQL		
+	%IsTitleParamOverride = "false"				
+	IF SPCChartTitle.COUNT(1) <> 0 AND %CustomChartTitle <> "" THEN
+		$SpecificChartTitlePos = INSTR($SpecificChartTitleStartPos, %CustomChartTitle, "?")
+		IF $SpecificChartTitlePos > 0 THEN
+			%ChartTitle = MID(%CustomChartTitle, $SpecificChartTitleStartPos, $SpecificChartTitlePos - $SpecificChartTitleStartPos)
+			$SpecificChartTitleStartPos = $SpecificChartTitlePos + 1
+			%ChartTitle = CHANGE(%ChartTitle, "'", """", 10)
+			%ChartParams = %ChartParams & " /TITLE=" & %ChartTitle
+			%IsTitleParamOverride = "true"
+		END IF
+	END IF
+						
+	IF $db_norecords = 0 THEN
+		FOR $ParamIndex = 1 to CASE(ddsSPCSetupDetailsParams.ParamName)
+			%ParamName = UPPERC(ddsSPCSetupDetailsParams.ParamName($ParamIndex))
+			%ParamValue = ddsSPCSetupDetailsParams.ParamValue($ParamIndex)
+
+			##replace param value SPCBasicSetup
+			IF %ParamName = "AXIS" THEN
+				IF %IsSPCBasicSetup = "true" THEN
+					%ParamValue = %BasicAXISParamValue
+				END IF
+			ELSE IF %ParamName = "ANNVAR" THEN
+				IF %IsSPCBasicSetup = "true" THEN
+					%ParamValue = %BasicANNVARParamValue
+				END IF
+			END IF
+
+
+			DOCASE (%ParamName)
+				CASE "SUBGROUPSIZE":
+					%SubGroupSize = %ParamValue
+					$subgroup = decode(%ParamValue)##commented for SPC Enhancement
+				CASE "TITLE":
+					IF %IsTitleParamOverride = "false" THEN					
+						IF %ParamValue <> "?" AND %ParamValue <> "" THEN
+							%ChartParams = %ChartParams & " /TITLE=" & %ParamValue
+						ELSE
+							%ChartParams = %ChartParams & " /TITLE=""" & %ItemName & """"
+						END IF
+					END IF
+				CASE "DIC":
+					##No Support
+				CASE "TIP_OTHER":
+					IF %ParamValue = "EQUIPMENT DATETIME" THEN
+						%ChartParams = %ChartParams & " /TIP_OTHER=" & %SQLQueryName & "." & "EQUIPMENT" & " " & %SQLQueryName & "." & "DATETIME"
+					ELSE IF %ParamValue <> "?" AND %ParamValue <> "" THEN
+						%ChartParams = %ChartParams & " /TIP_OTHER=" & %SQLQueryName & "." & %ParamValue
+					END IF
+				CASE OTHER:
+					IF %DisplayHistoricalLimits = "1" AND %SubGroupSize <> "" AND $SPCQueryResultCount > 0 THEN	
+						IF %ParamName = "LCL" OR %ParamName = "CL" OR %ParamName = "UCL" OR %ParamName = "LSL" OR %ParamName = "SL" OR %ParamName = "USL" THEN
+							IF %DataBaseType = "Oracle" THEN
+								%BuildQuery = "mod(RN," & %SubGroupSize & ") = 1"
+							ELSE IF %DataBaseType = "SQLServer" THEN
+								%BuildQuery = "RN % " & %SubGroupSize & " = 1"
+							END IF
+
+							$PointsCount = CEIL($SPCQueryResultCount/$subgroup)
+							##---------------------
+							## Fetch Historical Limit
+							##---------------------
+							SET DEFAULTDATASET ddsSPCHistoricalLimits
+							BEGINSQL
+								SELECT 
+								RN
+								, LIMITS
+								FROM 
+								(
+									SELECT
+										CAST(ROW_NUMBER() OVER (ORDER BY STD.SPCTXNDATAID DESC) AS INT) RN
+										, STDD.ITEMNAME ITEMNAME
+										, STDD.@v[%ParamName] LIMITS
+									FROM 
+										A_SPCTXNDATA STD
+										JOIN A_SPCTXNDATADETAILS STDD ON STD.SPCTXNDATAID = STDD.SPCTXNDATAID
+										JOIN A_SPCSETUP SS ON STD.SPCSETUPID = SS.SPCSETUPID
+									WHERE 
+										STD.SPCSETUPNAME = '@v[%SPCSetupName]'
+										AND STDD.ITEMNAME = '@v[%ItemName]'
+								) Q1
+								WHERE 
+									@v[%BuildQuery]
+									AND RN <= @v[%SubGroupSize] * @v[$PointsCount]
+								ORDER 
+									BY RN DESC
+							ENDSQL	
+
+							%ParamValue = ""
+							$LimitsCount = 0
+							FOR $RNIndex = 1 to CASE(ddsSPCHistoricalLimits.RN)
+								$LimitsCount = $LimitsCount + 1
+							NEXT
+
+							$y = 1
+							FOR $x = 1 to $PointsCount
+								IF $x < $LimitsCount THEN									
+									%ParamValue = %ParamValue & ddsSPCHistoricalLimits.LIMITS($y) & " "	
+									$y = $y + 1
+								ELSE
+									%ParamValue = %ParamValue & ddsSPCHistoricalLimits.LIMITS($y) & " "	
+								END IF
+							NEXT
+
+							%ParamValue = TRIM(%ParamValue)
+						END IF
+					END IF
+
+					IF %ParamValue <> "?" AND %ParamValue <> "" THEN
+						%ChartParams = %ChartParams & " /" & %ParamName & "=" & %ParamValue
+					ELSE
+						%ChartParams = %ChartParams & " /" & %ParamName
+					END IF
+
+					IF %ParamName = "AXIS" THEN	
+						%PlotVariable = TRIM(%ParamValue)
+						## There are two cases /Axis = 1 or 2 variables
+						$SpacePosition_ = INDEX(%PlotVariable, " ")
+						IF ($SpacePosition_ > 0) THEN
+							$len_ = LEN(%PlotVariable)
+							$X_ = $len_ - $SpacePosition_
+							$2ndId_ = $SpacePosition_ + 1
+							%PlotVariable = MID(%PlotVariable, $2ndId_, $X_)
+						END IF					
+						%AXISParamExists = "true"
+						##IR9726143
+						%AXISParamValue = TRIM(%ParamValue)
+					END IF
+
+					IF %ParamName = "ANNVAR" THEN
+                        %ANNVARParamExists = "true"
+                    END IF							
+			END CASE
+		NEXT
+
+		IF %IsSPCBasicSetup = "true" AND %SPCChartName <> "STATS" AND %SPCChartName <> "GBAR" AND %SPCChartName <> "GROUP" AND %SPCChartName <> "DISPERSION" AND %SPCChartName <> "FREQ" AND %SPCChartName <> "GPC" THEN
+			IF %AXISParamExists = "false" THEN
+				%ChartParams = %ChartParams & " /" & "AXIS" & "=" & %BasicAXISParamValue
+				%AXISParamExists = "true"
+				%PlotVariable = TRIM(%BasicAXISParamValue)
+				## There are two cases /Axis = 1 or 2 variables
+				$SpacePosition_ = INDEX(%PlotVariable, " ")
+
+				IF ($SpacePosition_ > 0) THEN
+					$len_ = LEN(%PlotVariable)
+					$X_ = $len_ - $SpacePosition_
+					$2ndId_ = $SpacePosition_ + 1
+					%PlotVariable = MID(%PlotVariable, $2ndId_, $X_)					
+				END IF
+				##IR9726143
+				%AXISParamValue = %PlotVariable
+			END IF	
+			IF	%ANNVARParamExists = "false" AND %BasicANNVARParamValue <> "" THEN
+				%ChartParams = %ChartParams & " /" & "ANNVAR" & "=" & %BasicANNVARParamValue
+				%ANNVARParamExists = "true"
+			END IF
+		END IF
+
+	END IF
+
+	##---------------------
+	## Set the annotation points
+	##---------------------	
+    %AllowAnnotation = "false"
+	%UniqueVariables = "true"
+
+	IF (%AXISParamExists = "true") AND (%ANNVARParamExists = "true") THEN
+		##IR9726143
+		##pull the queryname from AXISParam and set back to %SQLQueryName
+                $DotPosition_ = INDEX(%AXISParamValue, ".")
+		IF ($DotPosition_ > 0) THEN			
+			%SQLQueryName = MID(%AXISParamValue, 1, $DotPosition_-1)
+		END IF	
+
+		IF UPPERC(%PlotVariable) = UPPERC(%DisplayValue) THEN
+ 			%UniqueVariables = "false"
+		END IF
+
+		external int checkvarname(%varname:v, $noexist:v)
+		$return = checkvarname(%PlotVariable, 1)
+		$return2 = checkvarname(%DisplayValue, 1)
+
+		## GET THE GROUP BY VARIABLE DATASET
+		%GroupByVariable = ""
+		IF %SubGroupPlotMethod = "0" THEN
+			%GroupByVariable = "BYLOTID"
+		ELSE IF %SubGroupPlotMethod = "1"
+			%GroupByVariable = "BYWAFERID"
+		END IF
+		$return3 = checkvarname(%SQLQueryName & "." & %GroupByVariable, 1)
+
+		## GET THE GROUP BY VARIABLE DATASET
+		%OriginalValueVariable = %SQLQueryName & ".ORIGINALVALUE"
+		$return4 = checkvarname(%OriginalValueVariable, 1)					
+
+		IF (($return = -2) AND ($subgroup > 0)) THEN
+
+			IF (($return2 = -2) AND (%UniqueVariables = "true"))   THEN 				
+				VARIABLE RENAME @v[%DisplayValue] "DisplayValue"
+			END IF
+
+			VARIABLE RENAME @v[%PlotVariable] "DataID"
+
+			$case = CASE(DataID)
+			$points = CEIL($case/$subgroup)
+
+			IF $points > 0 THEN			
+				IF %SubGroupSize <> "?" AND %SubGroupSize <> "" THEN
+					IF (%SPCChartName = "GMVRNG" OR %SPCChartName = "GICHART" OR %SPCChartName = "GUCHART" OR %SPCChartName = "GPCHART") THEN
+						$subgroup = 1                     
+					END IF    
+				ELSE
+					$subgroup = 1
+				END IF
+
+				$return2 = checkvarname(%SubGroupSize, 1)
+				IF ($subgroup = 1) THEN
+					ASSIGN tempG.Valid_cases $case*1 /nolist         
+				ELSE IF ($return2 = -2) THEN    
+					Group DisplayValue BY @v[%SubGroupSize] /save /savedataset=tempG /nolist                 
+				ELSE
+					ASSIGN tempG.Valid_cases $points*$subgroup /nolist
+
+					## Check the last group
+					$lastGroupSize = MOD($case,$subgroup)
+					IF ($lastGroupSize > 0) THEN
+						let tempG.lastGroup = $lastGroupSize
+						$sgCase = CASE(tempG.Valid_cases)    
+						insert tempG.lastGroup into tempG.Valid_cases at $sgCase /Append                    
+						variable delete tempG.lastGroup /nolist
+					END IF 
+				END IF
+
+				## get the group count for each for SubGroupPlotMethod
+				IF ($return3 = -2) AND %IsSPCBasicSetup = "true" AND %SubGroupPlotMethod <> "-1" THEN	
+					ASSIGN tempGROUP.Valid_cases 1 /nolist 
+					%GroupVariable = %SQLQueryName & "." & %GroupByVariable	
+					GroupVariable = @v[%GroupVariable]
+					$GroupVariableCount = CASE(GroupVariable)
+					$count = 0  
+					%compare = GroupVariable(1)	
+
+					FOR $i = 1 TO $GroupVariableCount					
+						IF  GroupVariable($i) = %compare THEN 
+							$count = $count + 1	
+							IF $i = $GroupVariableCount THEN
+								$sgCase = CASE(tempGROUP.Valid_cases)
+								let tempGROUP.currentGroup = $count								
+								insert tempGROUP.currentGroup into tempGROUP.Valid_cases at $sgCase /Append  								
+							END IF								
+						ELSE
+							$sgCase = CASE(tempGROUP.Valid_cases)
+							let tempGROUP.currentGroup = $count								
+							insert tempGROUP.currentGroup into tempGROUP.Valid_cases at $sgCase /Append  								
+							%compare = GroupVariable($i)
+							$count = 1
+							IF $i = $GroupVariableCount THEN
+								$sgCase = CASE(tempGROUP.Valid_cases)
+								let tempGROUP.currentGroup = $count								
+								insert tempGROUP.currentGroup into tempGROUP.Valid_cases at $sgCase /Append  								
+							END IF								
+						END IF	
+					NEXT																			
+				END IF	
+
+				IF ($return4 = -2) THEN
+					ORIGINALVALUE =  @v[%OriginalValueVariable]
+				END IF
+
+				$points=CASE(tempG.Valid_cases)    
+
+				toDel.sg = 0
+				$n=Case(tempG.Valid_cases)
+				DO $j = 1,$n             
+					$groupCount=tempG.Valid_cases($j)
+					ASSIGN toDel.temp $j /repeat=$groupCount 
+					$sgCase=CASE(toDel.sg)
+					insert toDel.temp into toDel.sg at $sgCase /Append            
+				ENDDO
+				omit toDel.sg (1)  
+			ENDIF
+
+			$points = CEIL($case/$subgroup)
+			IF $points > 0 THEN
+				ASSIGN toDel.sg 1 to $points /repeat=$subgroup /nolist
+				SORT toDel.sg by toDel.sg /nolist
+				$caseWhole = CASE(toDel.sg)
+				IF $case < $caseWhole THEN
+  					$toOmit = $case+1
+  					OMIT toDel.sg ($toOmit to $caseWhole)
+				ENDIF
+
+				TABLE toDel.sg /save /nolist
+
+				## pointURL will hold the URL string for each point (thus each subgroup)
+
+
+				## Loop through to push a temporary string into each case of pointURL
+				IF ($return3 = -2) AND %IsSPCBasicSetup = "true" AND %SubGroupPlotMethod <> "-1" THEN
+					$points= CASE(tempGROUP.Valid_cases) - 1
+					SASSIGN pointURL "" /repeat=$points /nolist
+					$t = 1
+					%tmpStr = ""
+					FOR $i = 1 TO $points
+						FOR $s = 1 TO tempGROUP.Valid_cases($i + 1)
+								%tmpstr = %tmpstr & DataID($t) & "|" & DisplayValue($t)
+								IF ($return4 = -2) THEN
+									%tmpstr = %tmpstr & "|" & ORIGINALVALUE($t)
+								END IF
+								IF $s <> tempGROUP.Valid_cases($i + 1) THEN
+									%tmpstr = %tmpstr & ","
+								END IF
+								$t = $t + 1
+
+						NEXT
+
+						pointURL($i) = %tmpStr
+						%tmpStr = ""
+					NEXT
+				ELSE
+					SASSIGN pointURL "" /repeat=$points /nolist
+					FOR $i = 1 TO $points 
+						$first = table.sg($i)
+						If %UniqueVariables = "true" THEN
+							IF toDel.sg = $first THEN tmp = DataID & "|" & DisplayValue
+								IF ($return4 = -2) THEN
+									tmp = tmp & "|" & ORIGINALVALUE
+								END IF
+						ELSE
+							IF toDel.sg = $first THEN tmp = DataID & "|" & DataID & "|" & ORIGINALVALUE
+								IF ($return4 = -2) THEN
+									tmp = tmp & "|" & ORIGINALVALUE
+								END IF
+						ENDIF 
+
+						missing permanent tmp /nolist
+						%tmpstr=catvar(tmp, 44)
+						pointURL($i) = %tmpStr
+						VARIABLE DELETE tmp /nolist
+					NEXT
+				END IF	
+
+				VARIABLE DELETE table., toDel.sg
+
+				pointURL = "javascript:annotateSPC('VALUE', '"//pointURL//"', '"//%IsAnnotationRequired//"')"	
+
+				VARIABLE RENAME DataID %PlotVariable
+				IF %UniqueVariables = "true" THEN
+					VARIABLE RENAME DisplayValue %DisplayValue
+				ENDIF
+
+				%AllowAnnotation = "true"
+			ENDIF
+
+ 		ENDIF   
+	ENDIF
+
+	##---------------------
+	## Finalize the command
+	##---------------------
+
+	IF %X_Variable <> "?" AND %X_Variable <> "" THEN
+		%ExecuteCommand = %SPCChartName & " " & %X_Variable
+	ELSE
+		%ExecuteCommand = %SPCChartName
+	END IF
+	IF %Y_Variable <> "?" AND %Y_Variable <> "" THEN
+		IF %SPCChartName = "PROCCAB" THEN
+			%ExecuteCommand = %ExecuteCommand & " GROUP " & %Y_Variable
+		ELSE
+			%ExecuteCommand = %ExecuteCommand & " BY " & %Y_Variable
+		END IF
+	ELSE
+		IF %IsSPCBasicSetup = "true" AND %SubGroupPlotMethod <> "-1" THEN
+			IF %SubGroupPlotMethod = "0" THEN
+				%ExecuteCommand = %ExecuteCommand & " BY " & %SQLQueryName & ".BYLOTID"
+			ELSE IF %SubGroupPlotMethod = "1" THEN
+				%ExecuteCommand = %ExecuteCommand & " BY " & %SQLQueryName & ".BYWAFERID"
+			END IF
+		ELSE IF %SubGroupSize <> "?" AND %SubGroupSize <> "" THEN
+			%ExecuteCommand = %ExecuteCommand & " BY " & %SubGroupSize
+		END IF
+	END IF	
+
+	IF %ChartParams <> "?" AND %ChartParams <> "" THEN
+		%ExecuteCommand = %ExecuteCommand & " " & %ChartParams
+	END IF
+
+	IF %SPCRulesName <> "?" AND %SPCRulesName <> "" THEN
+		%ExecuteCommand = %ExecuteCommand & " /RULES=" & %SPCRulesName 
+	END IF
+
+	
+	##---------------------
+	## Initialize some QC system variables that may be initialized when the chart is plotted
+	## Only QC charts will use these variables
+	##---------------------
+	%qc_rulev_last_point = ''
+	%QC_RULES = "NONE"
+	$QC_NRULEV = 0
+	##---------------------
+	## Execute the command
+	##---------------------
+	IF %AllowAnnotation = "true" THEN
+		%ExecuteCommand = %ExecuteCommand & " /URL=@pointURL"
+		@v[%ExecuteCommand] 
+	ELSE	
+		@v[%ExecuteCommand] 
+	END IF
+
+	##---------------------
+	## Check for a rule violation
+	##---------------------
+	%QC_RULES = TRIM(UPPERC(%QC_RULES))
+	%SPCResult = ""
+
+    ## 1) Check on all data points
+     IF %RuleViolationMethod = "1" THEN
+    	 IF %QC_RULES <> "?" AND %QC_RULES <> "" AND %QC_RULES <> "NONE" AND $QC_NRULEV > 0 THEN    
+		%SPCResult = "FAIL"	    
+    	ENDIF
+     ENDIF
+    ## 2) Check on the last point
+    IF %RuleViolationMethod = "2" THEN 
+
+    	IF (len(%qc_rulev_last_point) > 0 AND %QC_RULES <> "" AND %QC_RULES <> "NONE") THEN  
+
+    	    ## Last Point
+        	    %SPCResult = "FAIL"
+    	END IF
+    ENDIF
+
+     ## 3) Check on the last group instead of last point 
+     ## Case to check by wafers
+     IF %RuleViolationMethod = "3" THEN 
+		IF (%QC_RULES <> "" AND %QC_RULES <> "NONE" AND %SPCChartName = "GICHART" AND %AXISParamExists = "true" AND ifexist("DATASET.")) THEN
+        	## This customized for GICHART chart
+        	$index_ = INDEX(%PlotVariable, ".")
+        	%DataSetName = ""
+        	IF ($index_ > 0) THEN    
+            	%DataSetName = MID(%PlotVariable, 1, $index_-1)    
+            	## SPC Query must have column GROUPSEQ
+           		%GroupSEQVariable = %DataSetName & ".GROUPSEQ"			
+				IF (ifexist(%GroupSEQVariable)) THEN
+					## Renaming to variable to let Macro accessing 
+					VARIABLE RENAME @v[%GroupSEQVariable] "GroupSEQVariable"
+					$len_ = CASE(DATASET.Violating_Points)
+					$LastGroupSEQ = GroupSEQVariable($len_)
+					FOR $i = $len_, $i > 0, $i = $i - 1				
+						$CurGroupSEQ = GroupSEQVariable($i)    
+						%CurViolatingPoints = DATASET.Violating_Rules($i)	
+						IF ($CurGroupSEQ = $LastGroupSEQ) THEN 						
+						## Checking for last group
+							 IF (%CurViolatingPoints <> %_sysmiss AND %CurViolatingPoints <> "") THEN
+								dtv %CurViolatingPoints
+								%SPCResult = "FAIL"
+								## Exit
+								$i = 0
+							END IF
+							ELSE
+								## Exit
+								$i = 0.
+						END IF
+					END FOR 
+				END IF
+				VARIABLE RENAME GroupSEQVariable %GroupSEQVariable
+			END IF        
+		END IF 
+	ENDIF
+
+    IF %SPCResult = "FAIL" THEN
+		IF %SPCFailureAction <> "HOLDALL" THEN
+			IF %FailureAction = "HOLDALL" THEN
+				%SPCFailureAction = "HOLDALL"
+			ELSE
+				IF %FailureAction = "HOLD" THEN
+					%SPCFailureAction = "HOLD"
+				ELSE IF %FailureAction = "FUTUREHOLD" THEN
+					%SPCFailureAction = "FUTUREHOLD"
+				END IF
+			END IF
+		END IF
+        %SPCTxnResults = %SPCTxnResults & "FAIL" & CHAR(2)
+        %SPCTxnRuleViolationCounts = %SPCTxnRuleViolationCounts & $QC_NRULEV & CHAR(2)
+    ELSE
+        %SPCTxnResults = %SPCTxnResults & "PASS" & CHAR(2)
+        %SPCTxnRuleViolationCounts = %SPCTxnRuleViolationCounts & "0" & CHAR(2)
+    END IF
+
+	 ## --------------------------------------------
+     ## Enhancement for Historical Process Capability Data
+     ## --------------------------------------------
+	%ChartResult = ""
+
+    IF %SPCChartName = "GPC" THEN
+        ## Process Capability
+        %ChartResult = %ChartResult & "ChartType=GPC," & "ss_Mean=" & #mean & ",ss_CP=" & #cp & ",ss_CPK=" & #cpk & ",ss_PP=" & #pp & ",ss_PPK=" & #ppk 
+		%ChartResult = %ChartResult  & ",ss_RSD=" & #std & ",ss_SDU=" & #sdu & ",ss_SDL=" & #sdl 
+
+		IF IFDEF("#sd") and #sd <> #_sysmiss THEN
+			%ChartResult = %ChartResult & ",ss_SD=" & #sd
+		END IF
+	ELSE
+		## --------------------------------------------
+		## QC Charts cases
+		## --------------------------------------------
+		%ChartResult = %ChartResult & "ChartType=QC," & "LCL=" & #qc_save_last_lcl & ",UCL=" & #qc_save_last_ucl
+		%ChartResult = %ChartResult & ",ss_SubGroups=" & $qc_nsg & ",ss_Cases=" & $ncase
+
+        ## Control Limits
+		IF IFDEF("#qc_save_last_lsl") and #qc_save_last_lsl <> #_sysmiss THEN
+			%ChartResult = %ChartResult & ",LSL=" & #qc_save_last_lsl
+		END IF
+
+		IF IFDEF("#qc_save_last_usl") and #qc_save_last_usl <> #_sysmiss THEN
+			%ChartResult = %ChartResult & ",USL=" & #qc_save_last_usl
+		END IF
+
+		## --------------------------------------------
+        ## OOC case
+		## --------------------------------------------
+        IF IFDEF("%qc_last_ooc_letter") THEN
+            %ChartResult = %ChartResult & ",ss_RuleLetter=" & %qc_last_ooc_letter & ",ss_RuleDesc=" & %qc_last_ooc_desc
+        END IF
+
+		## --------------------------------------------
+		## Plotted Value
+		## --------------------------------------------
+		IF %SPCChartName <> "STATS" THEN
+			$nOp=Case(DATASET.Plotted_Values) 
+			#PlottedValue = DATASET.Plotted_Values($nOp)
+			%ChartResult = %ChartResult & ",ss_PlottedValue=" & #PlottedValue
+		END IF
+    END IF
+
+     ## --------------------------------------------
+     ## Raw Data and InstanceId
+     ## --------------------------------------------
+     %RawDataList = ""
+     $i = 0
+     $Ctr = 0
+
+     IF %AXISParamExists = "true" THEN
+         DATASET.DataId = @v[%PlotVariable]
+         DATASET.DataValue = @v[%X_Variable]
+
+         $nOraw=Case(DATASET.DataValue)
+
+         IF $nOraw = 1 THEN		 
+             %RawDataList = "SPCTxnDataPointId=" & DATASET.DataId(1) & ",ss_DataValue=" & DATASET.DataValue(1) & ",DisplaySequence=1"			 
+        ELSE		
+            FOR $i = $nOraw - $subgroup + 1, $i <= $nOraw, $i = $i + 1
+                 %InstanceId = DATASET.DataId($i)
+                 #RawData = DATASET.DataValue($i)
+                 $Ctr = $Ctr + 1
+
+                 IF (%RawDataList <> "") THEN
+                     %RawDataList = %RawDataList & ","
+                 END IF
+                %RawDataList = %RawDataList & "SPCTxnDataPointId=" & %InstanceId & ",ss_DataValue=" & #RawData & ",DisplaySequence=" & $Ctr
+             END FOR
+         END IF
+     END IF
+
+	IF (%SPCTxnItemNames = "") THEN
+        %SPCTxnItemNames = %ItemName
+        %SPCStatitReturns = %ChartResult
+		%SPCTxnDataPointReturns = %RawDataList
+    ELSE 
+        %SPCTxnItemNames = %SPCTxnItemNames & CHAR(2) & %ItemName
+        %SPCStatitReturns = %SPCStatitReturns & CHAR(2) & %ChartResult
+		%SPCTxnDataPointReturns = %SPCTxnDataPointReturns & CHAR(2) & %RawDataList
+    END IF 
+NEXT

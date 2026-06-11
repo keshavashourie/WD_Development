@@ -1,0 +1,2398 @@
+/* Copyright Siemens 2023   */
+@import "less/lesshat";
+@import "less/camstar";
+
+/* resets
+----------------------------------*/
+* {
+    border: none;
+    font: normal 12px arial;
+    padding: 0px;
+}
+
+*[disabled="disabled"],
+*:disabled,
+*[disabled-element] {
+    cursor: default;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+i,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+
+li {
+    float: left;
+    list-style: none;
+}
+/* elements 
+----------------------------------*/
+a,
+a:visited,
+a:active,
+a:hover {
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+span {
+    display: inline-block;
+
+    &.cs-textbox.cs-textarea.block {
+        width: 100%;
+    }
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+    margin: 0;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+b {
+    font-weight: bold;
+}
+
+
+.body-main {
+    width: 100%;
+    overflow: hidden;
+
+    &.modeling {
+        .reg-FontSize;
+    }
+
+    > form {
+        height: 100%;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: row;
+
+        .form-scrollablepanel {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+
+            > .zone-static {
+                flex: 0 0 auto;
+            }
+
+            div[id$="StaticZoneBottom_UIComponent"].zone-static {
+                flex: 1 1 0;
+            }
+
+            .test {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: column;
+
+                > .zone-static {
+                    flex: 0 0 auto;
+                }
+
+                #DynamicContentDiv {
+                    flex: 1 1 0;
+
+                    .ui-form-contentpanel {
+                        height: 100%;
+
+                        > table {
+                            height: 100%;
+
+                            div.zone > div {
+                                height: 100%;
+
+                                table.modeling-leftPane, table.modeling-rightPane {
+                                    height: 100%;
+
+                                    td > div {
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        td.modeling-rightPane > div.zone {
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.fullScreen,
+    &.fullScreenPage {
+        width: 100%;
+
+        .form-container {
+            width: 100%;
+        }
+    }
+}
+
+.body-main.fullScreen,
+.body-main.fullScreenPage {
+    width: 100%;
+
+    .form-container {
+        width: 100%;
+    }
+}
+
+
+.body-tabbed {
+    overflow-y: hidden;
+    background-color: #cfcfcf;
+    .reg-FontSize;
+
+    form {
+        height: 100%;
+    }
+
+    &.desktop-device .form-container {
+        max-width: @normal-app-width;
+    }
+}
+
+.body-float {
+    overflow: hidden;
+    height: 100%;
+
+    > form {
+        height: 100%;
+        width: 100%;
+
+        #DynamicContentDiv {
+            // height: 100%;
+            width: 100%;
+
+            #TemplateContentDiv {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.divModal {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #000000;
+    filter: alpha(opacity=65);
+    opacity: .65;
+    z-index: 1;
+    display: none;
+}
+
+
+.body-modeling {
+    .reg-FontSize;
+    width: 100%;
+
+    .form-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-scrollablepanel {
+        width: 100%;
+        height: 100%;
+        overflow-y: hidden;
+        overflow-x: auto;
+
+        table {
+            height: 100%;
+        }
+
+        #WebPart_MDL_Filter_WP_UIComponent {
+            height: 100%;
+
+            #WebPart_MDL_Filter_WP {
+                height: 100%;
+
+                > table.matrix > tbody {
+                    // Header and search
+                    > tr:first-child > td {
+                        height: 70px;
+                        box-sizing: border-box;
+                    }
+                    // Instance grid
+                    > tr:nth-child(2) {
+                        height: 100%;
+
+                        div.ui-jqgrid {
+                            height: 100%;
+
+                            div.ui-jqgrid-bdiv {
+                                height: 100vh;
+                            }
+                        }
+
+                        div.ui-jqgrid-pager {
+                            box-sizing: border-box;
+                            height: 32px;
+                        }
+                    }
+                    // Something invisible
+                    > tr:last-child {
+                        height: 0;
+                    }
+                }
+            }
+        }
+
+        #TemplateContentDiv > table > tbody {
+            // first row is Actions bar
+            > tr:first-child > td.mdl-view-modes {
+                > div.zone {
+                    > div {
+                        height: 1px;
+                    }
+                }
+
+                table.mdl-view-modes {
+                    width: 100%;
+                }
+            }
+            // Second row is instance list and page panel
+            > tr:last-child, > tr:nth-child(2) {
+                // Instance list
+                > td:first-child {
+                    height: 100%;
+
+                    > div.zone {
+                        height: 100%;
+                    }
+                }
+                // Page panel
+                > td:last-child:not(.no-expand) {
+                    > div.zone {
+                        overflow: auto;
+                        // height: 100% - works for chrome but doesn't for IE11
+                        height: calc(100vh - 72px); // minus height of the top bottons ( actionsControl )
+                    }
+                }
+            }
+        }
+    }
+
+    &.body-float .zone-static {
+        display: block;
+    }
+}
+
+body.export {
+    width: 1270px;
+
+    .form-container {
+       width: 1270px;
+    }
+
+    .form-scrollablepanel {
+        overflow-y: auto;
+    }
+}
+
+.form-scrollablepanel {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.form-scrollablepanel[txnTask="true"] {
+    overflow: hidden;
+}
+
+body.modeling .form-scrollablepanel {
+    overflow-y: hidden;
+}
+
+.hiddenButton {
+    display: none;
+}
+
+@media screen and (max-width: 1440px) {
+    .form-scrollablepanel {
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+}
+/* form-container
+----------------------------------*/
+.body-tabbed.body-fullScreenMode,
+.body-tabbed.fullScreenPage {
+    .form-container, .header-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    footer {
+        width: 100%;
+    }
+}
+
+.body-tabbed.mobile {
+    .tabs-navigation {
+        background: #FFF;
+
+        .ui-tabs-panel {
+            background: #FFF;
+        }
+
+        ul#tablist {
+            display: none !important;
+        }
+    }
+
+    .form-container {
+        min-width: 0 !important;
+    }
+}
+
+.form-container {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 0 5px #000;
+    background-color: #ffffff;
+}
+
+.float-form-container {
+    background: #ffffff;
+    min-height: 100%;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    > .form-scrollablepanel {
+        overflow: auto;
+
+        .matrix {
+            margin: 0 16px 0 16px;
+
+            table.matrix {
+                margin: 0px;
+            }
+        }
+    }
+}
+
+.body-modeling {
+    &.confirm-popup {
+        .form-scrollablepanel {
+            .matrix:first-of-type {
+                margin: 0;
+            }
+        }
+    }
+
+    .cs-label {
+        width: auto;
+        margin-left: 10px;
+    }
+}
+
+header {
+    flex: 0 0 50px;
+    width: 100%;
+
+    * {
+        font-size: 11px;
+    }
+
+    img {
+        margin: 15px 0 0 10px;
+    }
+
+    ul {
+        float: right;
+
+        li {
+            color: #4e4e4e;
+            padding: 5px 10px 5px 0;
+
+            span {
+                color: #010101;
+            }
+        }
+    }
+
+    .settings, .studio, .help {
+        border: 1px solid #efefef;
+        padding: 5px 10px;
+
+        a {
+            padding: 2px 0 2px 20px;
+        }
+    }
+
+    .settings a[disabled="disabled"], .studio a[disabled="disabled"] {
+        color: #4e4e4e;
+        cursor: default;
+    }
+
+    .settings a {
+        background: url(images/icons/icon-cog-16x16.png) no-repeat left;
+    }
+
+    .studio a {
+        background: url(images/icons/studio.png) no-repeat left;
+    }
+
+    .help a {
+        background: url(images/icons/icon-help-16x16.png) no-repeat left;
+    }
+
+    .user-info {
+        clear: right;
+        float: right;
+    }
+
+    .user a {
+        background: url(images/icons/icon-down-16x16.png) no-repeat right;
+        font-weight: bold;
+        padding: 0 20px 0 0;
+    }
+}
+
+
+/* navigation
+----------------------------------*/
+.navigation {
+    flex: 1 0 auto;
+    width: 100%;
+    box-shadow: 0 3px 3px 1px #00617e;
+    margin: 0 0 5px 0;
+}
+
+.navigation > ul {
+    display: inline-block;
+    height: auto;
+    padding: 0;
+    vertical-align: top;
+    width: 100%;
+}
+/* navigation-menuitem
+----------------------------------*/
+.navigation .navigation-menuitem {
+    border-right: 1px solid #4e8295;
+    cursor: pointer;
+    height: 30px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.navigation .navigation-menuitem:hover {
+    box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.75);
+}
+
+.navigation .navigation-menuitem a {
+    background: url(images/navigation/icon-down-16x16.png) no-repeat right 50%;
+    color: #fff;
+    display: block;
+    margin: 5px 5px 0 10px;
+    padding: 2px 36px 0 0;
+}
+
+.navigation .navigation-menuitem:hover a {
+    background: url(images/icons/icon-rounded-down-16x16.png) no-repeat right;
+    color: #2f2f2f;
+}
+
+.navigation .navigation-submenuitem {
+    border-right: 1px solid #4e8295;
+    cursor: pointer;
+    height: 30px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.navigation .navigation-submenuitem a {
+    color: #fff;
+    display: block;
+    margin: 5px 5px 0 10px;
+    padding: 2px 20px 0px 0;
+}
+
+.navigation .navigation-submenuitem:hover {
+    -webkit-box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: inset 0 0 5px 2px rgba(0, 0, 0, 0.75);
+    box-shadow: inset 0 2px 5px 2px rgba(0, 0, 0, 0.75);
+}
+
+.navigation .navigation-submenuitem:hover a {
+    color: #2f2f2f;
+}
+/* .navigation-home
+----------------------------------*/
+.navigation .navigation-home,
+.navigation .navigation-home:hover {
+    background: none;
+    border-right: 1px solid #4e8295;
+    margin: 0;
+    min-width: 36px;
+    width: 36px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.navigation .navigation-home a,
+.navigation .navigation-home:hover a {
+    background: url(images/icons/icon-home-16x16.png) no-repeat left;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 5px 0 0 10px;
+    padding: 0;
+}
+/* .navigation-sub
+----------------------------------*/
+.navigation-sub {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    -webkit-box-shadow: 0 0 3px 1px #00617e;
+    -moz-box-shadow: 0 0 3px 1px #00617e;
+    box-shadow: 0 0 3px 1px #00617e;
+    z-index: 1002;
+}
+
+.navigation-sub[scroll="true"] ul {
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.navigation-sub ul {
+    background: #ededed;
+    border: 1px outset #808080;
+    -webkit-box-shadow: 0 0 6px 2px #000;
+    -moz-box-shadow: 0 0 6px 2px #000;
+    box-shadow: 0 0 6px 2px #000;
+}
+
+.navigation-sub .navigation-submenuitem {
+    border: 1px solid #ededed;
+    display: block;
+    float: none;
+    margin: 1px;
+}
+
+.navigation-sub .navigation-submenuitem:hover,
+.navigation-sub .navigation-menuitem:hover {
+    border: 1px solid #c7c7c7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.32);
+    -moz-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.32);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.32);
+}
+
+.navigation-sub .navigation-submenuitem:hover a {
+    color: #000;
+}
+
+.navigation-sub .navigation-submenuitem a,
+.navigation-sub .navigation-menuitem a {
+    background: none;
+    color: #000;
+    display: inline-block;
+    height: 20px;
+    white-space: nowrap;
+}
+
+.navigation-sub .navigation-submenuitem img,
+.navigation-sub .navigation-submenuitem div {
+    display: inline-block;
+    padding: 4px 0 0 4px;
+    width: 16px;
+}
+
+.navigation-sub .navigation-submenuitem:hover a,
+.navigation-sub .navigation-submenuitem a,
+.navigation li:hover .navigation-sub li a {
+    background: none;
+}
+
+.navigation-sub .navigation-submenuitem a.has-children,
+.navigation-sub .navigation-menuitem a.has-children,
+.navigation li:hover .navigation-sub li a.has-children {
+    background: url(images/icons/icon-right-16x16.png) no-repeat right;
+}
+
+.navigation .navigation-down,
+.navigation .navigation-left,
+.navigation .navigation-right {
+    border-top: none;
+    border-left: 1px solid #303d46;
+    border-right: none;
+    display: none;
+    min-width: 20px;
+    margin: 0;
+    width: 20px;
+}
+
+.navigation .navigation-down {
+    background: url(images/navigation/icon-down-16x16.png) no-repeat center;
+    border-right: 1px solid #303d46;
+    display: block;
+    margin: 0 55px 0 0;
+}
+
+.navigation .navigation-left {
+    background: url(images/navigation/icon-left-16x16.png) no-repeat center;
+}
+
+.navigation .navigation-right {
+    background: url(images/navigation/icon-right-16x16.png) no-repeat center;
+}
+
+.navigation .navigation-concierge {
+    background: url(images/navigation/icon-concierge-16x16.png) no-repeat center;
+    float: right;
+    width: 16px;
+    height: 16px;
+    margin: 8px 60px 0 0;
+}
+
+.navigation .navigation-down a,
+.navigation .navigation-down:hover a,
+.navigation .navigation-left a,
+.navigation .navigation-left:hover a,
+.navigation .navigation-right a,
+.navigation .navigation-right:hover a {
+    display: none;
+    background: none;
+    padding: 0;
+}
+
+.navigation .navigation-down:hover,
+.navigation .navigation-left:hover,
+.navigation .navigation-right:hover,
+.navigation .navigation-concierge:hover {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.navigation ul:first-child li.navigation-additional {
+    width: 25px;
+    height: 25px;
+    padding: 5px 0 0 0;
+}
+
+.navigation .navigation-additional a.chevron,
+.navigation .navigation-additional:hover a.chevron {
+    background: url(images/navigation/chev-right.png) no-repeat center;
+}
+/* the second level with submenu items. */
+.navigation-sub .navigation-menuitem {
+    float: none;
+    border: 0px;
+    height: auto;
+    border: 1px solid #EDEDED;
+    padding: 1px;
+}
+
+.navigation-sub .navigation-menuitem .navigation-space {
+    display: inline-block;
+    width: 16px;
+    padding: 4px 0 0 4px;
+}
+/* .zone
+----------------------------------*/
+.zone {
+    width: 100%;
+}
+/* .webpart
+----------------------------------*/
+table.cs-round-border div.webpart,
+div.cs-round-border {
+    border: 1px solid #070707;
+    border-radius: 3px;
+    margin: 5px 5px 5px 5px;
+}
+/* .matrix
+----------------------------------*/
+.matrix {
+    display: table;
+    margin: 0 0 0 10px;
+    overflow: hidden;
+}
+
+.matrix.fullWidth, .webpart.fullWidth > .matrix {
+    width: 100%;
+    margin: 0px; /* empty margin to display 100% width properly. */
+    border-left: 10px solid transparent; /* displays 10px margin-left */
+}
+
+div#WebPart_AddToGridWP > table.matrix {
+    margin: 0 0 0 3px;
+}
+
+
+.matrix > tbody > tr {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    min-width: 80px;
+    padding: 0 65px 5px 0;
+}
+
+.cell .cell-nobottom-padding {
+    padding: 0 45px 0 0;
+}
+
+.cellNoPadding {
+    padding: 0px !important;
+}
+
+.cell .cell-5column-padding {
+    padding: 0 50px 0 0 !important;
+}
+
+.cell:last-child {
+    padding: 0 0 15px 0;
+}
+
+.cell:empty,
+.cell .empty {
+    padding: 0;
+}
+
+.matrix > tbody > tr > .cell[orientation="vertical"] > input {
+    display: block;
+}
+
+.matrix > tbody > tr .cell[orientation="vertical"] > span {
+    /* needs !important since .net adds span:inline-block automaticall */
+    display: block !important;
+}
+
+.matrix > tbody > tr > .cell[orientation="horizontal"] {
+    /* required for ie only, displays inner controls on the single line*/
+    white-space: nowrap;
+}
+
+.matrix .cell > .cs-button,
+.matrix .cell > .cs-button-secondary {
+    height: 25px;
+    margin: 0 0px 0 2px;
+    min-width: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    max-width: 270px;
+}
+
+.matrix > tbody > tr > td.empty {
+    padding: 0;
+}
+
+.matrix > tbody > tr > td.cell {
+    & > .cs-button#ctl00_WebPartManager_ProgressingWP_StartExportBtn, .cs-button#ctl00_WebPartManager_ProgressingWP_StartImportBtn {
+        .active-button-gradient;
+    }
+}
+
+.matrix > tbody > tr > td.cell > span#ctl00_WebPartManager_CurrentStatusWP_ContainerSearchFilters_QtyOperator > span.cs-label {
+    width: 80px;
+    height: 1em;
+}
+/* Copy Popap */
+.nametxtfloat {
+    float: left;
+}
+
+.revtxtfloat {
+    float: left;
+    clear: left;
+}
+
+.isrorfloat {
+    float: right;
+    clear: both;
+}
+
+div.toggle-container {
+    > div {
+        color: #203db7;
+        font-size: 11pt;
+        font-weight: normal;
+        cursor: pointer;
+        display: inline;
+    }
+
+    .header {
+        color: #304bbc;
+        cursor: pointer;
+        white-space: nowrap;
+
+        .cs-label {
+            display: inline-block;
+            margin: 0 0 10px 5px;
+        }
+    }
+
+    .content {
+        background-color: #f7f7f7;
+        border-top: 1px dotted #bfbfbf;
+        border-bottom: 1px dotted #bfbfbf;
+        margin: 10px 0 0 0;
+        padding: 10px 0 0;
+
+        div.webpart tr:first-child .ui-jqgrid {
+            margin-top: 10px;
+        }
+    }
+
+    .matrix {
+        margin: 0;
+    }
+}
+
+// TextBox on modeling pages
+div.toggle-container > div .cs-textbox > input {
+    &:focus {
+        outline: none;
+    }
+}
+
+// Datepicker on modeling pages
+div.toggle-container > div .cs-date > input {
+    &:focus {
+        outline: none;
+    }
+}
+
+span.toggle-wrapper-modeling {
+    display: block;
+
+    div.toggle-container {
+        > div.header {
+            display: block;
+            color: #046689;
+            font-size: 14px;
+            font-weight: bold;
+            border-bottom: 2px solid #d6d6d6;
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 5px 0 7px;
+            position: relative;
+
+            > img {
+                position: absolute;
+                right: 0;
+            }
+
+            span.expandAllButton {
+                position: absolute;
+                right: 20px;
+                padding-bottom: 1px;
+                margin-right: 10px;
+                border: 1px solid #c7c7c7;
+                border-radius: 5px;
+                color: #000;
+                background-color: #fafafa;
+                cursor: pointer;
+                text-align: center;
+                min-width: 90px;
+            }
+        }
+
+        > div.content {
+            height: auto;
+            overflow: auto;
+            background-color: inherit;
+            color: inherit;
+            cursor: default;
+            border: 0 none;
+            padding-top: 6px;
+            margin: 0;
+            display: block;
+
+            > table {
+                width: 100%;
+
+                table.layoutTable {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .matrix {
+        margin: 0 0 0 10px;
+
+        .webpartswrapper-container .matrix {
+            margin: 0;
+        }
+    }
+}
+
+/* .ribbon-container */
+.ribbon-container {
+    background: #fff;
+    padding: 0 1px 0 1px;
+}
+
+.ribbon-container > .content {
+    height: 72px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    background: transparent url(images/backgrounds/kpi-background.png) repeat;
+    -webkit-box-shadow: 0 0 4px rgba(255, 255, 255, 0.75), inset 0 0 5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0 0 4px rgba(255, 255, 255, 0.75), inset 0 0 5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.75), inset 0 0 5px rgba(0, 0, 0, 0.75);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.ribbon-toggle-div {
+    margin-left: 540px;
+    width: 170px;
+    height: 19px;
+    background: transparent url(images/backgrounds/RibbonContainerToggle.png) no-repeat;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    z-index: 9999;
+}
+
+.ribbon-toggle-div img {
+    display: none;
+}
+
+.ribbon-container .webpart-kpi {
+    margin-left: 4px;
+}
+
+.ribbon-container .webpart-kpi .KPIMainDiv {
+    margin-right: 10px;
+}
+
+.ribbon-container .jspScrollable .jspHorizontalBar {
+    height: 7px;
+}
+
+.ribbon-container .jspScrollable .jspVerticalBar {
+    display: none;
+}
+
+.ribbon-container .content .jspDrag {
+    .hdiv-gradient;
+    border: 1px solid #525252;
+}
+
+.ribboncontainer-collapsedlabel {
+    display: none;
+}
+
+.ribboncontainer-expandedlabel {
+    display: inline-block;
+}
+
+.ribbon-toggle-div[collapsed="true"] .ribboncontainer-collapsedlabel {
+    display: inline-block;
+}
+
+.ribbon-toggle-div[collapsed="true"] .ribboncontainer-expandedlabel {
+    display: none;
+}
+
+.ribbon-container[collapsed="true"] .content {
+    display: none;
+}
+
+.ribbon-container.content {
+    display: block;
+}
+
+.ribbon-container[collapsed="true"].content {
+    display: none;
+}
+
+.float-form-container .webpart-buttonbar {
+    width: 100%;
+
+    .right input {
+        margin: 2px 10px 0 0;
+    }
+}
+
+.cs-responsive {
+
+    .webpart-buttonbar {
+        width: 100%;
+        display: flex;
+        padding: 0 10px;
+        background-color: #F0F0F0;
+        width: 100%;
+
+        .right, .left {
+            float: none;
+            clear: both;
+            flex: 1 1 auto;
+            display: flex;
+        }
+
+        .left:empty, right:empty {
+            flex-grow: 0;
+        }
+    }
+
+    .cs-button, .cs-button-secondary, .ui-button-secondary {
+        margin: 5px;
+        border-radius: 0;
+        box-shadow: none;
+        text-shadow: none;
+        background-image: none;
+        background-color: #3A6680;
+        border: 1px solid #3A6680;
+        color: #FFF;
+        padding: 0;
+        font-weight: normal;
+        flex: 1 1 auto;
+
+        &:disabled {
+            background-color: #AAA;
+            border-color: #AAA;
+            color: #000;
+            cursor: default;
+        }
+    }
+
+    .cs-button-secondary, .ui-button-secondary {
+        border: 1px solid #3A6680;
+        background-color: #F0F0F0;
+        color: #3A6680;
+    }
+}
+
+.cs-responsive {
+    .status-bar-fixed {
+        border: none;
+        height: auto;
+
+
+        .webpart-buttonbar {
+            padding: 4px;
+
+            .left, .right {
+                padding: 0;
+
+                input {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
+
+// ui-footer
+footer {
+    border: 1px solid #c5c0c0;
+    bottom: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    flex: 0 0 41px;
+    width: 100%;
+
+    span {
+        color: #2f2f2f;
+        display: block;
+    }
+
+    .status span.instruction {
+        height: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 18px;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+
+        li.status-container {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+
+            > span {
+                flex: 0 0 auto;
+            }
+        }
+    }
+
+    ul li {
+        padding: 5px 3px 0 5px;
+        vertical-align: middle;
+        flex: 0 0 auto;
+    }
+
+    .date-time {
+        border-right: 1px solid #c5c0c0;
+        flex-basis: 185px;
+    }
+
+    .date-time .time {
+        display: block;
+    }
+
+    .status {
+        color: #ff0000;
+        height: 32px;
+        overflow: hidden;
+        padding: 2px 0 0 37px;
+        white-space: normal;
+        display: inline-block;
+        margin: 0 0 0 5px;
+        max-width: 850px;
+
+        span.messageType {
+            font-weight: bold;
+            margin: 0 5px 0 0;
+        }
+    }
+
+    .instruction {
+        margin-right: 3px;
+    }
+
+
+    .status[messagetype="Error"] {
+        background: url(images/icons/icon-status-error-32x32.png) no-repeat 0 0;
+    }
+
+    .status[messagetype="Error"], .status[messagetype="Error"] span {
+        color: #ff0000;
+    }
+
+    .status[messagetype="Warning"] {
+        background: url(images/icons/icon-status-warning-32x32.png) no-repeat 0 0;
+    }
+
+    .status[messagetype="Warning"], .status[messagetype="Warning"] span, span.warning-text {
+        color: #ff5400;
+    }
+
+    .status[messagetype="Success"] {
+        background: url(images/icons/icon-status-success-32x32.png) no-repeat 0 0;
+    }
+
+    .status[messagetype="Success"], .status[messagetype="Success"] span {
+        color: #14751d;
+    }
+
+    button {
+        border: 1px solid #c5c0c0;
+        color: #2f2f2f;
+        cursor: pointer;
+        display: none;
+        font-size: 11px;
+        padding: 6px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    }
+}
+
+
+.body-main:not(.body-modeling) {
+    #TemplateContentDiv > table {
+        height: 1px !important;
+    }
+}
+
+.body-main.modeling {
+    #TemplateContentDiv > table {
+        height: 100%;
+    }
+}
+
+.status-bar-fixed {
+    height: auto;
+    border-top: 1px solid #bfc1bf;
+}
+
+.webpart-buttonbar {
+    display: flex;
+    width: 1020px;
+
+    .left:empty {
+        display: none;
+    }
+
+    .left, .right {
+        padding: 12px 0;
+        white-space: nowrap;
+
+        input {
+            border-radius: 3px;
+            box-shadow: #bebebe -5px 0 7px;
+        }
+
+        input + input {
+            margin-left: 12px;
+        }
+    }
+
+    .left {
+        padding-left: 10px;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+}
+
+span.filtertag-delete {
+    color: #ff5400;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+span.delete-descr {
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.ui-form-contentpanel {
+    padding: 0;
+}
+
+.zone-static {
+    position: relative;
+    width: 100%;
+}
+
+.ui-sticky-pinned {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+    background: url(images/icons/pinned.png) no-repeat center;
+    cursor: pointer;
+}
+
+.ui-sticky-unpinned {
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+    background: url(images/icons/unpinned.png) no-repeat center;
+    cursor: pointer;
+}
+
+.ui-form-layouttable {
+    width: 100%;
+}
+
+.ui-form-invisible {
+    display: none;
+}
+
+.mod {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: block;
+    text-align: center;
+    background: rgba(0,0,0,0.01);
+}
+
+.modImage {
+    margin-top: 200px;
+}
+/* concierge-container
+----------------------------------*/
+.concierge-container {
+    height: auto;
+    left: 935px;
+    padding-left: 15px;
+    position: absolute;
+    z-index: 1;
+    top: 85px;
+    width: 240px;
+
+    .ui-flyout-container {
+        width: 302px;
+    }
+}
+
+.full-width-matrix .matrix {
+    width: 100%;
+}
+
+form[action*="AssignChangePkgContent_VP"] .webpart.webpart-buttonbar {
+    width: 1120px;
+}
+
+.assigned-permissions-grid-width {
+    width: 320px;
+}
+
+.process_timer {
+    .cs-checkbox {
+        margin: 0;
+        color: #046689;
+    }
+}
+
+.overflowText .cs-label {
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100px;
+}
+
+.text-allign-left {
+    text-align: left !important;
+}
+
+
+// Side Menu bar
+.cs-command-sidebar {
+    background-color: rgba(242,242,242,1);
+    flex: 0 0 @commandBarWidth;
+    display: flex;
+    flex-direction: column;
+
+    .cs-sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .item, .item-status {
+        display: inline-flex;
+        text-align: center;
+        padding: 10%;
+        color: #333333;
+        cursor: pointer;
+
+        img.item-icon {
+            width: 80%;
+            height: calc(~"@{commandBarWidth} * 0.8");
+        }
+
+        span.item-icon {
+            width: @commandBarIcon-size;
+            height: @commandBarIcon-size;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: calc(@commandBarIcon-size - 2px) calc(@commandBarIcon-size - 2px);
+
+            &.container {
+                &-status {
+                    background-image: url(../Horizon/images/status.svg);
+                }
+
+                &-attributes {
+                    background-image: url(../Horizon/images/attributes.svg);
+                }
+
+                &-workflow {
+                    background-image: url(../Horizon/images/workflow.svg);
+                }
+
+                &-attachments {
+                    background-image: url(../Horizon/images/attachments.svg);
+                }
+
+                &-documents {
+                    background-image: url(../Horizon/images/documents.svg);
+                }
+
+                &-audit-trail {
+                    background-image: url(../Horizon/images/audit-trail.svg);
+                }
+            }
+        }
+
+        &:hover {
+            background-color: rgba(175,215,225,1);
+        }
+
+        &.active {
+            cursor: pointer;
+        }
+
+        &.action-redirect-button {
+            // this is text button
+            .button-text {
+                flex: 1 1 auto;
+                align-items: center;
+                padding-top: calc(~"@{commandBarWidth} * 0.1");
+                padding-bottom: calc(~"@{commandBarWidth} * 0.1");
+                border-radius: 8px;
+                border: solid 1px #ddd;
+                color: #fff;
+                background-image: linear-gradient(rgba(255,255,255,.3),rgba(0,0,0,.3));
+            }
+
+            &.cmdbar-cs-button-secondary {
+                .button-text {
+                    background-color: #626262;
+                    cursor: pointer;
+                }
+            }
+
+            &.cmdbar-cs-button {
+                .button-text {
+                    background-color: #2074da;
+                    cursor: pointer;
+                }
+            }
+
+            &.cmdbar-cs-button-secondary:disabled, &.cmdbar-cs-button:disabled, &.cmdbar-aspNetDisabled {
+                .button-text {
+                    background-color: #AAA;
+                    border-color: #AAA;
+                    color: #000;
+                    cursor: default;
+                }
+            }
+        }
+
+        &.hidden {
+            display: none !important;
+        }
+    }
+
+    .origin-invisible {
+        display: none;
+    }
+
+    .transaction-action {
+        display: none;
+    }
+
+    .show-transaction-panel {
+        .transaction-action {
+            display: inline-flex;
+            color: #fff;
+        }
+
+        .action-redirect-button {
+            display: none;
+        }
+    }
+}
+
+.form-container.cmdbar-sticky {
+
+    #ctl00_WebPartManager_ContainerStatus_WP_ContainerStatus_Documents {
+        visibility: hidden;
+    }
+
+    #ctl00_WebPartManager_ContainerStatus_WP_DocAttachButton {
+        visibility: hidden;
+    }
+
+    #ctl00_WebPartManager_ContainerStatus_WP_ContainerStatus_ContainerHistory {
+        visibility: hidden;
+    }
+
+    #ctl00_WebPartManager_ContainerStatus_WP_ContaineStatus_StatusDropDown {
+        .cs-image-button {
+            padding: 14px 0 0 5px;
+
+            input[type=image] {
+                width: 24px;
+                height: 24px;
+                cursor: default;
+                margin-top: 0px;
+            }
+        }
+    }
+
+    #ctl00_WebPartManager_ContainerStatus_WP_ContaineStatus_StatusDropDown:active {
+        pointer-events: none;
+    }
+
+    .webpart.cmd-buttons {
+        display: none;
+    }
+}
+
+.cs-sidebar-panel {
+    position: absolute;
+    top: 0;
+    left: calc(~"100vw - @{commandBarPanelWidth} - @{commandBarPanelCorrectionWidth}");
+    background: #ffffff;
+    border: solid 1px #aaaaaa;
+    box-shadow: rgba(0,0,0,0.4) 1px 3px inset;
+    color: #464646;
+    overflow: auto;
+    width: @commandBarPanelWidth;
+    height: @commandBarPanelHeight;
+    padding: 5px;
+    display: none;
+
+    &.extended-width {
+        width: 70vw;
+        left: calc(~"30vw - @{commandBarPanelCorrectionWidth}");
+    }
+
+    .sidebar-panel-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .header {
+            flex: 0 0 auto;
+            display: flex;
+            background-color: rgba(0,70,100,1);
+            color: #ffffff;
+            font-size: 14px;
+            padding: 10px;
+
+            .title {
+                flex: 1 1 auto;
+                font-size: 14px;
+                padding-top: 2px;
+                font-weight: bold;
+            }
+
+            .close-button {
+                flex: 0 0 auto;
+                align-self: flex-end;
+                cursor: pointer;
+            }
+
+            .close-button.desktop {
+                display: block;
+            }
+
+            .close-button.responsive {
+                display: none;
+            }
+        }
+
+        .content {
+            flex: 1 1;
+            display: flex;
+            flex-direction: column;
+            font-size: 10px;
+            color: #000000;
+            padding: 5px;
+
+            .header-content-row {
+                flex: 0 0 auto;
+                padding: 5px;
+                text-transform: uppercase;
+                display: inline-flex;
+                background-color: #d3d3d3;
+
+                .header-name {
+                    flex: 0 0 40%;
+                    font-weight: bold;
+                }
+
+                .header-value {
+                    flex: 0 0 auto;
+                    font-weight: bold;
+                    padding-left: 10px;
+                }
+
+                &.cs-container-name {
+                    background-color: transparent;
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+
+                .workflow-name {
+                    text-transform: none;
+                }
+
+                &.cs-docset {
+                    text-transform: none;
+                }
+            }
+
+            .error {
+                padding: 10px;
+            }
+
+            .iframe-container {
+                flex: 1 1;
+            }
+
+            .content-row {
+                flex: 0 0 auto;
+                padding: 4px;
+                display: inline-flex;
+
+                .name {
+                    flex: 0 0 35%;
+                    font-weight: bold;
+                }
+
+                .val {
+                    white-space: normal;
+                    overflow-x: hidden;
+                    flex: 1 1 auto;
+                    padding-left: 10px;
+                }
+
+                .action-button {
+                    width: 100%;
+                    color: rgb(20,115,145);
+                    background-color: #ffffff;
+                    border: solid 1px rgb(20,115,145);
+                    padding: 8px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-align: center;
+                    cursor: pointer;
+                }
+
+                .cmdbar-cs-button-secondary {
+                    color: #fff;
+                    background-color: #626262;
+                    background-image: linear-gradient(rgba(255,255,255,.3),rgba(0,0,0,.3));
+                }
+
+                .cmdbar-cs-button {
+                    color: #fff;
+                    background-color: #2074da;
+                    background-image: linear-gradient(rgba(255,255,255,.3),rgba(0,0,0,.3));
+                }
+
+                .cmdbar-aspNetDisabled {
+                    background-color: #AAA;
+                    border-color: #AAA;
+                    color: #000;
+                    cursor: default;
+                }
+
+                .attribute-name {
+                    flex: 0 0 40%;
+                }
+
+                .attribute-val {
+                    flex: 1 1 auto;
+                    padding-left: 10px;
+                }
+
+                &.doc-entry {
+                    font-size: 12px;
+                    cursor: pointer;
+
+                    .info {
+                        padding: 5px;
+                    }
+                }
+
+                &.doc-entry:hover {
+                    background-color: rgba(175, 215, 225,1);
+                }
+            }
+
+            .attribute-row:nth-child(odd) {
+                background-color: #d3d3d3;
+            }
+
+            .attribute-row:nth-child(even) {
+                background-color: #fff;
+            }
+        }
+    }
+}
+
+#ctl00_WebPartManager_WorkflowWP_WFViewer_ViewableAreaButton {
+    visibility: hidden;
+}
+
+span.workflow-zoom-prompt {
+    display: none;
+}
+
+.slideout-panel-workflow span.workflow-zoom-prompt {
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 4px;
+}
+
+.body-float.commandbar-panel {
+    //Tweaking of Attach Document page
+    #WebPart_AttachDocument_WP {
+        padding: 8px;
+
+        .matrix {
+            margin: 0;
+
+            .row:first-child {
+                margin: 0px;
+            }
+
+            .cell-m[key=item_r0_c0] {
+                padding: 4px 0 !important;
+            }
+        }
+
+        #ctl00_WebPartManager_AttachDocument_WP_TargetInfo_Title span.cs-title,
+        #ctl00_WebPartManager_AttachDocument_WP_DocumentInfo_Title .cs-title {
+            width: calc(~"100vw - 20px") !important;
+        }
+
+        #ctl00_WebPartManager_AttachDocument_WP_AttachDocument_Comments textarea {
+            width: calc(~"100vw - 12px") !important;
+        }
+
+        #ctl00_WebPartManager_AttachDocument_WP_AttachDocument_DocumentDescription textarea {
+            width: calc(~"100vw - 12px") !important;
+        }
+
+        .cs-radio-button {
+            width: calc(~"100vw - 15px") !important;
+            margin-top: 10px;
+            white-space: nowrap;
+
+            .cs-label {
+                white-space: normal;
+                padding-right: 8px;
+            }
+        }
+
+        .ViewDocument input.cs-button[type=submit] {
+            margin-left: 4px;
+            min-width: 90px;
+            width: 90px;
+            white-space: normal;
+            padding: 6px 4px;
+            height: auto;
+        }
+    }
+
+
+    .status-bar-fixed {
+        .webpart-buttonbar {
+            width: 100%;
+
+            .left:empty {
+                display: none;
+            }
+
+            .right, .left {
+                input {
+                    margin: 0;
+                }
+            }
+
+            .cs-button, .cs-button-secondary, .ui-button-secondary {
+                min-width: 90px;
+                white-space: normal;
+                padding-left: 2px;
+                padding-right: 2px;
+            }
+        }
+    }
+}
+
+iframe.cs-tabframe {
+    height: 100%;
+    width: 100%;
+}
+
+.ui-tabs {
+    overflow: hidden;
+    flex: 1 1 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: none repeat scroll 0 0 #F4F4F4;
+
+    .cs-nav-tabs {
+        display: flex;
+        width: 100%;
+        background-color: rgb(255,255,255);
+
+        .tabsDownMenu {
+            flex: 0 0 auto;
+            background: url(svg/cs-grd-04.svg);
+            background: linear-gradient(#d1d1d1,#969696);
+
+            div.tabsDownArrow {
+                width: 22px;
+                height: 27px;
+                border-color: #D1D1D1 #B1B1B1 #B1B1B1 #D1D1D1;
+                border-style: groove solid solid groove;
+                border-width: 2px 1px 1px 2px;
+                background: url(images/navigation/icon-down-16x16.png) no-repeat center;
+            }
+
+            .tabsMenuBorder {
+                position: absolute;
+                width: auto;
+                display: none;
+                background-image: none;
+                background-attachment: scroll;
+                background-repeat: repeat;
+                background-size: auto;
+                background-origin: padding-box;
+                background-clip: border-box;
+                .navigation-gradient;
+                min-width: 125px;
+                padding: 0 0 0 5px;
+                margin-top: 30px;
+
+                &.forFirstlevelTabs, &.forSecondlevelTabs {
+                    display: inline-block;
+                }
+
+                .tabsMenu {
+                    background: none repeat scroll 0 0 #EDEDED;
+                    border: 1px solid #C6C6C6;
+                    box-shadow: 0 0 6px 0 #c6c6c6;
+                    padding: 5px;
+
+                    .tabsElement {
+                        display: block;
+                        float: none;
+                        border: 1px solid #EDEDED;
+
+                        &:hover {
+                            .item-hover-gradient;
+                            border: 1px solid #C7C7C7;
+                            border-radius: 5px;
+                            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.32);
+                        }
+
+                        a {
+                            display: inline-block;
+                            height: 20px;
+                            white-space: nowrap;
+                            margin: 5px 5px 0 10px;
+                            padding: 2px 36px 0 0;
+                            cursor: pointer;
+                            text-decoration: none;
+                            vertical-align: top;
+                            font: 12px arial;
+                            width: inherit;
+                        }
+
+                        span {
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        &.selectedTabItem {
+                            > a {
+                                font-weight: bold;
+                            }
+
+                            > span {
+                                background: url(images/icons/icon-check-16x16.png) no-repeat bottom right;
+                            }
+                        }
+
+                        &.closeAllTabs {
+                            border-top: 1px solid #a6a6a6;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .cs-nav-wrapper {
+            flex: 1 1 auto;
+            max-width: calc( 100% - 184px );
+            overflow: hidden;
+        }
+
+        &.scrolling .cs-nav-wrapper {
+            max-width: calc( 100% - 65px );
+        }
+    }
+
+    &.wrap-mode > .cs-nav-tabs > .cs-nav-wrapper {
+        > ul {
+            white-space: normal;
+            max-width: 100%;
+            width: 100%;
+            flex-wrap: wrap;
+            height: auto;
+        }
+    }
+
+    ul.ui-tabs-nav {
+        display: inline-flex;
+        width: auto;
+        min-width: 0;
+        white-space: nowrap;
+        padding: 0;
+        background-color: #eaeaea;
+        clear: both;
+        height: 26px;
+        min-height: 28px;
+        text-align: center;
+        vertical-align: middle;
+        list-style: none;
+
+        &.pageTablist {
+            li:first-child {
+                margin-left: 0;
+            }
+        }
+
+        > li.ui-tab {
+            min-width: 0;
+            padding: 5px;
+            text-align: center;
+            margin: 0 auto;
+            width: auto;
+            margin: 0;
+            display: inline-flex;
+            float: none;
+            flex: 0 0 auto;
+
+            > a.ui-tabs-anchor {
+                color: rgba(47, 47, 47, 0.6);
+                font-size: 16px;
+                font-weight: normal;
+
+                .tab-caption-text {
+                    font-size: 16px;
+                    font-weight: normal;
+                }
+            }
+
+            &.ui-state-default {
+                white-space: nowrap;
+                background-color: #c6c6c6;
+                list-style: none outside none;
+                clear: both;
+                box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 0 1px 0 rgba(0, 0, 0, 0.5);
+                border: 1px solid #c5c0c0;
+
+                a {
+                    color: rgba(47, 47, 47, 0.6);
+                }
+            }
+
+            &.ui-state-active {
+                border: 1px solid #c5c0c0;
+                box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 0 1px 0 rgba(0, 0, 0, 0.5);
+                .item-hover-gradient;
+                box-shadow: none;
+                color: #000000;
+                cursor: pointer;
+                min-width: 75px;
+                text-shadow: 1px 1px #FFFFFF;
+                opacity: 1;
+
+                > a {
+                    color: #2f2f2f;
+                }
+            }
+
+            .ui-tabs-close {
+                background: url(images/icons/shopfloor_close.png) no-repeat;
+                width: 13px;
+                height: 12px;
+                margin: auto;
+                margin-left: 5px;
+                padding: 0px;
+            }
+
+            &:hover {
+                color: #4e4e4e;
+                opacity: 1;
+            }
+
+            &.ui-tab-hidden {
+                display: none;
+            }
+
+            .ui-tabs-anchor {
+                span.dirty-mark {
+                    font-size: smaller;
+                    visibility: hidden;
+                }
+            }
+
+            &.is-dirty span.dirty-mark {
+                visibility: visible;
+            }
+
+            a + a {
+                margin-left: 8px;
+            }
+        }
+
+        li + li {
+            margin-left: 16px;
+        }
+    }
+
+    .cs-tab-pages {
+        flex: 1 1 auto;
+        margin: 1px 0 0 0;
+
+
+        .ui-tabs-panel {
+            height: 100%;
+            width: 100%;
+            border: none;
+            overflow: hidden;
+            padding: 0;
+        }
+    }
+
+    .forFirstlevelTabs, .forSecondlevelTabs {
+        .tabArrowWrapper {
+            position: absolute;
+            width: 22px;
+            display: block;
+            background: linear-gradient(#d1d1d1,#969696);
+            height: 32px;
+        }
+    }
+
+    .tabsLeftRightArrows {
+        &:hover {
+            cursor: pointer;
+        }
+
+        flex: 0 0 auto;
+        display: none;
+
+        .tabArrowWrapper {
+            float: right;
+            width: 22px;
+            background: url(svg/cs-grd-04.svg);
+            background: linear-gradient(#d1d1d1,#969696);
+
+            .left, .right {
+                width: 19px;
+                height: 32px;
+                list-style: none outside none;
+                display: block;
+            }
+
+            .right {
+                background: url(images/navigation/icon-right-16x16.png) no-repeat center;
+            }
+
+            .left {
+                background: url(images/navigation/icon-left-16x16.png) no-repeat center;
+            }
+        }
+    }
+
+    .ui-tabs-image {
+        padding: 6px 0 0 2px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.ui-tabs .cs-tab-pages div[id*='WebPartManager_SS_WIPMain_TxnTabWP_WIPMain_TxnTab'] {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.cs-nav-tabs.scrolling .tabsLeftRightArrows {
+    display: block;
+}
+
+.ui-tabs.ui-tabs-panel-no-border {
+
+    .ui-tabs-panel {
+        border: none;
+        padding: 10px 0;
+        margin-top: -1px;
+    }
+
+    > .cs-nav-tabs > .cs-nav-wrapper > ul.ui-tabs-nav {
+        background-color: #ffffff;
+
+        > li.ui-tab {
+            padding: 7px 15px;
+            margin: 9px 1px 0 0;
+            text-align: center;
+            opacity: 0.5;
+            height: auto;
+        }
+
+        > li.ui-tab.ui-state-default {
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-bottom: none;
+            display: block;
+            color: #4e4e4e;
+            padding: 3px 10px;
+            cursor: pointer;
+            min-width: 75px;
+            margin: 9px 1px 0 0;
+            text-align: center;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+            border-radius: 5px 5px 0 0;
+            opacity: 0.50;
+            text-shadow: none;
+            .tabcontainer-span-gradient;
+
+            &:hover {
+                color: #4e4e4e;
+                opacity: 1;
+                font-weight: bold;
+            }
+        }
+
+        > li.ui-tab.ui-state-active {
+            position: inherit;
+            bottom: -1px;
+            border-bottom: 1px solid #E1E1E1;
+            box-shadow: none;
+            color: #000000;
+            margin: 0 1px 0 0;
+            font-weight: bold;
+            padding: 7px 15px;
+            text-shadow: 1px 1px #FFFFFF;
+            opacity: 1;
+
+            a.ui-tabs-anchor {
+                font-weight: bold;
+            }
+        }
+
+        a.ui-tabs-anchor {
+            font-size: 12px;
+            padding: 0;
+        }
+    }
+
+    .ui-tabs-streak {
+        display: none;
+    }
+}
+
+.hiddenMenu {
+    display: none !important;
+}
+
+//OperationViewVPR2
+.container-status-img:active {
+    pointer-events: none;
+}
+
+.container-status-img {
+    > img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.container-eproc-status-img:active {
+    pointer-events: none;
+}
+
+.container-eproc-status-img {
+    padding-left: 8px;
+}
+
+.container-eproc-status-img {
+    > img {
+        width: 32px;
+        height: 32px;
+    }
+}
+.hidden-row {
+    width: 0px;
+    height: 0px;
+}
+
+// Change manager. It was added icons.
+.ui-webpart-cmsearch {
+    .cs-nav-tabs {
+        .cs-nav-wrapper {
+            .ui-tabs-nav {
+                > li.ui-state-default {
+                    a {
+                        padding-right: 20px;
+                        background: url("images/icons/icon-filter-16x16.png") no-repeat right center transparent;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.trainingRecManageButton {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#popup_container.html-content {
+    height: 60%;
+    width: 60%;
+}
+
+//Bug 267240:EXCR: UI: EProcedure: Data Points: UI on page is broken 
+#ctl00_WebPartManager_EProcDCWP_DCParamDataField {
+    overflow: auto !important;
+}
+
+.cs-command-sidebar .matrix-cmdbar-aspNetDisabled {
+    opacity: .4;
+    cursor: default;
+}
+
+.HideRevLA #ctl00_WebPartManager_LineAssignmentWP_Control_Spec_Rev {
+    display: none;
+}
+
+#ctl00_WebPartManager_DetailsGroupWP_SessionValues_Spec_LA_Panl .viewer li.jstree-closed > i.jstree-icon,
+#ctl00_WebPartManager_GeneralGroupWP_ObjectChanges_Spec_LA_Panl .viewer li.jstree-closed > i.jstree-icon,
+#ctl00_WebPartManager_DetailsGroupWP1_SessionValues_Spec_LA_Panl .viewer li.jstree-closed > i.jstree-icon {
+    pointer-events: none;
+    visibility: hidden;
+}

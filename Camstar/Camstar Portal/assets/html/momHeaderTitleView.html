@@ -1,0 +1,28 @@
+ <!-- Left (HEADER) Area -->
+ <aw-column class="awHeader" width="fill" justify="left" ng-class="{momHeaderIcon: subPanelContext.headerViewModel.typeIconURL, momHeaderProperties: ctx.momHeaderContributedView}">
+     <aw-row align-content="center" class="aw-layout-headerTitleContainer">
+         <aw-header-title exist-when="!ctx.breadCrumbConfig" headerVMO="subPanelContext.headerViewModel" headerTitle="ctx['location.titles'].headerTitle" headerProperties="subPanelContext.headerProperties"></aw-header-title>
+         <div class="aw-layout-headerLeft aw-layout-flexRowContainer aw-layout-locationTitlePanel" exist-when="ctx.breadCrumbConfig">
+             <div class="aw-layout-flexColumnContainer">
+                 <div class="aw-layout-headerIcon" exist-when="subPanelContext.headerViewModel">
+                     <aw-model-icon exist-when="subPanelContext.headerViewModel.props" vmo="subPanelContext.headerViewModel"></aw-model-icon>
+                 </div>
+             </div>
+             <aw-workarea-title breadcrumb-config="ctx.breadCrumbConfig"></aw-workarea-title>
+         </div>
+     </aw-row>
+     <aw-row exist-when="!ctx.fullscreen" class="aw-layout-headerPropContainer aw-layout-flexRowContainer">
+         <!-- Header Visual Indicator -->
+         <div class="aw-layout-flexRowContainer">
+             <aw-visual-indicator ng-if="subPanelContext.headerVMO.indicators.length > 0" vmo="subPanelContext.headerVMO"></aw-visual-indicator>
+         </div>
+         <!-- PlaceHolder for other applications. -->
+         <div class="aw-layout-flexRowContainer aw-layout-headerContribution" ng-if="ctx.momHeaderContributedView">
+             <aw-include name="{{ctx.momHeaderContributedView}}" sub-panel-context="subPanelContext"></aw-include>
+         </div>
+         <!-- Header Properties -->
+         <div class="aw-layout-flexRowContainer">
+             <aw-header-props headerProperties="headerProperties"></aw-header-props>
+         </div>
+     </aw-row>
+ </aw-column>

@@ -1,0 +1,1427 @@
+--------------------------------------------------------------------------------
+-- SCRIPT:isPopulateDefaultUserQuery.sql
+-- DESCR: Creates IS stored procedures used to create New User Query
+--        and then uses those stored procedures to populate the default user queries
+--
+-- Copyright Siemens 2024  
+
+--------------------------------------------------------------------------------
+-- PROCEDURE: isSTInstall_CreateNewUserQuery
+-- DESCR: 
+--
+-- Copyright Siemens 2019  
+
+IF EXISTS (SELECT name 
+	   FROM   sysobjects 
+	   WHERE  name = 'isSTInstall_CreateNewUserQuery' 
+	   AND 	  type = 'P')
+    DROP PROCEDURE isSTInstall_CreateNewUserQuery
+GO
+CREATE PROCEDURE isSTInstall_CreateNewUserQuery(@Name NVARCHAR(255)
+                                                      ,@Description NVARCHAR(512)
+                                                      ,@Notes NVARCHAR(512)
+                                                      ,@QueryText NVARCHAR(MAX)                                                      
+                                                      ,@IsFrozen BIT
+                                                      ,@Param1Name NVARCHAR(50)
+                                                      ,@Param1Type INT
+                                                      ,@Param2Name NVARCHAR(50)
+                                                      ,@Param2Type INT
+                                                      ,@Param3Name NVARCHAR(50)
+                                                      ,@Param3Type INT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @InstanceID CHAR(16)
+    DECLARE @CurrInstanceID CHAR(16)
+    DECLARE @CDODefId INT
+    DECLARE @ParamCDODefId INT
+    DECLARE @ParamFieldId INT
+    DECLARE @QueryTypeId INT
+    DECLARE @IID CHAR(16)
+    SET @CDODefId=7068
+    SET @ParamCDODefId=7071
+    SET @ParamFieldId=8597
+    SET @QueryTypeId = 4
+    
+    -- Remove the existing UserQuery and its Parameters, if it exists
+    IF EXISTS (SELECT UserQueryId
+               FROM UserQuery
+               WHERE UserQueryName = @Name)
+    BEGIN
+       SELECT @CurrInstanceID=UserQueryId
+               FROM UserQuery
+               WHERE UserQueryName = @Name
+               
+       DELETE FROM UserQueryParameter WHERE UserQueryId = @CurrInstanceID
+       DELETE FROM UserQueryUserQueryParameters WHERE UserQueryId = @CurrInstanceID
+       DELETE FROM UserQuery WHERE UserQueryName = @Name
+    END
+
+    EXEC csiPRDGetNextInstanceId @CDODefId,@InstanceId OUTPUT
+    INSERT INTO UserQuery(UserQueryId
+                         ,UserQueryName
+                         ,Description
+                         ,Notes
+                         ,QueryText
+                         ,IsFrozen
+                         ,CDOTypeId
+                         ,QueryTypeId)
+       VALUES (@InstanceId
+              ,@Name
+              ,@Description
+              ,@Notes
+              ,@QueryText
+              ,@IsFrozen
+              ,@CDODefId
+              ,@QueryTypeId)
+    IF (@Param1Name IS NOT NULL)
+    BEGIN       
+       EXEC csiPRDGetNextInstanceId @ParamCDODefId,@IID OUTPUT
+       INSERT INTO UserQueryParameter (UserQueryParameterId,CDOTypeId,UserQueryParameterName,UserQueryId,IsFrozen,DataType,ChangeCount)
+       VALUES (@IID,@ParamCDODefId,@Param1Name,@InstanceID,@IsFrozen,@Param1Type,0)
+       --
+       INSERT INTO UserQueryUserQueryParameters (FieldId,Sequence,UserQueryId,UserQueryParametersId)
+       VALUES (@ParamFieldId,1,@InstanceID,@IID)
+    END
+    
+    IF (@Param2Name IS NOT NULL)
+    BEGIN       
+       EXEC csiPRDGetNextInstanceId @ParamCDODefId,@IID OUTPUT
+       INSERT INTO UserQueryParameter (UserQueryParameterId,CDOTypeId,UserQueryParameterName,UserQueryId,IsFrozen,DataType,ChangeCount)
+       VALUES (@IID,@ParamCDODefId,@Param2Name,@InstanceID,@IsFrozen,@Param2Type,0)
+       --
+       INSERT INTO UserQueryUserQueryParameters (FieldId,Sequence,UserQueryId,UserQueryParametersId)
+       VALUES (@ParamFieldId,2,@InstanceID,@IID)
+    END
+    
+    IF (@Param3Name IS NOT NULL)
+    BEGIN       
+       EXEC csiPRDGetNextInstanceId @ParamCDODefId,@IID OUTPUT
+
+       INSERT INTO UserQueryParameter (UserQueryParameterId,CDOTypeId,UserQueryParameterName,UserQueryId,IsFrozen,DataType,ChangeCount)
+       VALUES (@IID,@ParamCDODefId,@Param3Name,@InstanceID,@IsFrozen,@Param3Type,0)
+       --
+       INSERT INTO UserQueryUserQueryParameters (FieldId,Sequence,UserQueryId,UserQueryParametersId)
+       VALUES (@ParamFieldId,3,@InstanceID,@IID)
+    END
+END
+GO
+IF EXISTS (SELECT name 
+	   FROM   sysobjects 
+	   WHERE  name = 'isSTInstall_PopulateDefaultUserQueryData' 
+	   AND 	  type = 'P')
+    DROP PROCEDURE isSTInstall_PopulateDefaultUserQueryData
+GO
+CREATE PROCEDURE isSTInstall_PopulateDefaultUserQueryData
+AS
+DECLARE @SQLString NVARCHAR(MAX)
+BEGIN
+    SET NOCOUNT ON;
+    
+SET @SQLString = convert(nvarchar(max), N'') + N'Select
+	CASE WHEN RPD.RecipeBaseId IS NOT NULL AND RPD.RecipeBaseId != "0000000000000000" 
+			THEN ( SELECT PBX.RevOfRcdId FROM DocumentBase PBX 
+				WHERE PBX.DocumentBaseId = RPD.RecipeBaseId )
+		            WHEN RPD.RecipeId IS NULL OR RPD.RecipeId = "0000000000000000" 
+			THEN NULL ELSE RPD.RecipeId END AS RecipeId
+	, RPD.ResourceId
+	, CASE WHEN RPD.SpecBaseId IS NOT NULL AND RPD.SpecBaseId != "0000000000000000"  
+			THEN ( SELECT PBX.RevOfRcdId FROM SpecBase PBX 
+				WHERE PBX.SpecBaseId = RPD.SpecBaseId )
+		            WHEN RPD.SpecId IS NULL OR RPD.SpecId = "0000000000000000" 
+			THEN NULL ELSE RPD.SpecId END AS SpecId
+	, CAST(ROW_NUMBER() OVER (ORDER BY CASE WHEN RPD.ResourceId IS NULL THEN 0 ELSE 1 END DESC
+	, CASE WHEN RPD.SpecId IS NULL THEN 0 ELSE 1 END DESC
+	, CASE WHEN RPD.SpecBaseId IS NULL OR RPD.SpecBaseId = "0000000000000000" THEN 0 ELSE 1 END DESC) AS INT) RN
+FROM
+	isRecipePlanDetails RPD
+	LEFT OUTER JOIN Document D ON RPD.RecipeId = D.DocumentId
+	LEFT OUTER JOIN DocumentBase DB ON D.DocumentBaseId = DB.DocumentBaseId
+	LEFT OUTER JOIN Spec S ON RPD.SpecId = S.SpecId
+    LEFT OUTER JOIN SpecBase SB ON S.SpecBaseId = SB.SpecBaseId
+WHERE 
+	RPD.isRecipePlanId = ?isRecipePlan 
+	AND (RPD.ResourceId = ?Resource OR RPD.ResourceId IS NULL) 
+	AND (RPD.SpecId LIKE ?Spec OR RPD.SpecId IS NULL 
+		OR (RPD.SpecBaseId IS NOT NULL AND RPD.SpecBaseId != "0000000000000000" AND 
+		RPD.SpecBaseId = (SELECT PBX.SpecBaseId FROM Spec PBX WHERE PBX.SpecId= ?Spec))) '
+
+    
+   EXEC isSTInstall_CreateNewUserQuery 'isRecipePlan_Selection','Do not delete. Default Query used by Recipe Plan.','Do not delete.',@SQLString,0,'isRecipePlan',5,'Resource',5,'Spec',5
+    
+       
+END
+GO
+EXEC isSTInstall_PopulateDefaultUserQueryData
+GO
+DROP PROCEDURE isSTInstall_CreateNewUserQuery
+GO
+DROP PROCEDURE isSTInstall_PopulateDefaultUserQueryData
+GO
+
+IF EXISTS (SELECT name 
+	   FROM   sysobjects 
+	   WHERE  name = 'csiSTInstall_CreateNewDefinition' 
+	   AND 	  type = 'P')
+    DROP PROCEDURE csiSTInstall_CreateNewDefinition
+GO
+CREATE PROCEDURE csiSTInstall_CreateNewDefinition(@Name NVARCHAR(255)
+                                                      ,@Description NVARCHAR(512)
+                                                      ,@Notes NVARCHAR(512)
+                                                      ,@SummarySQL NVARCHAR(MAX)
+                                                      ,@IsView BIT
+                                                      ,@TableName NVARCHAR(255)
+                                                      ,@IsManuallyExecuted BIT
+                                                      ,@ScheduleDaysOfWeek NVARCHAR(255)
+                                                      ,@ScheduleDaysOfMonth NVARCHAR(255)
+                                                      ,@ScheduleHours NVARCHAR(255)
+                                                      ,@ScheduleMonths NVARCHAR(255)
+                                                      ,@IsFrozen BIT
+                                                      ,@IsEnabled BIT)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @CDODefId INT
+    DECLARE @InstanceId CHAR(16)
+    SET @CDODefId=8236
+    DECLARE @summDefExists INT
+
+    SELECT @summDefExists = COUNT(1) FROM SummaryTableDef WHERE SummaryTableDefName = @Name
+
+	IF @summDefExists = 0
+	BEGIN
+		EXEC csiPRDGetNextInstanceId @CDODefId,@InstanceId OUTPUT
+		INSERT INTO SummaryTableDef(SummaryTableDefId
+								   ,SummaryTableDefName
+								   ,Description
+								   ,Notes
+								   ,SummarySQL
+								   ,IsView
+								   ,TargetTableName
+								   ,IsManuallyExecuted
+								   ,ScheduleDaysOfWeek
+								   ,ScheduleDaysOfMonth
+								   ,ScheduleHours
+								   ,ScheduleMonths
+								   ,IsFrozen
+								   ,CDOTypeId
+								   ,ChangeCount
+								   ,IsEnabled)
+		   VALUES (@InstanceId
+				  ,@Name
+				  ,@Description
+				  ,@Notes
+				  ,@SummarySQL
+				  ,@IsView
+				  ,@TableName
+				  ,@IsManuallyExecuted
+				  ,@ScheduleDaysOfWeek
+				  ,@ScheduleDaysOfMonth
+				  ,@ScheduleHours
+				  ,@ScheduleMonths
+				  ,@IsFrozen
+				  ,@CDODefId
+				  ,0
+				  ,@IsEnabled)
+	END
+END
+GO
+--------------------------------------------------------------------------------
+-- PROCEDURE: csiSTInstall_PopulateDefaultData
+-- DESCR: Helper function to create summary table def
+--
+-- Copyright Siemens 2024  
+
+IF EXISTS (SELECT name 
+	   FROM   sysobjects 
+	   WHERE  name = 'csiSTInstall_PopulateDefaultData' 
+	   AND 	  type = 'P')
+    DROP PROCEDURE csiSTInstall_PopulateDefaultData
+GO
+CREATE PROCEDURE csiSTInstall_PopulateDefaultData
+AS
+DECLARE @SQLString NVARCHAR(MAX)
+BEGIN
+    SET NOCOUNT ON;
+    
+   SET @SQLString= convert(nvarchar(max), N'') + N'SELECT '+
+	'CalendarDate as CALENDARDATE, '+
+	'CalendarShiftId as CALENDARSHIFTID, '+
+	'CDOTypeId as CDOTYPEID, '+
+	'ChangeCount as CHANGECOUNT, '+
+	'ChildCount as CHILDCOUNT, '+
+	'ContainerId as CONTAINERID, '+
+	'ContainerName as CONTAINERNAME, '+
+	'CycleStartGMT as CYCLESTARTGMT, '+
+	'CycleTime as CYCLETIME, '+
+	'EmployeeId as EMPLOYEEID, '+
+	'EmployeeName as EMPLOYEENAME, '+
+	'EquipmentCycleTimeMS as EQUIPMENTCYCLETIMEMS, '+
+	'FactoryId as FACTORYID, '+
+	'FactoryName as FACTORYNAME, '+
+	'GoodQty as GOODQTY, '+
+	'GoodQty2 as GOODQTY2, '+
+	'HistoryMainlineId as HISTORYMAINLINEID, '+
+	'IdealCycleTime as IDEALCYCLETIME, '+
+	'isERPOperation as ISERPOPERATION, '+
+	'isFailed as ISFAILED, '+
+	'isFailedQty as ISFAILEDQTY, '+
+	'isOEERawDetailsId as ISOEERAWDETAILSID, '+
+	'isOEERawDetailsName as ISOEERAWDETAILSNAME, '+
+	'isOpenDefectCount as ISOPENDEFECTCOUNT, '+
+	'isQty as ISQTY, '+
+	'isRecipeName as ISRECIPENAME, '+
+	'isRepairedDefectCount as ISREPAIREDDEFECTCOUNT, '+
+	'isRouteStepName as ISROUTESTEPNAME, '+
+	'isTotalDefectCount as ISTOTALDEFECTCOUNT, '+
+	'LossQty as LOSSQTY, '+
+	'LossQty2 as LOSSQTY2, '+
+	'MfgOrderId as MFGORDERID, '+
+	'MfgOrderName as MFGORDERNAME, '+
+	'OperationId as OPERATIONID, '+
+	'OperationName as OPERATIONNAME, '+
+	'OwnerName as OWNERNAME, '+
+	'ParentId as PARENTID, '+
+	'ProcessTime as PROCESSTIME, '+
+	'ProductFamilyId as PRODUCTFAMILYID, '+
+	'ProductFamilyName as PRODUCTFAMILYNAME, '+
+	'ProductId as PRODUCTID, '+
+	'ProductName as PRODUCTNAME, '+
+	'ProductRevision as PRODUCTREVISION, '+
+	'QtyAdjustReason as QTYADJUSTREASON, '+
+	'QueueTime as QUEUETIME, '+
+	'RecipeId as RECIPEID, '+
+	'RecipeName as RECIPENAME, '+
+	'ResourceFamilyId as RESOURCEFAMILYID, '+
+	'ResourceFamilyName as RESOURCEFAMILYNAME, '+
+	'ResourceId as RESOURCEID, '+
+	'ResourceName as RESOURCENAME, '+
+	'ReworkedQty as REWORKEDQTY, '+
+	'ReworkedQty2 as REWORKEDQTY2, '+
+	'ReworkReason as REWORKREASON, '+
+	'RouteStepId as ROUTESTEPID, '+
+	'Shift as SHIFT, '+
+	'SpecId as SPECID, '+
+	'SpecName as SPECNAME, '+
+	'SpecRevision as SPECREVISION, '+
+	'StartParentContainerId as STARTPARENTCONTAINERID, '+
+	'StepId as STEPID, '+
+	'StepName as STEPNAME, '+
+	'StepPass as STEPPASS, '+
+	'TotalQty as TOTALQTY, '+
+	'TotalQty2 as TOTALQTY2, '+
+	'TxnDate as TXNDATE, '+
+	'TxnDateGMT as TXNDATEGMT, '+
+	'TxnName as TXNNAME, '+
+	'TxnType as TXNTYPE, '+
+	'UOM as UOM, '+
+	'UOM2 as UOM2, '+
+	'WorkflowId as WORKFLOWID, '+
+	'WorkflowName as WORKFLOWNAME, '+
+	'WorkflowRevision as WORKFLOWREVISION, '+
+	'WorkflowStepSequence as WORKFLOWSTEPSEQUENCE '+
+	'FROM isOEERawDetails '+
+	'where DATEDIFF(day,TxnDate,GETDATE()) <=90'
+
+    EXEC csiSTInstall_CreateNewDefinition N'ISRVOEERAWDETAILS', 
+										  'OEE Raw details', 
+										  NULL, 
+										  @SQLString, 
+										  1, 
+										  'ISRVOEERAWDETAILS', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1   
+
+	
+	                                      
+	SET @SQLString= convert(nvarchar(max), N'') + N'SELECT '+
+	'c.BatchComments as BATCHCOMMENTS, '+
+	'c.BatchId as BATCHID, '+
+	'c.BatchStatus as BATCHSTATUS, '+
+	'c.BillOfProcessId as BILLOFPROCESSID, '+
+	'c.BinSize as BINSIZE, '+
+	'c.BOMId as BOMID, '+
+	'c.CDOTypeId as CDOTYPEID, '+
+	'c.ChangeCount as CHANGECOUNT, '+
+	'c.ChildCount as CHILDCOUNT, '+
+	'c.ConsumingOrder as CONSUMINGORDER, '+
+	'c.ContainerComments as CONTAINERCOMMENTS, '+
+	'c.ContainerId as CONTAINERID, '+
+	'c.ContainerName as CONTAINER, '+
+	'c.ContainerStartGUID as CONTAINERSTARTGUID, '+
+	'c.CurrentHoldCount as CURRENTHOLDCOUNT, '+
+	'c.CurrentStatusId as CURRENTSTATUSID, '+
+	'c.CurrentThruputChildCount as CURRENTTHRUPUTCHILDCOUNT, '+
+	'c.CurrentThruputQty as CURRENTTHRUPUTQTY, '+
+	'c.CurrentThruputQty2 as CURRENTTHRUPUTQTY2, '+
+	'c.CurrentThruputUnitCount as CURRENTTHRUPUTUNITCOUNT, '+
+	'c.CustomerId as CUSTOMERID, '+
+	'c.DateCode as DATECODE, '+
+	'c.Description as DESCRIPTION, '+
+	'c.DetailId as DETAILID, '+
+	'c.Direction as DIRECTION, '+
+	'c.DueDate as DUEDATE, '+
+	'c.DueDateGMT as DUEDATEGMT, '+
+	'c.ExpirationDate as EXPIRATIONDATE, '+
+	'c.ExpirationDateGMT as EXPIRATIONDATEGMT, '+
+	'c.FactoryStartDate as FACTORYSTARTDATE, '+
+	'c.FactoryStartDateGMT as FACTORYSTARTDATEGMT, '+
+	'c.FactoryStartQty as FACTORYSTARTQTY, '+
+	'c.FactoryStartQty2 as FACTORYSTARTQTY2, '+
+	'c.FactoryStartUOM2Id as FACTORYSTARTUOM2ID, '+
+	'c.FactoryStartUOMId as FACTORYSTARTUOMID, '+
+	'c.HoldReasonId as HOLDREASONID, '+
+	'c.InQualityControl as INQUALITYCONTROL, '+
+	'c.isAssociatedCarrierId as ASSOCIATEDCARRIERID, '+
+	'c.isAutoStart as AUTOSTART, '+
+	'c.isCarrier as CARRIER, '+
+	'c.isCarrierSlot as CARRIERSLOT, '+
+	'c.isFailed as FAILED, '+
+	'c.isHoldReasonName as HOLDREASON, '+
+	'c.isInventoryLocationId as INVENTORYLOCATIONID, '+
+	'c.isMaterialManageEnabled as MATERIALMANAGEENABLED, '+
+	'c.isProductName as PRODUCT, '+
+	'c.isProductRevision as PRODUCTREVISION, '+
+	'c.isRepairedDefectCount as REPAIREDDEFECTCOUNT, '+
+	'c.IssuedToContainerId as ISSUEDTOCONTAINERID, '+
+	'c.LastActivityDate as LASTACTIVITYDATE, '+
+	'c.LastActivityDateGMT as LASTACTIVITYDATEGMT, '+
+	'c.LastCarrierId as LASTCARRIERID, '+
+	'c.LastCompletionDate as LASTCOMPLETIONDATE, '+
+	'c.LastCompletionDateGMT as LASTCOMPLETIONDATEGMT, '+
+	'c.LastRevTxnId as LASTREVTXNID, '+
+	'c.LeadFree as LEADFREE, '+
+	'c.LevelId as LEVELID, '+
+	'c.MasterRecipeId as MASTERRECIPEID, '+
+	'c.MfgOrderId as MFGORDERID, '+
+	'c.MfgPartNumber as MFGPARTNUMBER, '+
+	'c.NickName as NICKNAME, '+
+	'c.OnHoldDate as ONHOLDDATE, '+
+	'c.OriginalContainerId as ORIGINALCONTAINERID, '+
+	'c.OriginalFactoryId as ORIGINALFACTORYID, '+
+	'c.OriginalQty as ORIGINALQTY, '+
+	'c.OriginalQty2 as ORIGINALQTY2, '+
+	'c.OriginalStartDate as ORIGINALSTARTDATE, '+
+	'c.OriginalStartDateGMT as ORIGINALSTARTDATEGMT, '+
+	'c.OriginalUOM2Id as ORIGINALUOM2ID, '+
+	'c.OriginalUOMId as ORIGINALUOMID, '+
+	'c.OwnerId as OWNERID, '+
+	'c.ParentContainerId as PARENTCONTAINERID, '+
+	'c.PlannedProductId as PLANNEDPRODUCTID, '+
+	'c.PlannedQty as PLANNEDQTY, '+
+	'c.PlannedQty2 as PLANNEDQTY2, '+
+	'c.PlannedQtyUOM2Id as PLANNEDQTYUOM2ID, '+
+	'c.PlannedQtyUOMId as PLANNEDQTYUOMID, '+
+	'c.PlannedStartDate as PLANNEDSTARTDATE, '+
+	'c.PlannedStartDateGMT as PLANNEDSTARTDATEGMT, '+
+	'c.PriorityCodeId as PRIORITYCODEID, '+
+	'c.ProductId as PRODUCTID, '+
+	'c.ProductionComplete as PRODUCTIONCOMPLETE, '+
+	'c.Qty as QTY, '+
+	'c.Qty2 as QTY2, '+
+	'c.RelativePriority as RELATIVEPRIORITY, '+
+	'c.RequestDate as REQUESTDATE, '+
+	'c.RequestDateGMT as REQUESTDATEGMT, '+
+	'c.SalesOrderId as SALESORDERID, '+
+	'c.SamplingLotId as SAMPLINGLOTID, '+
+	'c.SamplingPassed as SAMPLINGPASSED, '+
+	'c.SamplingRequired as SAMPLINGREQUIRED, '+
+	'c.ShapeName as SHAPENAME, '+
+	'c.SPCChartSaveOptionsEnumId as SPCCHARTSAVEOPTIONSENUMID, '+
+	'c.SpecStatusId as SPECSTATUSID, '+
+	'c.SplitFromId as SPLITFROMID, '+
+	'c.StartParentContainerId as STARTPARENTCONTAINERID, '+
+	'c.StartReasonId as STARTREASONID, '+
+	'c.Status as STATUS, '+
+	'c.Supplier as SUPPLIER, '+
+	'c.SupplyFromName as SUPPLYFROMNAME, '+
+	'c.SupplyFromType as SUPPLYFROMTYPE, '+
+	'c.ThisContainerLost as THISCONTAINERLOST, '+
+	'c.ThruputAdjustmentChildCount as THRUPUTADJUSTMENTCHILDCOUNT, '+
+	'c.ThruputAdjustmentQty as THRUPUTADJUSTMENTQTY, '+
+	'c.ThruputAdjustmentQty2 as THRUPUTADJUSTMENTQTY2, '+
+	'c.ThruputAdjustmentUnitCount as THRUPUTADJUSTMENTUNITCOUNT, '+
+	'c.UnitCount as UNITCOUNT, '+
+	'c.UOM2Id as UOM2ID, '+
+	'c.UOMId as UOMID, '+
+	'c.VendorItemId as VENDORITEMID, '+
+	'c.WIPMsgDefMgrId as WIPMSGDEFMGRID, '+
+	'cs.CarrierId as CARRIERID, '+
+	'cs.CDOTypeId as CDOTYPEID_CS, '+
+	'cs.ChangeCount as CHANGECOUNT_CS, '+
+	'cs.CurrentStepPass as CURRENTSTEPPASS, '+
+	'cs.FactoryId as FACTORYID, '+
+	'cs.InitialRecipeListId as INITIALRECIPELISTID, '+
+	'cs.InProcess as INPROCESS, '+
+	'cs.InQueueTime as INQUEUETIME, '+
+	'cs.InRework as INREWORK, '+
+	'cs.isFactoryName as ISFACTORYNAME, '+
+	'cs.isOperationName as ISOPERATIONNAME, '+
+	'cs.isOpStartQty as ISOPSTARTQTY, '+
+	'cs.isOpStartQty2 as ISOPSTARTQTY2, '+
+	'cs.isResourceName as ISRESOURCENAME, '+
+	'cs.isRouteStepId as ISROUTESTEPID, '+
+	'cs.isSpecName as ISSPECNAME, '+
+	'cs.isSpecRevision as ISSPECREVISION, '+
+	'cs.isWorkflowName as ISWORKFLOWNAME, '+
+	'cs.isWorkflowRevision as ISWORKFLOWREVISION, '+
+	'cs.isWorkflowStepName as ISWORKFLOWSTEPNAME, '+
+	'cs.isWorkflowStepSequence as ISWORKFLOWSTEPSEQUENCE, '+
+	'cs.LastCompletedTaskId as LASTCOMPLETEDTASKID, '+
+	'cs.LastMoveDate as LASTMOVEDATE, '+
+	'cs.LastMoveDateGMT as LASTMOVEDATEGMT, '+
+	'cs.LastRevTxnId as LASTREVTXNID_CS, '+
+	'cs.LocationId as LOCATIONID, '+
+	'cs.LoopPass as LOOPPASS, '+
+	'cs.ResourceId as RESOURCEID, '+
+	'cs.ReworkLoopCount as REWORKLOOPCOUNT, '+
+	'cs.ReworkTotalCount as REWORKTOTALCOUNT, '+
+	'cs.SpecId as SPECID, '+
+	'cs.StepEntryTxnId as STEPENTRYTXNID, '+
+	'cs.TimersCount as TIMERSCOUNT, '+
+	'cs.WorkflowStepId as WORKFLOWSTEPID, '+
+	'cs.WorkstationId as WORKSTATIONID '+
+	'From Container c '+
+	'join CurrentStatus cs '+
+	'on c.CurrentStatusId=cs.CurrentStatusId '+
+	'where DATEDIFF(day,cs.LastMoveDate,GETDATE()) <=90'
+
+
+	EXEC csiSTInstall_CreateNewDefinition N'ISRVWIP',
+	                                      N'WIP Details',
+	                                      N' ',
+	                                      @SQLString,
+	                                      1,
+	                                      'ISRVWIP',
+	                                      0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1   
+
+	           
+SET @SQLString= convert(nvarchar(max), N'') + N'SELECT CAST(DPHD.DATAVALUE AS DECIMAL) AS VALUE , '+
+	'DPHD.DATANAME , '+
+	'CAST(DPHD.LOWERLIMIT AS DECIMAL) AS LOWERLIMIT , '+
+	'CAST(DPHD.UPPERLIMIT AS DECIMAL) AS UPPERLIMIT , '+
+	'DPHD.DATATYPE , '+
+	'HML.TXNDATE , '+
+	'HML.CONTAINERID , '+
+	'C.CONTAINERNAME  '+
+	'FROM DATAPOINTHISTORYDETAIL DPHD '+
+	'INNER JOIN HISTORYMAINLINE HML '+
+	'ON DPHD.TXNID = HML.TXNID '+
+	'INNER JOIN CONTAINER C ON HML.CONTAINERID = C.CONTAINERID '+
+	'WHERE DATATYPE IN (9,3,2,1) '+
+	'AND DATEDIFF(day,HML.TXNDATE,GETDATE()) <=90'
+
+    EXEC csiSTInstall_CreateNewDefinition N'ISRVDATAPOINTHISTORY', 
+										  'Data Points History', 
+										  NULL, 
+										  @SQLString, 
+										  1, 
+										  'ISRVDATAPOINTHISTORY', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1   
+
+
+SET @SQLString= convert(nvarchar(max), N'') + N'SELECT CalendarDate as CALENDARDATE '+
+	',CalendarShiftId as CALENDARSHIFTID '+
+	',ChildCount as CHILDCOUNT '+
+	',CompletedDate as COMPLETEDDATE '+
+	',CompletedDateGMT as COMPLETEDDATEGMT '+
+	',ContainerId as CONTAINERID '+
+	',ContainerName as CONTAINERNAME '+
+	',ElapsedTime as ELAPSEDTIME '+
+	',EmployeeId as EMPLOYEEID '+
+	',EmployeeName as EMPLOYEENAME '+
+	',EndQty as ENDQTY '+
+	',EndQty2 as ENDQTY2 '+
+	',EquipmentCycleTimeMS as EQUIPMENTCYCLETIMEMS '+
+	',FactoryId as FACTORYID '+
+	',FactoryName as FACTORYNAME '+
+	',FactoryStartDate as FACTORYSTARTDATE '+
+	',FactoryStartDateGMT as FACTORYSTARTDATEGMT '+
+	',isCompletedWIPSummaryId as ISCOMPLETEDWIPSUMMARYID '+
+	',isCompletedWIPSummaryName as ISCOMPLETEDWIPSUMMARYNAME '+
+	',isFailedQty as ISFAILEDQTY '+
+	',isOpenDefectCount as ISOPENDEFECTCOUNT '+
+	',isTotalDefectCount as ISTOTALDEFECTCOUNT '+
+	',MfgOrderId as MFGORDERID '+
+	',MfgOrderName as MFGORDERNAME '+
+	',OperationId as OPERATIONID '+
+	',OperationName as OPERATIONNAME '+
+	',OwnerId as OWNERID '+
+	',OwnerName as OWNERNAME '+
+	',ParentId as PARENTID '+
+	',( CASE 
+        WHEN PastDue = 1 THEN 1
+        ELSE 0 
+    END) AS PASTDUE '+
+	',PlannedCompletionDate as PLANNEDCOMPLETIONDATE '+
+	',PlannedCompletionDateGMT as PLANNEDCOMPLETIONDATEGMT '+
+	',ProductId as PRODUCTID '+
+	',ProductName as PRODUCTNAME '+
+	',ProductRevision as PRODUCTREVISION '+
+	',RecipeId as RECIPEID '+
+	',RecipeName as RECIPENAME '+
+	',ResourceId as RESOURCEID '+
+	',ResourceName as RESOURCENAME '+
+	',ShiftName as SHIFTNAME '+
+	',SpecId as SPECID '+
+	',SpecName as SPECNAME '+
+	',SpecRevision as SPECREVISION '+
+	',StartQty as STARTQTY '+
+	',StartQty2 as STARTQTY2 '+
+	',TimePassedCompletionDate as TIMEPASSEDCOMPLETIONDATE '+
+	',TxnType as TXNTYPE '+
+	',UOM2Name as UOM2NAME '+
+	',UOMName as UOMNAME '+
+	',WorkflowId as WORKFLOWID '+
+	',WorkflowName as WORKFLOWNAME '+
+	',WorkflowRevision as WORKFLOWREVISION '+
+	',WorkflowStepId as WORKFLOWSTEPID '+
+	',WorkflowStepName as WORKFLOWSTEPNAME '+
+	'FROM ISCOMPLETEDWIPSUMMARY '+
+	'WHERE DATEDIFF(day,CompletedDate,GETDATE()) <=90'
+
+    EXEC csiSTInstall_CreateNewDefinition N'ISRVCOMPLETEWIPSUMM', 
+										  'Completed WIP Summary', 
+										  NULL, 
+										  @SQLString, 
+										  1, 
+										  'ISRVCOMPLETEWIPSUMM', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1  
+
+SET @SQLString= convert(nvarchar(max), N'') + N'SELECT  '+
+	'A.FULLNAME AS [EMPLOYEE], '+
+	'A.TRAININGPLAN AS [TRAINING PLAN],'+
+	'A.SUBTRAININGPLAN AS [SUB TRAINING PLAN],'+
+	'CASE WHEN ISNULL(TRAININGSUBTRAININGREQREV, '''') = '''' '+
+	'THEN [TRAININGSUBTRAININGREQUIREMENT] '+
+	'ELSE [TRAININGSUBTRAININGREQUIREMENT] + '' ('' + [TRAININGSUBTRAININGREQREV] + '')'' '+
+	'END AS [TRAINING REQUIREMENT(REV)], '+
+	'A.TARGETTRAININGDATE AS [TARGET TRAINING DATE], '+
+	'CASE '+
+	'WHEN ISNULL(TRAININGRECORDEXPIRATIONDATE, '''') = '''' THEN ''NOT ASSIGNED'' '+
+	'WHEN TRAININGRECORDEXPIRATIONDATE > GETDATE() THEN ''VALID'' '+
+	'ELSE ''NOT VALID'' '+
+	'END AS [TRAINING RECORD],TRAININGRECORDEXPIRATIONDATE, '+
+	'TRAININGRECORDSTATUS AS [TRAINING PERMISSION] '+
+	'FROM  '+
+	'(SELECT  '+
+	'EMPLOYEE.EMPLOYEENAME AS USERNAME, '+
+	'EMPLOYEE.FULLNAME AS FULLNAME, '+
+	'TRAININGPLAN.TRAININGPLANNAME AS TRAININGPLAN, '+
+	'TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME AS TRAININGREQUIREMENT, '+
+	'TRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION AS TRAININGREQUIREMENTREVISION, '+
+	'TRAININGPLANDETAIL.TARGETTRAININGDATE AS TARGETTRAININGDATE, '+
+	'SUBTRAININGPLAN.TRAININGPLANNAME AS SUBTRAININGPLAN, '+
+	'SUBTRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME AS SUBTRAININGREQUIREMENT, '+
+	'ISNULL(TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME, SUBTRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME) AS TRAININGSUBTRAININGREQUIREMENT, '+
+	'ISNULL(TRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION, SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION) AS TRAININGSUBTRAININGREQREV, '+
+	'SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION AS SUBTRAININGREQUIREMENTREVISION '+
+	'FROM '+
+	'EMPLOYEE '+
+	'RIGHT OUTER JOIN TRAININGPLAN ON TRAININGPLAN.TRAININGPLANID = EMPLOYEE.TRAININGPLANID '+
+	'LEFT OUTER JOIN TRAININGPLANDETAIL ON TRAININGPLANDETAIL.TRAININGPLANID = TRAININGPLAN.TRAININGPLANID '+
+	'LEFT OUTER JOIN TRAININGPLAN SUBTRAININGPLAN ON SUBTRAININGPLAN.TRAININGPLANID = TRAININGPLANDETAIL.SUBTRAININGPLANID '+
+	'LEFT OUTER JOIN TRAININGPLANDETAIL SUBTRAININGPLANDETAIL ON SUBTRAININGPLAN.TRAININGPLANID = SUBTRAININGPLANDETAIL.TRAININGPLANID '+
+	'LEFT OUTER JOIN TRAININGREQUIREMENT SUBTRAININGREQUIREMENT ON (SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTID = SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTID  '+
+	'OR SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID = SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID) '+
+	'LEFT OUTER JOIN TRAININGREQUIREMENTBASE SUBTRAININGREQUIREMENTBASE ON SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID = SUBTRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID '+
+	'LEFT OUTER JOIN TRAININGREQUIREMENT ON (TRAININGREQUIREMENT.TRAININGREQUIREMENTID = TRAININGPLANDETAIL.TRAININGREQUIREMENTID  '+
+	' OR TRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID = TRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID) '+
+	'LEFT OUTER JOIN TRAININGREQUIREMENTBASE ON TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID = TRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID '+
+	'WHERE '+
+	'(REPLACE(TRAININGPLANDETAIL.TRAININGREQUIREMENTID, ''0000000000000000'', TRAININGREQUIREMENTBASE.REVOFRCDID) = TRAININGREQUIREMENT.TRAININGREQUIREMENTID  '+
+	'OR TRAININGPLANDETAIL.TRAININGREQUIREMENTID IS NULL AND REPLACE(TRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID, ''0000000000000000'', TRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID) = TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID  '+
+	'OR TRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID IS NULL AND TRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID = TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID  '+
+	'OR TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID IS NULL) '+
+	'AND (REPLACE(SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTID, ''0000000000000000'', SUBTRAININGREQUIREMENTBASE.REVOFRCDID) = SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTID  '+
+	'OR SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTID IS NULL AND REPLACE(SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID, ''0000000000000000'', SUBTRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID) = SUBTRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID  '+
+	'OR SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID IS NULL AND SUBTRAININGPLANDETAIL.TRAININGREQUIREMENTBASEID = SUBTRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID  '+
+	'OR SUBTRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID IS NULL) ) A '+
+	'LEFT OUTER JOIN  '+
+	'(SELECT '+
+	'EMPLOYEE2.EMPLOYEENAME AS EMPLOYEE, '+
+	'TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME AS TRAININGREQUIREMENT, '+
+	'TRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION AS TRAININGREQUIREMENTREVISION, '+
+	'TRAININGRECORDSTATUS.TRAININGRECORDSTATUSNAME AS TRAININGRECORDSTATUS, '+
+	'TRAININGRECORD.EXPIRATIONDATE AS TRAININGRECORDEXPIRATIONDATE '+
+	'FROM '+
+	'TRAININGRECORDSTATUS '+
+	'RIGHT OUTER JOIN TRAININGRECORD ON TRAININGRECORDSTATUS.TRAININGRECORDSTATUSID = TRAININGRECORD.STATUSID '+
+	'RIGHT OUTER JOIN TRAININGREQUIREMENT ON TRAININGRECORD.TRAININGREQUIREMENTID = TRAININGREQUIREMENT.TRAININGREQUIREMENTID '+
+	'LEFT OUTER JOIN TRAININGREQUIREMENTBASE ON TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID = TRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID '+
+	'LEFT OUTER JOIN EMPLOYEE AS EMPLOYEE2 ON EMPLOYEE2.EMPLOYEEID = TRAININGRECORD.EMPLOYEEID) B '+
+	'ON A.USERNAME = B.EMPLOYEE '+
+	'AND A.TRAININGSUBTRAININGREQREV = B.TRAININGREQUIREMENTREVISION  '+
+	'AND A.TRAININGSUBTRAININGREQUIREMENT = B.TRAININGREQUIREMENT	 '+
+	'WHERE A.USERNAME IS NOT NULL'
+
+    EXEC csiSTInstall_CreateNewDefinition N'TRAININGPLAN', 
+										  'Training plan', 
+										  NULL, 
+										  @SQLString, 
+										  1, 
+										  'TRAININGPLAN', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1  
+
+SET @SQLString= convert(nvarchar(max), N'') + N'SELECT TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME AS [TRAININGREQUIREMENT], ' +
+  'TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME + '' ('' + ' +
+  'TRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION + '')'' AS [TRAININGREQUIREMENT(REV)], ' +
+  'TRAININGREQUIREMENT.DESCRIPTION AS [DESCRIPTION], ' +
+  'TRAININGREQUIREMENTDOCUMENTBASE.DOCUMENTNAME AS [SOPDOCUMENT], ' +
+  'TRAINERS.FULLNAME AS [TRAINERS] ' +
+  'FROM ' +
+  'EMPLOYEE TRAINERS RIGHT OUTER JOIN TRAININGREQUIREMENTTRAINERS ON (TRAINERS.EMPLOYEEID=TRAININGREQUIREMENTTRAINERS.TRAINERSID) ' +
+  'LEFT OUTER JOIN TRAININGREQUIREMENT ON (TRAININGREQUIREMENTTRAINERS.TRAININGREQUIREMENTID=TRAININGREQUIREMENT.TRAININGREQUIREMENTID) ' +
+  'LEFT OUTER JOIN TRAININGREQUIREMENTBASE ON (TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID=TRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID) ' +
+  'LEFT OUTER JOIN DOCUMENT TRAININGREQUIREMENTDOCUMENT ON (TRAININGREQUIREMENT.SOPDOCID = TRAININGREQUIREMENTDOCUMENT.DOCUMENTID OR TRAININGREQUIREMENT.SOPDOCBASEID = TRAININGREQUIREMENTDOCUMENT.DOCUMENTBASEID) ' +
+  'LEFT OUTER JOIN DOCUMENTBASE TRAININGREQUIREMENTDOCUMENTBASE ON (TRAININGREQUIREMENTDOCUMENTBASE.DOCUMENTBASEID=TRAININGREQUIREMENTDOCUMENT.DOCUMENTBASEID) '
+  
+
+    EXEC csiSTInstall_CreateNewDefinition N'TRAINERS', 
+										  'Training Requirement Trainers', 
+										  NULL, 
+										  @SQLString, 
+										  1, 
+										  'TRAINERS', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1 
+
+SET @SQLString= convert(nvarchar(max), N'') + N'SELECT ' +
+    'EMPLOYEE2.EMPLOYEENAME AS [EMPLOYEE], ' +
+    'CASE TRAININGREQUIREMENT.STATUS WHEN 1 THEN ''ACTIVE'' ELSE ''INACTIVE'' END AS [TRAINING_REQUIREMENT_STATUS], ' +
+    'TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTNAME AS [TRAINING_REQUIREMENT], ' +
+    'TRAININGRECORDSTATUS.TRAININGRECORDSTATUSNAME AS [TRAINING_RECORD_STATUS], ' +
+    'TRAININGRECORD.EXPIRATIONDATE AS [TRAINING_RECORD_EXPIRATION_DATE], ' +
+    'TRAININGREQUIREMENT.TRAININGREQUIREMENTREVISION, ' +
+    'TRAININGREQUIREMENT.EFFECTIVETHRUDATE, ' +
+    'TRAININGREQUIREMENT.EFFECTIVEFROMDATE, ' +
+    'TRAININGREQUIREMENT.EXPIRATIONPERIOD, ' +
+    'CASE WHEN TRAININGREQUIREMENTBASE.REVOFRCDID = TRAININGREQUIREMENT.TRAININGREQUIREMENTID THEN ''TRUE'' ELSE ''FALSE'' END AS [TRAINING_REQ_IS_REV_RECORD], ' +
+    'TRAINERS.FULLNAME AS [TRAINER_FULL_NAME], ' +
+    'TRAINERS.EMPLOYEENAME AS [TRAINER], ' +
+    'TRAININGREQUIREMENT.EXPIRATIONDATE, ' +
+    'TRAININGREQUIREMENT.DESCRIPTION AS [TRAINING_REQUIREMENT_DESCRIPTION], ' +
+    'TRAININGREQUIREMENTDOCUMENTBASE.DOCUMENTNAME AS [SOP_DOCUMENT] ' +
+    'FROM ' +
+    'TRAININGRECORDSTATUS RIGHT OUTER JOIN TRAININGRECORD ON (TRAININGRECORDSTATUS.TRAININGRECORDSTATUSID = TRAININGRECORD.STATUSID) ' +
+    'RIGHT OUTER JOIN TRAININGREQUIREMENT ON (TRAININGRECORD.TRAININGREQUIREMENTID = TRAININGREQUIREMENT.TRAININGREQUIREMENTID) ' +
+    'LEFT OUTER JOIN TRAININGREQUIREMENTTRAINERS ON (TRAININGREQUIREMENTTRAINERS.TRAININGREQUIREMENTID = TRAININGREQUIREMENT.TRAININGREQUIREMENTID) ' +
+    'LEFT OUTER JOIN EMPLOYEE TRAINERS ON (TRAINERS.EMPLOYEEID = TRAININGREQUIREMENTTRAINERS.TRAINERSID) ' +
+    'LEFT OUTER JOIN TRAININGREQUIREMENTBASE ON (TRAININGREQUIREMENTBASE.TRAININGREQUIREMENTBASEID = TRAININGREQUIREMENT.TRAININGREQUIREMENTBASEID) ' +
+    'LEFT OUTER JOIN DOCUMENT TRAININGREQUIREMENTDOCUMENT ON (TRAININGREQUIREMENT.SOPDOCID = TRAININGREQUIREMENTDOCUMENT.DOCUMENTID OR TRAININGREQUIREMENT.SOPDOCBASEID = TRAININGREQUIREMENTDOCUMENT.DOCUMENTBASEID) ' +
+    'LEFT OUTER JOIN DOCUMENTBASE TRAININGREQUIREMENTDOCUMENTBASE ON (TRAININGREQUIREMENTDOCUMENTBASE.DOCUMENTBASEID = TRAININGREQUIREMENTDOCUMENT.DOCUMENTBASEID) ' +
+    'LEFT OUTER JOIN EMPLOYEE EMPLOYEE2 ON (EMPLOYEE2.EMPLOYEEID = TRAININGRECORD.EMPLOYEEID) ' +
+    'WHERE ' +
+    'EMPLOYEE2.EMPLOYEENAME IS NOT NULL'
+
+
+    EXEC csiSTInstall_CreateNewDefinition N'TRAINING_RECORDS', 
+										  'Training Records', 
+										  NULL, 
+										  @SQLString, 
+										  1, 
+										  'TRAINING_RECORDS', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1 
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT ' +
+    'A.*, ' +
+    'B.CONTAINERNAME, ' +
+    'B.MFGORDERNAME, ' +
+    'B.QTY, ' +
+    'B.PLANNEDSTARTDATE, ' +
+    'B.PLANNEDCOMPLETIONDATE, ' +
+    'B.ORIGINALQTY, ' +
+    'B.CURRENTQTY, ' +
+    'C.PRODUCTNAME, ' +
+    'C.PRODUCTREVISION, ' +
+    'C.DESCRIPTION, ' +
+    'C.BOMNAME, ' +
+    'C.BOMREVISION ' +
+    'FROM ' +
+    '(SELECT ' +
+    'TRANWORKFLOWSTEP.WORKFLOWSTEPNAME, ' +
+    'EMPLOYEE.EMPLOYEENAME, ' +
+    'HISTORYMAINLINE.TXNDATE, ' +
+    'TRANFACTORY.FACTORYNAME, ' +
+    'OPERATION.OPERATIONNAME, ' +
+    'HISTORYMAINLINE.REVERSALSTATUS, ' +
+    'CDODEFINITION.CDONAME, ' +
+    'HISTORYCROSSREF.TRACKINGID AS CONTAINERID ' +
+    'FROM ' +
+    'OPERATION ' +
+    'RIGHT OUTER JOIN HISTORYMAINLINE ON OPERATION.OPERATIONID = HISTORYMAINLINE.OPERATIONID ' +
+    'INNER JOIN HISTORYCROSSREF ON HISTORYMAINLINE.HISTORYID = HISTORYCROSSREF.HISTORYID ' +
+    'AND HISTORYMAINLINE.TXNID BETWEEN HISTORYCROSSREF.STARTTXNID AND HISTORYCROSSREF.ENDTXNID ' +
+    'LEFT OUTER JOIN CONTAINER ON HISTORYCROSSREF.TRACKINGID = CONTAINER.CONTAINERID ' +
+    'LEFT OUTER JOIN CDODEFINITION ON CDODEFINITION.CDODEFID = HISTORYMAINLINE.TXNTYPE ' +
+    'LEFT OUTER JOIN EMPLOYEE ON EMPLOYEE.EMPLOYEEID = HISTORYMAINLINE.EMPLOYEEID ' +
+    'LEFT OUTER JOIN WORKFLOWSTEP TRANWORKFLOWSTEP ON TRANWORKFLOWSTEP.WORKFLOWSTEPID = HISTORYMAINLINE.WORKFLOWSTEPID ' +
+    'LEFT OUTER JOIN FACTORY TRANFACTORY ON TRANFACTORY.FACTORYID = HISTORYMAINLINE.FACTORYID ' +
+    ') AS A ' +
+    'LEFT OUTER JOIN ' +
+    '(SELECT DISTINCT ' +
+    'CONTAINER.CONTAINERNAME, ' +
+    'MFGORDER.MFGORDERNAME, ' +
+    'MFGORDER.QTY, ' +
+    'MFGORDER.PLANNEDSTARTDATE, ' +
+    'MFGORDER.PLANNEDCOMPLETIONDATE, ' +
+    'CAST(CONTAINER.ORIGINALQTY AS VARCHAR(255)) + '' '' + UOM.UOMNAME AS ORIGINALQTY, ' +
+    'CASE ' +
+    'WHEN SUM(ISNULL(CONTAINER.QTY, 0)) = 0 THEN ''0 '' + UOM.UOMNAME ' +
+    'ELSE CAST(SUM(ISNULL(CONTAINER.QTY, 0)) AS VARCHAR(255)) + '' '' + UOM.UOMNAME ' +
+    'END AS CURRENTQTY, ' +
+    'CONTAINER.CONTAINERID ' +
+    'FROM ' +
+    'MFGORDER RIGHT OUTER JOIN CONTAINER ON CONTAINER.MFGORDERID = MFGORDER.MFGORDERID ' +
+    'LEFT OUTER JOIN UOM ON CONTAINER.UOMID = UOM.UOMID ' +
+    'GROUP BY ' +
+    'CONTAINER.CONTAINERNAME, ' +
+    'MFGORDER.MFGORDERNAME, ' +
+    'MFGORDER.QTY, ' +
+    'MFGORDER.PLANNEDSTARTDATE, ' +
+    'MFGORDER.PLANNEDCOMPLETIONDATE, ' +
+    'CONTAINER.ORIGINALQTY, ' +
+    'UOM.UOMNAME, ' +
+    'CONTAINER.CONTAINERID ' +
+    ') AS B ON A.CONTAINERID = B.CONTAINERID ' +
+    'LEFT OUTER JOIN ' +
+    '(SELECT DISTINCT ' +
+    'PRODUCTBASE.PRODUCTNAME, ' +
+    'CASE ' +
+    'WHEN PRODUCT.PRODUCTREVISION IS NOT NULL THEN PRODUCTBASE.PRODUCTNAME + '' ('' + PRODUCT.PRODUCTREVISION + '')'' ' +
+    'ELSE PRODUCTBASE.PRODUCTNAME ' +
+    'END AS PRODUCTREVISION, ' +
+    'PRODUCT.DESCRIPTION, ' +
+    'PRODUCTBOMBASE.BOMNAME, ' +
+    'CASE ' +
+    'WHEN PRODUCTBOM.BOMREVISION IS NULL THEN PRODUCTBOMBASE.BOMNAME ' +
+    'ELSE PRODUCTBOMBASE.BOMNAME + '' ('' + PRODUCTBOM.BOMREVISION + '')'' ' +
+    'END AS BOMREVISION, ' +
+    'CONTAINER.CONTAINERID ' +
+    'FROM ' +
+    'PRODUCTBASE ' +
+    'INNER JOIN PRODUCT ON PRODUCT.PRODUCTBASEID = PRODUCTBASE.PRODUCTBASEID ' +
+    'INNER JOIN CONTAINER ON CONTAINER.PRODUCTID = PRODUCT.PRODUCTID ' +
+    'LEFT OUTER JOIN BOM PRODUCTBOM ON CONTAINER.BOMID = PRODUCTBOM.BOMID ' +
+    'LEFT OUTER JOIN BOMBASE PRODUCTBOMBASE ON PRODUCTBOM.BOMBASEID = PRODUCTBOMBASE.BOMBASEID ' +
+    'WHERE ' +
+    'REPLACE(PRODUCT.BOMID, ''0000000000000000'', PRODUCTBOMBASE.REVOFRCDID) = PRODUCTBOM.BOMID ' +
+    'AND REPLACE(PRODUCTBOM.BOMBASEID, ''0000000000000000'', PRODUCTBOMBASE.BOMBASEID) = PRODUCTBOMBASE.BOMBASEID ' +
+    ') AS C ON A.CONTAINERID = C.CONTAINERID; ';
+
+    EXEC csiSTInstall_CreateNewDefinition N'ACTIVITYLOG_CT', 
+										  'ActivityLog_ComponentTraceability', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'ACTIVITYLOG_CT', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1 
+										  
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT ' +
+    'TRANWORKFLOWSTEP.WORKFLOWSTEPNAME, ' +
+    'PRODUCTBASE2.PRODUCTNAME, ' +
+    'CASE ' +
+        'WHEN PRODUCT2.PRODUCTREVISION IS NOT NULL AND PRODUCT2.PRODUCTREVISION <> '''' THEN PRODUCTBASE2.PRODUCTNAME + '' ('' + PRODUCT2.PRODUCTREVISION + '')'' ' +
+        'ELSE PRODUCTBASE2.PRODUCTNAME ' +
+    'END AS PRODUCTWITHREVISION, ' +
+    'ISSUEACTUALSHISTORY.FROMLOT, ' +
+    'CONTAINER.CONTAINERNAME AS CONTAINERNAME, ' +
+    'CONTAINER2.CONTAINERNAME AS CONTAINERNAME2, ' +
+    'ISSUEACTUALSHISTORY.FROMCONTAINERID, ' +
+    'ISSUEACTUALSHISTORY.QTY AS QTYISSUED, ' +
+    'ISSUEHISTORYDETAIL.QTYREQUIRED AS REQUIREDQTY, ' +
+    'CASE ' +
+        'WHEN ISSUEHISTORYDETAIL.ISSUECONTROL = 1 THEN ''SERIALIZED'' ' +
+        'WHEN ISSUEHISTORYDETAIL.ISSUECONTROL = 2 THEN ''BULK'' ' +
+        'WHEN ISSUEHISTORYDETAIL.ISSUECONTROL = 3 THEN ''LOT AND STOCK POINT'' ' +
+        'WHEN ISSUEHISTORYDETAIL.ISSUECONTROL = 4 THEN ''STOCK POINT ONLY'' ' +
+        'WHEN ISSUEHISTORYDETAIL.ISSUECONTROL = 5 THEN ''NO TRACKING'' ' +
+        'ELSE ''COMMENT ONLY'' ' +
+    'END AS ISSUETYPE, ' +
+    'EMPLOYEE.EMPLOYEENAME, ' +
+    'HISTORYMAINLINE.TXNDATE, ' +
+    'UOM3.UOMNAME AS UOM, ' +
+    'ESIGHISTORYDETAIL.SIGNERFULLNAME, ' +
+    'ESIGHISTORYDETAIL.COSIGNERFULLNAME, ' +
+    'ESIGMEANING.ESIGMEANINGNAME, ' +
+    'ISSUEDIFFERENCEREASON.ISSUEDIFFERENCEREASONNAME, ' +
+    'REMOVEHISTORYDETAIL2.QTYREMOVED AS REMOVEDQTY, ' +
+    'CAST((ISSUEACTUALSHISTORY.QTY - COALESCE(REMOVEHISTORYDETAIL2.QTYREMOVED, 0)) AS VARCHAR) + '' '' + UOM3.UOMNAME AS ISSUEDQTYEACH, ' +
+    'CAST(ISSUEHISTORYDETAIL.QTYREQUIRED AS VARCHAR) + '' '' + UOM3.UOMNAME AS REQUIREDQTYEACH, ' +
+    'HISTORYMAINLINE.REVERSALSTATUS ' +
+    'FROM ' +
+    'ESIGHISTORYDETAIL ' +
+    'LEFT OUTER JOIN ESIGHISTORYSUMMARY ON ESIGHISTORYDETAIL.ESIGHISTORYSUMMARYID = ESIGHISTORYSUMMARY.ESIGHISTORYSUMMARYID ' +
+    'LEFT OUTER JOIN ESIGMEANING ON ESIGMEANING.ESIGMEANINGID = ESIGHISTORYSUMMARY.MEANINGID ' +
+    'RIGHT OUTER JOIN HISTORYMAINLINE ON ESIGHISTORYSUMMARY.HISTORYMAINLINEID = HISTORYMAINLINE.HISTORYMAINLINEID ' +
+    'INNER JOIN HISTORYCROSSREF ON HISTORYMAINLINE.HISTORYID = HISTORYCROSSREF.HISTORYID AND HISTORYMAINLINE.TXNID BETWEEN HISTORYCROSSREF.STARTTXNID AND HISTORYCROSSREF.ENDTXNID ' +
+    'LEFT OUTER JOIN CONTAINER ON HISTORYCROSSREF.TRACKINGID = CONTAINER.CONTAINERID ' +
+    'RIGHT OUTER JOIN COMPONENTISSUEHISTORY ON COMPONENTISSUEHISTORY.HISTORYMAINLINEID = HISTORYMAINLINE.HISTORYMAINLINEID ' +
+    'LEFT OUTER JOIN ISSUEHISTORYDETAIL ON ISSUEHISTORYDETAIL.COMPONENTISSUEHISTORYID = COMPONENTISSUEHISTORY.COMPONENTISSUEHISTORYID ' +
+    'LEFT OUTER JOIN ISSUEACTUALSHISTORY ON ISSUEACTUALSHISTORY.ISSUEHISTORYDETAILID = ISSUEHISTORYDETAIL.ISSUEHISTORYDETAILID ' +
+    'LEFT OUTER JOIN CONTAINER TOCONTAINER ON TOCONTAINER.CONTAINERID = ISSUEACTUALSHISTORY.TOCONTAINERID ' +
+    'LEFT OUTER JOIN UOM UOM3 ON UOM3.UOMID = TOCONTAINER.UOMID ' +
+    'LEFT OUTER JOIN REMOVEHISTORYDETAIL REMOVEHISTORYDETAIL2 ON REMOVEHISTORYDETAIL2.ISSUEACTUALSHISTORYID = ISSUEACTUALSHISTORY.ISSUEACTUALSHISTORYID ' +
+    'LEFT OUTER JOIN CONTAINER CONTAINER2 ON CONTAINER2.CONTAINERID = ISSUEACTUALSHISTORY.FROMCONTAINERID ' +
+    'LEFT OUTER JOIN PRODUCT PRODUCT2 ON PRODUCT2.PRODUCTID = ISSUEACTUALSHISTORY.PRODUCTID ' +
+    'LEFT OUTER JOIN PRODUCTBASE PRODUCTBASE2 ON PRODUCTBASE2.PRODUCTBASEID = PRODUCT2.PRODUCTBASEID ' +
+    'LEFT OUTER JOIN ISSUEDIFFERENCEREASON ON ISSUEHISTORYDETAIL.ISSUEDIFFERENCEREASONID = ISSUEDIFFERENCEREASON.ISSUEDIFFERENCEREASONID ' +
+    'LEFT OUTER JOIN EMPLOYEE ON EMPLOYEE.EMPLOYEEID = HISTORYMAINLINE.EMPLOYEEID ' +
+    'LEFT OUTER JOIN WORKFLOWSTEP TRANWORKFLOWSTEP ON TRANWORKFLOWSTEP.WORKFLOWSTEPID = HISTORYMAINLINE.WORKFLOWSTEPID ' +
+    'WHERE ' +
+    'HISTORYMAINLINE.CONTAINERID = HISTORYCROSSREF.TRACKINGID; ';
+
+    EXEC csiSTInstall_CreateNewDefinition N'MATERIALISSUED_CT', 
+										  'MaterialIssued_ComponentTraceability', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'MATERIALISSUED_CT', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1 
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT ' +
+    'TRANWORKFLOWSTEP.WORKFLOWSTEPNAME, ' +
+    'EMPLOYEE.EMPLOYEENAME, ' +
+    'HISTORYMAINLINE.TXNDATE, ' +
+    'PRODUCTBASE3.PRODUCTNAME, ' +
+    'CASE ' +
+        'WHEN PRODUCT3.PRODUCTREVISION IS NULL THEN PRODUCTBASE3.PRODUCTNAME ' +
+        'ELSE CONCAT(PRODUCTBASE3.PRODUCTNAME, '' ('', PRODUCT3.PRODUCTREVISION, '')'') ' +
+    'END AS PRODUCTREVISION, ' +
+    'CONCAT(REMOVEHISTORYDETAIL.QTYREMOVED, '' '', REMOVEDQUANTITYUOM.UOMNAME) AS QTYREMOVED, ' +
+    'REMOVALREASON.REMOVALREASONNAME, ' +
+    'REMOVEHISTORYDETAIL.DESTINATIONLOT, ' +
+    'CONTAINER.CONTAINERNAME AS CONTAINERNAME, ' +
+    'REMOVALCONTAINER.CONTAINERNAME AS CONTAINERNAME2, ' +
+    'ESIGHISTORYDETAIL.SIGNERFULLNAME, ' +
+    'ESIGHISTORYDETAIL.COSIGNERFULLNAME, ' +
+    'ESIGMEANING.ESIGMEANINGNAME, ' +
+    'REMOVEDQUANTITYUOM.UOMNAME AS REMOVEDQTYUOM, ' +
+    'HISTORYMAINLINE.REVERSALSTATUS ' +
+    'FROM ' +
+    'PRODUCTBASE PRODUCTBASE3 ' +
+    'LEFT OUTER JOIN PRODUCT PRODUCT3 ON (PRODUCT3.PRODUCTBASEID = PRODUCTBASE3.PRODUCTBASEID) ' +
+    'RIGHT OUTER JOIN REMOVEHISTORYDETAIL ON (PRODUCT3.PRODUCTID = REMOVEHISTORYDETAIL.PRODUCTID) ' +
+    'LEFT OUTER JOIN COMPONENTREMOVEHISTORY ON (COMPONENTREMOVEHISTORY.COMPONENTREMOVEHISTORYID = REMOVEHISTORYDETAIL.COMPONENTREMOVEHISTORYID) ' +
+    'RIGHT OUTER JOIN HISTORYMAINLINE ON (COMPONENTREMOVEHISTORY.HISTORYMAINLINEID = HISTORYMAINLINE.HISTORYMAINLINEID) ' +
+    'LEFT OUTER JOIN ESIGHISTORYSUMMARY ON (ESIGHISTORYSUMMARY.HISTORYMAINLINEID = HISTORYMAINLINE.HISTORYMAINLINEID) ' +
+    'LEFT OUTER JOIN ESIGHISTORYDETAIL ON (ESIGHISTORYDETAIL.ESIGHISTORYSUMMARYID = ESIGHISTORYSUMMARY.ESIGHISTORYSUMMARYID) ' +
+    'LEFT OUTER JOIN ESIGMEANING ON (ESIGMEANING.ESIGMEANINGID = ESIGHISTORYSUMMARY.MEANINGID) ' +
+    'INNER JOIN HISTORYCROSSREF ON (HISTORYMAINLINE.HISTORYID = HISTORYCROSSREF.HISTORYID AND HISTORYMAINLINE.TXNID BETWEEN HISTORYCROSSREF.STARTTXNID AND HISTORYCROSSREF.ENDTXNID) ' +
+    'LEFT OUTER JOIN CONTAINER ON (HISTORYCROSSREF.TRACKINGID = CONTAINER.CONTAINERID) ' +
+    'LEFT OUTER JOIN CDODEFINITION ON (CDODEFINITION.CDODEFID = HISTORYMAINLINE.TXNTYPE) ' +
+    'LEFT OUTER JOIN EMPLOYEE ON (EMPLOYEE.EMPLOYEEID = HISTORYMAINLINE.EMPLOYEEID) ' +
+    'LEFT OUTER JOIN WORKFLOWSTEP TRANWORKFLOWSTEP ON (TRANWORKFLOWSTEP.WORKFLOWSTEPID = HISTORYMAINLINE.WORKFLOWSTEPID) ' +
+    'LEFT OUTER JOIN CONTAINER REMOVALCONTAINER ON (REMOVEHISTORYDETAIL.DESTINATIONCONTAINERID = REMOVALCONTAINER.CONTAINERID) ' +
+    'LEFT OUTER JOIN REMOVALREASON ON (REMOVEHISTORYDETAIL.REMOVALREASONID = REMOVALREASON.REMOVALREASONID) ' +
+    'LEFT OUTER JOIN UOM REMOVEDQUANTITYUOM ON (REMOVEHISTORYDETAIL.UOMID = REMOVEDQUANTITYUOM.UOMID) ' +
+    'WHERE ' +
+    'CDODEFINITION.CDONAME = ''COMPONENTREMOVE'' ' + 
+    'AND (HISTORYMAINLINE.CONTAINERID = HISTORYCROSSREF.TRACKINGID); ';
+
+    EXEC csiSTInstall_CreateNewDefinition N'MATERIALREMOVED_CT', 
+										  'MaterialRemoved_ComponentTraceability', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'MATERIALREMOVED_CT', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+										  
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT '+
+'EVENT.EVENTNAME,' +
+'QUALITY_EVENT.BRIEFDESCRIPTION,' + 
+'QUALITY_EVENT.DESCRIPTION,' +
+'PRIORITYLEVEL.PRIORITYLEVELNAME,' +
+'QUALITY_EVENT.OCCURRENCEDATE,' +
+'QUALITY_EVENT.DISCOVERYAREA,' +
+'RESOURCEGROUP.RESOURCEGROUPNAME,' +
+'RESOURCEDEF.RESOURCENAME,' +
+'ED.WORKFLOWNAME,' +
+'ED.WORKFLOWSTEPNAME,' +
+'ASSIGNEE.EMPLOYEENAME AS ''OWNER'',' +
+'OWNERORG.ORGANIZATIONNAME AS ''OWNER ORG'',' +
+'INITIATOR.EMPLOYEENAME AS ''INITIATOR'',' +
+'INORG.ORGANIZATIONNAME AS ''INITIATOR ORG'',' +
+'REPORTER.EMPLOYEENAME AS ''REPORTER'',' +
+'REORG.ORGANIZATIONNAME AS ''REPORTER ORG'',' +
+'QUALITY_EVENT.REPORTEDDATE,' +
+'EVENT_CLOSURE_CLOSED_BY.EMPLOYEENAME AS ''CLOSEDBY'',' +
+'QUALITY_EVENT.CLOSEDATE,' +
+'CLASSIFICATION.CLASSIFICATIONNAME,' +
+'SUBCLASSIFICATION.SUBCLASSIFICATIONNAME,' +
+'ROLE.ROLENAME,' +
+'CATEGORYFIELD.FIELDNAME CATEGORYNAME,' +
+'STATUSFIELD.FIELDNAME STATUSNAME ' +
+'FROM EVENT AS QUALITY_EVENT ' +
+'LEFT OUTER JOIN CLASSIFICATION ON (CLASSIFICATION.CLASSIFICATIONID=QUALITY_EVENT.CLASSIFICATIONID) ' +
+'LEFT OUTER JOIN SUBCLASSIFICATION ON (SUBCLASSIFICATION.SUBCLASSIFICATIONID=QUALITY_EVENT.SUBCLASSIFICATIONID) ' +
+'LEFT OUTER JOIN PRIORITYLEVEL ON (PRIORITYLEVEL.PRIORITYLEVELID=QUALITY_EVENT.PRIORITYLEVELID) ' +
+'LEFT OUTER JOIN EVENTDATA ED ON (QUALITY_EVENT.EVENTID=ED.EVENTID) ' +
+'LEFT OUTER JOIN EMPLOYEE ASSIGNEE ON (QUALITY_EVENT.OWNERID=ASSIGNEE.EMPLOYEEID) ' +
+'LEFT OUTER JOIN EMPLOYEE REPORTER ON (QUALITY_EVENT.REPORTERID=REPORTER.EMPLOYEEID) ' +
+'LEFT OUTER JOIN EMPLOYEE INITIATOR ON (QUALITY_EVENT.INITIATORID=INITIATOR.EMPLOYEEID) ' +
+'LEFT OUTER JOIN EMPLOYEE EVENT_CLOSURE_CLOSED_BY ON (QUALITY_EVENT.CLOSEDBYID=EVENT_CLOSURE_CLOSED_BY.EMPLOYEEID) ' +
+'LEFT OUTER JOIN ORGANIZATION INORG ON (INORG.ORGANIZATIONID=QUALITY_EVENT.INITIATORORGANIZATIONID) ' +
+'LEFT OUTER JOIN ORGANIZATION OWNERORG ON (OWNERORG.ORGANIZATIONID=QUALITY_EVENT.ORGANIZATIONID) ' +
+'LEFT OUTER JOIN ORGANIZATION REORG ON (REORG.ORGANIZATIONID=QUALITY_EVENT.REPORTERORGANIZATIONID) ' +
+'LEFT OUTER JOIN RESOURCEDEF ON (RESOURCEDEF.RESOURCENAME=ED.RESOURCENAME) ' +
+'LEFT OUTER JOIN RESOURCEGROUPENTRIES ON (RESOURCEGROUPENTRIES.ENTRIESID=RESOURCEDEF.RESOURCEID) ' +
+'LEFT OUTER JOIN RESOURCEGROUP ON (RESOURCEGROUP.RESOURCEGROUPID=RESOURCEGROUPENTRIES.RESOURCEGROUPID) ' +
+'LEFT OUTER JOIN ROLEDEF ROLE ON QUALITY_EVENT.ROLEID=ROLE.ROLEID ' +
+'LEFT JOIN CDOFIELDS CATEGORYFIELD ON QUALITY_EVENT.CATEGORY=CATEGORYFIELD.DEFAULTVALUE AND CATEGORYFIELD.CDODEFID=7520 ' +
+'LEFT JOIN CDOFIELDS STATUSFIELD ON QUALITY_EVENT.STATUS=STATUSFIELD.DEFAULTVALUE AND STATUSFIELD.CDODEFID=7658 ' +
+'LEFT OUTER JOIN EVENT ON (QUALITY_EVENT.EVENTID = EVENT.EVENTID)'
+
+    EXEC csiSTInstall_CreateNewDefinition N'GENERAL_ED', 
+										  'General_Event_Details', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'GENERAL_ED', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT ' +
+'EVENT.EVENTNAME,' +
+'EVENTLOT.LOT,' +
+'EVENTLOT.PRODUCTNAME,' +  
+'EVENTLOT.PRODUCTDESCRIPTION,' +
+'EVENTLOT.QTY,' +
+'EVENTLOT.UOMNAME,' +
+'EVENTLOT.QTY - ISNULL((' +
+    'SELECT SUM(ED.QTY) ' +
+    'FROM EVENTDISPOSITION ED ' +
+    'INNER JOIN EVENTLOTEVENTDISPOSITIONS ELED ON ED.EVENTDISPOSITIONID = ELED.DISPOSITIONSID ' +
+    'WHERE ELED.EVENTLOTID = EVENTLOT.EVENTLOTID' +
+'), 0) AS QTYPENDINGDISP,' +
+'EVENTLOT.ISCONTAINER,' +  
+'DISPOSITION.DESCRIPTION AS DISPOSTION,' +
+'EVENTDISPOSITION.QTY AS DISPOSTIONQTY,' +
+'EVENTDISPOSITION.COMMENTS AS DISPOSTIONCOMMENTS,' +
+'EVENTLOT.REFERENCEDESIGNATOR,' +
+'EVENTLOT.QTYSAMPLED,' +
+'EVENTLOT.QTYDEFECTIVE ' +
+'FROM EVENT AS QUALITY_EVENT ' +
+'LEFT OUTER JOIN EVENTDATA ED ON QUALITY_EVENT.EVENTID = ED.EVENTID ' +
+'LEFT OUTER JOIN EVENTLOT ON ED.EVENTDATAID = EVENTLOT.EVENTDATAID ' +
+'LEFT OUTER JOIN EVENTLOTEVENTDISPOSITIONS ON EVENTLOTEVENTDISPOSITIONS.EVENTLOTID = EVENTLOT.EVENTLOTID ' +
+'LEFT OUTER JOIN EVENTDISPOSITION ON EVENTDISPOSITION.EVENTDISPOSITIONID = EVENTLOTEVENTDISPOSITIONS.DISPOSITIONSID ' +
+'LEFT OUTER JOIN DISPOSITION ON EVENTDISPOSITION.DISPOSITIONID = DISPOSITION.DISPOSITIONID ' +
+'LEFT OUTER JOIN EVENT ON (QUALITY_EVENT.EVENTID = EVENT.EVENTID)'
+
+    EXEC csiSTInstall_CreateNewDefinition N'AMD_ED', 
+										  'Affected_Material_Disposition_Event_Details', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'AMD_ED', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT '+
+'EVENT.EVENTNAME, ' +
+'CHECKLISTENTRY.SEQUENCE, ' +
+'CHECKLISTENTRY.CHECKLISTTEXT, ' +
+'CHECKLISTENTRY.USERCOMMENTS, ' +
+'EMPLOYEE.EMPLOYEENAME, ' +
+'ROLEDEF.ROLENAME, ' +
+'CHECKLISTENTRY.LASTCOMPLETEDON, ' +
+'RESPONSEITEM.RESPONSELABEL ' +
+'FROM EXECUTECHECKLISTHISTORY ' +
+'INNER JOIN EXECUTECHECKLISTHISTORYDTL ON (EXECUTECHECKLISTHISTORY.EXECUTECHECKLISTHISTORYID = EXECUTECHECKLISTHISTORYDTL.EXECUTECHECKLISTHISTORYID) ' +
+'INNER JOIN EXECUTECHKLSTRESPONSEHISTDTL ON (EXECUTECHECKLISTHISTORYDTL.EXECUTECHECKLISTHISTORYDTLID = EXECUTECHKLSTRESPONSEHISTDTL.EXECUTECHECKLISTHISTORYDTLID) ' +
+'INNER JOIN CHECKLISTENTRY ON (EXECUTECHECKLISTHISTORYDTL.CHECKLISTENTRYID = CHECKLISTENTRY.CHECKLISTENTRYID) ' +
+'LEFT OUTER JOIN CHECKLISTACTUALRESPONSE ON (CHECKLISTENTRY.CHECKLISTENTRYID = CHECKLISTACTUALRESPONSE.CHECKLISTENTRYID) ' +
+'LEFT OUTER JOIN EMPLOYEE ON (CHECKLISTENTRY.LASTCOMPLETEDBYID = EMPLOYEE.EMPLOYEEID) ' +
+'LEFT OUTER JOIN EMPLOYEEROLE ON (CHECKLISTENTRY.LASTCOMPLETEDBYROLEID = EMPLOYEEROLE.ROLEID) ' +
+'LEFT OUTER JOIN ROLEDEF ON (EMPLOYEEROLE.ROLEID = ROLEDEF.ROLEID) ' +
+'LEFT OUTER JOIN EVENT ON (EXECUTECHECKLISTHISTORY.HISTORYID = EVENT.EVENTID) ' +
+'LEFT OUTER JOIN RESPONSEITEM ON (CHECKLISTACTUALRESPONSE.RESPONSEITEMID = RESPONSEITEM.RESPONSEITEMID) '
+
+    EXEC csiSTInstall_CreateNewDefinition N'CHECKLIST_ED', 
+										  'Checklist_Event_Details', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'CHECKLIST_ED', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT '+
+'EVENT.EVENTNAME, ' +
+'FAILUREMODENAME, ' +
+'FAILUREMODE.DESCRIPTION, ' +
+'FAILURESEVERITYNAME, ' +
+'NCRFAILURETYPENAME, ' +
+'EVENTFAILURE.COMMENTS, ' +
+'EVENT_NCRCAUSECODE.NCRCAUSECODENAME, ' +
+'CASE EVENTFAILURECAUSE.ISROOTCAUSE WHEN 1 THEN ''TRUE'' WHEN 0 THEN ''FALSE'' END AS ISROOTCAUSE, ' +
+'EVENTFAILURECAUSE.COMMENTS AS ''CAUSECOMMENTS'' ' +
+'FROM EMPLOYEE EVENT_CLOSURE_CLOSED_BY ' +
+'RIGHT OUTER JOIN EVENT QUALITY_EVENT ON (QUALITY_EVENT.CLOSEDBYID = EVENT_CLOSURE_CLOSED_BY.EMPLOYEEID) ' +
+'LEFT OUTER JOIN EVENTFAILURE ON (QUALITY_EVENT.EVENTDATAID = EVENTFAILURE.EVENTDATAID) ' +
+'LEFT OUTER JOIN EVENTFAILURECAUSE ON (EVENTFAILURE.EVENTFAILUREID = EVENTFAILURECAUSE.EVENTFAILUREID) ' +
+'LEFT OUTER JOIN NCRCAUSECODE EVENT_NCRCAUSECODE ON (EVENTFAILURECAUSE.CAUSECODEID = EVENT_NCRCAUSECODE.NCRCAUSECODEID) ' +
+'LEFT OUTER JOIN FAILUREMODE ON (EVENTFAILURE.FAILUREMODEID = FAILUREMODE.FAILUREMODEID) ' +
+'LEFT OUTER JOIN FAILURESEVERITY ON (EVENTFAILURE.FAILURESEVERITYID = FAILURESEVERITY.FAILURESEVERITYID) ' +
+'LEFT OUTER JOIN NCRFAILURETYPE FT ON EVENTFAILURE.FAILURETYPEID = FT.NCRFAILURETYPEID ' +
+'LEFT OUTER JOIN EVENT ON (QUALITY_EVENT.EVENTID = EVENT.EVENTID)'
+
+    EXEC csiSTInstall_CreateNewDefinition N'FMI_ED', 
+										  'Failure_Mode_Investigation_Event_Details', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'FMI_ED', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT '+
+'EVENT.EVENTNAME, ' +
+'QUALITYRESOLUTIONCODE.QUALITYRESOLUTIONCODENAME, ' +
+'APPROVALROUTINGINFO.CLOSEDESCRIPTION, ' +
+'APPROVALSHEET.GENERALINSTRUCTIONS, ' +
+'ROLE.ROLENAME, ' +
+'APPROVER.EMPLOYEENAME ''NAME'', ' +
+'APPROVERBY.EMPLOYEENAME ''APPROVEDBY'', ' +
+'APPROVALDECISION.APPROVALDECISIONNAME, ' +
+'APPROVALSHEETENTRY.FIRSTROUTEDON, ' +
+'APPROVALSHEETENTRY.COMPLETEBY, ' +
+'APPROVALSHEETENTRY.LASTCOMPLETEDON ' +
+'FROM EVENT AS QUALITY_EVENT ' +
+'LEFT OUTER JOIN APPROVALSHEET ON (QUALITY_EVENT.EVENTID=APPROVALSHEET.PARENTID) ' +
+'LEFT OUTER JOIN APPROVALSHEETENTRY ON (APPROVALSHEETENTRY.PARENTID=APPROVALSHEET.APPROVALSHEETID) ' +
+'LEFT OUTER JOIN EMPLOYEE APPROVER ON (APPROVALSHEETENTRY.APPROVERID=APPROVER.EMPLOYEEID) ' +
+'LEFT OUTER JOIN EMPLOYEE APPROVERBY ON (APPROVALSHEETENTRY.APPROVEDBYID=APPROVERBY.EMPLOYEEID) ' +
+'LEFT OUTER JOIN ROLEDEF ROLE ON APPROVALSHEETENTRY.APPROVERROLEID=ROLE.ROLEID ' +
+'LEFT OUTER JOIN APPROVALDECISION ON APPROVALSHEETENTRY.APPROVALDECISIONID=APPROVALDECISION.APPROVALDECISIONID ' +
+'LEFT OUTER JOIN APPROVALROUTINGINFO ON (APPROVALROUTINGINFO.PARENTID=APPROVALSHEET.APPROVALSHEETID) ' +
+'LEFT OUTER JOIN QUALITYRESOLUTIONCODE ON (QUALITYRESOLUTIONCODE.QUALITYRESOLUTIONCODEID=APPROVALROUTINGINFO.QUALITYRESOLUTIONCODEID) ' +
+'LEFT OUTER JOIN EVENT ON (QUALITY_EVENT.EVENTID = EVENT.EVENTID)'
+
+    EXEC csiSTInstall_CreateNewDefinition N'RES_ED', 
+										  'Resolution_Event_Details', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'RES_ED', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT '+
+'MFGLOT.MFGLOTNAME AS LOTNAME, ' +
+'CONTAINER.CONTAINERNAME, ' +
+'SAMPLETESTBASE.SAMPLETESTNAME, ' +
+'CASE WHEN SAMPLETEST.SAMPLETYPE = 1 THEN ''Counted'' ELSE ''Measured'' END AS SAMPLETYPE, ' +
+'COLLECTSAMPLINGDATAHISTORY.SAMPLINGSTATUS, ' +
+'CONVERT(DATETIME2(0),COLLECTSAMPLINGDATAHISTORY.TXNDATEGMT) AS TRANSACTIONTIME, ' +
+'COLLECTSAMPLINGTESTDTLHISTORY.DATAVALUE, ' +
+'SAMPLETESTLOSSREASON.LOSSREASONNAME, ' +
+'INSPECTIONLEVEL.INSPECTIONLEVELNAME, ' +
+'AQLLEVEL.AQLLEVELNAME, ' +
+'EMPLOYEE.EMPLOYEENAME, ' +
+'LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME ' +
+'FROM CONTAINER LEFT OUTER JOIN HISTORYCROSSREF ON (HISTORYCROSSREF.TRACKINGID=CONTAINER.CONTAINERID) ' +
+'INNER JOIN HISTORYMAINLINE ON (HISTORYMAINLINE.HISTORYID=HISTORYCROSSREF.HISTORYID AND HISTORYMAINLINE.TXNID BETWEEN HISTORYCROSSREF.STARTTXNID AND HISTORYCROSSREF.ENDTXNID) ' +
+'LEFT OUTER JOIN EMPLOYEE ON (EMPLOYEE.EMPLOYEEID=HISTORYMAINLINE.EMPLOYEEID) ' +
+'INNER JOIN COLLECTSAMPLINGDATAHISTORY ON (COLLECTSAMPLINGDATAHISTORY.HISTORYMAINLINEID=HISTORYMAINLINE.HISTORYMAINLINEID) ' +
+'RIGHT OUTER JOIN MFGLOT ON (COLLECTSAMPLINGDATAHISTORY.SAMPLINGLOTID=MFGLOT.MFGLOTID) ' +
+'INNER JOIN SAMPLINGPLAN  LOTSAMPLINGPLAN ON (MFGLOT.SAMPLINGPLANID=LOTSAMPLINGPLAN.SAMPLINGPLANID) ' +
+'INNER JOIN SAMPLINGPLANBASE  LOTSAMPLINGPLANBASE ON (LOTSAMPLINGPLAN.SAMPLINGPLANBASEID=LOTSAMPLINGPLANBASE.SAMPLINGPLANBASEID) ' +
+'INNER JOIN SAMPLETEST ON (COLLECTSAMPLINGDATAHISTORY.SAMPLETESTID=SAMPLETEST.SAMPLETESTID) ' +
+'INNER JOIN SAMPLETESTBASE ON (SAMPLETEST.SAMPLETESTBASEID=SAMPLETESTBASE.SAMPLETESTBASEID) ' +
+'INNER JOIN AQLLEVEL ON (AQLLEVEL.AQLLEVELID=COLLECTSAMPLINGDATAHISTORY.AQLLEVELID) ' +
+'INNER JOIN INSPECTIONLEVEL ON (INSPECTIONLEVEL.INSPECTIONLEVELID=COLLECTSAMPLINGDATAHISTORY.INSPECTIONLEVELID) ' +
+'INNER JOIN COLLECTSAMPLINGHISTORYDETAILS ON (COLLECTSAMPLINGDATAHISTORY.COLLECTSAMPLINGDATAHISTORYID=COLLECTSAMPLINGHISTORYDETAILS.HISTORYDETAILSID) ' +
+'INNER JOIN COLLECTSAMPLINGTESTDTLHISTORY ON (COLLECTSAMPLINGHISTORYDETAILS.COLLECTSAMPLINGHISTORYDETAILID=COLLECTSAMPLINGTESTDTLHISTORY.HISTORYDETAILSID) ' +
+'LEFT OUTER JOIN LOSSREASON  SAMPLETESTLOSSREASON ON (COLLECTSAMPLINGTESTDTLHISTORY.REJECTREASONID=SAMPLETESTLOSSREASON.LOSSREASONID) '
+
+    EXEC csiSTInstall_CreateNewDefinition N'SAMPLINGDETAILS_LSH', 
+										  'Sampling_Details_LSH', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'SAMPLINGDETAILS_LSH', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT ' +
+'MFGLOT.MFGLOTNAME AS LOTNAME, ' +
+'CONTAINER.CONTAINERNAME, ' +
+'SAMPLETESTBASE.SAMPLETESTNAME, ' +
+'SAMPLETEST.DESCRIPTION, ' +
+'CASE WHEN SAMPLETEST.SAMPLETYPE = 1 THEN ''Counted'' ELSE ''Measured'' END AS SAMPLETYPE, ' +
+'AQLLEVEL.AQLLEVELNAME, ' +
+'INSPECTIONLEVEL.INSPECTIONLEVELNAME, ' +
+'COLLECTSAMPLINGDATAHISTORY.SAMPLINGSTATUS, ' +
+'MAX(CONVERT(DATETIME2(0), COLLECTSAMPLINGDATAHISTORY.TXNDATEGMT)) AS LASTTRANSACTIONTIME, ' +
+'SUM(COLLECTSAMPLINGDATAHISTORY.TOTALREJECTS) AS TOTALREJECTS, ' +
+'SUM(COLLECTSAMPLINGDATAHISTORY.TOTALSAMPLESCOMPLETED - COLLECTSAMPLINGDATAHISTORY.TOTALREJECTS) AS SAMPLESPASSED, ' +
+'SUM(COLLECTSAMPLINGDATAHISTORY.REQUIREDSAMPLES) AS TOTALREQUIREDSAMPLES, ' +
+'SUM(COLLECTSAMPLINGDATAHISTORY.TOTALSAMPLESCOMPLETED) AS TOTALSAMPLESCOMPLETED, ' +
+'LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME ' +
+'FROM CONTAINER ' +
+'LEFT OUTER JOIN HISTORYCROSSREF ' +
+'ON HISTORYCROSSREF.TRACKINGID = CONTAINER.CONTAINERID ' +
+'INNER JOIN HISTORYMAINLINE ' +
+'ON HISTORYMAINLINE.HISTORYID = HISTORYCROSSREF.HISTORYID ' +
+'AND HISTORYMAINLINE.TXNID BETWEEN HISTORYCROSSREF.STARTTXNID AND HISTORYCROSSREF.ENDTXNID ' +
+'INNER JOIN COLLECTSAMPLINGDATAHISTORY ' +
+'ON COLLECTSAMPLINGDATAHISTORY.HISTORYMAINLINEID = HISTORYMAINLINE.HISTORYMAINLINEID ' +
+'RIGHT OUTER JOIN MFGLOT ' +
+'ON COLLECTSAMPLINGDATAHISTORY.SAMPLINGLOTID = MFGLOT.MFGLOTID ' +
+'INNER JOIN SAMPLINGPLAN LOTSAMPLINGPLAN ' +
+'ON MFGLOT.SAMPLINGPLANID = LOTSAMPLINGPLAN.SAMPLINGPLANID ' +
+'INNER JOIN SAMPLINGPLANBASE LOTSAMPLINGPLANBASE ' +
+'ON LOTSAMPLINGPLAN.SAMPLINGPLANBASEID = LOTSAMPLINGPLANBASE.SAMPLINGPLANBASEID ' +
+'INNER JOIN SAMPLETEST ' +
+'ON COLLECTSAMPLINGDATAHISTORY.SAMPLETESTID = SAMPLETEST.SAMPLETESTID ' +
+'INNER JOIN SAMPLETESTBASE ' +
+'ON SAMPLETEST.SAMPLETESTBASEID = SAMPLETESTBASE.SAMPLETESTBASEID ' +
+'INNER JOIN AQLLEVEL ' +
+'ON AQLLEVEL.AQLLEVELID = COLLECTSAMPLINGDATAHISTORY.AQLLEVELID ' +
+'INNER JOIN INSPECTIONLEVEL ' +
+'ON INSPECTIONLEVEL.INSPECTIONLEVELID = COLLECTSAMPLINGDATAHISTORY.INSPECTIONLEVELID ' +
+'GROUP BY MFGLOT.MFGLOTNAME, ' +
+'CONTAINER.CONTAINERNAME, ' +
+'SAMPLETESTBASE.SAMPLETESTNAME, ' +
+'SAMPLETEST.DESCRIPTION, ' +
+'CASE WHEN SAMPLETEST.SAMPLETYPE = 1 THEN ''Counted'' ELSE ''Measured'' END, ' +
+'AQLLEVEL.AQLLEVELNAME, ' +
+'INSPECTIONLEVEL.INSPECTIONLEVELNAME, ' +
+'COLLECTSAMPLINGDATAHISTORY.SAMPLINGSTATUS, ' +
+'CONVERT(DATETIME2(0), COLLECTSAMPLINGDATAHISTORY.TXNDATEGMT), ' +
+'LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME'
+
+    EXEC csiSTInstall_CreateNewDefinition N'SAMPLINGSUMMARY_LSH', 
+										  'Sampling_Summary_LSH', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'SAMPLINGSUMMARY_LSH', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT '+
+'MFGLOT.MFGLOTNAME AS LOTNAME, ' +
+'CONTAINER.CONTAINERNAME, ' +
+'SAMPLETESTBASE.SAMPLETESTNAME, ' +
+'CASE WHEN SAMPLETEST.SAMPLETYPE = 1 THEN ''Counted'' ELSE ''Measured'' END AS SAMPLETYPE, ' +
+'COLLECTSAMPLINGDATAHISTORY.SAMPLINGSTATUS, ' +
+'CONVERT(DATETIME2(0),COLLECTSAMPLINGDATAHISTORY.TXNDATEGMT) AS TRANSACTIONTIME, ' +
+'COLLECTSAMPLINGTESTDTLHISTORY.DATAVALUE, ' +
+'COLLECTSAMPLINGTESTDTLHISTORY.LOWERLIMIT, ' +
+'COLLECTSAMPLINGTESTDTLHISTORY.UPPERLIMIT, ' +
+'CASE WHEN COLLECTSAMPLINGTESTDTLHISTORY.PASSED = ''1'' THEN ''Passed'' ELSE ''Failed'' END AS TESTRESULT, ' +
+'AQLLEVEL.AQLLEVELNAME, ' +
+'INSPECTIONLEVEL.INSPECTIONLEVELNAME, ' +
+'SAMPLEDATAPOINTBASE.SAMPLEDATAPOINTNAME, ' +
+'EMPLOYEE.EMPLOYEENAME, ' +
+'LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME ' +
+'FROM CONTAINER LEFT OUTER JOIN HISTORYCROSSREF ON (HISTORYCROSSREF.TRACKINGID=CONTAINER.CONTAINERID) ' +
+'INNER JOIN HISTORYMAINLINE ON (HISTORYMAINLINE.HISTORYID=HISTORYCROSSREF.HISTORYID AND HISTORYMAINLINE.TXNID BETWEEN HISTORYCROSSREF.STARTTXNID AND HISTORYCROSSREF.ENDTXNID) ' +
+'LEFT OUTER JOIN EMPLOYEE ON (EMPLOYEE.EMPLOYEEID=HISTORYMAINLINE.EMPLOYEEID) ' +
+'INNER JOIN COLLECTSAMPLINGDATAHISTORY ON (COLLECTSAMPLINGDATAHISTORY.HISTORYMAINLINEID=HISTORYMAINLINE.HISTORYMAINLINEID) ' +
+'RIGHT OUTER JOIN MFGLOT ON (COLLECTSAMPLINGDATAHISTORY.SAMPLINGLOTID=MFGLOT.MFGLOTID) ' +
+'INNER JOIN SAMPLINGPLAN  LOTSAMPLINGPLAN ON (MFGLOT.SAMPLINGPLANID=LOTSAMPLINGPLAN.SAMPLINGPLANID) ' +
+'INNER JOIN SAMPLINGPLANBASE  LOTSAMPLINGPLANBASE ON (LOTSAMPLINGPLAN.SAMPLINGPLANBASEID=LOTSAMPLINGPLANBASE.SAMPLINGPLANBASEID) ' +
+'INNER JOIN SAMPLETEST ON (COLLECTSAMPLINGDATAHISTORY.SAMPLETESTID=SAMPLETEST.SAMPLETESTID) ' +
+'INNER JOIN SAMPLETESTBASE ON (SAMPLETEST.SAMPLETESTBASEID=SAMPLETESTBASE.SAMPLETESTBASEID) ' +
+'INNER JOIN AQLLEVEL ON (AQLLEVEL.AQLLEVELID=COLLECTSAMPLINGDATAHISTORY.AQLLEVELID) ' +
+'INNER JOIN INSPECTIONLEVEL ON (INSPECTIONLEVEL.INSPECTIONLEVELID=COLLECTSAMPLINGDATAHISTORY.INSPECTIONLEVELID) ' +
+'INNER JOIN COLLECTSAMPLINGHISTORYDETAILS ON (COLLECTSAMPLINGDATAHISTORY.COLLECTSAMPLINGDATAHISTORYID=COLLECTSAMPLINGHISTORYDETAILS.HISTORYDETAILSID) ' +
+'INNER JOIN COLLECTSAMPLINGTESTDTLHISTORY ON (COLLECTSAMPLINGHISTORYDETAILS.COLLECTSAMPLINGHISTORYDETAILID=COLLECTSAMPLINGTESTDTLHISTORY.HISTORYDETAILSID) ' +
+'LEFT OUTER JOIN SAMPLEDATAPOINT ON (COLLECTSAMPLINGTESTDTLHISTORY.SAMPLEDATAPOINTID=SAMPLEDATAPOINT.SAMPLEDATAPOINTID) ' +
+'LEFT OUTER JOIN SAMPLEDATAPOINTBASE ON (SAMPLEDATAPOINTBASE.SAMPLEDATAPOINTBASEID=SAMPLEDATAPOINT.SAMPLEDATAPOINTBASEID) '
+
+    EXEC csiSTInstall_CreateNewDefinition N'SAMPLEDTLS_LSH', 
+										  'Sample_DTLS_LSH', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'SAMPLEDTLS_LSH', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT '+
+'  MFGLOT.MFGLOTNAME AS LOTNAME, ' +
+'  LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME, ' +
+'  LOTSPECBASE.SPECNAME, ' +
+'  LOTRESOURCEDEF.RESOURCENAME, ' +
+'  LOTVENDORITEM.ITEMNAME, ' +
+'  LOTSAMPLETESTBASE.SAMPLETESTNAME, ' +
+'  LOTAQLLEVEL.AQLLEVELNAME, ' +
+'  LOTINSPECTIONLEVEL.INSPECTIONLEVELNAME, ' +
+'  LOTSAMPLEDATA.TOTALSAMPLESREQUIRED, ' +
+'  LOTSAMPLEDATA.SAMPLESTESTED, ' +
+'  LOTSAMPLEDATA.ALLOWEDREJECTS, ' +
+'  LOTSAMPLEDATA.REJECTS, ' +
+'  LOTSAMPLEDATA.SAMPLESTESTED - LOTSAMPLEDATA.SAMPLESFAILED AS SAMPLESPASSED ' +
+'FROM ' +
+'  RESOURCEDEF  LOTRESOURCEDEF RIGHT OUTER JOIN LOTSAMPLEDATA ON (LOTSAMPLEDATA.RESOURCEID=LOTRESOURCEDEF.RESOURCEID) ' +
+'   INNER JOIN MFGLOT ON (LOTSAMPLEDATA.SAMPLINGLOTID=MFGLOT.MFGLOTID) ' +
+'   INNER JOIN SAMPLINGPLAN  LOTSAMPLINGPLAN ON (MFGLOT.SAMPLINGPLANID=LOTSAMPLINGPLAN.SAMPLINGPLANID) ' +
+'   INNER JOIN SAMPLINGPLANBASE  LOTSAMPLINGPLANBASE ON (LOTSAMPLINGPLAN.SAMPLINGPLANBASEID=LOTSAMPLINGPLANBASE.SAMPLINGPLANBASEID) ' +
+'   INNER JOIN SPEC  LOTSPEC ON (LOTSAMPLEDATA.SPECID=LOTSPEC.SPECID) ' +
+'   INNER JOIN SPECBASE  LOTSPECBASE ON (LOTSPEC.SPECBASEID=LOTSPECBASE.SPECBASEID) ' +
+'   INNER JOIN AQLLEVEL  LOTAQLLEVEL ON (LOTSAMPLEDATA.AQLLEVELID=LOTAQLLEVEL.AQLLEVELID) ' +
+'   INNER JOIN INSPECTIONLEVEL  LOTINSPECTIONLEVEL ON (LOTSAMPLEDATA.INSPECTIONLEVELID=LOTINSPECTIONLEVEL.INSPECTIONLEVELID) ' +
+'   INNER JOIN SAMPLETEST  LOTSAMPLETEST ON (LOTSAMPLEDATA.SAMPLETESTID=LOTSAMPLETEST.SAMPLETESTID) ' +
+'   INNER JOIN SAMPLETESTBASE  LOTSAMPLETESTBASE ON (LOTSAMPLETEST.SAMPLETESTBASEID=LOTSAMPLETESTBASE.SAMPLETESTBASEID) ' +
+'   LEFT OUTER JOIN VENDORITEM  LOTVENDORITEM ON (LOTSAMPLEDATA.VENDORITEMID=LOTVENDORITEM.VENDORITEMID) '
+
+    EXEC csiSTInstall_CreateNewDefinition N'LOTSAMPLINGDATA_LSH', 
+										  'Lot_Sampling_Data_LSH', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'LOTSAMPLINGDATA_LSH', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+
+SET @SQLSTRING= CONVERT(NVARCHAR(MAX), N'') + N'SELECT DISTINCT '+
+'MFGLOT.MFGLOTNAME AS LOTNAME, ' +
+'LOTSAMPLEPRODUCTBASE.PRODUCTNAME, ' +
+'LOTSAMPLEPRODUCT.PRODUCTREVISION, ' +
+'MFGLOT.QTY, ' +
+'SUM(LOTSAMPLECONTAINER.QTY) AS ACTUALQTY, ' +
+'LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME ' +
+'FROM PRODUCTBASE  LOTSAMPLEPRODUCTBASE INNER JOIN PRODUCT  LOTSAMPLEPRODUCT ON (LOTSAMPLEPRODUCT.PRODUCTBASEID=LOTSAMPLEPRODUCTBASE.PRODUCTBASEID) ' +
+'INNER JOIN MFGLOT ON (MFGLOT.PRODUCTID=LOTSAMPLEPRODUCT.PRODUCTID) ' +
+'INNER JOIN CONTAINER  LOTSAMPLECONTAINER ON (MFGLOT.MFGLOTID=LOTSAMPLECONTAINER.SAMPLINGLOTID) ' +
+'INNER JOIN SAMPLINGPLAN  LOTSAMPLINGPLAN ON (MFGLOT.SAMPLINGPLANID=LOTSAMPLINGPLAN.SAMPLINGPLANID) ' +
+'INNER JOIN SAMPLINGPLANBASE  LOTSAMPLINGPLANBASE ON (LOTSAMPLINGPLAN.SAMPLINGPLANBASEID=LOTSAMPLINGPLANBASE.SAMPLINGPLANBASEID) ' +
+'GROUP BY ' +
+'MFGLOT.MFGLOTNAME, ' +
+'LOTSAMPLEPRODUCTBASE.PRODUCTNAME, ' +
+'LOTSAMPLEPRODUCT.PRODUCTREVISION, ' +
+'MFGLOT.QTY, ' +
+'LOTSAMPLINGPLANBASE.SAMPLINGPLANNAME'
+
+    EXEC csiSTInstall_CreateNewDefinition N'MFGLOT_LSH', 
+										  'Mfg_Lot_LSH', 
+										  NULL, 
+										  @SQLSTRING, 
+										  1, 
+										  'MFGLOT_LSH', 
+										  0, 
+										  NULL, 
+										  NULL, 
+										  '0,', 
+										  NULL, 
+										  0,
+										  1
+										  
+END
+GO
+EXEC csiSTInstall_PopulateDefaultData
+GO
+DROP PROCEDURE csiSTInstall_PopulateDefaultData
+GO
+DROP PROCEDURE csiSTInstall_CreateNewDefinition
+GO

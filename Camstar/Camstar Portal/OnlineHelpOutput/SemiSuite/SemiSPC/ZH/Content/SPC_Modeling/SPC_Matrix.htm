@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="建模" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>定义 SPC 矩阵</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_TableIndent3body.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="SPC"></a><a name="kanchor7"></a>定义 SPC 矩阵</p>
+            <p class="_1body">SPC 矩阵对象在车间处理期间使用以确定最适合于正在处理的批次的 SPC 设置。仅在转入事务期间评估 SPC 矩阵。然后在转出事务期间触发已标识矩阵，并根据 SPC 设置的配置评估任何数据。</p>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="When_Defining_an_SPC_Matrix"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor8"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />定义 SPC 矩阵</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">在定义 SPC 矩阵之前，必须至少配置一个 SPC 设置。</p>
+                    <p class="_1body">如果矩阵对象使用 WIP 工步工作流程将工作流程中的工步定义为以下准则之一，记住以下几点：</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">删除矩阵对象中引用的工作流程中的工步将会使该特定矩阵条目呈现无效状态。</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">编辑矩阵对象中引用的工作流程中的工步不会使该特定矩阵条目呈现无效状态，除非移除该工步然后重新输入。</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="SPC_Matrix_Page_Field_Definitions"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="SPC2"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor9"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />SPC 矩阵页字段定义</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">此表定义“SPC 矩阵”页中的字段。</p>
+                    <table style="caption-side: top;width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="178px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 339px;" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 95px;" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">字段</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">定义</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">类型</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">过滤器</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">产品</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的产品。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">流程规范</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的流程规范。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">产品线</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的产品线。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">所有者</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的所有者。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">规范</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的规范。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">资源系列</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的资源系列。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">流程配方</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的配方。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">流程设备</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的设备。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">流程设备系列</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的设备系列。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">WIP 工步工作流程</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">包含实例适用的工步的工作流程或子工作流程。必须选择工步以及工作流程或子工作流程。应用程序在“WIP 工步”字段中显示工步。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">WIP 工步</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的工作流程或子工作流程中的工步。此值由“WIP 工步工作流程”字段设置。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">SPC 矩阵表格 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">产品</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的产品。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">流程规范</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的流程规范。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">产品线</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的产品线。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">所有者</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的所有者。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">规范</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">实例适用的规范。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">资源系列</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">实例适用的资源系列。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">流程配方</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">实例适用的配方。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">流程设备</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">实例适用的设备。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">流程设备系列</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">实例适用的设备系列。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">WIP 工步</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">实例适用的工作流程或子工作流程中的工步。此值由“WIP 工步工作流程”字段设置。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">WIP 工步工作流程</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">包含实例适用的工步的工作流程或子工作流程。必须选择工步以及工作流程或子工作流程。应用程序在“WIP 工步”字段中显示工步。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">工作流程堆栈</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">工作流程堆栈，表示 WIP 工步的子工作流程的句点分隔路径。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">主工作流程 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">“WIP 工步”的路径中的顶级工作流程。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">SPC 设置</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">指定 SPC 要求。字段选项同时提供原有 SPC 和 Inline SPC 的值。选择字段时，会自动将预定义值填充到“参数”表格。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">描述</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">指定矩阵（如果存在）的其他描述。可以在“详细信息”部分中设置此字段。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">名称 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">SPC 矩阵 ID 的名称。可以在“详细信息”部分中设置此字段</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                                    <p class="CellBody">仅显示</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side">SPC 矩阵添加/编辑弹出窗口页字段定义</p>
+            <p class="_1body">此表定义“SPC 矩阵添加弹出窗口”页中的字段。 </p>
+            <table style="caption-side: top;width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col width="178px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 339px;" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 95px;" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">字段</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">定义</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">类型</p>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                            <p class="CellSectionHeader">准则 </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">产品</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">实例适用的产品。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">流程规范</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">实例适用的流程规范。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">产品线</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">实例适用的产品线。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">所有者</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">实例适用的所有者。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">规范</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">实例适用的规范。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">资源系列</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">实例适用的资源系列。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">流程配方</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">实例适用的配方。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">流程设备</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">实例适用的设备。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">流程设备系列</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">实例适用的设备系列。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">WIP 工步工作流程</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">包含实例适用的工步的工作流程或子工作流程。必须选择工步以及工作流程或子工作流程。应用程序在“WIP 工步”字段中显示工步。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">WIP 工步</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">实例适用的工作流程或子工作流程中的工步。此值由“WIP 工步工作流程”字段设置。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">仅显示</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">主工作流程</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">WIP 工步路径中的顶层工作流程。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">仅显示</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">工作流程工步追踪</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">WIP 工步的子工作流程的期间精确路径。工步路径中的任何子工作流程按从低到高的顺序列出。例如，如果子工作流程 SWF_B 包含在子工作流程 SWF_A 中，则此字段显示以下内容：</p>
+                            <p class="CellBody">SWF_B SWF_A</p>
+                            <p class="CellBody">仅显示子工作流程 WIP 工步。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">仅显示</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                            <p class="CellSectionHeader">详细信息</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">SPC 矩阵名称</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">SPC 矩阵规范的名称。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">描述</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">此 SPC 矩阵规范的描述。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">设置访问权限</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">设置员工对此建模记录的访问权限。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody" style="color: #000000;"><a name="SPC3"></a>SPC 设置</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody" style="color: #000000;">指定 SPC 要求。字段选项同时提供原有 SPC 和 Inline SPC 的值。选择字段时，会自动将预定义值填充到“参数”表格。 </p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">必需</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">参数表格</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">此表格定义要用作 SPC 设置图表参数的替代值的值。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">必需</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBodyIndented" style="color: #000000;">项名称</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">从 SPC 设置详细信息表格中导入的项名称。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">必需</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBodyIndented" style="color: #000000;">参数名称</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">针对每个图表项定义，作为 SPC 设置详细信息表格的一部分的 SPC 参数列表。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">必需</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBodyIndented" style="color: #000000;">参数值</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">指定要用于参数的替代值。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">自定义“SPC 表格过滤器”表格</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">此表格列出自定义过滤器以添加到 SPC 基础查询中。</p>
+                            <p class="CellBody"><span class="User_Entry">注：</span>所有随附的过滤器均使用 SQL AND 运算符进行添加。此表格中的内容不影响特别查询。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBodyIndented">表</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">可用于进一步过滤的表。有效选项为“容器”和“产品”。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBodyIndented">列</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">选定表中可用的列名称。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBodyIndented">过滤器</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">过滤器值。可以输入整个值（例如 "PA-001"）、通配符值（例如 "PA%"）或 AND 表达式（例如 "Container.Product"）。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBodyIndented">是动态的</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">此标志表示是否应将过滤器值评估为字符串。</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                            <p class="CellBody">可选</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side"><a name="How_to_Define_an_SPC_Matrix"></a>如何定义 SPC 矩阵<a name="kanchor10"></a></p>
+            <p class="_1bodyKeepWithNext">按照以下步骤定义 SPC 矩阵：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">打开“SPC 矩阵”页。<span class="Emphasis">将显示“SPC 矩阵”页。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;"> 执行如下表中所述的某个过程：</td>
+                </tr>
+            </table>
+            <table style="width: 90%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_TableIndent3body.css');" class="TableStyle-Horiz-rules_TableIndent3body" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 200px;" />
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">要定义 ...</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">执行以下操作 ...</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body1">
+                            <p class="CellBody">新实例</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span><b>1.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;"><a name="Click"></a>单击右侧命令条中的<b>添加</b>按钮。  </td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>2.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">在 <span class="User_Entry">SPC 矩阵名称</span>字段中输入名称。如果未输入名称，系统将生成一个名称，并显示在“后保存”状态消息中。</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>3.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">选择 <span class="User_Entry">SPC 设置</span>。</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>4.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">根据您的业务需求输入可选信息。<span class="Emphasis">有关可选字段的信息，请参考字段定义表。</span></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>5.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">单击<span class="User_Entry">保存</span>。<span class="Emphasis">应用程序保存建模对象并显示成功消息。</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyB-Column1-Body2">
+                            <p class="CellBody">现有实例中的实例</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyA-Column1-Body2">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span><b>1.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">在<span class="User_Entry">过滤器</span>区域中，输入或选择字段值以搜索要复制的 SPC 矩阵。</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>2.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">单击“过滤器”表格下的<span class="User_Entry">应用</span>按钮。<span class="Emphasis">应用程序使用符合输入准则的 SPC 矩阵实例填充表格。</span></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>3.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">在“SPC 矩阵”表格上水平滚动以查看其他实例详细信息。</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>4.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">单击要复制的实例所在的行，然后单击<b>编辑</b>按钮。<span class="Emphasis">应用程序将使用选定实例详细信息填充“编辑”弹出窗口。</span></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>5.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">更改 <span class="User_Entry">SPC 矩阵名称</span>。</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>6.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">根据需要更改准则。 </td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>7.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">单击<span class="User_Entry">另存为新</span>。<span class="Emphasis">应用程序保存建模对象并显示状态消息。</span></td>
+                                </tr>
+                            </table>
+                            <p class="CellBody" style="color: #000000;"><span class="User_Entry">重要：</span>必须同时更改<span class="User_Entry">准则</span>区域中的名称和至少一个项。否则将导致错误，且应用程序将不会保存新实例。<a name="spc_matrix_end"></a></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

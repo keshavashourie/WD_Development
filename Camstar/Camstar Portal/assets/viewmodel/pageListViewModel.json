@@ -1,0 +1,58 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [  
+        "js/aw-panel-body.directive",
+        "js/aw-tree.directive",
+        "js/aw-link.directive",   
+        "js/aw-scrollpanel.directive",  
+        "js/aw-panel.directive"
+    ],
+    "actions": {
+        "getPageList": {
+            "actionType": "JSFunctionAsync",
+            "method": "getPageList",
+            "inputData": {},
+            "outputData": {
+                "menu": "menu",
+                "selectedMenu": "selectedMenu"
+            },
+            "deps": "js/cepPortalService"
+        },
+        "selectTreeNode": {
+            "actionType": "JSFunction",
+            "method": "selectItem",
+            "inputData": {
+                "selectedNode": "{{data.eventData.node}}"                
+            },
+            "deps": "js/cepPortalService"
+        }
+    },
+    "conditions": {
+        "isPageListPanelVisible": {
+            "expression": "ctx.isPageListPanelVisible === true"
+        }
+    },
+    "data": {
+        "selectedNode": {
+            "type": "STRING",
+            "uiValue": ""
+        }
+    },
+    "i18n": {
+       
+    },
+    "onEvent": [{ 
+            "eventId": "pageList.contentLoaded",
+            "action": "getPageList"
+        },
+        {
+            "eventId": "awsidenav.openClose",
+            "action": "getPageList"
+        },
+        {
+            "eventId": "pageListTree.treeNodeSelected",
+            "action": "selectTreeNode",
+            "cacheEventData": true
+        }
+    ]
+}

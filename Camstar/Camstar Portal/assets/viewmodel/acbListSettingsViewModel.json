@@ -1,0 +1,74 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-textbox.directive",
+        "js/aw-panel-body.directive",
+        "js/aw-panel.directive",
+        "js/aw-row.directive",
+        "js/aw-repeat.directive",
+        "js/aw-panel-footer.directive",
+        "js/aw-button.directive",
+        "js/aw-popup2.directive",
+        "js/aw-widget.directive",
+        "js/aw-tab-set.directive",
+        "js/aw-radiobutton.directive",
+        "js/aw-list.directive",
+        "js/aw-listbox.directive",
+        "js/aw-include.directive",
+        "js/aw-label.directive",
+        "js/aw-property-non-edit-val.directive"
+    ],
+    "actions": {
+        "createListDataFromConfig": {
+            "actionType": "JSFunction",
+            "method": "createListDataFromConfig",
+            "inputData": {
+                "configData": "{{ctx.momAcbConfiguration.listProperties.props}}"
+            },
+            "outputData": {
+                "listDataObject": "listDataObject"
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "updateTemplate": {
+            "actionType": "JSFunction",
+            "method": "reloadPreviewPage",
+            "deps": "js/mom.acb.component.service"
+        }
+    },
+    "data": {
+        "listBox1": {
+            "displayName": "Property 3",
+            "type": "STRING",
+            "isRequired": "true",
+            "hasLov": "true",
+            "dbValue": "region",
+            "dispValue": "Property 3"
+        },
+        "listBox1Values": {
+            "type": "STRING",
+            "dbValue": [ {
+                    "propDisplayValue": "Name",
+                    "dispValue": "Name",
+                    "propInternalValue": "name"
+                },
+                {
+                    "propDisplayValue": "Capital",
+                    "dispValue": "Capital",
+                    "propInternalValue": "capital"
+                },
+                {
+                    "propDisplayValue": "Region",
+                    "dispValue": "Region",
+                    "propInternalValue": "region"
+                }
+            ]
+        }
+    },
+    "conditions": {},
+    "i18n": {},
+    "onEvent": [ {
+        "eventId": "acbListSettings.contentLoaded",
+        "action": "createListDataFromConfig"
+    } ]
+}

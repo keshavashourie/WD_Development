@@ -1,0 +1,64 @@
+<%-- Copyright Siemens 2023   --%>
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="LoginMasterPage.master.cs" Inherits="LoginMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Opcenter Execution</title>
+    <asp:PlaceHolder runat="server">
+            <%= this.styleSheetString %>
+    </asp:PlaceHolder>
+</head>
+<body class="LoginMaster-page">
+    <form id="form1" runat="server">
+        <cwpf:WebPartFrameworkManager ID="WebPartManager" runat="server" EnableClientScript="false" />
+        <asp:ScriptManager ID="ScriptManager" runat="server" EnablePartialRendering="true" EnableCdn="false">
+            
+            <Scripts>
+                <asp:ScriptReference Name="jquery"/>
+                <asp:ScriptReference Name="camstar"/>
+                <asp:ScriptReference Name="camstar.webcontrols"/>
+                <asp:ScriptReference Name="camstar.scripts"/>
+                <asp:ScriptReference Name="camstar.webcontrols.jqGrid"/>
+                <asp:ScriptReference Name="workspaceoverride"/> 
+                <asp:scriptreference path="~/Scripts/User/User.js" />
+                <asp:scriptreference path="~/Scripts/User/SmartScan.js" />
+            </Scripts>
+               
+        </asp:ScriptManager>
+        <cwfw:Label runat="server" Visible="false" ID="YesLabel" LabelName="Web_Yes" LabelType="Designer"></cwfw:Label>
+        <cwfw:Label runat="server" Visible="false" ID="NoLabel" LabelName="Web_No" LabelType="Designer"></cwfw:Label>
+        <cwfw:Label runat="server" Visible="false" ID="OkLabel" LabelName="OKButton" LabelType="Designer"></cwfw:Label>
+        <cwfw:Label runat="server" Visible="false" ID="CloseLabel" LabelName="Web_Close" LabelType="Designer"></cwfw:Label>
+        <cwfw:Label runat="server" Visible="false" ID="MessageTitleLabel" LabelName="ConfirmationMessageTitle" LabelType="Designer"></cwfw:Label>
+        <div id="scrollablepanel">
+            <div id="DynamicContentDiv" class="ui-login">
+                <div class="ui-login-signin-master">
+                    <asp:ContentPlaceHolder ID="AJAXContentPlaceHolder" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <cwpf:WebPartBaseZone ID="StaticZoneBottom" CssClassBrowse="ui-zone-static-bottom" runat="server">
+                <ZoneTemplate>
+                    <cwpfc:ButtonsBarControl ID="ButtonsBar" runat="server" />
+                </ZoneTemplate>
+            </cwpf:WebPartBaseZone>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        Sys.Application.add_load(function (sender, args) {
+            __page = $find("__Page");
+            if (__page) {
+                var path = document.location.pathname;
+                __page.set_virtualPageName(path.substring(path.lastIndexOf('/') + 1, path.length - 5));
+                var segments = document.location.toString().split("?");
+                if (segments.length == 2) {
+                    __page.set_queryString(segments[1]);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

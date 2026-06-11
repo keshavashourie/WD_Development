@@ -1,0 +1,1 @@
+define({r:0.5,st:'Stem',n:1,t:[0],m:[],u:['../Content/1_EventRecording/Adding_Attachments.htm'],s:['+','ermittl','qualitatsdatensatz'],p:[['+',7],['anwendung',40],['benutzern',35],['deaktiviert',16],['die',31],['einzugrenzen',6],['feldern',26],['hh',13],['kommentare',16],['neuzuweisen',17],['sachbearbeiters',46],['systemadministrator',15],['verwenden',23],['zeigt',30]]});

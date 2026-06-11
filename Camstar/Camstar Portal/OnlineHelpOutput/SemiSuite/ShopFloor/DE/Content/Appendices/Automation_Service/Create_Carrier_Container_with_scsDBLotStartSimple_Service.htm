@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalHelp.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Anhang D: Automatisierungsdienste" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Erstellen von Behälter-Containern mit dem "scsDBLotStartSimple"-Dienst</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top"></a>Erstellen von Behälter-Containern mit dem "scsDBLotStartSimple"-Dienst</p>
+            <p class="_1body" style="color: #000000;">Behälter-Container können mit dem scsDBLotStartSimple-Dienst erstellt werden, wenn der Behälter in der Anforderungs-XML angegeben ist. Wenn der Behälter-Container mit dem "scsDBLotStartSimple"-Dienst erstellt wird, können Sie optional dem Behälter-Container einen eigenen Startgrund, Eigentümer und Level-Wert zuweisen, indem Sie die folgenden Skripte zur XML-Anforderung hinzufügen: <br /><br /></p>
+            <p class="ProgramCode1">&lt;scsCarrierStartReason&gt;&lt;__name&gt;&lt;![CDATA[<span style="color: #dc143c;">Carrier Start Reason</span>]]&gt;&lt;/__name&gt;&lt;/scsCarrierStartReason&gt;</p>
+            <p class="ProgramCode1">
+&lt;scsCarrierOwner&gt;&lt;__name&gt;&lt;![CDATA[<span style="color: #dc143c;">Carrier Owner</span>]]&gt;&lt;/__name&gt;&lt;/scsCarrierOwner&gt;
+</p>
+            <p class="ProgramCode1">&lt;scsCarrierLevel&gt;&lt;__name&gt;&lt;![CDATA[<span style="color: #dc143c;">Carrier Level</span>]]&gt;&lt;/__name&gt;&lt;/scsCarrierLevel&gt;
+</p>
+            <p class="_1body" style="color: #000000;">
+                <br />Wenn die Werte für "Startgrund", "Eigentümer" und "Level" nicht aus der XML "Anforderung" übernommen werden, bestimmt die Anwendung, ob der Behälterfamilie Einstellungen der Fertigungsintegration zugeordnet sind. Wenn Einstellungen der Fertigungsintegration mit der Behälterfamilie verknüpft sind, verwendet die Anwendung diese Werte für Startgrund, Eigentümer und Level. Wenn die Werte "Startgrund", "Eigentümer" und "Level" nicht über die Anforderungs-XML oder in den Einstellungen der Fertigungsintegration angegeben sind, verwendet die Anwendung die Werte, die auf der Seite <a href="../../Portal/04Inventory/Lot_Start_Bulk_(HPE).htm" class="MCXref xref" xrefformat="{paratext}">Los starten - Großmenge (HPE)</a> oder auf der Seite <a href="../../Portal/04Inventory/Work_Order_Dispatch_(HPE).htm" class="MCXref xref" xrefformat="{paratext}">Arbeitsauftragserledigung (HPE)</a> angegeben wurden.   </p>
+            <p class="_1body" style="color: #000000;">Um die Priorität zusammenzufassen, verwendet die Anwendung die Felder "Startgrund", "Eigentümer" und "Level" basierend auf der folgenden Rangfolge:</p>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Anforderungs-XML-Skript,</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Einstellungen der Fertigungsintegration, die in der Behälterfamilie angegeben sind </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Wenn Sie die Seite "<a href="../../Portal/04Inventory/Lot_Start_Bulk_(HPE).htm" class="MCXref xref" xrefformat="{paratext}">Los starten - Großmenge (HPE)</a>" oder "<a href="../../Portal/04Inventory/Work_Order_Dispatch_(HPE).htm" class="MCXref xref" xrefformat="{paratext}">Arbeitsauftragserledigung (HPE)</a>" verwenden. Dies wird auf Benutzeroberflächenebene und nicht auf Automatisierungsebene angegeben. </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note1body" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Wenn Sie Nummerierungsregeln verwenden, um Container auf der Automatisierungsebene zu erstellen (mit DBLotStartSimple), müssen Sie gewährleisten, dass die entsprechende Nummerierungsregel auf Containerlevel oder PN konfiguriert wurde. Wenn keine Nummerierungsregel erkannt wird, zeigt die Anwendung eine Fehlermeldung an. Die folgenden Einrichtungen müssen angewendet werden:</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Eine Nummerierungsregel muss bei PN/Produktfamilie/Diensteinrichtung konfiguriert werden.
+</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Eine Nummerierungsregel muss auf Kind-Containerlevel konfiguriert werden, wenn "Kind automatisch erstellen" auf "Wahr" festgelegt wurde.
+</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Das Kind-Containerlevel muss bereitgestellt werden, wenn "Kind automatisch erzeugen" auf "wahr" festgelegt wurde.<br /><br /></td>
+                </tr>
+            </table>
+            <p class="Head3">Beispiel für die Anforderungs-XML für die Erstellung von Behälter-Containern mit dem "scsDBLotStartSimple"-Dienst</p>
+            <p class="_1bodyKeepWithNext">Die nachfolgende Anforderungs-XML zeigt ein Beispiel für das Starten des Behälter-Containers mit dem scsDBLotStartSimple-Dienst und den angegebenen Werten für Level, Eigentümer und Startgrund. </p>
+            <p class="ProgramCode0">
+                <br />&lt;__InSite __version="1.1" __encryption="3"&gt;
+    </p>
+            <p class="ProgramCode1">&lt;__service __serviceType="scsDBLotStartSimple"&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__inputData&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Carrier&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[Carrier Name]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/Carrier&gt;
+            </p>
+            <p class="ProgramCode3">&lt;ContainerName&gt;&lt;![CDATA[Parent Container Name]]&gt;&lt;/ContainerName&gt;
+</p>
+            <p class="ProgramCode3">            &lt;ContainerNamesStr&gt;&lt;![CDATA[Child Container Name(s) String with bar(|) separation]]&gt;&lt;/ContainerNamesStr&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Factory&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[SGP]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/Factory&gt;
+</p>
+            <p class="ProgramCode3">            &lt;MfgOrder&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[Work Order Name]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/MfgOrder&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Owner __CDOTypeName="Owner"&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[PROD]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/Owner&gt;
+            </p>
+            <p class="ProgramCode3">&lt;ProcessSpec&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[ASSYM001]]&gt;&lt;/__name&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__rev&gt;&lt;![CDATA[1]]&gt;&lt;/__rev&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__useROR&gt;&lt;![CDATA[false]]&gt;&lt;/__useROR&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/ProcessSpec&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Product&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[PA-001]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__useROR&gt;&lt;![CDATA[true]]&gt;&lt;/__useROR&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/Product&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsChildCount&gt;&lt;![CDATA[3]]&gt;&lt;/scsChildCount&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsDefaultChildLevel&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[LOT]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/scsDefaultChildLevel&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsDefaultChildQty&gt;&lt;![CDATA[1]]&gt;&lt;/scsDefaultChildQty&gt;
+            </p>
+            <p class="ProgramCode3">&lt;StartReason __CDOTypeName="StartReason"&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[NORMAL]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/StartReason&gt;
+</p>
+            <p class="ProgramCode3">            &lt;Level&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[LOT]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/Level&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierStartReason&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[ReqCarrier]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/scsCarrierStartReason&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierOwner&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[ReqCarrierOwner]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/scsCarrierOwner&gt;
+            </p>
+            <p class="ProgramCode3">&lt;scsCarrierLevel&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[ReqCarrierLevel]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/scsCarrierLevel&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__inputData&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__execute&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__requestData&gt;
+            </p>
+            <p class="ProgramCode3">&lt;CompletionMsg&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/CompletionMsg&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__requestData&gt;
+</p>
+            <p class="ProgramCode1">    &lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;
+
+
+
+
+</p>
+            <p class="ProgramCode0"><![CDATA[
+]]></p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

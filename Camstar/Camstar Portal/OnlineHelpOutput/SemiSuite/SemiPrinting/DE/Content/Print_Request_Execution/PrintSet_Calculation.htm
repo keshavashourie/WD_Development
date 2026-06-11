@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="CamstarSemiSuite_PrintingSystemHelp.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="Funktionale Ausführung" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Drucksatzberechnung</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="kanchor34"></a>Drucksatzberechnung</p>
+            <p class="_1body">Das Drucksystem muss die Anzahl der Drucksätze (einzelne Elemente) bestimmen, die für jede Druckanforderung zu drucken sind. Für jeden Drucksatz muss der Parameterwert darüber hinaus die Anzahl an Kartons bestimmen, die erforderlich sind, wenn der Drucksatz Etiketten ausgibt. Das System verwendet Abfragen und Parameter, die in der mit der Druckanforderung verbundenen Druckeinrichtung konfiguriert sind.</p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" /></a><a name="Quantity"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false" name="kanchor35">Berechnung der Menge pro Packung</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Der Wert für die Menge pro Packung wird basierend auf den beiden Parametern für das Produkt und den Verpackungstyp abgerufen. Wenn diese Parameter nicht festgelegt sind oder die Menge pro Packung nicht ermittelt werden kann, wird die Menge pro Packung auf den Wert des Qty-Parameters gesetzt. Der Wert für die Menge pro Paket wird im QtyPerBox-Parameter gespeichert. Das System berechnet die Anzahl der Etiketten durch Dividieren des Werts des Qty-Parameters durch den Wert des QtyPerBox-Parameters. Der Drucksatz wird dann gemäß der Anzahl an Etiketten dupliziert.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beispiel</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Die erste Abfrage in der Druckeinrichtung (Abfrage 1) wird ausgeführt, um die Anzahl der Drucksätze zu bestimmen. Die Abfrage gibt zwei Zeilen zurück – zwei Container mit einer Menge größer als 500. Daher sind zwei Drucksätze verfügbar. Die zweite Abfrage in der Druckeinrichtung (Abfrage 2) wird einmal für jeden Drucksatz ausgeführt. Der #MYCONTAINER#-Parameter wird mit dem Containernamen des Drucksatzes ausgefüllt, der derzeit verarbeitet wird.</p>
+                    <p class="_1bodyKeepWithNext">Jeder Drucksatz weist eine Containermenge von 500 auf, während QtyPerBox als 400 ermittelt wird. Zwei Kartons und zwei Sätze von Etiketten sind für jeden Drucksatz erforderlich, sodass die Abfrage 2 für jeden Drucksatz dupliziert wird.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beispieldiagramm</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Die folgende Abbildung veranschaulicht das Beispiel.</p>
+                    <p class="Image_1body">
+                        <img src="../Resources/Images/PRINTSETS.png" class="Max600Pixels" />
+                    </p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

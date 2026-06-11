@@ -1,0 +1,1 @@
+define({r:0.5,st:'NGram',n:1,t:[0],m:[],u:['../Content/About_this_Guide/Security_Information.htm'],s:[' '],p:[[' ',0],['p',19],['例',13],['完',21],['机',8],['行',0]]});

@@ -1,0 +1,157 @@
+{
+  "name": "OpExCr_Reprocess_CIO_Message",
+  "isActive": true,
+  "description": "This Database Adapter reads failed transactions from the CIOMessage table in the Op Ex Cr (or ES or SM) database and processes them.  Failed in this context means the messages did not get to the Client Gateway.",
+  "hashCode": "4E2C8C3EE78FA5B8780FA5977623B5E6",
+  "type": "ChannelAdapterConfiguration",
+  "adapterConfigurationTypeName": "DatabaseAdapterConfiguration",
+  "adapterType": "DatabaseAdapter",
+  "adapterVersion": "1",
+  "adapterKind": "default",
+  "contentFormat": "Xml",
+  "channelSourceName": "miochannelsource",
+  "messageChannelName": "MIOTestChannel",
+  "momConnectionName": "",
+  "outboundNameFormat": "{messagename}",
+  "inboundNameFormat": "{messagename}",
+  "doNotSend": false,
+  "doNotSendOutbound": false,
+  "shutdownMaxTime": 15,
+  "isXml": true,
+  "wakeUpInterval": 120,
+  "userName": "",
+  "password": "",
+  "domainName": "",
+  "verifyUnique": true,
+  "uniqueIncludesTimestamp": true,
+  "uniqueCacheExpiration": 0,
+  "clearOriginalContents": true,
+  "bufferSettings": {
+    "description": "",
+    "kind": "Volatile",
+    "connectionName": "",
+    "connectionString": "",
+    "interval": 5000,
+    "expiration": -1,
+    "maxCount": -1
+  },
+  "inProcessExpiration": 120,
+  "inboundFilters": {
+    "listItem": [
+      {
+        "name": "OpCnReprocessMessage",
+        "description": "",
+        "sequence": 10,
+        "plugInName": "OpCnReprocessMessage",
+        "initializationString": "",
+        "messageLogging": true
+      }
+    ]
+  },
+  "outboundFilters": {
+    "listItem": [
+      {
+        "name": "OpCnReprocessMessage",
+        "description": "",
+        "sequence": 10,
+        "plugInName": "OpCnReprocessMessage",
+        "initializationString": "",
+        "messageLogging": true
+      }
+    ]
+  },
+  "outboundFailPlugin": "LogAndDiscard",
+  "outboundFailConfiguration": "",
+  "outboundRetryInterval": 15000,
+  "outboundMaxRetries": 5,
+  "sendMessageMaxRetries": 10,
+  "sendMessageRetryInterval": 10000,
+  "timeOfDayUtc": "1970-01-01T00:00:00Z",
+  "databaseType": "SQLServer",
+  "messageTemplate": "",
+  "databaseSchema": "Camstar_Sch",
+  "messageType": "",
+  "connectionName": "CamstarDb",
+  "scheduleType": "Interval",
+  "connectionString": "Data Source=localhost;Initial Catalog=CamstarDb;User ID=User;Password=Pwd;",
+  "fastInterval": 1000,
+  "slowInterval": 10000,
+  "numberOfOccurrences": 0,
+  "timeOfDay": "1970-01-01T00:00:00Z",
+  "getMessageStoredProcedure": "CIO_CheckInboundMessage",
+  "getMessageParameters": {
+    "listItem": []
+  },
+  "messageReceivedStoredProcedure": "CIO_InboundMessageReceived",
+  "messageReceivedParameters": {
+    "listItem": [
+      {
+        "parameterName": "MsgName",
+        "dataType": "String",
+        "dataLength": 255,
+        "dataValue": "at::messagename"
+      }
+    ]
+  },
+  "sendMessageStoredProcedure": "",
+  "sendMessageParameters": {
+    "listItem": []
+  },
+  "sendResponseStoredProcedure": "",
+  "sendResponseParameters": {
+    "listItem": []
+  },
+  "connectStoredProcedure": "",
+  "connectParameters": {
+    "listItem": []
+  },
+  "connectMaxRetries": 2,
+  "disconnectStoredProcedure": "",
+  "disconnectParameters": {
+    "listItem": []
+  },
+  "wakeUpStoredProcedure": "CIO_WakeUpAdapter",
+  "wakeUpParameters": {
+    "listItem": [
+      {
+        "parameterName": "@RecordCount",
+        "dataType": "Int16",
+        "dataLength": 0,
+        "dataValue": "300"
+      }
+    ]
+  },
+  "messageTypeParameter": {
+    "parameterName": "@RetMsgType",
+    "dataType": "String",
+    "dataLength": 255,
+    "dataValue": ""
+  },
+  "tagDataParameter": {
+    "parameterName": "@AdapterName",
+    "dataType": "String",
+    "dataLength": 255
+  },
+  "messageNameParameter": {
+    "parameterName": "@RetMsgName",
+    "dataType": "String",
+    "dataLength": 255
+  },
+  "requestIdParameter": {
+    "dataLength": 0
+  }
+}{
+  "name": "BulkExport 2021-11-05-212339",
+  "type": "BulkExportResult",
+  "timestampUtc": "2021-11-05T21:23:39.5574208Z",
+  "revisions": {
+    "channelAdapterConfiguration": "1.2"
+  },
+  "exportCount": 1,
+  "exported": [
+    {
+      "type": "ChannelAdapterConfiguration",
+      "name": "OpEx Cr Reprocess CIO Message"
+    }
+  ]
+}

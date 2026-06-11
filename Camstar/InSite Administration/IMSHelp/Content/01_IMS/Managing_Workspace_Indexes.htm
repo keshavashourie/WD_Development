@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-US" xml:lang="en-US" data-mc-search-type="Stem" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Managing Workspace Indexes</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Managing Workspace Indexes</p>
+            <p class="_1body">Indexes defined in Designer are created by a stored procedure that reads in the definition and creates the database indexes. There are some cases where changes to an existing index are required but not supported by Designer, such as clustered indexes or where additional columns are required for a specific workspace. To support these cases, workspace specific stored procedures can be written to be called during the index creation process. This allows for modification of existing indexes. Each active workspace can have its own procedure, and the index creation process calls each one from your lowest to highest active workspace.</p>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Managing_Workspace_Indexes"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Managing Workspace Indexes</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body"> A stored procedure is executed when updating the Transaction database or creating database tables with the Create Indices check box selected. The csiCreateIndexes stored procedure is executed to read in the definitions and create indexes based on those definitions. </p>
+                    <p class="_1body">After the indexes are created for each active workspace in ascending order according to the workspace sequence, the procedure checks for the existence of a stored procedure with a specific name and calls it if it exists. For example, if you have workspaces 180, 190, and 200 active with a custom stored procedure file for each workspace, the application would execute the  procedures in the order  180, 190, and then 200.</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 50px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Any changes made to indexes are logged in the Replace Workspace Data utility's log file. Refer to the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Installation Guide</span> or the <span class="Emphasis">Opcenter Execution Core Installation Guide</span> for information on the Replace Workspace Data utility.</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">Only one stored procedure can exist for each active workspace. You must follow the naming convention "Workspace_WSCode_CreateIndexes" where "WSCode" is the workspace's code, such as "180" or "190". For example, "Workspace_200_CreateIndexes" must be the name for workspace 200’s stored procedure.</p>
+                    <p class="_1body">Sample stored procedure files are provided for both SQL Server and Oracle databases as a starting point for creating your custom index stored procedures. The sample files are available in these locations:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">C:\Program Files (x86)\Camstar\Insite Administration\Scripts\Oracle for Oracle databases.</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">C:\Program Files (x86)\Camstar\Insite Administration\Scripts\SqlServer for SQL databases.</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">You must execute the scripts you created for your database in Management Studio to create the stored procedure. A stored procedure is executed when updating the Transaction database or creating database tables with the Create Indices check box selected. The csiCreateIndexes procedure then finds the custom procedure and calls it during the Index Creation process.</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

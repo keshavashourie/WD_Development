@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="PortalHelp.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="附录 D：自动化服务" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>使用 “scsCarrierPositionAssign” 服务创建物料箱容器</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top"></a>使用 “scsCarrierPositionAssign” 服务创建物料箱容器</p>
+            <p class="_1body" style="color: #000000;">当容器指派给物料箱或从另一个物料箱转移时，可以通过名为 "scsCarrierPositionAssign" 的自动化服务创建物料箱容器。在 "scsCarrierPositionAssign" 服务创建物料箱容器后，应用程序将确定是否在 XML 请求中包含以下详细信息：物料箱启动原因、物料箱所有者和物料箱级别。将使用这些值创建物料箱容器。 <br /><br /></p>
+            <p class="ProgramCode1">&lt;scsCarrierStartReason&gt;&lt;__name&gt;&lt;![CDATA[Carrier Start Reason]]&gt;&lt;/__name&gt;&lt;/scsCarrierStartReason&gt;</p>
+            <p class="ProgramCode1">
+&lt;scsCarrierOwner&gt;&lt;__name&gt;&lt;![CDATA[Carrier Owner]]&gt;&lt;/__name&gt;&lt;/scsCarrierOwner&gt;
+</p>
+            <p class="ProgramCode1">&lt;scsCarrierLevel&gt;&lt;__name&gt;&lt;![CDATA[Carrier Level]]&gt;&lt;/__name&gt;&lt;/scsCarrierLevel&gt;
+</p>
+            <p class="_1body" style="color: #000000;">
+                <br />如果未在请求 XML 中传递这些值，应用程序将评估物料箱的物料箱系列中的“车间集成设置”字段。如果已配置这些设置，则设置中的“启动原因”、“所有者”和“级别”将用于启动物料箱容器，否则，应用程序将使用指派的第一个容器中的“启动原因”、“所有者”和“级别”。</p>
+            <p class="_1body" style="color: #000000;">为了汇总优先级，应用程序将使用来自以下项的“启动原因”、“所有者”和“级别”：</p>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">自动化级别（脚本）</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">“物料箱系列”中指定的“车间集成设置”字段</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">指派的第一个容器<br /></td>
+                </tr>
+            </table>
+            <p class="Head2" data-mc-conditions="Default.ScreenOnly">物料箱位置指派自动化服务</p>
+            <p class="Head3">通过将容器指派给物料箱创建物料箱容器的示例</p>
+            <p class="_1body" style="color: #000000;">以下代码显示了将容器指派给物料箱时创建物料箱容器的样本。 </p>
+            <p class="ProgramCode0">
+                <br />&lt;__InSite __version="1.1" __encryption="3"&gt;</p>
+            <p class="ProgramCode1">    &lt;__service __serviceType="scsCarrierPositionAssign"&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__inputData&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Carrier&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[Carrier Name]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/Carrier&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierStartReason&gt;
+</p>
+            <p class="ProgramCode4">               &lt;__name&gt;&lt;![CDATA[Carrier Start Reason]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">           &lt;/scsCarrierStartReason&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierOwner&gt;&lt;__name&gt;&lt;![CDATA[Carrier Owner]]&gt;&lt;/__name&gt;&lt;/scsCarrierOwner&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierLevel&gt;&lt;__name&gt;&lt;![CDATA[Carrier Level]]&gt;&lt;/__name&gt;&lt;/scsCarrierLevel&gt;
+</p>
+            <p class="ProgramCode3">            &lt;Details&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__listItem&gt;
+</p>
+            <p class="ProgramCode5">                    &lt;Container&gt;
+                        </p>
+            <p class="ProgramCode6">&lt;__name&gt;&lt;![CDATA[Child Container Name]]&gt;&lt;/__name&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;/Container&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;PositionLevel&gt;&lt;![CDATA[Child Position Level]]&gt;&lt;/PositionLevel&gt;
+</p>
+            <p class="ProgramCode5">                    &lt;PositionNumber&gt;&lt;![CDATA[Child Position Number]]&gt;&lt;/PositionNumber&gt;
+</p>
+            <p class="ProgramCode5">                    &lt;PositionStatus&gt;&lt;![CDATA[Child Position Status]]&gt;&lt;/PositionStatus&gt;
+</p>
+            <p class="ProgramCode5">                    &lt;SetupAction&gt;&lt;![CDATA[0]]&gt;&lt;/SetupAction&gt;
+</p>
+            <p class="ProgramCode4">                &lt;/__listItem&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/Details&gt;
+</p>
+            <p class="ProgramCode2">        &lt;/__inputData&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__execute&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__requestData&gt;
+</p>
+            <p class="ProgramCode3">            &lt;CompletionMsg&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/CompletionMsg&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__requestData&gt;
+    </p>
+            <p class="ProgramCode1">&lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="Head3">通过物料箱转移创建物料箱容器的示例 </p>
+            <p class="_1body" style="color: #000000;">以下代码显示了从另一个物料箱转移物料箱时创建物料箱容器的样本。 <br /><br /></p>
+            <p class="ProgramCode0">&lt;__InSite __version="1.1" __encryption="3"&gt;</p>
+            <p class="ProgramCode1">&lt;__service __serviceType="scsCarrierPositionAssign"&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__inputData&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Carrier&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[From Carrier Name]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/Carrier&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierStartReason&gt;
+</p>
+            <p class="ProgramCode4">               &lt;__name&gt;&lt;![CDATA[Carrier Start Reason]]&gt;&lt;/__name&gt;
+           </p>
+            <p class="ProgramCode3">&lt;/scsCarrierStartReason&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierOwner&gt;&lt;__name&gt;&lt;![CDATA[Carrier Owner]]&gt;&lt;/__name&gt;&lt;/scsCarrierOwner&gt;
+</p>
+            <p class="ProgramCode3">            &lt;scsCarrierLevel&gt;&lt;__name&gt;&lt;![CDATA[Carrier Level]]&gt;&lt;/__name&gt;&lt;/scsCarrierLevel&gt;
+</p>
+            <p class="ProgramCode3">            &lt;TransferAll&gt;&lt;![CDATA[true]]&gt;&lt;/TransferAll&gt;
+</p>
+            <p class="ProgramCode3">            &lt;TransferCarrier&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[To Carrier Name]]&gt;&lt;/__name&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/TransferCarrier&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__inputData&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__execute&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__requestData&gt;
+</p>
+            <p class="ProgramCode3">            &lt;CompletionMsg&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/CompletionMsg&gt;
+</p>
+            <p class="ProgramCode2">        &lt;/__requestData&gt;
+</p>
+            <p class="ProgramCode1">    &lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;
+</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

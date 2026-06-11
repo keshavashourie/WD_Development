@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="Modeling" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Defining an SPC Matrix</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_TableIndent3body.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="SPC"></a><a name="kanchor16"></a>Defining an SPC Matrix</p>
+            <p class="_1body">The SPC&#160;matrix object is used during shop floor processing to determine the SPC&#160;Setup  most suitable for the lot being processed. The SPC&#160;Matrix is only evaluated during the Track In transaction. The identified matrix is then triggered during the Track Out transaction and evaluates any data based on the configuration of the SPC Setup.</p>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="When_Defining_an_SPC_Matrix"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor17"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Defining an SPC&#160;Matrix</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Before defining an SPC&#160;matrix, there must be at least one SPC&#160;Setup configured.</p>
+                    <p class="_1body">Keep the following points in mind if the matrix object uses WIP&#160;Step Workflow to define a step in the workflow as one of the criteria:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Deleting a step from the workflow referenced in the matrix object will render that particular matrix entry invalid.</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Editing a step in the workflow referenced in the matrix object does not render that particular matrix entry as invalid unless the step is removed and then re-entered.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="SPC_Matrix_Page_Field_Definitions"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="SPC2"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor18"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />SPC Matrix Page Field Definitions</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">This table defines the fields on the SPC Matrix page.</p>
+                    <table style="caption-side: top;width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="178px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 339px;" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 95px;" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Field</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Definition</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">Type</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">Filter</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Process Spec</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Process spec to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product Line</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product line to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Owner</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Owner to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Spec</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Spec to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Resource Family</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Resource family to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Process Recipe</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Recipe to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Process Equipment</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Equipment to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Process Equipment Family</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Equipment family to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">WIP&#160;Step Workflow</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Workflow or sub-workflow that contains the step to which the instance applies. You must select the step along with the workflow or sub-workflow. The application displays the step in the WIP&#160;Step field.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">WIP&#160;Step</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Step in the workflow or sub-workflow to which the instance applies. This value is set by the WIP&#160;Step Workflow field.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                                    <p class="CellSectionHeader">SPC Matrix Grid </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Process Spec</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Process spec to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product Line</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Product line to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Owner</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Owner to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">Spec</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">Spec to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">Resource Family</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">Resource family to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">Process Recipe</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody">Recipe to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">Process Equipment</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody">Equipment to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Process Equipment Family</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Equipment family to which the instance applies.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">WIP&#160;Step</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Step in the workflow or sub-workflow to which the instance applies. This value is set by the WIP&#160;Step Workflow field.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">WIP&#160;Step Workflow</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Workflow or sub-workflow that contains the step to which the instance applies. You must select the step along with the workflow or sub-workflow. The application displays the step in the WIP&#160;Step field.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Workflow Stack</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Stack of the workflow which represents period delineated
+path of sub-workflows for the WIP Step.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Main Workflow </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Top-level workflow in the path of the WIP Step</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">SPC Setup</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Specifies the SPC requirement. The field selection offers values for both Legacy and Inline SPC. Selecting a field will automatically populate the predefined values into the Params grid. </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Description</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Additional description for the specified matrix, if any. This
+field can be set in the Details section.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">Name </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">Name of the SPC Matrix ID. This field can be set in the
+Details section</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                                    <p class="CellBody">Display Only</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side">SPC&#160;Matrix Add/Edit Pop-Up Page Field Definitions</p>
+            <p class="_1body">This table defines the fields on the SPC Matrix Add Pop-Up page. </p>
+            <table style="caption-side: top;width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col width="178px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 339px;" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 95px;" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Field</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Definition</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Type</p>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                            <p class="CellSectionHeader">Criteria </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Product</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Product to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Process Spec</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Process spec to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Product Line</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Product line to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Owner</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Owner to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Spec</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Spec to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Resource Family</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Resource family to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Process Recipe</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Recipe to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Process Equipment</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Equipment to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Process Equipment Family</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Equipment family to which the instance applies.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">WIP&#160;Step Workflow</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Workflow or sub-workflow that contains the step to which the instance applies. You must select the step along with the workflow or sub-workflow. The application displays the step in the WIP&#160;Step field.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">WIP&#160;Step</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Step in the workflow or sub-workflow to which the instance applies. This value is set by the WIP&#160;Step Workflow field.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Display Only</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Main Workflow</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Top level workflow in the path of the WIP&#160;Step.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Display Only</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Workflow Steps Trail</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Period delineated path of sub-workflows for the WIP&#160;Step. Any sub-workflows in the step path are listed in order from lowest to highest. For example, if sub-workflow SWF_B is contained in sub-workflow SWF_A, this field displays the following:</p>
+                            <p class="CellBody">SWF_B.SWF_A</p>
+                            <p class="CellBody">Displayed only for sub-workflow WIP&#160;steps.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Display Only</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="3">
+                            <p class="CellSectionHeader">Details</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">SPC Matrix Name</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Name of the SPC Matrix specification.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Description</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Description of this SPC Matrix specification.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Setup Access</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Sets the employee's access to this modeling record.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody" style="color: #000000;"><a name="SPC3"></a>SPC Setup</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody" style="color: #000000;">Specifies the SPC requirement. The field selection offers values for both Legacy and Inline SPC. Selecting a field will automatically populate the predefined values into the Params grid. </p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Required</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">Params grid</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">Grid that defines the values to use as overrides for the SPC&#160;setup chart parameters.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Required</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBodyIndented" style="color: #000000;">Item Name</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">Item name imported from the SPC setup details grid.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Required</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBodyIndented" style="color: #000000;">Param Name</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">List of SPC Parameters defined for each chart item as part of the SPC setup details grid.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Required</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBodyIndented" style="color: #000000;">Param Value</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                            <p class="CellBody" style="color: #000000;">Specifies the override value to be used for the parameter.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Custom SPC&#160;Grid Filter grid</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Grid that lists custom filters to add to an SPC Basic Query.</p>
+                            <p class="CellBody"><span class="User_Entry">Note:</span> All included filters are added with the SQL AND operator. Content in this grid does not affect ad hoc queries.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBodyIndented">Table</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Tables available for further filters. Valid options are Container and Product.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBodyIndented">Column</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Column names available in the selected Table.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBodyIndented">Filter</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Filter value. You can enter the whole value (for example, “PA-001”), wild card values (for example, “PA%”), or AND expressions (for example, “Container.Product”).</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBodyIndented">Is Dynamic</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">Flag indicating whether the Filter value should be evaluated to a String.</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                            <p class="CellBody">Optional</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side"><a name="How_to_Define_an_SPC_Matrix"></a>How to Define an SPC&#160;Matrix<a name="kanchor19"></a></p>
+            <p class="_1bodyKeepWithNext">Follow these steps to define an SPC&#160;matrix:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Open the  SPC&#160;Matrix page. <span class="Emphasis">The SPC&#160;Matrix page appears.</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step_KeepWithNext" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;"> Perform one of the procedures as indicated in the following table:</td>
+                </tr>
+            </table>
+            <table style="width: 90%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_TableIndent3body.css');" class="TableStyle-Horiz-rules_TableIndent3body" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" style="width: 200px;" />
+                <col class="TableStyle-Horiz-rules_TableIndent3body-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">To define . . .</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_TableIndent3body-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Perform the following . . .</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyE-Column1-Body1">
+                            <p class="CellBody">A new instance</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyD-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span><b>1.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;"><a name="Click"></a>Click the <b>Add</b> button on the right-command bar.  </td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>2.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Enter a name in the <span class="User_Entry">SPC&#160;Matrix Name</span> field. If you do not enter a name, the system will generate one for you and display it in the post Save status message.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>3.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Select the <span class="User_Entry">SPC&#160;Setup</span>.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>4.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Enter optional information according to your business requirements. <span class="Emphasis">Refer to the field definitions table for information on the optional fields.</span></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>5.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Click <span class="User_Entry">Save</span>. <span class="Emphasis">The application saves the modeling object and displays a success message.</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_TableIndent3body-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyB-Column1-Body2">
+                            <p class="CellBody">An instance from an existing instance</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_TableIndent3body-BodyA-Column1-Body2">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span><b>1.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">In the <span class="User_Entry">Filter</span> area, enter or select field values to search for the SPC&#160;Matrix you want to copy.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>2.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Click <span class="User_Entry">Apply</span> button under the Filter grid. <span class="Emphasis">The application populates the grid with SPC&#160;Matrix instances that meet the entered criteria.</span></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>3.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Scroll horizontally on the SPC Matrix grid to see additional instance detail.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>4.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Click the row with the instance you want to copy and click the <b>Edit</b> button. <span class="Emphasis">The application populates the Edit pop-up with the selected instance details.</span></td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>5.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Change the <span class="User_Entry">SPC&#160;Matrix Name</span>.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>6.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Change criteria as needed. </td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p_CellNum_" valign="top"><span><b>7.</b></span>
+                                    </td>
+                                    <td class="AutoNumber_p_CellNum_" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Click <span class="User_Entry">Save As New</span>. <span class="Emphasis">The application saves the modeling object and displays a status message.</span></td>
+                                </tr>
+                            </table>
+                            <p class="CellBody" style="color: #000000;"><span class="User_Entry">Important:</span>&#160;You must change both the name and at least one item in the <span class="User_Entry">Criteria</span> area. Failure to do so will result in an error and the application will not save the new instance.<a name="spc_matrix_end"></a></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Anhang A: Vorgehensweise zum Erstellen einer benutzerdefinierten Regeldatei</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2NoBreak" data-mc-conditions="Default.ScreenOnly">Vorgehensweise zum Erstellen einer benutzerdefinierten Regeldatei</p>
+            <p class="Head2NoBreak">Bevor Sie anfangen</p>
+            <p class="_1body">Dieser Abschnitt gilt nur für Legacy. Der Entwickler muss Zugriff auf die Anwendung Statit Custom QC haben, um eine benutzerdefinierte Regeldatei erstellen zu können.</p>
+            <p class="_1body">Die empfohlene Vorgehensweise für diesen Prozess besteht darin, eine vorhandene Regeldatei zu kopieren, die als Grundlage dienen soll, und diese Kopie anschließend zu ändern. Zu diesem Zweck empfiehlt Siemens, die <a href="../SPC_Modeling/SPC_Rules.htm#QC_ATT" class="MCXref xref">QC_ATT</a>-Regeldatei (qc_att.fcn) zu kopieren.</p>
+            <p class="_1body">Informationen finden Sie unter "<a href="../SPC_Modeling/SPC_Rules.htm#Rules_Included_with_SPC_PDF" class="MCXref xref">In SPC enthaltene Regeln</a>".</p>
+            <p class="Head2-Preface">QC-Regelfunktionen</p>
+            <p class="_1bodyKeepWithNext">Alle Regeln basieren auf einer der drei Standard-Regelfunktionen, die mit Opcenter Execution Semiconductor SPC bereitgestellt werden. Dies sind die Funktionen qc_rule1, qc_rule3 und qc_rule4.</p>
+            <p class="Head3-Side">qc_rule1</p>
+            <p class="_1body">Diese Funktion wird verwendet, wenn N von M aufeinanderfolgenden Punkten getestet werden, die außerhalb oder innerhalb bestimmter Limits liegen. N kann gleich M sein. </p>
+            <p class="Head4-Side" style="margin-left:25px">Beispiel:</p>
+            <blockquote>
+                <p class="ProgramCode0">call qc_rule1(&#160;("A", "A) 1 point above Zone </p>
+                <p class="ProgramCode1">A",1,1,1,num(qc_ucl), 0,0,0, $found, $error)<br /></p>
+            </blockquote>
+            <p class="Head4-Side" style="margin-left:25px">Parameters:</p>
+            <p class="_1bodyKeepWithNext">Diese Tabelle enthält eine Liste der Parameter für qc_rule1 und ihre Beschreibungen.</p>
+            <table style="width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col style="width: 148pt;" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col style="width: 30px;" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col style="width: 353px;" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1" style="text-align: center;">
+                            <p class="CellHead-Left">Parameter <br />Wert</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Parameter&#160;<br />Name</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Parameterbeschreibung</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">“A”</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">%mark</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Symbol, das aus einem Buchstaben besteht und den N-ten Punkt in den Folgen darstellt, die die Kriterien erfüllen.</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">"A) 1 point above Zone A"</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">%string</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Text, der im unteren Legendenfeld zu %mark angezeigt wird, wenn Punkte die Kriterien erfüllen.     Diese Zeichenkette darf nicht länger als 65 Zeichen sein.</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$n</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Minimale Anzahl von Punkten, die die Regel erfüllen müssen</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: left;">
+                            <p class="CellBody" style="text-align: left;">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$m</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Anzahl der gleichzeitig zu prüfenden Punkte.     N kann gleich M sein.</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$op1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Gibt den zu verwendenden Operator an:</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 testet auf "größer als".</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 testet auf "kleiner als".</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="height: 13pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">num(qc_ucl)</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$var1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Nummer der Variablen, die im Test der geplotteten Punkte verwendet wird.</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">0</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$logop</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Gibt an, ob der Test eine zweite Variable oder Grenze beinhaltet.     Der Wert 0 bedeutet, dass es keinen weiteren Test gibt:</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 gibt an, ob der zweite Test ein "und" ist.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 gibt an, ob der zweite Test ein "oder" ist.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">0</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$op2</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Gibt an, welcher Operator verwendet wird, wenn es eine zweite Variable im Test gibt:</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 testet auf "größer als".</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 testet auf "kleiner als".</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">0</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$var2</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Variablennummer, die im kombinierten Test der geplotteten Punkte verwendet wird.</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Gibt die Anzahl von Punkten zurück, die die Kriterien erfüllen.     Diese Variable wird auf -1 gesetzt, wenn zu wenig Daten für den Test verfügbar sind.</p>
+                        </td>
+                    </tr>
+                    <tr style="height: 14pt;" class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1" style="text-align: center;">
+                            <p class="CellBody" style="text-align: left;">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                            <p class="CellBody">0, wenn kein Fehler auftritt, anderenfalls gleich 1.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side">qc_rule3</p>
+            <p class="_1bodyKeepWithNext">Diese Funktion wird verwendet, wenn auf ansteigende und/oder abfallende aufeinanderfolgende Punkte der Anzahl N getestet wird.</p>
+            <p class="Head4-Side" style="margin-left:25px">Beispiel:</p>
+            <blockquote>
+                <p class="ProgramCode0">call qc_rule3(&#160;("D", "D) 6 points in a row increasing or</p>
+                <p class="ProgramCode1"> decreasing", 6, 1, $found, $error))</p>
+            </blockquote>
+            <p class="Head4-Side" style="margin-left:25px">Parameter:</p>
+            <p class="_1bodyKeepWithNext">Diese Tabelle enthält eine Liste der Parameter für qc_rule3 und ihre Beschreibungen.</p>
+            <table style="width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Parameterwert</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Parametername</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Parameterbeschreibung</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">“D”</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">%mark</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Symbol, das aus einem Buchstaben besteht und den N-ten Punkt in den Folgen darstellt, die die Kriterien erfüllen.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">"D) 6 points in a row increasing or decreasing"</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">%string</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Text, der im unteren Legendenfeld zu %mark angezeigt wird, wenn Punkte die Kriterien erfüllen. Diese Zeichenkette darf nicht länger als 65 Zeichen sein.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">6</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$n</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Anzahl der Intervalle zwischen zu prüfenden Punkten in einer Zeile.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">1</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$bid</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Eine der Zahlen 1, 2 oder 3:</p>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1 testet auf ansteigende und abfallende Trends.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">2 testet nur abfallende Trends.</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">3 testet nur ansteigende Trends.</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Gibt die Anzahl von Punkten zurück, die die Kriterien erfüllen. Diese Variable wird auf -1 gesetzt, wenn zu wenig Daten für den Test verfügbar sind.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">0, wenn kein Fehler auftritt</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1, wenn ein Fehler auftritt</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side">qc_rule4</p>
+            <p class="_1bodyKeepWithNext">Diese Funktion wird verwendet, wenn aufeinanderfolgende Punkte der Anzahl N getestet werden, die abwechselnd ansteigen und abfallen und umgekehrt.</p>
+            <p class="Head4-Side" style="margin-left:25px">Beispiel:</p>
+            <blockquote>
+                <p class="ProgramCode0">call qc_rule4(&#160;("B", "B) 14 points in a row alternating up and </p>
+                <p class="ProgramCode1">down", 14, $found, $error)</p>
+            </blockquote>
+            <p class="Head4-Side" style="margin-left:25px">Parameter:</p>
+            <p class="_1bodyKeepWithNext">Diese Tabelle enthält eine Liste der Parameter für qc_rule4 und ihre Beschreibungen.</p>
+            <table style="width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Parameterwert</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Parametername</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Parameterbeschreibung</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">“B”</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">%mark</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Symbol, das aus einem Buchstaben besteht und den N-ten Punkt in den Folgen darstellt, die die Kriterien erfüllen.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">"B) 14 points in a row alternating up and down"</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">%string</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Text, der im unteren Legendenfeld zu %mark angezeigt wird, wenn Punkte die Kriterien erfüllen. Diese Zeichenkette darf nicht länger als 65 Zeichen sein.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">14</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">$n</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Anzahl der zu prüfenden aufeinanderfolgenden Punkte.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">$found</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Gibt die Anzahl von Punkten zurück, die die Kriterien erfüllen. Diese Variable wird auf -1 gesetzt, wenn zu wenig Daten für den Test verfügbar sind.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">$error</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">0, wenn kein Fehler auftritt</td>
+                                </tr>
+                            </table>
+                            <table class="AutoNumber_p_CellBody-Bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                <col style="width: 41px;" />
+                                <col style="width: 30px;" />
+                                <col style="width: auto;" />
+                                <tr>
+                                    <td valign="top" />
+                                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                    </td>
+                                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">1, wenn ein Fehler auftritt</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3-Side">Vorgehensweise zum Erstellen einer benutzerdefinierten Regeldatei</p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um eine benutzerdefinierte Regeldatei zu erstellen:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Suchen Sie in Windows Explorer im Ordner "C:\Programme (x86)\Statit CustomQC\fsrc" die Datei qc_att.fcn.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Kopieren Sie qc_att.fcn im selben Ordner und benennen Sie die Kopie in Meine_QC_Regeln.fcn um.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Öffnen Sie die neue Datei (Meine_QC_Regeln.fcn) mit Notepad oder einem anderen geeigneten Texteditor.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Ändern Sie "function qc_att" in der obersten Zeile der Datei in "function Meine_QC_Regeln", wie in diesem Beispiel abgebildet:</td>
+                </tr>
+            </table>
+            <p class="Image_3body">
+                <img src="../Resources/Images/qc_rules.png" class="Max600Pixels" style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;" />
+            </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Scrollen Sie in der Regeldatei nach unten bis zum Anzeigenamen. Ändern Sie "AT&amp;T" in "Meine_QC_Regeln", wie in diesem Beispiel abgebildet:</td>
+                </tr>
+            </table>
+            <p class="Image_3body">
+                <img src="../Resources/Images/qc_rules_1.png" class="Max600Pixels" style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;width: 507px;height: 104px;" />
+            </p>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 63px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Die Deklaration und Definition jeder mit der Datei verknüpften Regel werden direkt unter dem Anzeigenamen angezeigt. Beachten Sie das Beispiel für die Verletzung der oberen Spezifikation (Upper Spec) in der folgenden Abbildung:
+        </td>
+                </tr>
+            </table>
+            <p class="Image_3body">
+                <img src="../Resources/Images/qc_rules_2.png" class="Max600Pixels" style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;width: 506px;height: 78px;" />
+            </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Fahren Sie je nach den bereitgestellten Funktionsinformationen mit dem Hinzufügen, Löschen oder Ändern von Regeln in der Datei Meine_QC_Regeln.fcn fort.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Speichern Sie die Datei und schließen Sie den Texteditor.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Öffnen Sie CustomQC über das Desktopsymbol oder über das Menü "Start".</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Wählen Sie <span class="User_Entry">File (Datei)</span> &gt; <span class="User_Entry">Proc Compiler (Prozesskompilierer)</span> aus. Durchsuchen Sie anschließend das Feld <span class="User_Entry">Proc Source File (Prozessquelldatei)</span>, um die Datei Meine_QC_Regeln.fcn auszuwählen. Speichern Sie die Ausgabe in C:\Programme (x86) \Statit CustomQC\fcns\ MyQCRules.stf. Sie müssen die Erweiterung .STF angeben, da ansonsten standardmäßig .STP ausgewählt wird.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">OK</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>11.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;11.&lt;/b&gt;">Kopieren Sie die STF-Datei mit Windows Explorer nach C:\Programme (x86)\Statit e-Server\fcns. <span class="Emphasis">Dieser Schritt wird ausgeführt, wenn Sie die Datei im Portal und in e-Server und nicht nur in CustomQC verwenden möchten.</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2022</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

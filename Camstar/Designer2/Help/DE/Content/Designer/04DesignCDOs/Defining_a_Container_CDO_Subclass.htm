@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Konfigurierbare Datenobjekte" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Definieren einer Container-CDO-Unterklasse</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Definieren einer Container-CDO-Unterklasse</p>
+            <p class="_1body"><a name="kanchor187"></a>Container-CDO-Unterklassen enthalten die Definition für den Container, der die grundlegende Verfolgungseinheit darstellt. Sie beziehen sich auf das Los oder Batch von Produkten in Ihrem Fabrikmodell. Der Container wird durch einen Namen und einen Level identifiziert. Dieses Thema erläutert die Schritte, die zum Definieren einer Container-CDO-Unterklasse erforderlich sind. Die meisten Schritte sind automatisiert.</p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="When"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beim Definieren einer Container-CDO-Unterklasse</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Sie können auch das Container-CDO erweitern, das eine komplexere Datenstruktur aufweist, z. B. ein Unterobjekt-CDO.</p>
+                    <p class="_1body">Arbeitsbereichspräfixe werden beim Hinzufügen eines neuen Elements automatisch vor dem Namen des Elements eingefügt, sofern dem höchsten aktiven Arbeitsbereich ein Präfix zugewiesen wurde. Arbeitsbereichspräfixe geben an, auf welchen Arbeitsbereich Designer Änderungen anwendet. Dem Arbeitsbereich würde z. B. das Präfix "C200" zugeordnet werden, wenn für diesen in Management Studio das Präfix "C200" festgelegt wurde. Es wird empfohlen, beim Hinzufügen neuer Elemente die von Designer bereitgestellten Präfixe zu verwenden.</p>
+                    <p class="_1body">Sie können Arbeitsbereichspräfixe in Management Studio zuweisen oder ändern. Weitere Informationen finden Sie in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Anleitung zur Systemadministration</span> und der <span class="Emphasis">Opcenter Execution Core-Anleitung zur Systemadministration</span>.</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 72px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Dem Basisarbeitsbereich der Anwendung (csi) kann kein Arbeitsbereichspräfix zugewiesen sein.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Automatically_Generated_Associated_CDOs_and_References"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Automatisch generierte, zugeordnete CDOs und Referenzen</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Wenn Sie ein Container-CDO hinzufügen und das Kontrollkästchen "Startdienst erstellen &amp; konfigurieren" (Create &amp; Configure a Start Service) im Fenster "Neue CDO-Definition erstellen" aktivieren, werden diese erforderlichen Aufgaben automatisch ausgeführt. Diese Tabelle definiert die erforderlichen Aufgaben.</p>
+                    <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');width: 95%;" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="199px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left" style="margin-top: 5pt;">Aufgabe</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left" style="margin-top: 5pt;">Definition</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Hinzufügen einer Startdienst-Unterklasse</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Eine Unterklasse des Startdienst-CDOs wird hinzugefügt, um den Startdienst für das neue Container-CDO zu verwalten. Außerdem wird die Containerreferenz im Startdienst-CDO geändert, um das neue Container-CDO zu referenzieren.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Hinzufügen einer StartDetails-Unterobjekt-Unterklasse</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">ServiceDetails-CDOs enthalten die Änderungsdaten zu den Container-Transaktionen, die von ihrem Startdienst (StartService) ausgeführt werden, sodass jedes StartService-CDO sein eigenes StartDetails-CDO erfordert. Ein neues StartDetails-Unterobjekt-CDO wird unter der neuen StartService-Unterklasse hinzugefügt.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Hinzufügen der StartHistoryDetail-Unterklasse</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Eine Unterklasse des StartHistoryDetail-CDOs wird für das neue Container-CDO erstellt. Dieses neue CDO wird verwendet, um Änderungen an Ihrem Container zu verfolgen, wenn er an Transaktionen beteiligt ist.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">Ändern der CDO-Referenzen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">Wenn das Dienst-CDO ein ServiceDetails-CDO verwendet, muss das Dienst-CDO sein ServiceDetails-Unterobjekt über das Feld "Details" im Dienst-CDO referenzieren. Wenn ein ServiceDetails-Unterobjekt für einen Container vorhanden ist, wird das Feld "Container" im ServiceDetails-Unterobjekt überprüft, sodass das Unterobjekt das richtige Container-CDO referenzieren muss. Wenn Sie das Kontrollkästchen "Startdienst erstellen &amp; konfigurieren" (Create &amp; Configure a Start Service) im Fenster "Neue CDO-Definition erstellen" aktivieren, wird diese Aufgabe automatisch für Sie ausgeführt. Weitere Informationen zum Überschreiben von CDO-Referenzen finden Sie unter "<a href="../07DesignFields/Creating_Field_Overrides.htm" class="MCXref xref" data-mc-unresolved-link="import-link:07designfields_3236680853_37542">Erstellen von Feldüberschreibungen</a>".</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Adding_Fields"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Hinzufügen von Feldern</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Fügen Sie der neuen Container-Unterklasse Felder hinzu, damit dieses CDO die Eigenschaften aufweist, die für Ihr Unternehmen erforderlich sind. Dies wird in der folgenden Übung veranschaulicht. Weitere Informationen zum Hinzufügen von Listenfeldern zu einem CDO finden Sie unter "<a href="../07DesignFields/Defining_List_Fields.htm" class="MCXref xref" data-mc-unresolved-link="import-link:07designfields_3236680853_15680">Definieren von Listenfeldern</a>".</p>
+                    <p class="_1bodyKeepWithNext">Wenn Sie einem Container-CDO Felder hinzufügen und das Kontrollkästchen "Felder zu den zugehörigen Dienstobjekten hinzufügen" (Add Fields to the Associated Service Objects) aktivieren, werden die im Folgenden aufgelisteten erforderlichen Aufgaben automatisch ausgeführt:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Hinzufügen von Feldern zur Dienst-CDO-Unterklasse</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Hinzufügen von Feldern zur ServiceDetails-CDO-Unterklasse</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Hinzufügen von Feldern zur ServiceHistoryDetails-CDO-Unterklasse</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Zuordnen von Feldern zwischen CDOs</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Add_a_Container_CDO_Subclass"></a><a name="kanchor188"></a><a name="kanchor189"></a>Vorgehensweise zum Hinzufügen einer Container-CDO-Unterklasse</p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um eine Container-CDO-Unterklasse hinzuzufügen:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Öffnen Sie Designer.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Klicken Sie in der Symbolleiste auf <span class="User_Entry">CDOs</span>. <span class="Emphasis">Das Fenster "CDO-Definition" (CDO Definition)</span> <span class="Emphasis">wird angezeigt</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Wählen Sie <span class="User_Entry">Container</span> aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Klicken Sie unter dem Auswahlbaum auf <span class="User_Entry">Hinzufügen</span>. Sie können auch mit der rechten Maustaste auf den Container klicken und <span class="User_Entry">Unterklasse hinzufügen</span> auswählen. <span class="Emphasis">Das Fenster "Neue CDO-Definition erstellen" wird angezeigt.</span><br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Geben Sie den neuen Objektnamen (CDO-Namen) in das Feld <span class="User_Entry">Neuer CDO-Name</span> ein. </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Important1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 62px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Important1body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">Wichtig:</span></span></b></span>
+                    </td>
+                    <td class="AutoNumber_p_Important1body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;Wichtig:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">Der Name des CDOs kann bis zu 30 Zeichen lang sein und darf keine Leerzeichen, unzulässigen Zeichen oder reservierten Wörter enthalten. Weitere Informationen finden Sie unter "<a href="../AppA_ValidChars/A_01_Valid_Characters_and_Reserved_Words.htm#Valid" class="MCXref xref" data-mc-unresolved-link="import-link:appa_validchars_3077106998_26389">Gültige Zeichen und reservierte Wörter</a>".</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Geben Sie eine <span class="User_Entry">Beschreibung</span> ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 63px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Die Schaltfläche "Erstellen" wird erst aktiviert, wenn Sie eine Beschreibung eingeben.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Behalten Sie die Standardwerte in anderen Feldern bei.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Erstellen</span>. <span class="Emphasis">Das neue CDO wird in der Liste der CDOs angezeigt</span>. </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Klicken Sie auf <b>DB aktualisieren</b>. <i>In einem Dialogfeld werden Sie aufgefordert, das Speichern der aktuellen MDB-Datei und die Aktualisierung der Datenbank gemäß den Einstellungen im Dialogfeld "Voreinstellungen" (Preferences) zu bestätigen.</i></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">Klicken Sie auf <b>Ja</b>. <i>Eine Statusleiste wird am unteren Rand des Fensters angezeigt, um darauf hinzuweisen, dass die Aktualisierung ausgeführt wird. Die Anwendung speichert und aktualisiert die Datenbank.</i></td>
+                </tr>
+            </table>
+            <p class="Head4-Side">Automatisierte Schritte</p>
+            <p class="_1bodyKeepWithNext">Die folgenden zugehörigen CDOs wurden automatisch definiert:</p>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerStart" wird unter "Dienst &gt; Aktualisieren &gt; Fertigung &gt; Containertransaktion &gt; Start" (Service &gt; Update &gt; Shopfloor &gt; Container Txn &gt; Start) hinzugefügt</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerStartDetails" wird unter "Unterobjekt &gt; ServiceData &gt; ServiceDetails &gt; StartDetails" (Subentity &gt; ServiceData &gt; ServiceDetails &gt; StartDetails) hinzugefügt</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerHistoryDetail" wird unter "Unterobjekt &gt; HistoryDetails &gt; StartHistoryDetail" (Subentity &gt; HistoryDetails &gt; StartHistoryDetail) hinzugefügt</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerStart" referenziert "MyContainerStartDetails" über das Feld "Details".</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerStart" referenziert "MyContainerHistoryDetail" über das Feld "HistorySummary".</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerStartDetails" referenziert "MyContainerStartDetails" im Feld "ChildContainers" und referenziert "MyContainer" im Feld "Container". </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyContainerStartDetails" referenziert "MyContainerStart" im Feld "Eltern" (Parent).</td>
+                </tr>
+            </table>
+            <p class="_1body">Ausführliche Informationen zu den automatisierten Schritten finden Sie unter "<a href="../05CDOSubclassAutoDefine/Automated_Steps_in_Defining_a_CDO_Subclass.htm#Automated_Steps_in_Defining_a_CDO_Subclass" class="MCXref xref" data-mc-unresolved-link="import-link:05cdosubclassautodefine_1683622071_16047">Automatisierte Schritte beim Definieren einer CDO-Unterklasse</a>".</p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Weitere Informationen zu den im Dialogfeld "Voreinstellungen" (Preferences) verfügbaren Einstellungen finden Sie unter "<a href="../03DesignGettingStarted/Applying_Designer_Changes_and_Maintaining_Designer_Users.htm#Preferences_Dialog_Box_DB_Update_Tab_PDF" class="MCXref xref">Dialogfeld "Voreinstellungen" (Preferences), Registerkarte "DB-Aktualisierung" (DB Update)</a>". Weitere Informationen zum Aktualisieren der Datenbank finden Sie in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Anleitung zur Systemadministration</span> oder der <span class="Emphasis">Opcenter Execution Core-Anleitung zur Systemadministration</span>.</td>
+                </tr>
+            </table>
+            <p class="Head3-Side"><a name="How_to_Add_Fields_to_the_MyContainer_CDO"></a>Vorgehensweise zum <a name="kanchor190"></a>Hinzufügen <a name="kanchor191"></a>von Feldern zum MyContainer-CDO</p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um Felder zur MyContainer-Unterklasse hinzuzufügen:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Öffnen Sie Designer.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Klicken Sie in der Symbolleiste auf <span class="User_Entry">CDOs</span>. <span class="Emphasis">Das Fenster "CDO-Definition" (CDO Definition)</span> <span class="Emphasis">wird angezeigt</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Wählen Sie <span class="User_Entry">MyContainer</span> aus und klicken Sie anschließend auf die Registerkarte <span class="User_Entry">Felder</span> (Fields).</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Klicken Sie am unteren Rand der Registerkarte "Felder" (Fields) auf <span class="User_Entry">Hinzufügen</span> und wählen Sie <span class="User_Entry">Feld hinzufügen</span> (Add field) aus. <span class="Emphasis">Das Fenster "Neues CDO-Feld hinzufügen"</span> <span class="Emphasis">(Add a new CDO Field)</span> <span class="Emphasis">wird angezeigt</span>. <br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Behalten Sie den Standardwert <span class="User_Entry">Zeichenkette</span> im Feld "Datentyp" (Data Type) bei.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Wählen Sie <span class="User_Entry">[Zeichenkette] </span>(String) in der Liste <span class="User_Entry">Feldtyp</span> (Field type) aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Geben Sie <span class="User_Entry">MyField1 </span>in das Feld <span class="User_Entry">Name</span> ein. <span class="Emphasis">Die Schaltfläche "Erstellen" wird aktiviert</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Important3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 62px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Important1body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">Wichtig:</span></span></b></span>
+                    </td>
+                    <td class="AutoNumber_p_Important1body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;Wichtig:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">Feldnamen dürfen keine Leerzeichen, unzulässigen Zeichen oder reservierte Wörter enthalten. Weitere Informationen finden Sie unter "<a href="../AppA_ValidChars/A_01_Valid_Characters_and_Reserved_Words.htm#Valid" class="MCXref xref" data-mc-unresolved-link="import-link:appa_validchars_3077106998_26389">Gültige Zeichen und reservierte Wörter</a>".</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Geben Sie eine <span class="User_Entry">Überschrift</span> für das Feld ein oder klicken Sie auf die Schaltfläche "...", um eine Überschrift auszuwählen.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Geben Sie eine Beschreibung in das Feld <span class="User_Entry">Beschreibung</span> (Description) ein.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>10.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;10.&lt;/b&gt;">Lassen Sie das Kontrollkästchen <span class="User_Entry">Felder zu zugeordneten Dienstobjekten hinzufügen</span> (Add Fields to Associated Service Objects) aktiviert.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>11.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;11.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Erstellen</span>. <span class="Emphasis">Das Fenster "CDO-Feldeigenschaften" (CDO Field Properties) wird angezeigt</span>. <br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>12.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;12.&lt;/b&gt;">Wählen Sie die Registerkarte <span class="User_Entry">Optionen</span> aus.<br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>13.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;13.&lt;/b&gt;">Wählen Sie im Bereich "Zwangsbedingungen" (Constraints) die Option <span class="User_Entry">Nutzer erforderlich</span> (User required) aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>14.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;14.&lt;/b&gt;">Wählen Sie im Bereich "Accessibility" (Zugänglichkeit) die Option <span class="User_Entry">Lesen/Schreiben</span> (Read/Write) aus.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>15.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;15.&lt;/b&gt;">Gewährleisten Sie, dass das Feld <span class="User_Entry">Die gleichen Änderungen auf die entsprechenden Felder in den zugehörigen Dienst- und Historienobjekten anwenden</span> (Apply the same changes to the corresponding fields in the associated Service and History objects) ausgewählt ist.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>16.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;16.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">OK</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>17.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;17.&lt;/b&gt;">Wiederholen Sie die Schritte 4 bis 16, um das Feld <span class="User_Entry">MyField2</span> zu <span class="User_Entry">MyContainer</span> hinzuzufügen.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>18.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;18.&lt;/b&gt;">Wählen Sie <b>Speichern</b> im Menü <b>Datei</b>  aus. <i>Die Anwendung speichert Ihre Änderungen.</i></td>
+                </tr>
+            </table>
+            <p class="_1bodyKeepWithNext">"MyField1" und "MyField2" werden dem MyContainer-CDO hinzugefügt. Folgendes wurde ebenfalls automatisch definiert:</p>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyField1" und "MyField2" im MyContainerStartDetails-CDO werden "MyField1" und "MyField2" im MyContainer-CDO zugeordnet. Bei der Zuordnung werden Feldwerte von einem CDO an andere CDOs weitergegeben, wenn die Werte durch Dienste geändert werden. Diese Vorgehensweise wird unter "Anzeigen von Feldzuordnungen" erläutert.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"MyField1" und "MyField2" werden auch zum Historiendetails-CDO, "MyContainerHistoryDetail", hinzugefügt, um Historiendaten aus den Feldern "MyField1" und "MyField2" zu erfassen, die Sie zu "MyContainer" hinzugefügt haben.</td>
+                </tr>
+            </table>
+            <p class="Head3-Side"><a name="How_to_Remove_a_Container_CDO_Subclass"></a>Vorgehensweise zum Entfernen einer Container-CDO-Unterklasse</p>
+            <p class="_1body">Soll die von Ihnen erstellte Container-CDO-Unterklasse gelöscht werden, müssen Sie die Änderungen in umgekehrter Reihenfolge rückgängig machen. Wenn ein CDO Felder aufweist, die seine Eltern- oder Kind-CDOs referenzieren, müssen Sie diese Referenzfelder in der Regel entfernen, bevor Sie das CDO entfernen können. </p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um eine Container-CDO-Unterklasse zu entfernen:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Löschen Sie Überschreibungen in Feldern, die Referenzen auf Eltern- und Kind-CDOs für jedes erstellte CDO enthalten.</td>
+                </tr>
+            </table>
+            <p class="_3body">Das neue Dienstdetails-Unterobjekt-CDO (<span class="User_Entry">MyContainerStartDetails</span>) weist z. B. ein Feld <span class="User_Entry">Container</span> auf, das das Container-Unterklassen-CDO (<span class="User_Entry">MyContainer</span>) referenziert, und ein Feld <span class="User_Entry">Eltern</span> (Parent), das das Eltern-CDO des Unterobjekts referenziert. Löschen Sie die Überschreibungen für beide Felder. Wechseln Sie hierzu auf die Registerkarte "Felder" (Fields) für das Unterobjekt-CDO. Weitere Informationen zum Überschreiben von Feldern finden Sie unter "<a href="../07DesignFields/Creating_Field_Overrides.htm" class="MCXref xref" data-mc-unresolved-link="import-link:07designfields_3236680853_37542">Erstellen von Feldüberschreibungen</a>".</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Löschen Sie in der Dienst-CDO-Unterklasse<span class="_Override" style="font-weight: bold;"> </span>(<span class="User_Entry">MyContainerStart</span>) die Überschreibung im Feld <span class="User_Entry">Details</span>, das das Dienstdetail-Unterobjekt (<span class="User_Entry">MyContainerStartDetails</span>) referenziert, und im Feld <span class="User_Entry">HistorySummary</span>, das <span class="User_Entry">MyContainerHistoryDetail</span> referenziert.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Löschen Sie im Dienstdetail-Unterobjekt (<span class="User_Entry">MyContainerStartDetails</span>) die Überschreibungen für das Feld <span class="User_Entry">ChildContainers</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Entfernen Sie die neue Dienst-CDO-Unterklasse<span class="_Override" style="font-weight: bold;"> </span>(<span class="User_Entry">MyContainerStart</span>), indem Sie sie im CDO-Auswahlbaum auswählen und auf die Schaltfläche <span class="User_Entry">Entfernen</span> (Remove) klicken.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Entfernen Sie das neue Container-Unterklassen-CDO (<span class="User_Entry">MyContainer</span>).</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Entfernen Sie das neue Service-Unterobjekt-CDO (<span class="User_Entry">MyContainerStartDetails</span>).</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Entfernen Sie das neue HistoryDetails-Unterobjekt-CDO (<span class="User_Entry">MyContainerHistoryDetail</span>).</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Klicken Sie auf <b>DB aktualisieren</b>. <i>In einem Dialogfeld werden Sie aufgefordert, das Speichern der aktuellen MDB-Datei und die Aktualisierung der Datenbank gemäß den Einstellungen im Dialogfeld "Voreinstellungen" (Preferences) zu bestätigen.</i></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>9.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;9.&lt;/b&gt;">Klicken Sie auf <b>Ja</b>. <i>Eine Statusleiste wird am unteren Rand des Fensters angezeigt, um darauf hinzuweisen, dass die Aktualisierung ausgeführt wird. Die Anwendung speichert und aktualisiert die Datenbank.</i></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 63px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Weitere Informationen zu den im Dialogfeld "Voreinstellungen" (Preferences) verfügbaren Einstellungen finden Sie unter "<a href="../03DesignGettingStarted/Applying_Designer_Changes_and_Maintaining_Designer_Users.htm#Preferences_Dialog_Box_DB_Update_Tab_PDF" class="MCXref xref">Dialogfeld "Voreinstellungen" (Preferences), Registerkarte "DB-Aktualisierung" (DB Update)</a>". Weitere Informationen zum Aktualisieren der Datenbank finden Sie in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Anleitung zur Systemadministration </span>oder der<span class="Emphasis"> Opcenter Execution Core-Anleitung zur Systemadministration</span>.</td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

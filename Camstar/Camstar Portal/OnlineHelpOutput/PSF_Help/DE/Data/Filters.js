@@ -1,0 +1,1 @@
+define({'Meine Teilmenge':{c:'', cm:'', o:-1},})

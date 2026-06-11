@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="标签" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>带文本变量的标签</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">带文本变量的标签</p>
+            <p class="_1body">除静态标签外，还可使用文本变量在运行时将数据合并到标签中。文本变量描述如何派生在运行时将要合并到消息字符串中的值。各种不同的对象（例如，WIP 消息或历史查询）使用文本变量合并字符串中的变量。</p>
+            <p class="_1body">例如，如果成功执行了某项“启动”事务，则会显示以下消息：</p>
+            <p class="_1body">&lt;Containername&gt; 已由 &lt;user&gt; 于 &lt;date&gt; 在 &lt;Start step&gt; 启动</p>
+            <p class="_1body">此完成消息实际上是调用 CSICompletion 下的标签 StartCompletion。如果在标签库中查看此标签，则此标签的文本如下所示：</p>
+            <p class="_1body">	#HistInq.Container 已由 #HistInq.User 于 #HistInq.Date 在 #HistInq.StartStep 启动。</p>
+            <p class="_1body">变量（前面有 # 符号）将替换为相应的文本（如容器名称、工作流程启动工步的名称、事务日期和输入事务的用户），这些文本均取自 HistoryMainline 数据库表。</p>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="The_TextVariable_CDO"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />TextVariable CDO</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">TextVariable 是一个已命名数据对象，用于提供将在运行时进行解析并在之后合并到消息字符串中的值。 </p>
+                    <p class="_1bodyKeepWithNext">TextVariable CDO 具有以下两种类型，Opcenter EX MDD 和 Opcenter EX CR 使用两种类型来处理标签： </p>
+                    <table class="AutoNumber_p__1bullet" style="font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ErrorMsg
+        </td>
+                        </tr>
+                    </table>
+                    <p class="_3body">提供用于构造错误消息的值</p>
+                    <table class="AutoNumber_p__1bullet" style="font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">HistInq
+        </td>
+                        </tr>
+                    </table>
+                    <p class="_3body">提供取自 HistoryMainline CDO 的值</p>
+                    <p class="_1bodyKeepWithNext">此表列出 TextVariable CDO 中的所有字段。</p>
+                    <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');width: 95%;" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="130px" class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">字段名称</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">描述</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">ChangeHistory</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">上次更改的详细信息。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">UnresolvedValue</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">无法成功计算表达式时使用此值。此字段可以是空字符串（即，忽略表达式无法计算的事实）或某些其他值（例如，“错误！”），以明确说明（所生成消息的）文本不完整或不准确。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">VariableExpression</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">在运行时会产生值的待计算值的字符串。此值用于替换字符串的运行时版本中的标识符。</p>
+                                    <p class="CellBody">格式为 CDO.Field。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">VariableUsage</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">定义 TextVariable 的类型。例如：</p>
+                                    <p class="CellBody">1 = 常规（可用于任何文本中）</p>
+                                    <p class="CellBody">2 = WIP 消息</p>
+                                    <p class="CellBody">3 = 警报消息</p>
+                                    <p class="CellBody">4 = 指示文本</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td colspan="2" class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">以下字段从基类继承。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">CDOTypeID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">由 Opcenter EX MDD 或 Opcenter EX CR 指派的 24 位对象类型标识符的字符串表示。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">ChangeCount</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">此系统字段用于在多个用户同时修改同一对象时确保数据完整性。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">描述</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">此实体的说明。如果未指定，则默认为此实体的名称</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">显示名称</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">DisplayName 字段通常用于表示用户界面中的对象，尤其适用于用户界面需要只用一个数据元素来表示对象的情况。例如，若要表示一个已修订对象，通常需要同时显示对象的名称和修订版本。显示名称将包含表示该对象所需的足够元素；对于已修订对象而言，显示名称将同时包含名称和修订版本并使用分隔符分隔。这在查看组合框和其他单列列表中的对象时尤其有用，它们通常都采用显示名称。DisplayName 通常是非持久性字段。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">IconID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">与此基本实体关联的图标的标识符</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">InstanceID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">由系统生成的此对象实例的唯一 ID。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">IsFrozen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">确定是否允许对此实例（或其任何修订版本）进行更改。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">名称</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">此值嵌入静态字符串中，作为其前缀的字符将其识别为文本变量。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">WhereUsed</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">此类型的列表由维护服务的“何处使用”功能返回。此 CDO 的实例将使用要更改的对象指定其中一个对象。此 CDO 中的字段用于填充在维护建模对象时显示的树视图。</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="_1body">每个 TextVariable 实例的属性中都包含一个名称和一个表达式，并且描述了如何处理无法成功计算表达式的情况。</p>
+                    <p class="_1body">此名称是嵌入静态字符串中的值，作为其前缀的字符将其识别为文本变量。例如，默认标签中包含一个名为 TEMPERATURE 的 TextVariable 实例：</p>
+                    <p class="_1body">将温度设为 #TEMPERATURE。 </p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Maintaining_and_Using_Text_Variables"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor147"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />维护和使用文本变量</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">维护文本变量是指在工厂模型中创建文本变量 NDO 的实例，然后创建引用该文本变量实例的标签。使用文本变量是定义一个字段，以调用使用文本变量的标签。</p>
+                    <p class="_1body">在本例中，有一个服务 CDO 包含名为 SpecialInstruction 的字段，并要在该字段上显示消息“将温度设为 700”。还为要存储在另一个 CDO 中的温度值创建了必要的定义。</p>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Maintain_Text_Variables"></a>如何维护文本变量</p>
+            <p class="_1bodyKeepWithNext">按照以下步骤维护文本变量：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">登录 Portal，创建一个 TextVariable 实例，为其指定名称和表达式。</td>
+                </tr>
+            </table>
+            <p class="_3body">例如，使用“温度”作为名称，表达式的格式为 CDO.Field。该表达式包含从中检索值（温度 700）的 CDO 字段。</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">登录 Designer 或 Portal，并创建一个名为 MyInstruction 的标签，该标签将引用此文本变量实例。在标签值中，键入消息文本以包含字符串 #Temperature，使其对应于文本变量实例名称。</td>
+                </tr>
+            </table>
+            <p class="_3body">在默认标签值中输入文本变量的准则如下：</p>
+            <table class="AutoNumber_p_StepA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 70px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>a.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">放置文本变量占位符，以在运行时与标签值合并。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_StepA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 70px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>b.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">对于占位符的格式，需要指定文本变量实例名称。 </td>
+                </tr>
+            </table>
+            <p class="_3body">例如，MyInstruction 的标签值将类似于：</p>
+            <p class="_3body">将温度设为 #Temperature。  </p>
+            <p class="Head4-Side">使用文本变量</p>
+            <p class="_1body">有关将标签用于文本变量的信息，请参考“<a href="Using_Labels.htm" class="MCXref xref">使用标签</a>”。在本例中，配置服务 CDO 以检索 MyInstruction，该标签具有文本变量“温度”，并将其显示在字段 SpecialInstruction 上。</p>
+            <p class="_1body">在服务处理过程中，字段将使用正确的文本替换变量以获取标签值。</p>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="How_Variable_Expressions_Are_Evaluated"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor149"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />如何计算变量表达式</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">定义 TextVariable 时，需要指定用于定位数据的表达式。此表达式是运行时将要计算的字符串，以生成用于替换字符串运行时版本中标识符的值。通常，这些数据来自 CDO。在检索字段之前确定要使用的 CDO。 </p>
+                    <p class="_1body">考虑将以下默认标签值用于完成消息：</p>
+                    <p class="_1body">	#HistInq.Container 已由 #HistInq.User 于 #HistInq.Date 在 #HistInq.StartStep 启动。</p>
+                    <p class="_1body">该表达式包含要合并的 TextVariable 中数据的占位符。占位符指定文本变量类型及其名称。对于错误消息，格式为 #ErrorMsg.CDOName，在历史消息中，格式为 #HistInq.Step。 </p>
+                    <p class="_1body">例如，对于上述 StartStep 变量，指定的内置表达式为： </p>
+                    <p class="_1body">Transaction::InProcessHistoryCDO.WorkflowStep.Name  </p>
+                    <p class="_1body">按照设计，ContainerTxn 执行的最后几项任务之一是使用 SetFieldEx 函数将 Transaction::InProcessHistoryCDO 设为该事务的 HistoryMainline CDO 的 ID（注意，此过程不向用户公开）。处理 CompletionMsg 字段时，会找到上述标签值。系统检查替代文本变量标志，并发现已设置该标志，因此浏览字符串并查找包括 #HistInq.StartStep 在内的占位符。然后，系统会检索名为 StartStep 的 HistInq 文本变量，计算表达式 Transaction::InProcessHistoryCDO.WorkflowStep.Name，并将占位符替换为结果（启动容器的工步的名称）。</p>
+                    <p class="_1body">有效表达式字符串的组成内容根据引用文本变量的消息类型而变化。某些表达式（因此文本变量）可被所有的消息类型共享。例如，一个文本变量可用来为当前 SessionValue 合并值。其他表达式仅适用于特定类型的消息。例如，一个在制品消息可能包括当前运行在机器上的产品的一个变量，在这台机器上“移入”事务正显示在制品消息。</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

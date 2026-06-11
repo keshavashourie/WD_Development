@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>创建新的数据库表</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2NoBreak"><a name="Creating_New_Database_Tables"></a>创建新的数据库表<a name="kanchor98"></a></p>
+            <p class="_1body">在 Management Studio 中添加数据库之后，下一步是使用产品相关的表填充数据库管理系统 (DBMS)。可为事务数据库和 DataStore 数据库创建表。 </p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 21px;" />
+                <col style="width: 40px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">本主题介绍为事务数据库创建数据库表。有关为 DataStore 数据库创建表的信息，请参考《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics DataStore 参考指南</span>》或《<span class="Emphasis">Opcenter Execution Core DataStore 参考指南</span>》。  </td>
+                </tr>
+            </table>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Creating_New_Database_Tables"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />创建新的数据库表</a><a name="When_Creating_New_Database_Tables_PDF"></a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">通过执行“创建新的数据库表”任务，可以创建生产数据库中的元数据字段、表、关系、实例数据、索引、存储过程和主键。第一次安装 Opcenter EX MDD 或 Opcenter EX CR 之后，需执行此任务。</p>
+                    <p class="_1bodyKeepWithNext">“创建新的数据库表”任务设计用于自动执行以下过程：</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">在 DBMS 中创建产品相关表、数据库索引和存储程序</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">将初始默认数据（包括默认安全管理角色和权限）加载到 DBMS 中 </td>
+                        </tr>
+                    </table>
+                    <p class="_1body">可以选择加载默认门户种子数据（如果适用）。</p>
+                    <p class="_1body"><a name="Encrypt_Web_Traffic_Checkbox_edit"></a>默认情况下，SSL 安全已启用，表示 Opcenter EX MDD 和 Opcenter EX CR 产品与模块在安全环境中运行。如果禁用了 SSL 安全，可以在生成 WCF 服务时清除“加密 Web 流量”复选框中的复选标记。有关 SSL 安全的信息，请参考《<i>Opcenter Execution Medical Device and Diagnostics 安装指南</i>》或《<i>Opcenter Execution Core 安装指南</i>》。</p>
+                    <p class="_1bodyKeepWithNext">选择“数据库”文件夹或数据库节点时，Management Studio 窗口中将显示“数据库”菜单。有关“数据库”菜单的信息，请参考“<a href="Management_Studio_Interface.htm#Databases_Menu" class="MCXref xref">数据库菜单</a>”。 </p>
+                    <p class="Head4">在集群环境中</p>
+                    <p class="_1body">只能从集群环境的集群中的任何成员执行一次创建或更新过程。</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="Create"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />创建表对话框复选框定义</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">此表定义了“创建表”对话框中的复选框。</p>
+                    <table style="mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');width: 95%;caption-side: top;" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="138px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">选项</p>
+                                </th>
+                                <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">定义</p>
+                                </th>
+                                <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">类型 </p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">更新元数据和架构</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">创建数据表时禁用。  执行数据库更新时启用。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBodyIndented">强制数据库架构更新</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">创建数据表时禁用。  执行数据库更新时启用。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">强制 ODS 数据库架构更新</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">创建数据表时禁用。  执行数据库更新时启用。</p>
+                                    <p class="CellBody" style="color: #000000;"><b>注：</b>如果不存在 ODS 或已关闭 ODS，将禁用“强制 ODS 数据库架构更新”复选框选项。如果存在 ODS，则在选中“强制数据库架构更新”复选框选项时，将自动选中“强制 ODS 数据库架构更新”复选框选项。<a name="US8227_CreatingNewDatabaseTables"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">创建存储过程</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">运行 InstallProcedures.bat 文件。Opcenter EX MDD 或 Opcenter EX CR 的存储程序是指在数据库中定义和存储并由程序调用的一系列 SQL 语句和逻辑控制。默认存储过程包括特定于平台的规则，可提高性能并减少网络流量。由于数据对象使用的是同一规则集，因此其逻辑应统一。 </p>
+                                    <p class="CellBody">如果要更改或添加任意这些存储过程或者创建初始数据库，可选择此选项。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">创建索引</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">触发新索引或已更改索引的创建。应始终选中此选项。</p>
+                                    <p class="CellBody"><span class="User_Entry">注意：</span>对索引进行的任何更改会记录在替换工作区数据实用程序的日志文件中。有关替换工作区数据实用程序的信息，请参考《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics 安装指南</span>》或《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics 安装指南</span>》。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2" data-mc-conditions="">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">加载配置<a name="Configuration"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">将在“配置”窗格中进行的任何配置更改更新到数据库中。 </p>
+                                    <p class="CellBody"><span class="User_Entry">注意：</span>此选项始终处于选中和禁用状态。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">加载初始数据</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">运行 csiPopulateReleaseData.bat 脚本以在数据库表中创建各个实例，例如默认登录名（CamstarAdmin、Administrator 和 InSiteAdmin）和主键等。此脚本可提供初始建模定义用于开始进行首次安装。</p>
+                                    <p class="CellBody">此脚本还能加载初始默认角色和关联的权限。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">重新加载菜单</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">还原默认门户菜单。将覆盖对默认菜单进行的任何更改。不会覆盖或删除自定义菜单。自定义菜单在 Portal Studio 中仍然可用。</p>
+                                    <p class="CellBody"><span class="User_Entry">注意：</span>在创建表时，无法选中此复选框。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">重新加载更改管理种子数据</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">重新加载初始数据以在 Change Management 应用程序中使用。将覆盖对默认更改管理规范和默认更改管理工作流程建模对象进行的更改。不会覆盖或删除自定义更改管理建模对象。</p>
+                                    <p class="CellBody"><a name="229962"></a><b>重要事项：</b>Siemens 不建议在生产环境中使用该选项。如果使用该选项，所有原始更改管理实例将重置为初始安装后的状态，它们的 ID 将更改。此外，任何现有更改管理包都将孤立。</p>
+                                    <p class="CellBody"><span class="User_Entry">注意：</span>在创建表时，无法选中此复选框。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">填充 SPC 测试器数据</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">下载可在“SPC 测试”页面中使用的数据。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">清理孤立权限</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">创建数据表时禁用。执行数据库更新时将启用此选项。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">加载 Camstar Portal 对象</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">将在“建模”中创建的对象填充到 Portal 中。有关如何创建和修改 Portal 建模定义的信息，请参考《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Modeling 用户指南</span>》或《<span class="Emphasis">Opcenter Execution Core Modeling 用户指南</span>》。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">全部重新加载</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">当选中此选项时，将重新加载所有对象。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">加载 Camstar 字典</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">从 Insite Administration\Dictionaries 文件夹中的 CSV 文件将字典标签填充到 Portal 中。通过放置包含标签翻译的自定义 CSV 文件，可以在 Portal 中显示外语标签或自定义标签。有关如何创建和修改字典定义的信息，请参考《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Modeling 用户指南</span>》或《<span class="Emphasis">Opcenter Execution Core Modeling 用户指南</span>》。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented" style="color: #000000;">全部重新加载</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;">当选中此选项时，将重新加载所有字典。 </p>
+                                    <p class="CellBody" style="color: #000000;"><span class="User_Entry">注意：</span>在创建表时，无法选中此复选框。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">生成 WCF 服务</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">通过从 MDB 提取定义，生成包含已公开服务和数据协定的 DLL。在启用或禁用工作区时，应选中此选项。有关生成 WCF 服务的信息，请参考《<span class="Emphasis">Opcenter Execution Medical Device and Diagnostics 安装指南</span>》或《<span class="Emphasis">Opcenter Execution Core 安装指南</span>》。</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选 </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">加密 Web 流量<a name="UseSSL"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">用于使用 SSL 安全生成 WCF 服务。默认情况下，将选择加密 Web 流量。<a name="kanchor99"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">生成 REST API 服务<a name="307946"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">如果选中，将生成所有 REST API 模型并启动 REST API 服务。 <i>仅</i>当使用 appsettings.json 文件中默认设置的静态 DLL 时，此选项才有效。如果发生错误，请参考 <i>Opcenter Execution Medical Device and Diagnostics 技术参考：REST API</i> 或 <i>Opcenter Execution Core 技术参考：REST API</i> 中有关错误响应的信息。<a name="274529_end"></a> </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Create_New_Database_Tables"></a>如何为事务数据库创建新的数据库表<a name="kanchor100"></a></p>
+            <p class="_1bodyKeepWithNext">按照以下步骤为事务数据库创建新的数据库表：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">单击<span class="User_Entry">开始 &gt; Opcenter Execution MDD &gt; Management Studio</span>。<span class="Emphasis">此时将显示 Management Studio 窗口。</span></td>
+                </tr>
+            </table>
+            <p class="_3body">或</p>
+            <p class="_3body">单击<span class="User_Entry">开始 &gt; Opcenter Execution Core &gt; Management Studio</span>。<span class="Emphasis">此时将显示 Management Studio 窗口。</span> </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">展开<span class="User_Entry">数据库</span>，然后右键单击<span class="User_Entry">事务数据库</span>。<br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">单击<span class="User_Entry">创建新的数据库表</span>。<span class="Emphasis">此时将显示“创建表”对话框。</span><br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">保留默认选择。 </td>
+                </tr>
+            </table>
+            <p class="AboveAndBelow_Frame" style="margin-left: 0pc;">&#160;</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">单击<span class="User_Entry">确定</span>。<span class="Emphasis">Management Studio 窗口底部将显示消息“创建新的事务数据库已成功完成”。</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

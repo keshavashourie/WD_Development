@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Beschriftungen" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Beschriftungen mit Textvariablen</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Beschriftungen mit Textvariablen</p>
+            <p class="_1body">Neben statischen Beschriftungen können Sie Daten während der Laufzeit mit der Beschriftung zusammenführen, indem Sie Textvariablen verwenden. Textvariablen beschreiben, wie ein Wert zur Laufzeit abgeleitet wird, der in eine Nachrichtenzeichenkette integriert werden soll. Diese werden von verschiedenen Objekten (z. B. Umlaufbestandsnachrichten oder Historienabfragen) verwendet, um die Variablen in Zeichenketten zu integrieren.</p>
+            <p class="_1body">Wenn Sie z. B. eine Starttransaktion ausführen und diese erfolgreich ist, wird die folgende Nachricht angezeigt:</p>
+            <p class="_1body">&lt;Containername&gt; started at &lt;Startschritt&gt; on &lt;Datum&gt; by &lt;Benutzer&gt;</p>
+            <p class="_1body">Diese Beendigungsnachricht ruft tatsächlich "StartCompletion" auf, also eine Beschriftung unter "CSICompletion". Wenn Sie diese Beschriftung in der Beschriftungsbibliothek anzeigen, lautet der Text für diese Beschriftung wie folgt:</p>
+            <p class="_1body">	#HistInq.Container started at #HistInq.StartStep on #HistInq.Date by #HistInq.User.</p>
+            <p class="_1body">Die Variablen (denen das Zeichen # vorangestellt ist), werden durch entsprechenden Text ersetzt, z. B. den Containernamen, den Namen des Startschritts im Arbeitsplan, das Transaktionsdatum und den Benutzer, der die Transaktion eingegeben hat. Dieser Text wird aus der Datenbanktabelle "HistoryMainline" abgerufen.</p>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="The_TextVariable_CDO"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Das TextVariable-CDO</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">"TextVariable" ist ein benanntes Datenobjekt, mit dem Werte bereitgestellt werden, die während der Laufzeit aufgelöst und dann in eine Nachrichtenzeichenkette integriert werden. </p>
+                    <p class="_1bodyKeepWithNext">Das Textvariable-CDO weist zwei Typen auf, die von Opcenter EX&#160;MDD und Opcenter EX&#160;CR zur Verarbeitung von Beschriftungen verwendet werden: </p>
+                    <table class="AutoNumber_p__1bullet" style="font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ErrorMsg
+        </td>
+                        </tr>
+                    </table>
+                    <p class="_3body">Stellt die Werte bereit, die zum Erstellen von Fehlermeldungen verwendet werden</p>
+                    <table class="AutoNumber_p__1bullet" style="font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">HistInq
+        </td>
+                        </tr>
+                    </table>
+                    <p class="_3body">Enthält die Werte, die aus dem HistoryMainline-CDO abgerufen wurden</p>
+                    <p class="_1bodyKeepWithNext">Diese Tabelle listet alle Felder im TextVariable-CDO auf.</p>
+                    <table style="caption-side: top;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');width: 95%;" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="130px" class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1">
+                        </col>
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Feldname</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">Beschreibung</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">ChangeHistory</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Details zur letzten Änderung.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">UnresolvedValue</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Dieser Wert wird verwendet, falls der Ausdruck nicht erfolgreich ausgewertet werden kann. Hierbei kann es sich um eine leere Zeichenkette (dann wird die Tatsache, dass der Ausdruck nicht ausgewertet werden kann, ignoriert) oder um einen anderen Wert (z. B. "FEHLER!") handeln, um deutlich zu machen, dass der Text (der erstellten Nachricht) nicht vollständig oder nicht exakt ist.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">VariableExpression</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Die auszuwertende Zeichenkette, die den Wert zur Laufzeit erzeugt. Der Wert ersetzt den Identifikator innerhalb der Laufzeitversion der Zeichenkette.</p>
+                                    <p class="CellBody">Das Format ist "CDO.Feld".</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">VariableUsage</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Definiert den Typ von "TextVariable". Zum Beispiel:</p>
+                                    <p class="CellBody">1 = Allgemein (kann in jedem Text verwendet werden)</p>
+                                    <p class="CellBody">2 = Umlaufbestandsnachricht</p>
+                                    <p class="CellBody">3 = Alarmmeldung</p>
+                                    <p class="CellBody">4 = Anweisungstext</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td colspan="2" class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Die folgenden Felder werden von der Basisklasse geerbt.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">CDOTypeID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Eine Zeichenfolgendarstellung eines 24-Bit-Objekttypidentifikators, der von Opcenter EX&#160;MDD oder Opcenter EX&#160;CR zugewiesen wurde.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">ChangeCount</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Systemfeld, das verwendet wird, um die Datenintegrität zu gewährleisten, wenn mehrere Benutzer gleichzeitig dasselbe Objekt ändern.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Beschreibung</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Beschreibung dieses Objekts. Der Standardwert ist der Name dieses Objekts, sofern nicht angegeben</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">DisplayName</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">"DisplayName" ist das Feld, das in der Regel verwendet wird, um ein Objekt in einer Benutzeroberfläche darzustellen, vor allem, wenn die Benutzeroberfläche ein Objekt mit nur einem Datenelement darstellen muss. Normalerweise würden zur Darstellung eines revisionierten Objekts z. B. einfach der Name und die Revision des Objekts angezeigt. Der Anzeigename umfasst genügend erforderliche Elemente zur Darstellung des Objekts. Für ein revisioniertes Objekt würde es z. B. den Namen und die Revision mit einem Trennzeichen enthalten. Dies ist besonders hilfreich, wenn Objekte in Kombinationsfeldern und anderen einspaltigen Listen angezeigt und der Anzeigename verwendet werden sollte. "DisplayName" ist in der Regel ein nicht persistentes Feld.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">IconID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Identifikator für das Symbol, das diesem Basisobjekt zugeordnet ist</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">InstanceID</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Eindeutige ID für eine Instanz dieses Objekts, die vom System erzeugt wurde.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">IsFrozen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Bestimmt, ob Änderungen an dieser Instanz (oder an den zugehörigen Revisionen) erlaubt sind.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Name</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Der Wert, der in eine statische Zeichenkette eingebettet ist und dem ein Zeichen vorangestellt ist, das ihn als Textvariable kennzeichnet.</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">WhereUsed</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">Eine Liste dieses Typs wird durch die Funktion "Wo genutzt" (Where used) eines Wartungsdienstes zurückgegeben. Eine Instanz dieses CDOs gibt eines der Objekte mithilfe des zu ändernden Objekts an. Die Felder in diesem CDO werden verwendet, um beim Modellieren eines Objekts eine Baumansicht auszufüllen.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="_1body">Jede Instanz von "TextVariable" enthält neben ihren Attributen einen Namen und einen Ausdruck und beschreibt, wie vorzugehen ist, wenn der Ausdruck nicht erfolgreich ausgewertet werden kann.</p>
+                    <p class="_1body">Der Name ist ein in die statische Zeichenkette eingebetteter Wert, dem ein Zeichen vorangestellt ist, das ihn als Textvariable kennzeichnet. Beispiel für eine Instanz von "TextVariable" mit dem Namen "TEMPERATURE", die in die Standardbeschriftung eingeschlossen wird:</p>
+                    <p class="_1body">Set Temperature to #TEMPERATURE. </p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Maintaining_and_Using_Text_Variables"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor147"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Warten und Verwenden von Textvariablen</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Unter der Wartung von Textvariablen versteht man das Erstellen von Instanzen des Textvariablen-NDOs im Fabrikmodell und das anschließende Erstellen von Beschriftungen, die sich auf die Instanzen der Textvariablen beziehen. Wenn Sie Textvariablen verwenden, definieren Sie ein Feld zum Aufrufen von Beschriftungen, die Textvariablen verwenden.</p>
+                    <p class="_1body">In diesem Szenario liegt ein Dienst-CDO mit einem Feld mit der Bezeichnung "SpecialInstruction" vor. Sie möchten im Feld die Nachricht "Set Temperatur to 700" anzeigen. Sie haben auch die erforderlichen Definitionen für den Temperaturwert erstellt, der in einem anderen CDO gespeichert werden soll.</p>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Maintain_Text_Variables"></a>Vorgehensweise zum Warten von Textvariablen</p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um Textvariablen zu warten:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Melden Sie sich beim Portal an und erstellen Sie eine Instanz von "TextVariable", indem Sie für diese einen Namen und einen Ausdruck angeben.</td>
+                </tr>
+            </table>
+            <p class="_3body">Verwenden Sie z. B. "Temperatur" als Namen und "CDO.Feld" als Format für den Ausdruck. Der Ausdruck enthält das Feld "CDO" aus dem der Wert, also die Temperatur 700, abgerufen wird.</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Melden Sie sich bei Designer oder beim Portal an und erstellen Sie eine Beschriftung mit der Bezeichnung "MyInstruction", die die Textvariableninstanz referenzieren wird. Geben Sie im Beschriftungswert den Nachrichtentext, der die Zeichenkette "#Temperature" enthält, so ein, dass er dem Instanznamen der Textvariablen entspricht.</td>
+                </tr>
+            </table>
+            <p class="_3body">Richtlinien zur Eingabe von Textvariablen in Standardbeschriftungswerte:</p>
+            <table class="AutoNumber_p_StepA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 70px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>a.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;a.&lt;/b&gt;">Legen Sie einen Platzhalter für die Textvariable fest, die während der Laufzeit mit Ihrem Beschriftungswert zusammengeführt wird.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_StepA" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 70px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>b.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;b.&lt;/b&gt;">Geben Sie für das Format des Platzhalters den Instanznamen der Textvariablen an. </td>
+                </tr>
+            </table>
+            <p class="_3body">Der Beschriftungswert für "MyInstruction" kann z. B. in etwa wie folgt aussehen:</p>
+            <p class="_3body">Set the temperature to #Temperature.  </p>
+            <p class="Head4-Side">Verwenden von Textvariablen</p>
+            <p class="_1body">Weitere Informationen zur Verwendung der Beschriftung mit den Textvariablen finden Sie unter "<a href="Using_Labels.htm" class="MCXref xref">Verwenden von Beschriftungen</a>". In diesem Fall konfigurieren Sie das Dienst-CDO, um "MyInstruction" abzurufen, also die Beschriftung mit der Textvariablen "Temperature", und sie im Feld "SpecialInstruction" anzuzeigen.</p>
+            <p class="_1body">Während der Dienstverarbeitung ruft das Feld den Beschriftungswert mit dem entsprechenden Text ab, der die Variable ersetzt.</p>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="How_Variable_Expressions_Are_Evaluated"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false" name="kanchor149"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Vorgehensweise zum Auswerten von Variablenausdrücken</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Wenn Sie eine Textvariable (TextVariable) definieren, geben Sie einen Ausdruck an, der zum Suchen der Daten verwendet wird. Der Ausdruck ist eine Zeichenkette, die während der Laufzeit ausgewertet wird, um den Wert zu ermitteln, der die Kennung innerhalb der Laufzeitversion der Zeichenkette ersetzt. Diese Daten stammen in der Regel aus einem CDO. Das zu verwendende CDO wird vor dem Abrufen des Felds bestimmt. </p>
+                    <p class="_1body">Beachten Sie den folgenden Standardbeschriftungswert für eine Beendigungsnachricht:</p>
+                    <p class="_1body">	#HistInq.Container started at #HistInq.StartStep on #HistInq.Date by #HistInq.User.</p>
+                    <p class="_1body">Der Ausdruck enthält Platzhalter für die Daten aus "TextVariable", die zusammengeführt werden sollen. Die Platzhalter geben den Typ und den Namen der Textvariablen an. Bei Fehlermeldungen lautet das Format #ErrorMsg.CDOName, in Historiennachrichten lautet es #HistInq.Step. </p>
+                    <p class="_1body">Im Fall der oben aufgeführten Variablen "StartStep" lautet der angegebene Ausdruck z. B. wie folgt: </p>
+                    <p class="_1body">Transaction::InProcessHistoryCDO.WorkflowStep.Name  </p>
+                    <p class="_1body">Standardmäßig führt "ContainerTxn" als eine der letzten Aufgaben die Funktion "SetFieldEx" aus, um "Transaction::InProcessHistoryCDO" für diese Transaktion auf die ID des HistoryMainline-CDOs festzulegen (beachten Sie, dass dieser Prozess nicht für den Benutzer verfügbar gemacht wird). Beim Verarbeiten des Felds "CompletionMsg" wird der oben aufgeführte Beschriftungswert gefunden. Das System prüft das Flag zum Ersetzen von Textvariablen (Substitute Text Variables) und erkennt, dass es gesetzt ist. Daher durchläuft es die Zeichenkette und erkennt die Platzhalter, einschließlich #HistInq.StartStep. Anschließend ruft die es die Textvariable "HistInq" mit dem Namen "StartStep" auf, wertet den Ausdruck "Transaction::InProcessHistoryCDO.WorkflowStep.Name" aus und ersetzt den Platzhalter durch das Ergebnis (der Name des Schritts, in dem der Container gestartet wurde).</p>
+                    <p class="_1body">Wie genau eine gültige Ausdruckszeichenkette aussieht, hängt vom Typ der Nachricht ab, die die Textvariable referenziert. Einige Ausdrücke (und somit Textvariablen) können von allen Nachrichtentypen verwendet werden. Mithilfe einer Textvariablen können z. B. Werte für die aktuellen SessionValues integriert werden. Andere Ausdrücke ergeben nur im Kontext eines bestimmten Nachrichtentyps einen Sinn. Eine Umlaufbestandsnachricht kann z. B. eine Variable für das Produkt enthalten, das momentan auf der Maschine bearbeitet wird, wobei die Anmeldetransaktion die Umlaufbestandsnachricht anzeigt.</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

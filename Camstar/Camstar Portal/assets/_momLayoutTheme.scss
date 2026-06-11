@@ -1,0 +1,933 @@
+// Fixes to Siemens Web Framework styles
+[anchor="aw_globalNavigationbar"] .aw-commands-showIconLabel,
+[anchor="aw_userSessionbar"] .aw-commands-showIconLabel {
+    color: $brand_primary_inverse_text;
+}
+
+.aw-layout-headerTitleContainer {
+    min-height: 25px;
+}
+
+aw-header-title .aw-layout-headerLeft {
+    width: 100%;
+}
+
+.aw-layout-sublocationContainer .aw-layout-infoCommandbar {
+    padding-top: 0;
+}
+
+.aw-layout-subLocationTitles {
+    height: inherit;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+aw-showobject-page .aw-commands-showIconLabel .aw-layout-subLocationTitles {
+    padding-left: 16px;
+}
+
+.aw-layout-logoProgressContainer {
+    margin-right: 0;
+}
+
+aw-sublocation-title {
+    width: 100%;
+}
+
+.aw-layout-locationTitle {
+    font-size: 1.296rem;
+}
+
+/* Missing Page Overrides */
+
+#main-view ui-view>aw-page>div>div>div>div:nth-child(1) {
+    flex: 0 0 56px !important;
+
+    aw-header .aw-layout-header {
+        padding: 8px 0 8px 0;
+    }
+
+}
+
+#main-view aw-page .aw-layout-subLocation {
+
+    .aw-layout-workareaTitle {
+        height: inherit;
+        flex: 0 0 auto;
+    }
+
+    .aw-layout-primaryWorkarea {
+        padding-top: 56px
+    }
+
+    .aw-layout-primaryWorkarea,
+    .aw-layout-infoCommandbar {
+        background: $brand_primary_content_background;
+    }
+}
+
+/* Command bars */
+
+.aw-layout-mainView {
+    // Maximize overflow and add scrollbar
+
+    aw-command-bar.aw-commands-commandBarVertical .aw-commands-wrapper.aw-commands-overflow {
+        overflow-y: auto;
+        flex-grow: 70 !important;
+        border: none;
+    }
+
+    aw-command-bar aw-command .aw-commands-commandIconButton .aw-commands-svg,
+    aw-command-bar aw-command .aw-commands-commandIconButton .aw-commands-svg.aw-widget-thumbnail .aw-base-icon,
+    // 4.1+
+    aw-cell-command-bar aw-command .aw-commands-commandIconButton .aw-commands-svg,
+    aw-cell-command-bar aw-command .aw-commands-commandIconButton .aw-commands-svg.aw-widget-thumbnail .aw-base-icon {
+        height: 24px;
+        width: 24px;
+    }
+
+    // 4.1+ sidenav
+    .aw-sidenav-standard aw-command-bar aw-command .aw-commands-commandIconButton .aw-commands-svg.aw-widget-thumbnail svg.aw-base-icon {
+        width: 16px;
+        height: 16px;
+        margin-top: -8px;
+    }
+
+    aw-command-bar aw-command .aw-widgets-groupCommandStack {
+        margin-left: 0;
+        margin-top: -3px;
+    }
+
+    #momCmdToggleViewMode .aw-commands-svg {
+        padding-top: 5px;
+    }
+
+    aw-command-bar.aw-commands-commandBarHorizontal .aw-commands-commandIconButton {
+        padding: 8px;
+    }
+
+    aw-command-bar aw-command .aw-widgets-groupCommandStack {
+        margin-left: -3px;
+        margin-top: -2px;
+    }
+
+    #momCmdToggleViewMode .aw-commands-svg {
+        padding-top: 0;
+    }
+}
+
+.global-navigation .aw-sidenav-layoutContainer {
+    aw-command-bar .aw-commands-commandIconButton .aw-commands-svg {
+        width: 16px !important;
+        height: 16px !important;
+        display: inline-block;
+    }
+
+    // Command groups in navigation bar
+    .popupContent .aw-widgets-cellListItem.aw-state-selected::after {
+        content: " \2713"; // Add check to selected command.
+    }
+
+    // Manage command icon next to command
+    aw-command-bar.aw-commands-commandBarVertical aw-command button.aw-commands-commandIconButton {
+        display: flex;
+        height: 32px;
+        padding-left: 6px;
+        margin-top: 0.25rem;
+
+        .aw-commandIcon {
+            flex: 0 0 16px;
+
+            .aw-widgets-groupCommandStack {
+                display: none;
+            }
+        }
+
+        .afx-accent-background .aw-theme-iconOutline {
+            fill: $brand_secondary_link;
+        }
+
+        &:hover,
+        &.aw-state-selected {
+            .aw-commands-svg .aw-theme-iconOutline {
+                fill: $brand_primary_inverse_text;
+            }
+        }
+
+        .aw-commands-showIconLabel {
+            flex: 1 1 auto; // was: 0 1 auto -- needed in AFX 3.0
+            padding: 0 8px; // needed in AFX 3.0
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+}
+
+.global-navigation .aw-sidenav-layoutContainer .aw-layout-declarativePanelRoot>aw-include {
+    padding: 0;
+}
+
+/* Overrides for command group in sidenav */
+
+.global-navigation-toolbar {
+    aw-command-bar.aw-commands-commandBarVertical .aw-commands-wrapper {
+        padding: 11px 0;
+    }
+
+    aw-command-bar.aw-commands-commandBarVertical .aw-commands-wrapper .aw-commands-wrapper {
+        .aw-layout-popupOverlay {
+            z-index: auto;
+            position: static;
+            background: transparent;
+            border-color: transparent;
+            box-shadow: none;
+            padding-left: 16px;
+        }
+
+        .popupContent {
+            .aw-widgets-cellListItem {
+                border-color: transparent;
+                color: $brand_primary_inverse_text;
+                padding: 10px 15px 5px 10px;
+                font-size: 0.75rem;
+                background-color: transparent;
+
+                &:hover {
+                    color: $brand_secondary_link_hover; //was: #ffb900
+                    fill: $brand_secondary_link_hover; //was: #ffb900
+                }
+            }
+
+            .aw-widgets-cellListItem.aw-state-selected {
+                background: transparent;
+            }
+
+            .aw-layout-popup {
+                background-color: transparent;
+            }
+        }
+    }
+
+    // aw-link-with-popup overrides
+    .aw-widgets-linkWithPopupMenu {
+        margin: 0 5px;
+
+        .aw-layout-popup {
+            margin: -4px 5px;
+        }
+    }
+}
+
+.aw-sidenav-layoutContainer {
+    .aw-commands-commandIconButtonText {
+        white-space: nowrap;
+    }
+
+    aw-command-bar[anchor] .aw-commands-commandIconButton {
+        color: $brand_primary_inverse_text;
+        padding-left: 16px;
+
+        &:hover {
+            color: $brand_primary_inverse_text;
+            background-color: $brand_secondary_button_background; //was: #2882AD;
+        }
+    }
+
+    // Hierarchical navigation menus
+    aw-tree ul,
+    aw-tree ol {
+        margin: 0;
+    }
+
+    aw-tree li .aw-ui-treeNodeValue a {
+        color: $brand_primary_inverse_text;
+    }
+
+    aw-tree li :hover,
+    aw-tree li :hover .aw-ui-treeNodeValue {
+        background-color: transparent;
+    }
+
+    aw-tree li .aw-ui-treeNodeValue a:hover {
+        color: $brand_secondary_link_hover; //was: #ffb900
+    }
+
+    li.aw-ui-treeNode {
+        margin: 0;
+        width: 100%;
+        padding: 8px 8px 8px 0px;
+        vertical-align: middle;
+        box-sizing: border-box;
+
+        [name="miscExpandedTree"] {
+            margin: 0 1.5px;
+
+            svg {
+                height: 100%;
+
+                .aw-theme-iconOutline {
+                    fill: $brand_secondary_link;
+                }
+
+                .aw-theme-iconOutline:hover {
+                    fill: $brand_secondary_link_hover; //was: #ffb900
+                }
+            }
+        }
+
+        .aw-ui-treeNode-valueContainer,
+        .aw-ui-treeNodeValue {
+            padding: 0;
+            height: 1rem;
+        }
+
+        aw-link .aw-base-normal {
+            height: 16px;
+        }
+    }
+}
+
+
+// Override icon color and margin if tree is used within side panels.
+.aw-sidenav-layoutContainer li.aw-ui-treeNode [name="miscExpandedTree"] svg>.aw-theme-iconOutline {
+    fill: inherit;
+}
+
+.aw-sidenav-layoutContainer ul li.aw-ui-treeNode {
+    margin-left: 16px;
+    padding: 2px 0px 2px 0px;
+}
+
+
+// Selected color for command bars within main frame
+
+.global-navigation,
+.aw-layout-header {
+
+    aw-command-bar.aw-commands-commandBarHorizontal,
+    aw-command-bar.aw-commands-commandBarVertical {
+
+        .aw-commands-commandIconButton,
+        .aw-commands-commandIconButton {
+            &.aw-state-selected {
+                background-color: $brand_primary_button_background_active; //was: #004664;
+            }
+        }
+    }
+}
+
+// Avoid third label line to be partially displayed
+.aw-layout-mainView.aw-commands-showIconLabel aw-command-bar.aw-commands-commandBarVertical .aw-commands-commandIconButtonText {
+    padding: 0 4px;
+    height: 24px;
+    max-height: 24px;
+    line-height: 12px;
+}
+
+// Needed to make sure the style of commands in the global navigation doesn't break when showing labels.
+.aw-layout-mainView.aw-commands-showIconLabel #globalNavigationSideNav aw-command-bar.aw-commands-commandBarVertical {
+    .aw-commands-commandIconButton {
+        height: 32px;
+        width: 100%;
+    }
+
+    .aw-commands-commandIconButtonText {
+        font-size: 0.75rem;
+        height: inherit;
+    }
+}
+
+// Command labels in mom_headerBar
+.aw-commands-showIconLabel .afx-layout-header-container aw-command-bar.aw-commands-commandBarHorizontal .aw-commands-commandIconButtonText {
+    color: $brand_primary_inverse_text;
+    margin-top: -3px;
+}
+
+.aw-layout-mainView.aw-commands-showIconLabel aw-command-bar.aw-commands-commandBarVertical[anchor="aw_globalNavigationbar"] button.aw-commands-commandIconButton.aw-commands-commandWrapperVertical,
+.aw-layout-mainView.aw-commands-showIconLabel aw-command-bar.aw-commands-commandBarVertical[anchor="aw_userSessionbar"] button.aw-commands-commandIconButton.aw-commands-commandWrapperVertical {
+    width: 64px; // incorrectly set to 56px;
+}
+
+// Go to top command
+aw-command-bar[anchor="mom_homeRightSideBar"] .aw-commands-showIconLabel {
+    color: $brand_primary_inverse_text;
+}
+
+aw-global-navigation-panel aw-command-bar aw-command .aw-commands-commandIconButton .aw-commands-svg,
+aw-global-navigation-panel aw-command-bar aw-command button.aw-commands-commandIconButton .aw-commands-svg,
+.aw-commands-showIconLabel aw-command-bar[alignment="VERTICAL"] aw-command button.aw-commands-commandIconButton.aw-commands-commandWrapperVertical .aw-commands-svg,
+.aw-commands-showIconLabel aw-command-bar[alignment="HORIZONTAL"] aw-command button.aw-commands-commandIconButton.aw-commands-commandWrapperHorizontal .aw-commands-svg {
+    width: 24px;
+    height: 24px;
+}
+
+.global-navigation-toolbar aw-command-bar.aw-commands-commandBarVertical {
+    margin-top: -0.33em;
+}
+
+.global-navigation-toolbar aw-command-bar.aw-commands-commandBarVertical .aw-commands-commandIconButton {
+    height: 48px;
+}
+
+aw-command-bar.aw-commands-commandBarVertical .aw-commands-wrapper.aw-commands-overflow .aw-commands-commandIconButton.aw-commands-commandWrapperVertical {
+    height: 48px;
+}
+
+.global-navigation-toolbar>.aw-layout-include>.aw-layout-column>.aw-layout-row[style*="flex: 0 0 0.33em"] {
+    flex: 0 0 4px !important;
+}
+
+aw-command-bar.aw-commands-commandBarVertical[anchor="aw_rightWall"] {
+    padding-top: 0;
+}
+
+aw-command-bar.aw-commands-commandBarVertical[anchor="aw_rightWall"] .aw-commands-commandIconButton {
+    height: 48px;
+    padding: 8px;
+}
+
+aw-command-bar.aw-commands-commandBarVertical[anchor="aw_rightWall"] .aw-commands-wrapper {
+    padding: 0;
+}
+
+aw-command-bar.aw-commands-commandBarHorizontal.aw-commands-commandBarContainer .aw-commands-commandIconButton {
+    padding: 4px;
+}
+
+/* Padding around section titles in PWA */
+
+.aw-layout-primaryWorkareaContainer .aw-layout-panelSectionTitle {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+/* Extended PWA*/
+
+[name="commonLocation"] .aw-layout-primaryWorkarea.aw-layout-primaryWorkareaFill {
+    padding: 16px;
+    background: $brand_primary_content_background;
+
+    .aw-widgets-cellListWidget li.aw-widgets-cellListItem {
+        background: $brand_secondary_content_background; //was #fafafa;
+        margin: 4px;
+
+        &:hover {
+            background: $brand_selection_background_selected_hover;
+            color: $brand_selection_text_selected_hover;
+        }
+    }
+
+    .aw-widgets-cellListWidget li.aw-widgets-cellListItemSelected {
+        background: $brand_selection_background_selected;
+        color: $brand_selection_text_selected_hover;
+    }
+
+    .aw-layout-workareaCommandbar {
+        background: $brand_primary_inverse_text;
+        box-shadow: none;
+    }
+}
+
+aw-page aw-primary-workarea .aw-layout-workareaCommandbar,
+aw-showobject-page aw-primary-workarea .aw-layout-workareaCommandbar {
+    z-index: 4; // Make sure change viewMode dropdown is on top of the table
+}
+
+.aw-commands-showIconLabel {
+    aw-command-bar .aw-commands-commandIconButtonText {
+        margin-top: 2px;
+    }
+
+    aw-command-bar.aw-commands-commandBarContainer,
+    aw-command-bar.aw-commands-commandBarHorizontal[anchor="aw_primaryWorkArea"],
+    aw-command-bar.aw-commands-commandBarVertical[anchor="aw_globalNavigationbar"],
+    aw-command-bar.aw-commands-commandBarVertical[anchor="aw_userSessionbar"],
+    aw-command-bar.aw-commands-commandBarVertical[anchor="aw_rightWall"] {
+        aw-command-bar .aw-commands-commandIconButtonText {
+            margin-top: 2px;
+        }
+
+        button.aw-commands-commandIconButton.aw-commands-commandWrapperVertical,
+        button.aw-commands-commandIconButton.aw-commands-commandWrapperHorizontal {
+            // width: 56px;
+            // height: 64px;
+            max-height: 68px;
+        }
+    }
+
+    aw-command-bar.aw-commands-commandBarVertical[anchor="aw_rightWall"] button.aw-commands-commandIconButton {
+        width: 48px;
+    }
+
+    aw-logo .aw-layout-logoProgressContainer {
+        margin-right: 0;
+    }
+
+    .aw-layout-header.aw-layout-flexRowContainer {
+        padding: 8px 0 16px 0;
+    }
+}
+
+.aw-layout-splitter .aw-layout-splitterLine {
+    left: 0;
+}
+
+/* Header */
+
+.awRoot .awMediumHeader .awHeader {
+    padding-top: 0;
+}
+
+.aw-layout-headerLeft {
+    width: 200%;
+}
+
+.mom-header.aw-layout-header .aw-layout-headerIcon {
+    padding-right: 16px;
+}
+
+.mom-home-location .mom-header.aw-layout-header.afx-layout-fullscreen-header {
+    border-color: transparent;
+    background-color: transparent;
+    padding-left: 0.625rem;
+    padding-bottom: 0;
+}
+
+.aw-layout-header.afx-layout-fullscreen-header .aw-layout-workareaTitle {
+    margin-top: -8px; // TODO: review
+}
+
+.afx-layout-header-container {
+    flex: 0 0 4rem !important;
+}
+
+.aw-layout-workareaTitle {
+    padding: 0;
+}
+
+.aw-widgets-crumbLink {
+    line-height: 2rem;
+}
+
+[name="commonLocation"] .aw-layout-header a {
+    color: $brand_primary_inverse_text;
+}
+
+/* Sublocation tabs */
+[data-afx-version^="3.2"] #main-view>aw-include>div>div>div>ui-view>aw-include>div>div>div:first-of-type[height="4f"],
+// v3.3+
+#main-view>aw-include>div>div>div>div>div>ui-view>aw-include>div>div>div:first-of-type[height="4f"] {
+    background-color: $brand_secondary_border;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    border-radius: 2px 2px 0 0;
+
+    .awTabs {
+        /*stylelint-disable*/
+        background-color: $brand_secondary_border;
+    }
+}
+
+.aw-layout-mainView .aw-layout-subLocation.afx-content-background {
+    border-radius: 2px 2px 0 0;
+    background: transparent;
+
+    .aw-layout-sublocationContainer {
+        background: $brand_primary_content_background;
+    }
+}
+
+.aw-layout-mainView .aw-layout-subLocation.afx-content-background .mom-homepage {
+    .aw-layout-sublocationContainer {
+        background: transparent;
+    }
+
+    .aw-layout-infoCommandbar {
+        display: none;
+    }
+}
+
+.mom-details-summary {
+    .aw-layout-panelSection {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+}
+
+/* Fix transparent backgrounds */
+
+.aw-layout-sublocationContainer .aw-sidenav-layoutContainer.aw-sidenav-expand,
+// Side panels + dropdown menus
+.aw-widgets-cellListItem {
+    background: $brand_primary_content_background;
+}
+
+/* Tabs */
+
+.aw-jswidget-tabContainer .aw-jswidget-tab a.aw-base-tabTitleSelected {
+    width: inherit !important;
+}
+
+.aw-base-tabTitle,
+.aw-base-tabTitleSelected,
+.aw-layout-panelHeader .aw-jswidget-tab a.aw-base-tabTitle {
+    margin-right: 16px;
+}
+
+.aw-jswidget-tabContainer .aw-jswidget-tabBarContent .aw-jswidget-tab {
+    margin-right: 0;
+}
+
+/* Side Panels */
+
+.aw-sidenav-layoutContainer .aw-layout-panelMain .aw-layout-panelBody .aw-layout-panelSectionContent {
+    width: 100%;
+    padding: 0px;
+}
+
+/* Input Controls */
+
+.aw-layout-mainView {
+
+    select,
+    .gwt-ListBox,
+    input[type="text"],
+    .gwt-TextBox,
+    textarea,
+    .gwt-TextArea,
+    input[type="password"] {
+        border-width: 1px;
+        font-size: 0.75rem;
+    }
+
+    aw-property-lov-val .aw-widget-icon {
+        padding: 10px 10px;
+    }
+
+    aw-listbox input.aw-jswidgets-choice {
+        padding: 5px;
+    }
+}
+
+/* Custom Scrollbars (WebKit only) */
+
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    opacity: 0.2;
+    border-radius: 4px;
+    background: #DCDCDC;
+    border: 0px solid #DCDCDC;
+
+    &:hover {
+        background: $brand_primary_border;
+        border: 0px solid $brand_primary_border;
+    }
+}
+
+/* Popup */
+
+aw-popup-command-bar {
+    aw-popup-command-cell {
+        margin: 0;
+
+        &:first-child,
+        &:last-child {
+            margin-top: 0;
+        }
+    }
+}
+
+aw-popup-panel2:not(.aw-popup-defaultStyle) .aw-popup-screenMaskBackground.aw-popup-fullPage,
+aw-popup:not(.aw-popup-defaultStyle) .aw-popup-screenMaskBackground.aw-popup-fullPage {
+    background-color: #000000;
+    opacity: 0.75;
+}
+
+.aw-popup-contentContainer {
+
+    // Reduce button size
+    .aw-layout-panelFooter {
+        .aw-base-blk-button {
+            white-space: nowrap;
+            max-width: 100%;
+            width: auto;
+            min-width: 88px;
+            text-overflow: ellipsis;
+        }
+    }
+
+    // Align close button to the right
+    .aw-layout-panelTitle .aw-popup-pinMargin {
+        margin: 0 0.2rem 0 0;
+    }
+}
+
+/* aw-tile-canvas */
+
+.aw-tile-tileGroup {
+    max-width: 100%; // was: 560px;
+
+    .aw-theme-tileText {
+        color: $brand_primary_content_text;
+    }
+
+    .aw-tile-tileMain {
+        &:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .aw-tile-resize {
+            display: none;
+        }
+
+        margin: 0 16px 16px 0;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+
+        .aw-tile-tileContainer,
+        .aw-tile-displayTitle {
+            background-color: $brand_primary_content_background;
+            color: $brand_primary_content_text;
+            fill: $brand_primary_content_text;
+        }
+
+        .aw-tile-tileContainer .aw-tile-brand>.aw-tile-tileName {
+            white-space: inherit;
+            margin-left: 0;
+        }
+
+        .aw-tile-tileContainer .aw-tile-tileContent {
+            padding: 0;
+        }
+
+        .aw-tile-tileContainer .aw-tile-brand.aw-tile-displayTitle {
+            bottom: 0;
+            position: absolute;
+            height: 60px;
+            opacity: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .aw-tile-tileImage img.aw-base-icon {
+            min-height: 64px;
+            max-height: 64px;
+        }
+
+        .aw-tile-fullsizeIcon img.aw-base-icon {
+            object-fit: fill;
+            margin-top: -20px;
+        }
+    }
+}
+
+/* Panels */
+
+
+.aw-layout-mainView {
+    .aw-layout-panelFooter {
+        text-align: right;
+    }
+
+    .aw-layout-panelMain .aw-base-blk-button {
+        white-space: nowrap;
+        max-width: 100%;
+        width: auto;
+        min-width: 88px;
+        text-overflow: ellipsis;
+    }
+}
+
+/* Code */
+code {
+    color: $brand_secondary_content_text; //was: #780100;
+    font-family: monospace;
+}
+
+pre {
+    code {
+        border: 1px solid $brand_secondary_border;
+        background-color: $brand_secondary_content_background; //was: #fafafa;
+        color: $brand_secondary_content_text;
+        border-left: 6px solid $brand_primary_accent_border;
+        padding: 10px;
+        display: block;
+    }
+}
+
+/* Header Contributions */
+
+.aw-layout-headerPropContainer {
+    margin-top: -3px;
+}
+
+.awRoot .awHeader.momHeaderProperties .aw-layout-workareaTitle {
+    padding-top: 0;
+}
+
+.awHeader.momHeaderProperties.momHeaderIcon .aw-layout-headerPropContainer {
+    margin-left: 60px;
+    margin-top: -16px;
+}
+
+.aw-layout-headerContribution .aw-widgets-propertyLabelTopValueContainer {
+    min-width: 0;
+}
+
+.aw-layout-headerContribution .aw-widgets-propertyContainer aw-property-label,
+.aw-layout-headerContribution .aw-widgets-propertyLabelTopValueContainer {
+    flex: 0 1 auto;
+}
+
+/***** MOM Specific Layout Styles *****/
+
+.mom-home-location {
+
+    .aw-layout-primaryWorkarea,
+    .aw-layout-infoCommandbar,
+    .aw-layout-subLocation {
+        background-color: transparent;
+    }
+
+    .aw-layout-sublocationContainer .aw-layout-infoCommandbar {
+        display: none;
+    }
+}
+
+mom-secondary-workarea {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+mom-secondary-workarea .aw-layout-sublocationContent,
+mom-secondary-workarea .mom-details-summary {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+/*
+mom-page {
+    @extend aw-page;
+}
+
+mom-header {
+    @extend aw-header;
+}
+*/
+
+.mom-user-label {
+    width: calc(100%);
+    color: $brand_primary_inverse_text;
+
+    h3 {
+        padding: 0 0.3rem;
+        word-break: break-all;
+        line-height: 1.1rem;
+    }
+}
+
+.mom-input-group {
+    padding: 0;
+    display: inline-flex;
+    height: 30px;
+    border-radius: 2px;
+    border: 1px solid $brand_primary_border;
+    background-color: $brand_primary_content_background;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    color: $brand_secondary_content_text;
+
+    &:hover {
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    &:focus-within {
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.3);
+        background-color: $brand_primary_content_background;
+        color: $brand_secondary_content_text;
+        border-color: $brand_primary_border_focus;
+        caret-color: $brand_primary_border_focus;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        box-shadow: none;
+        border: none;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    button {
+        height: 30px;
+        width: 30px;
+    }
+
+    .aw-base-iconButton .aw-theme-iconOutline {
+        fill: $brand_primary_content_text;
+        background-color: $brand_primary_content_background;
+    }
+}
+
+// input-group within a panel body
+.aw-layout-panelContent {
+    .mom-input-group {
+        margin: 16px 0 8px 0;
+
+        .aw-widgets-propertyContainer {
+            margin-top: -18px; // Ensure label is above the input group
+        }
+    }
+}
+
+.aw-uiwidgets-searchBoxContainer .aw-theme-iconOutline {
+    fill: $brand_primary_content_text;
+}
+
+// Close panel icon
+
+.aw-layout-mainView aw-command-bar aw-command #momCmdClosePanel .aw-commands-svg,
+.aw-layout-mainView aw-command-bar aw-command #momCmdClosePanel .aw-base-icon //AFX 4.1+
+
+    {
+    width: 16px;
+    height: 16px;
+}
+
+.aw-sidenav-layoutContainer aw-command-bar[anchor] #momCmdClosePanel {
+    padding: 8px;
+}
+
+/* Non-clickable items */
+.global-navigation .aw-layout-declarativePanelRoot .aw-generic-avatar .aw-avatar-icon,
+.aw-jswidget-tabContainer .aw-jswidget-tab a.aw-base-tabTitleSelected {
+    cursor: default;
+}
+
+/*This is fix the icon text alignment*/
+[name="avatar"] [ng-class='\[\{\'aw-widgets-groupCommand\'\: command\.isGroupCommand \}\]'] {
+    display: inline-flex !important;
+}
+
+/*Added fix for SideNav commands overflow*/
+[name="momPrimaryNavigationPanel"] [ng-class='\[\{\'aw-widgets-groupCommand\'\: command\.isGroupCommand \}\]'] {
+    display: inline-flex !important;
+}
+/*Added for Correcting the icons for Navigation Pane Icons*/
+[name="momPrimaryNavigationPanel"] [ng-class='\[\{\'aw-widgets-groupCommand\'\: command\.isGroupCommand \}\]'] [viewBox] {
+    height: 16px !important;
+    width: 16px !important;
+}

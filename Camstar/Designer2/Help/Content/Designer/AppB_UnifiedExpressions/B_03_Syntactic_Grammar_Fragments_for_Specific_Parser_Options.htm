@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Unified Expressions" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Syntactic Grammar Fragments for Specific Parser Options</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Syntactic Grammar Fragments for Specific Parser Options</p><a name="kanchor134"></a>
+            <p class="Head4-Side">ParseField<a name="kanchor135"></a>Expressions</p>
+            <p class="_1body">field-expression =</p>
+            <p class="_2body">identifier [ "." field-expression ]</p>
+            <p class="Head4-Side"><a name="kanchor136"></a>ParseIndexedField Expressions</p>
+            <p class="_1body">field-expression =</p>
+            <p class="_2body">identifier [ "[“ simple-expression “]” ] [ "." field-expression ]</p>
+            <p class="Head4-Side"><a name="kanchor137"></a>ParseVariables</p>
+            <p class="_1body">variable-expression =</p>
+            <p class="_2body">field-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">variable [ "." field-expression ]</p>
+            <p class="_2body">;</p>
+            <p class="_1body">variable =</p>
+            <p class="_2body">(“Transaction” | “CLF”)  “::” identifier</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side"><a name="kanchor138"></a>ParseLiterals</p>
+            <p class="_1body">&lt;literal&gt;::= </p>
+            <p class="_2body">&lt;boolean-literal&gt;		</p>
+            <p class="_2body">&lt;integer-literal&gt;</p>
+            <p class="_2body">&lt;real-literal&gt;		</p>
+            <p class="_2body">&lt;string-literal&gt;		</p>
+            <p class="_2body">&lt;null-literal&gt; 		</p>
+            <p class="Head4-Side"><a name="kanchor139"></a>ParseSessionValues</p>
+            <p class="_1body">variable-expression =</p>
+            <p class="_2body">field-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">variable [ "." field-expression ]</p>
+            <p class="_2body">|</p>
+            <p class="_2body">“::” “SessionValues” [ "." field-expression ]</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side"><a name="kanchor140"></a>ParseLabels</p>
+            <p class="_1body">LabelId =</p>
+            <p class="_2body">“LabelId” “::” identifier</p>
+            <p class="_2body">;</p>
+            <p class="_2body">Label =</p>
+            <p class="_2body">“Label” “::” identifier</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">Parse<a name="kanchor141"></a>ThisValue</p>
+            <p class="_1body">chain-expression-element =</p>
+            <p class="_2body">This_Value</p>
+            <p class="_2body">|</p>
+            <p class="_2body">multi-value-param-expression</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">Parse<a name="kanchor142"></a>Chain Expressions</p>
+            <p class="_1body">expression =</p>
+            <p class="_2body">chain-expression</p>
+            <p class="_2body">;</p>
+            <p class="_1body">chain-expression =</p>
+            <p class="_2body">chain-expression-element [“;” chain-expression ] [“;”]</p>
+            <p class="_2body">;</p>
+            <p class="_1body">chain-expression-element =</p>
+            <p class="_2body">This_Value</p>
+            <p class="_2body">|</p>
+            <p class="_2body">multi-value-param-expression</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">ParseBasic<a name="kanchor143"></a>Expressions</p>
+            <p class="_1body">simple-expression =</p>
+            <p class="_2body">conditional-or-expression “?”</p>
+            <p class="_2body">simple-expression-or-list-initializer “:” simple-expression-or-list-initializer</p>
+            <p class="_2body">|</p>
+            <p class="_2body">LabelId</p>
+            <p class="_2body">&#160;</p>
+            <p class="_2body">Label</p>
+            <p class="_2body">;</p>
+            <p class="_1body">conditional_or_expression =</p>
+            <p class="_2body">conditional-and-expression { "||” conditional-or-expression }</p>
+            <p class="_2body">;</p>
+            <p class="_1body">conditional-and-expression =</p>
+            <p class="_2body">equality-expression { "&amp;&amp;” conditional-and-expression }</p>
+            <p class="_2body">;</p>
+            <p class="_1body">equality-expression =</p>
+            <p class="_2body">relational-expression { (“==” | “!=”) relational-expression }</p>
+            <p class="_2body">;</p>
+            <p class="_1body">relational-expression =</p>
+            <p class="_2body">additive-expression { (“&lt;“ | “&gt;” | "&lt;=” | “&gt;=”) &lt;additive-expression&gt; }</p>
+            <p class="_2body">;</p>
+            <p class="_1body">additive-expression =</p>
+            <p class="_2body">multiplicative-expression { (“+” | “-”) multiplicative-expression }</p>
+            <p class="_2body">;</p>
+            <p class="_1body">multiplicative-expression =</p>
+            <p class="_2body">unary-expression { (“*” | “/”) unary-expression }</p>
+            <p class="_2body">;</p>
+            <p class="_1body">unary-expression =</p>
+            <p class="_2body">(“+” | “-” | “!”) unary-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">primary-expression</p>
+            <p class="_2body">;</p>
+            <p class="_1body">primary-expression =</p>
+            <p class="_2body">literal</p>
+            <p class="_2body">|</p>
+            <p class="_2body">parenthesized-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">variable-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">invocation-expression</p>
+            <p class="_2body">;</p>
+            <p class="_1body">parenthesized-expression =</p>
+            <p class="_2body">“(“ simple-expression “)”</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">Parse<a name="kanchor144"></a>FunctionCalls</p>
+            <p class="_1body">primary-expression =</p>
+            <p class="_2body">literal</p>
+            <p class="_2body">|</p>
+            <p class="_2body">parenthesized-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">variable-expression</p>
+            <p class="_2body">|</p>
+            <p class="_2body">invocation-expression</p>
+            <p class="_2body">;</p>
+            <p class="_1body">invocation-expression =</p>
+            <p class="_2body">execution-name “(“ [ parameter-expression { ",“ parameter-expression } ] “)”</p>
+            <p class="_2body">;</p>
+            <p class="_1body">execution-name =</p>
+            <p class="_2body">identifier</p>
+            <p class="_2body">;</p>
+            <p class="_1body">parameter-expression =</p>
+            <p class="_2body">“(“ simple-expression-or-list-initializer { ",“ simple-expression-or-list-initializer }- “)”</p>
+            <p class="_2body">|</p>
+            <p class="_2body">simple-expression-or-list-initializer</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">ParseList<a name="kanchor145"></a>Initializer</p>
+            <p class="_1body">simple-expression-or-list-initializer =</p>
+            <p class="_2body">list-initializer</p>
+            <p class="_2body">|</p>
+            <p class="_2body">simple-expression</p>
+            <p class="_2body">;</p>
+            <p class="_1body">list-initializer =</p>
+            <p class="_2body">“{“ simple-expression {“,” simple-expression } “}”</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">ParseMulti<a name="kanchor146"></a>Value Param</p>
+            <p class="_1body">chain-expression-element =</p>
+            <p class="_2body">This_Value</p>
+            <p class="_2body">|</p>
+            <p class="_2body">multi-value-param-expression</p>
+            <p class="_2body">;</p>
+            <p class="_1body">multi-value-param-expression =</p>
+            <p class="_2body">simple-expression-or-list-initializer { ",“ simple-expression-or-list-initializer }</p>
+            <p class="_2body">;</p>
+            <p class="Head4-Side">ParseInput Params</p>
+            <p class="_1body">primary-expression =</p>
+            <p class="_2body">	literal</p>
+            <p class="_2body">	|</p>
+            <p class="_2body">	parenthesized-expression</p>
+            <p class="_2body">    	|</p>
+            <p class="_2body">	variable-expression</p>
+            <p class="_2body">	|</p>
+            <p class="_2body">	invocation-expression</p>
+            <p class="_2body">	|</p>
+            <p class="_2body">	input-parameter</p>
+            <p class="_2body">	|</p>
+            <p class="_2body">	user-constant</p>
+            <p class="_2body">        ;</p>
+            <p class="_2body">&#160;</p>
+            <p class="_2body">input-parameter =</p>
+            <p class="_3body">	"?" identifier</p>
+            <p class="_3body">	;</p>
+            <p class="_1body">&#160;</p>
+            <p class="_2body">user-constant :</p>
+            <p class="_3body">	"Constant::" identifier</p>
+            <p class="_2body">	; </p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

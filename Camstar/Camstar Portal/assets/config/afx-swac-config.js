@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('afx-swac-config',{"baseLib":"./assets/lib/@swac/swac-base.js"});

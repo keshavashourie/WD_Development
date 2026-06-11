@@ -1,0 +1,42 @@
+<div>
+    <div visible-when="showLabel" ng-class="{'mom-reCard-asc-label': !momNameCardAsc.$dirty || momNameCardAsc.$valid || !momNameCardAsc.$submitted, 'mom-reCard-asc-label-err': (momNameCardAsc.$dirty && momNameCardAsc.$invalid) || (momNameCardAsc.$pristine && momNameCardAsc.$submitted)}">
+        <div style="float: left;width: 30.5%">
+            <label style="font-family: 'Segoe UI','Open Sans','Arial','Helvetica', sans-serif;size: 0.750rem;font-weight: 600;">{{labelText}}:</label>
+        </div>
+        <div style="float: left;">
+            <aw-pic extended-tooltip="{{questionMarkCommand.toolTipView}}" style="margin-left: 2px;height: fit-content;padding: inherit;border: none;" class="aw-widget-thumbnail" source="questionMarkCommand.dbValue"></aw-pic>
+        </div>
+        <span visible-when="isCardRequired" class="afx-property-required"></span>
+    </div>
+    <div class="mom-revCard-asc-main" id="mom-revCard-asc" ng-form="momNameCardAsc" ng-required="revisionNameObject.dbValue && revisionNumberObject.dbValue" tabindex="0" ng-keyup="setFieldsOnTab($event, $event.keyCode)">
+        <div class="mom-revCard-icon-div">
+            <aw-pic source="imageAsc.dbValue"></aw-pic>
+        </div>
+        <div class="mom-revCard-asc-item">
+            <div visible-when="!isEntityVisible"  ng-class="{'mom-asc-card-label-italic-style': isDefaultText, 'mom-asc-card-label-straight-style': !isDefaultText}">
+                <a class="aw-aria-border ng-binding" aria-label="{{nameText}}" ng-click="toggleEntityDropdown()" tabindex="0" title="{{nameText}}">{{nameText}}</a>
+            </div>
+            <div id="revisionNameObjectDiv" style="height: 42px;margin-top: 5px;" visible-when="isEntityVisible">
+                <aw-listbox id="revisonNameListbox" prop="revisionNameObject" list="revisionNameValues.dbValue"></aw-listbox>
+            </div>
+            <div style="width: 51px;margin-top: 11px;margin-left: 3.5px;" visible-when="revTextFlag && !rorToggle.dbValue">
+                <a class="aw-aria-border ng-binding" aria-label="" ng-click="toggleRevisionDropdown(revisionNameObject)" tabindex="0" title="">{{revisionNameObject.dbValue}}</a>
+            </div>
+            <div id="revisionNumberObject" style="width: 100px;" visible-when="isRevisionInputVisible && !rorToggle.dbValue">
+                <aw-listbox id="revisonNumberListbox" prop="revisionNumberObject" list="revisionNumberValues.dbValue"></aw-listbox>
+            </div>
+            <div style="width: 51px;margin-top: 11px;" visible-when="rorToggle.dbValue">
+                <aw-chip chip="rorSelectedChip" button-type="accent-mid-contrast"></aw-chip>
+            </div>
+        </div>
+        <div class="mom-revCard-asc-commands" visible-when="isEntityVisible">
+            <div style="height: 43px; padding-left: 6px;">
+                <aw-icon-button command="binCommand"></aw-icon-button>
+            </div>
+            <div style="float: left;width: 13px;padding-left: 8px;">
+                <div style="height: 0px;padding-left: 4px;font-weight: 700;color: #696969;">ROR</div>
+                <aw-togglebutton prop="rorToggle"></aw-togglebutton>
+            </div>
+        </div>
+    </div>
+</div>

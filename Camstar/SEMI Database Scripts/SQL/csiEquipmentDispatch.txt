@@ -1,0 +1,257 @@
+/****** Object:  UserDefinedFunction [InSiteSEMI].[csiEquipmentDispatch]    Script Date: 8/29/2013 4:51:21 PM ******/
+/****** © 2017 Siemens Product Lifecycle Management Software Inc. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+
+CREATE FUNCTION [csiEquipmentDispatch] ( @equipment nvarchar(40), @specnamevar nvarchar(40), @specrev nvarchar(15) )
+RETURNS @retWIPLot TABLE (Lot nvarchar(40),
+						  Qty float,
+						  Qty2 float,
+						  Spec nvarchar(60),
+						  DaysHere float,
+						  QueueTime float,
+						  Product nvarchar(60),
+						  Status nvarchar(40),
+						  IsOnHold nvarchar(40),
+						  InRework nvarchar(40),
+						  Insertion int,
+						  InsertionProcessSpec nvarchar(90),
+						  InsertionSS nvarchar(90),
+						  Rejects float,
+						  MoveOutQty float,
+						  WIPStatus nvarchar(40),
+						  WIPType nvarchar(40),
+						  WIPYieldResult nvarchar(40),
+						  BatchNo nvarchar(40),
+						  EqpCount int,
+						  EqpLoadingCount int,
+						  FutureHoldExists nvarchar(40),
+						  InSchedule nvarchar(40),
+						  SpecPass int,
+						  SpecCategory nvarchar(40),
+						  SpecType nvarchar(40),
+						  SpecDescription nvarchar(255))
+AS
+
+BEGIN
+	DECLARE @eqm CURSOR
+	DECLARE @useequipmentmatrix nvarchar(20)
+	DECLARE @specid nvarchar(40)
+	DECLARE @eqmdata CURSOR
+	DECLARE @eqmlotname nvarchar(40)
+	DECLARE @eqmproductid nvarchar(40)
+	DECLARE @eqmprocessspecid nvarchar(40)
+	DECLARE @eqmproductlineid nvarchar(40)
+	DECLARE @eqmownerid nvarchar(40)
+	DECLARE @eqmspecid nvarchar(40)
+	DECLARE @tempproductid nvarchar(40)
+	DECLARE @tempprocessspecid nvarchar(40)
+	DECLARE @tempproductlineid nvarchar(40)
+	DECLARE @tempownerid nvarchar(40)
+	DECLARE @tempspecid nvarchar(40)
+	DECLARE @insertstatus int = 0
+	
+	DECLARE @tmpWIPLotName TABLE (Lot nvarchar(40))
+	
+	IF (@specrev = '')
+		SET @eqm = CURSOR FOR
+			SELECT S.UseEquipmentMatrix,
+				   SB.RevOfRcdId
+			FROM SpecBase SB
+				 LEFT OUTER JOIN Spec S ON SB.SpecBaseId = S.SpecBaseId
+			WHERE SB.SpecName = @specnamevar
+	ELSE
+		SET @eqm = CURSOR FOR
+			SELECT S.UseEquipmentMatrix,
+				   S.SpecId
+			FROM SpecBase SB
+				 LEFT OUTER JOIN Spec S ON SB.SpecBaseId = S.SpecBaseId
+			WHERE SB.SpecName = @specnamevar AND S.SpecRevision = @specrev
+			
+	OPEN @eqm
+	FETCH NEXT FROM @eqm INTO @useequipmentmatrix, @specid
+			
+	IF (@useequipmentmatrix = 0)
+		BEGIN
+			INSERT INTO @retWIPLot
+				SELECT  C.ContainerName AS Lot,
+						C.Qty AS Qty,
+						C.Qty2 AS Qty2,
+						SB.SpecName + ':' + S.SpecRevision AS Spec,
+						CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, GETDATE() - ISNULL(C.MoveInTimestamp, GETDATE())), 3)) AS DaysHere,
+						CASE WHEN WL2.WIPLotId IS NULL THEN CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, GETDATE() - C.LastMoveOutTimestamp), 3)) ELSE CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, WL2.CreationTimestamp - C.LastMoveOutTimestamp), 3)) END AS QueueTime,
+						PB.ProductName + ':' + P.ProductRevision AS Product,
+						CASE WHEN C.Status = 1 THEN 'ACTIVE' WHEN C.Status = 2 THEN 'TERMINATED' WHEN C.Status = 5 THEN 'SHIPPED' ELSE CONVERT(VARCHAR, C.Status) END AS Status,
+						CASE WHEN ISNULL(C.CurrentHoldCount, 0) > 0 THEN 'YES ' + CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, GETDATE() - ISNULL(C.OnHoldDate, GETDATE())), 3)) + ' Days' ELSE 'NO' END AS IsOnHold,
+						CASE WHEN ISNULL(CS.InRework, 0) > 0 THEN 'YES Loop ' + CONVERT(VARCHAR, CS.ReworkLoopCount) + ' Total ' + CONVERT(VARCHAR, CS.ReworkTotalCount) ELSE 'NO' END AS InRework,
+						C.InsertionNumber AS Insertion,
+						WL1.ProcessSpecName + ':' + WL1.ProcessSpecRevision AS InsertionProcessSpec,
+						WL1.SSName + ':' + WL1.SSRevision AS InsertionSS,
+						(ISNULL(WL1.TotalRejectQty, 0) + ISNULL(WL1.TotalRejectBinsQty, 0) - ISNULL(WL1.TotalBonusBackRejectQty, 0)) AS Rejects,
+						(C.Qty - ISNULL(WL1.TotalRejectQty, 0) - ISNULL(WL1.TotalRejectBinsQty, 0) - ISNULL(WL1.TotalBonusBackRejectQty, 0)) AS MoveOutQty,
+						WL1.WIPStatus AS WIPStatus,
+						WL1.WIPType AS WIPType,
+						WL1.WIPYieldResult AS WIPYieldResult,
+						C.BatchNo AS BatchNo,
+						C.EquipmentCount AS EqpCount,
+						C.EquipmentLoadingCount AS EqpLoadingCount,
+						CASE WHEN ISNULL(C.FutureHoldCount, 0) > 0 THEN 'YES ' + CONVERT(VARCHAR, C.FutureHoldCount) ELSE 'NO' END AS FutureHoldExists,
+						CASE WHEN C.ScheduleDataId IS NOT NULL OR ISNULL(C.ScheduleCount, 0) > 0 THEN 'YES' ELSE 'NO' END AS InSchedule,
+						CS.CurrentSpecPass AS SpecPass,
+						S.ObjectCategory AS SpecCategory,
+						S.ObjectType AS SpecType,
+						S.Description AS SpecDescription
+						--'ForeColor=' + (CASE WHEN C.CurrentHoldCount > 0 THEN 'DARKRED' WHEN WL1.WIPStatus = 'PASS' THEN 'GREEN' WHEN WL1.WIPStatus = 'RELEASED' THEN 'BLUE' WHEN WL1.WIPStatus = 'FAIL' THEN 'RED' ELSE 'BLACK' END) AS "__STYLE" 
+				FROM Container C     
+					INNER JOIN CurrentStatus CS ON C.CurrentStatusId = CS.CurrentStatusId     
+					INNER JOIN Product P ON C.ProductId = P.ProductId    
+					INNER JOIN ProductBase PB ON P.ProductBaseId = PB.ProductBaseId    
+					INNER JOIN Spec S ON CS.SpecId = S.SpecId    
+					INNER JOIN SpecBase SB ON S.SpecBaseId = SB.SpecBaseId     
+					LEFT OUTER JOIN A_WIPLot WL1 ON C.CurrentWIPLotId = WL1.WIPLotId     
+					LEFT OUTER JOIN A_WIPLot WL2 ON C.ContainerId = WL2.ContainerId AND WL2.InsertionNumber = 1
+					LEFT OUTER JOIN A_WIPLotDetails WLD ON WL1.WipLotId = WLD.WipLotId 
+				WHERE (WL1.WIPType = 'TRACK')
+					  AND (WL1.IsCompleted = 0)
+					  AND (WLD.ProcessStatus = 'ACTIVE')
+					  AND (S.SpecId = @specid)
+					  AND (@equipment IN (SELECT * FROM [csiGetResourcesList] (S.ResourceGroupId)))
+		END
+	ELSE
+		BEGIN	
+		SET @eqmdata = CURSOR FOR
+			SELECT C.ContainerName
+				   , C.ProductId
+				   , WL.ProcessSpecId
+				   , P.ProductLineId
+				   , C.OwnerId
+				   , WL.SpecId
+			FROM Container C
+				 INNER JOIN A_WIPLot WL ON C.ContainerId = WL.ContainerId
+				 INNER JOIN A_WIPLotDetails WLD ON WL.WIPLotId = WLD.WIPLotId
+				 INNER JOIN Product P ON C.ProductId = P.ProductId
+			WHERE WL.SpecId = @specid
+				  AND (WL.WIPType = 'TRACK')
+				  AND (WL.IsCompleted = 0)
+				  AND (WLD.ProcessStatus = 'ACTIVE')
+			ORDER BY C.ProductId
+					 , WL.ProcessSpecId
+					 , P.ProductLineId
+					 , C.OwnerId
+					 , WL.SpecId
+		OPEN @eqmdata
+		FETCH NEXT FROM @eqmdata INTO @eqmlotname, @eqmproductid, @eqmprocessspecid, @eqmproductlineid, @eqmownerid, @eqmspecid
+ 
+		WHILE @@FETCH_STATUS = 0
+		IF ((@eqmproductid = @tempproductid) AND (@eqmprocessspecid = @tempprocessspecid) AND (@eqmproductlineid = @tempproductlineid) AND (@eqmownerid = @tempownerid) AND (@eqmspecid = @tempspecid))
+			BEGIN
+				IF (@insertstatus = 1)
+					BEGIN
+						INSERT INTO @tmpWIPLotName(Lot) VALUES (@eqmlotname)
+						FETCH NEXT FROM @eqmdata INTO @eqmlotname, @eqmproductid, @eqmprocessspecid, @eqmproductlineid, @eqmownerid, @eqmspecid
+					END
+				ELSE
+					FETCH NEXT FROM @eqmdata INTO @eqmlotname, @eqmproductid, @eqmprocessspecid, @eqmproductlineid, @eqmownerid, @eqmspecid
+			END
+		ELSE
+			BEGIN
+				INSERT INTO @tmpWIPLotName
+				SELECT
+					@eqmlotname AS Lot
+				FROM
+				(
+					SELECT
+						EM.EquipmentGroupId AS EquipmentGroupId
+						, CAST(ROW_NUMBER() OVER (ORDER BY CASE WHEN EM.ProductId IS NULL THEN 0 ELSE 1 END DESC
+														, CASE WHEN EM.ProcessSpecId IS NULL THEN 0 ELSE 1 END DESC
+														, CASE WHEN EM.ProductLineId IS NULL THEN 0 ELSE 1 END DESC
+														, CASE WHEN EM.OwnerId IS NULL THEN 0 ELSE 1 END DESC
+														, CASE WHEN EM.SpecId IS NULL THEN 0 ELSE 1 END DESC) AS INT) RN
+					FROM
+						A_EquipmentMatrix EM
+						LEFT OUTER JOIN  Product P ON EM.ProductId = P.ProductId
+						LEFT OUTER JOIN  ProductBase PB ON P.ProductBaseId = PB.ProductBaseId
+						LEFT OUTER JOIN  A_ProcessSpec PS ON EM.ProcessSpecId = PS.ProcessSpecId
+						LEFT OUTER JOIN  A_ProcessSpecBase PSB ON PS.ProcessSpecBaseId = PSB.ProcessSpecBaseId
+						LEFT OUTER JOIN  A_ProductLine PL ON EM.ProductLineId = PL.ProductLineId
+						LEFT OUTER JOIN  Owner O ON EM.OwnerId = O.OwnerId
+						LEFT OUTER JOIN  Spec S ON EM.SpecId = S.SpecId
+						LEFT OUTER JOIN  SpecBase SB ON S.SpecBaseId = SB.SpecBaseId
+					WHERE
+						(EM.ProductId = @eqmproductid OR EM.ProductId IS NULL)
+						AND (EM.ProcessSpecId = @eqmprocessspecid OR EM.ProcessSpecId IS NULL)
+						AND (EM.ProductLineId = @eqmproductlineid OR EM.ProductLineId IS NULL)
+						AND (EM.OwnerId = @eqmownerid OR EM.OwnerId IS NULL)
+						AND (EM.SpecId = @eqmspecid OR EM.SpecId IS NULL)
+					) DesignerAdvancedQuery
+				WHERE
+					(RN = 1)
+					AND (@equipment IN (SELECT * FROM [csiGetResourcesList] (EquipmentGroupId)))
+				
+				IF @@ROWCOUNT > 0
+					SET @insertstatus = 1
+				ELSE
+					SET @insertstatus = 0
+				
+				SET @tempproductid = @eqmproductid
+				SET @tempprocessspecid = @eqmprocessspecid
+				SET @tempproductlineid = @eqmproductlineid
+				SET @tempownerid = @eqmownerid
+				SET @tempspecid = @eqmspecid
+				
+				FETCH NEXT FROM @eqmdata INTO @eqmlotname, @eqmproductid, @eqmprocessspecid, @eqmproductlineid, @eqmownerid, @eqmspecid
+			END
+			
+			INSERT INTO @retWIPLot
+				SELECT  C.ContainerName AS Lot,
+						C.Qty AS Qty,
+						C.Qty2 AS Qty2,
+						SB.SpecName + ':' + S.SpecRevision AS Spec,
+						CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, GETDATE() - ISNULL(C.MoveInTimestamp, GETDATE())), 3)) AS DaysHere,
+						CASE WHEN WL2.WIPLotId IS NULL THEN CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, GETDATE() - C.LastMoveOutTimestamp), 3)) ELSE CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, WL2.CreationTimestamp - C.LastMoveOutTimestamp), 3)) END AS QueueTime,
+						PB.ProductName + ':' + P.ProductRevision AS Product,
+						CASE WHEN C.Status = 1 THEN 'ACTIVE' WHEN C.Status = 2 THEN 'TERMINATED' WHEN C.Status = 5 THEN 'SHIPPED' ELSE CONVERT(VARCHAR, C.Status) END AS Status,
+						CASE WHEN ISNULL(C.CurrentHoldCount, 0) > 0 THEN 'YES ' + CONVERT(VARCHAR, ROUND(CONVERT(FLOAT, GETDATE() - ISNULL(C.OnHoldDate, GETDATE())), 3)) + ' Days' ELSE 'NO' END AS IsOnHold,
+						CASE WHEN ISNULL(CS.InRework, 0) > 0 THEN 'YES Loop ' + CONVERT(VARCHAR, CS.ReworkLoopCount) + ' Total ' + CONVERT(VARCHAR, CS.ReworkTotalCount) ELSE 'NO' END AS InRework,
+						C.InsertionNumber AS Insertion,
+						WL1.ProcessSpecName + ':' + WL1.ProcessSpecRevision AS InsertionProcessSpec,
+						WL1.SSName + ':' + WL1.SSRevision AS InsertionSS,
+						(ISNULL(WL1.TotalRejectQty, 0) + ISNULL(WL1.TotalRejectBinsQty, 0) - ISNULL(WL1.TotalBonusBackRejectQty, 0)) AS Rejects,
+						(C.Qty - ISNULL(WL1.TotalRejectQty, 0) - ISNULL(WL1.TotalRejectBinsQty, 0) - ISNULL(WL1.TotalBonusBackRejectQty, 0)) AS MoveOutQty,
+						WL1.WIPStatus AS WIPStatus,
+						WL1.WIPType AS WIPType,
+						WL1.WIPYieldResult AS WIPYieldResult,
+						C.BatchNo AS BatchNo,
+						C.EquipmentCount AS EqpCount,
+						C.EquipmentLoadingCount AS EqpLoadingCount,
+						CASE WHEN ISNULL(C.FutureHoldCount, 0) > 0 THEN 'YES ' + CONVERT(VARCHAR, C.FutureHoldCount) ELSE 'NO' END AS FutureHoldExists,
+						CASE WHEN C.ScheduleDataId IS NOT NULL OR ISNULL(C.ScheduleCount, 0) > 0 THEN 'YES' ELSE 'NO' END AS InSchedule,
+						CS.CurrentSpecPass AS SpecPass,
+						S.ObjectCategory AS SpecCategory,
+						S.ObjectType AS SpecType,
+						S.Description AS SpecDescription
+						--'ForeColor=' + (CASE WHEN C.CurrentHoldCount > 0 THEN 'DARKRED' WHEN WL1.WIPStatus = 'PASS' THEN 'GREEN' WHEN WL1.WIPStatus = 'RELEASED' THEN 'BLUE' WHEN WL1.WIPStatus = 'FAIL' THEN 'RED' ELSE 'BLACK' END) AS "__STYLE" 
+				FROM Container C     
+					INNER JOIN CurrentStatus CS ON C.CurrentStatusId = CS.CurrentStatusId     
+					INNER JOIN Product P ON C.ProductId = P.ProductId    
+					INNER JOIN ProductBase PB ON P.ProductBaseId = PB.ProductBaseId    
+					INNER JOIN Spec S ON CS.SpecId = S.SpecId    
+					INNER JOIN SpecBase SB ON S.SpecBaseId = SB.SpecBaseId     
+					LEFT OUTER JOIN A_WIPLot WL1 ON C.CurrentWIPLotId = WL1.WIPLotId     
+					LEFT OUTER JOIN A_WIPLot WL2 ON C.ContainerId = WL2.ContainerId AND WL2.InsertionNumber = 1
+					LEFT OUTER JOIN A_WIPLotDetails WLD ON WL1.WipLotId = WLD.WipLotId 
+				WHERE (C.ContainerName IN (SELECT Lot FROM @tmpWIPLotName))
+				
+		END
+	
+	CLOSE @eqm
+	
+	RETURN
+END

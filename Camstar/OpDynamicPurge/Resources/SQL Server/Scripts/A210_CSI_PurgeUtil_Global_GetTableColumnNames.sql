@@ -1,0 +1,70 @@
+ALTER PROCEDURE CSI_PurgeUtil_Global_GetTableColumnNames 
+/* ---------------------------------------------------------------------------
+  Description      : CSI_PurgeUtil_Global_GetTableColumnNames
+                     Returning a string of names of all columns of a database table delimiting each column with a comma.
+  Author           : Benny.Chia 
+  Date             : 01 Apr 2014
+  Compile in       : Source schema
+  Called By        : 
+  Call             : None
+--------------------------------------------------------------------------- */
+    ( @pvColNames      NVARCHAR(max) OUTPUT 
+	, @pvTableName     NVARCHAR(40)
+	, @pvSourceDBName  NVARCHAR(40) 
+	) 
+AS
+DECLARE @ErrorMessage               NVARCHAR(4000); -- Message text.
+DECLARE @ErrorSeverity              INT;            -- Severity.
+DECLARE @ErrorState                 INT;            -- State.
+DECLARE @vObject_Name               NVARCHAR(128) = OBJECT_NAME(@@PROCID);
+DECLARE @vProgID                    NVARCHAR(255) = @vObject_Name;
+DECLARE @vSQLStatement				NVARCHAR(1000);
+--
+DECLARE  @vCSI_PurgeUtil_ErrorLog_Tab CSI_PurgeUtil_ErrorLog_Tab;
+BEGIN 
+	SET NOCOUNT ON;
+	SET @vProgID = @vObject_Name + '.START'; 
+	BEGIN TRY -- RAISERROR with severity 11-19 will cause execution to jump to the CATCH block.
+		---------------------------------------------------------------------------
+		-- Validations
+		---------------------------------------------------------------------------
+		SET @vProgID = @vObject_Name + '.Validate parameters';
+		IF @pvTableName IS Null 
+			RAISERROR ('TableName must not be blank', 16, 1);
+		---------------------------------------------------------------------------
+	    BEGIN TRY 
+		    SET @pvColNames = '';
+			--
+			SET @vSQLStatement = 
+				N'SELECT @pvColNames += sc.NAME + '', ''
+				FROM ' + @pvSourceDBName + '.sys.tables st
+				INNER JOIN ' + @pvSourceDBName + '.sys.columns sc ON st.object_id = sc.object_id
+				WHERE UPPER(st.name) = UPPER(@pvTableName);';
+
+			EXEC sp_executesql @vSQLStatement, N'@pvColNames NVARCHAR(MAX) OUTPUT, @pvTableName NVARCHAR(MAX)', @pvColNames OUTPUT, @pvTableName;
+		
+			SET @pvColNames = SUBSTRING(@pvColNames, 1, LEN(@pvColNames)-1);
+	    END TRY
+		BEGIN CATCH
+			SET @ErrorMessage = ERROR_MESSAGE(); 
+			SET @vProgID = @vObject_Name + '.' + 'Get all columns of table' + @pvTableName; 
+		    RAISERROR (@ErrorMessage, 16, 1);
+		END CATCH
+        --------------------------------------------------------------------------
+	    SET @vProgID = @vObject_Name + '.SUCCESSFULL'; 
+		RETURN 0;
+	END TRY
+	BEGIN CATCH
+		IF @ErrorMessage IS NULL
+		    SET @ErrorMessage  = ERROR_MESSAGE();
+		IF @ErrorSeverity IS NULL
+		    SET @ErrorSeverity = ERROR_SEVERITY(); 
+		IF @ErrorState IS NULL
+		    SET @ErrorState = ERROR_STATE();
+		IF @vProgID IS NULL
+		    SET @vProgID = @vObject_Name + '.OTHER ERROR'; 
+		EXECUTE CSI_PurgeUtil_Global_Log @pvProgID=@vProgID, @pvErrMsg=@ErrorMessage; 
+		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
+	END CATCH
+END;
+GO

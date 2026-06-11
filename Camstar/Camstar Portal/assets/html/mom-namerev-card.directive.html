@@ -1,0 +1,34 @@
+<div>
+<div visible-when="showLabel" ng-class="{'mom-reCard-label': !momNameCard.$dirty || momNameCard.$valid, 'mom-reCard-label-err': momNameCard.$dirty && momNameCard.$invalid}">
+    <label style="font-family: 'Segoe UI','Open Sans','Arial','Helvetica', sans-serif;size: 0.750rem;font-weight: 600;">{{labelText}}:</label>
+    <span visible-when="isCardRequired" class="afx-property-required"></span>
+</div>
+<div ng-class="{'mom-revCard-main': !isLocked && !focus, 'mom-revCard-main-focus': !isLocked && focus, 'mom-revCard-main-locked': isLocked}" ng-form="momNameCard" ng-focus="focus=true" ng-blur="focus=false" tabindex="0">
+    <div class="mom-revCard-icon-div">
+        <aw-pic source="image.dbValue"></aw-pic>
+    </div>
+    <div class="mom-revCard-inputs-div">
+        <div ng-class="{'mom-noDisplay': isLocked, 'mom-revCard-name-input-div': !isLocked}">
+            <input type="text" id="momNameInput" placeholder="Name" ng-model="momNameInputValue" ng-required='isCardRequired && momNameInputValue !== ""'>
+        </div>
+        <div ng-class="{'mom-noDisplay': !isLocked, 'mom-revCard-name-input-div-locked': isLocked}">
+            <label style="color: #1e1e1e;">{{momNameInputValue}}</label>
+        </div>
+        <div visible-when="!hasNoRevision" ng-class="{'mom-noDisplay': isLocked, 'mom-revCard-revision-ror-div': !isLocked}">
+            <div class="mom-revCard-revision-input-div">
+                <input type="text" id="momRevisionInput" placeholder="Revision" ng-change="enableRORToggle()" ng-model="momRevisionInputValue" ng-required='!hasNoRevision && isCardRequired && momRevisionInputValue !== ""'>
+            </div>
+            <div ng-class="{'mom-revCard-toggle-div': !isRORRev, 'mom-revCard-toggle-div-no-display': isRORRev}">
+                <div ng-class="{'ror-text-div': isRORToggleDisabled, 'ror-text-div-disabled': !isRORToggleDisabled}">ROR</div>
+                <aw-togglebutton prop="rorToggle" enable-when="isRORToggleDisabled"></aw-togglebutton>
+            </div>
+        </div>
+        <div visible-when="!hasNoRevision" ng-class="{'mom-noDisplay': !isLocked, 'mom-revCard-revision-ror-div-locked': isLocked}">
+            <label style="color: #1e1e1e;">{{momRevisionInputValue}}</label>
+        </div>
+        <div visible-when="!hasNoRevision" ng-class="{'mom-revCard-chip-div': isRORRev, 'mom-revCard-chip-div-no-display': !isRORRev}">
+            <aw-chip chip="rorSelectedChip"></aw-chip>
+        </div>
+    </div>
+</div>
+<div>

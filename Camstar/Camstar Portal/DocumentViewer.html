@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>Document Viewer</title>
+    <script src="Scripts/jquery/jquery.min.js"></script>
+    <script src="Scripts/jquery/jquery-ui.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        #view-document-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            loadDocument();
+        });
+
+        $(function () {
+            setTimeout(checkImage, 500);
+        });
+
+        function checkImage() {
+            let frame = $("#view-document-frame");
+            let img = frame.contents().find("img");
+            if (img.length) {
+                setTimeout(resizeImage, 250);
+            } else
+                frame.css('visibility', 'visible');
+        }
+        var _first = true;
+        function resizeImage() {
+            let $iframe = $("#view-document-frame");
+            let $img = $iframe.contents().find('img');
+            let origImgWidth = $img.outerWidth(false);
+            let origImgHeight = $img.outerHeight(false);
+
+            let widthDif = $iframe.outerWidth(false) - $img.outerWidth(false);
+            let heightDif = $iframe.outerHeight(false) - $img.outerHeight(false);
+
+            // adjust image width/height by the smallest amount (could be the most negative!)
+            var adjustRatio = 1;
+            if (widthDif < heightDif) {
+                adjustRatio = $iframe.outerWidth(false) / origImgWidth;
+            } else {
+                adjustRatio = $iframe.outerHeight(false) / origImgHeight;
+            }
+
+            $img.outerWidth(origImgWidth * adjustRatio);
+            $img.outerHeight(origImgHeight * adjustRatio);
+            if (_first) {
+                setTimeout(resizeImage, 250);
+                _first = false;
+            }
+            $iframe.css('visibility', 'visible');
+        }
+
+        function loadDocument() {
+            var url = getUrlParameter("url");
+            if (url) {
+                // If document is a URL, simply set that as the iFrame's source
+                $("#view-document-frame").attr("src", docUrl);
+            } else {
+                var name = getUrlParameter("name");
+                var revision = getUrlParameter("revision");
+                document.title = document.title + " - " + name;
+                var loc = window.location;
+                var appPath = loc.pathname.substr(0, loc.pathname.indexOf("/", 1));
+
+                var url = loc.protocol + "//" + loc.host + appPath + "/isDocumentHandler.ashx?name=" + name + "&revision=" + revision;
+                $("#view-document-frame").attr("src", url);
+            }
+        }
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            let searchIdx = location.href.indexOf("?");
+            let search = location.href.substring(searchIdx);
+            var results = regex.exec(search);
+            return results === null ? '' : results[1].replace(/\+/g, ' ');
+        }
+    </script>
+</head>
+<body>
+    <iframe id="view-document-frame" title="View Document"></iframe>
+</body>
+</html>

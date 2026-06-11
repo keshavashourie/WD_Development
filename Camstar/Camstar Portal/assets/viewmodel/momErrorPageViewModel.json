@@ -1,0 +1,65 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/mom-information-bar.directive",
+        "js/aw-panel.directive",
+        "js/aw-panel-body.directive"
+    ],
+    "data": {},
+    "actions": {
+        "init": {
+            "actionType": "MomCompositeAction",
+            "inputData": {
+                "cfg": {
+                    "vm": "{{data}}",
+                    "action": "setData",
+                    "success": {
+                        "action": "setHeaderTitle",
+                        "success": {
+                            "action": "clearCtx"
+                        }
+                    }
+                }
+            }
+        },
+        "setData": {
+            "actionType": "MomGetInputData",
+            "inputData": {
+                "input": {
+                    "error": {
+                        "title": "{{ctx.momErrorPage.title || 'Error'}}",
+                        "content": "{{ctx.momErrorPage.content || 'The requested page cannot be displayed.'}}"
+                    }
+                }
+            },
+            "outputData": {
+                "error": "error"
+            }
+        },
+        "setHeaderTitle": {
+            "actionType": "JSFunction",
+            "method": "setHeaderTitle",
+            "inputData": {
+                "title": "{{data.error.title}}"
+            },
+            "deps": "js/mom.utils.service"
+        },
+        "clearCtx": {
+            "actionType": "JSFunction",
+            "method": "unRegisterCtx",
+            "inputData": {
+                "name": "momErrorPage"
+            },
+            "deps": "js/appCtxService"
+        }
+    },
+    "dataProviders": {},
+    "functions": {},
+    "onEvent": [ {
+        "eventId": "momErrorPage.contentLoaded",
+        "action": "init"
+    } ],
+    "i18n": {},
+    "messages": {},
+    "conditions": {}
+}

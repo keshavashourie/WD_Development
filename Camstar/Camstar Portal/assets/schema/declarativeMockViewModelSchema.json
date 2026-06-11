@@ -1,0 +1,141 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "description": "This is the schema the declarative Mock View Model (in JSON format) must adhere to. The Apollo audit check validates all View Model JSON files against this schema. For explanation of the keywords of this schema, please visit https://ajv.js.org/keywords.html",
+    "definitions": {
+        "dataProvidersDef": {
+            "anyOf": [ {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string"
+                    },
+                    "initializeAction": {
+                        "type": "string"
+                    },
+                    "nextAction": {
+                        "type": "string"
+                    },
+                    "previousAction": {
+                        "type": "string"
+                    },
+                    "focusAction": {
+                        "type": "string"
+                    },
+                    "expandAction": {
+                        "type": "string"
+                    },
+                    "editContext": {
+                        "type": "string"
+                    },
+                    "response": {
+                        "type": "string"
+                    },
+                    "totalFound": {
+                        "type": "string"
+                    },
+                    "totalLoaded": {
+                        "type": "string"
+                    },
+                    "uidInResponse": {
+                        "type": "string"
+                    },
+                    "preSelection": {
+                        "type": "boolean"
+                    },
+                    "selectionModelMode": {
+                        "type": "string",
+                        "enum": [ "multiple", "single" ]
+                    }
+                },
+                "required": [
+                    "action"
+                ]
+            }, {
+                "type": "object",
+                "items": {
+                    "type": "array",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "displayName": {
+                            "type": "string"
+                        },
+                        "minWidth": {
+                            "type": "integer"
+                        },
+                        "maxWidth": {
+                            "type": "integer"
+                        },
+                        "width": {
+                            "type": "integer"
+                        },
+                        "enableColumnMoving": {
+                            "type": "boolean"
+                        },
+                        "enableColumnMenu": {
+                            "type": "boolean"
+                        },
+                        "enableColumnResizing": {
+                            "type": "boolean"
+                        },
+                        "enableFiltering": {
+                            "type": "boolean"
+                        },
+                        "isFilteringEnabled": {
+                            "type": "boolean"
+                        },
+                        "enableHiding": {
+                            "type": "boolean"
+                        },
+                        "enablePinning": {
+                            "type": "boolean"
+                        },
+                        "enableSorting": {
+                            "type": "boolean"
+                        },
+                        "headerTooltip": {
+                            "type": "boolean"
+                        },
+                        "pinnedLeft": {
+                            "type": "boolean"
+                        },
+                        "pinnedRight": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            } ]
+
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "mock": {
+            "type": "object",
+            "description": "The Mock section of the View Model",
+            "items": {
+                "dataProviders": {
+                    "type": "object",
+                    "description": "Data Provider, as the name suggests, is a single placeholder wherein we configure different ways to fetch/paginate data and pass the same data to underlying component. It is basically an abstraction layer for components which fulfils component's demand to load/paginate data from the server. In Apollo, data-provider is used with 'aw-list' & 'aw-table (including tree)' to meet their data requirements.",
+                    "patternProperties": {
+                        "^[a-zA-Z_]+[a-zA-Z0-9_]*$": {
+                            "type": "object",
+                            "$ref": "#/definitions/dataProvidersDef"
+                        }
+                    }
+                },
+                "columnProviders": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z_]+[a-zA-Z0-9_]*$": {
+                            "type": "object",
+                            "$ref": "#/definitions/dataProvidersDef"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

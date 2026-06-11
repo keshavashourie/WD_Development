@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Verwalten von Arbeitsbereichsindizes</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Verwalten von Arbeitsbereichsindizes</p>
+            <p class="_1body">Die in Designer definierten Indizes werden durch eine gespeicherte Prozedur erstellt, die die Definition einliest und die Datenbankindizes erstellt. Es gibt einige Fälle, in denen Änderungen eines vorhandenen Index erforderlich sind, die aber von Designer nicht unterstützt werden, z. B. geclusterte Indizes oder Fälle, in denen zusätzliche Spalten für einen bestimmten Arbeitsbereich erforderlich sind. Um diese Fälle zu unterstützen, können arbeitsbereichsspezifische gespeicherte Prozeduren erstellt werden, die bei der Indexerstellung aufgerufen werden. Dadurch wird eine Änderung vorhandener Indizes ermöglicht. Für jeden aktiven Arbeitsbereich ist eine eigene Prozedur möglich, die im Rahmen der Indexerstellung vom niedrigsten zum höchsten aktiven Arbeitsbereich aufgerufen wird.</p>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Managing_Workspace_Indexes"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beim Verwalten von Arbeitsbereichsindizes</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body"> Eine gespeicherte Prozedur wird ausgeführt, wenn die Transaktionsdatenbank aktualisiert wird oder Datenbanktabellen erstellt werden und das Kontrollkästchen "Indizes erstellen" aktiviert ist. Die gespeicherte Prozedur "csiCreateIndexes" wird ausgeführt, um die Definitionen einzulesen und die Indizes den jeweiligen Definitionen entsprechend zu erstellen. </p>
+                    <p class="_1body">Nachdem die Indizes für die einzelnen aktiven Arbeitsbereiche in aufsteigender Reihenfolge (gemäß Arbeitsbereichssequenz) erstellt wurden, überprüft die Prozedur, ob eine gespeicherte Prozedur mit einem bestimmten Namen vorhanden ist, die dann aufgerufen wird (sofern vorhanden). Wenn z. B. die Arbeitsbereiche "180", "190" und "200" aktiv sind und für jeden Arbeitsbereich eine Datei für eine benutzerdefinierte gespeicherte Prozedur vorhanden ist, führt die Anwendung die Prozeduren in der Reihenfolge 180, 190 und dann 200 aus.</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 72px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Alle Änderungen, die an Indizes vorgenommen werden, werden in der Protokolldatei des Dienstprogramms zum Ersetzen von Arbeitsbereichsdaten protokolliert. Weitere Informationen zum Dienstprogramm zum Ersetzen von Arbeitsbereichsdaten finden Sie in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Installationsanleitung</span> oder in der <span class="Emphasis">Opcenter Execution Core-Installationsanleitung</span>.</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">Für jeden aktiven Arbeitsbereich darf nur eine gespeicherte Prozedur vorhanden sein. Sie müssen die Benennungskonvention "Workspace_WSCode_CreateIndexes" befolgen, wobei "WSCode" der Code des Arbeitsbereichs ist, z. B. "180" oder "190". Der Name der gespeicherten Prozedur für den Arbeitsbereich "200" muss z. B. "Workspace_200_CreateIndexes" lauten.</p>
+                    <p class="_1body">Als Ausgangspunkt zum Erstellen eigener benutzerdefinierter gespeicherter Indexprozeduren werden Beispieldateien mit gespeicherten Prozeduren für SQL Server- und Oracle-Datenbanken zur Verfügung gestellt. Die Beispieldateien stehen in folgenden Verzeichnissen zur Verfügung:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"C:\Programme (x86)\Camstar\Insite Administration\Scripts\Oracle" für Oracle-Datenbanken</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">"C:\Programme (x86)\Camstar\Insite Administration\Scripts\SqlServer" für SQL Server-Datenbanken.</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">Sie müssen die für die jeweilige Datenbank erstellten Skripts in Management Studio ausführen, um die gespeicherte Prozedur zu erstellen. Eine gespeicherte Prozedur wird ausgeführt, wenn die Transaktionsdatenbank aktualisiert wird oder Datenbanktabellen erstellt werden und das Kontrollkästchen "Indizes erstellen" aktiviert ist. Die Prozedur "csiCreateIndexes" sucht dann die benutzerdefinierte Prozedur und ruft sie bei der Indexerstellung auf.</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

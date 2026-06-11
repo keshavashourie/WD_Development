@@ -1,0 +1,48 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-include.directive",
+        "js/aw-icon.directive",
+        "js/aw-scrollpanel.directive"
+    ],
+    "data": {},
+    "actions": {
+        "firstLoadReset": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{subPanelContext}}"
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "reset": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data.eventData.data}}",
+                "newData": "{{data.eventData.newData}}"
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "unRegisterMomLoginCtx": {
+            "actionType": "JSFunction",
+            "method": "unRegisterCtx",
+            "inputData": {
+                "name": "momLoginComponentData"
+            },
+            "deps": "js/appCtxService"
+        }
+    },
+    "onEvent": [ {
+        "eventId": "momLoginComponent.contentLoaded",
+        "action": "firstLoadReset"
+    }, {
+        "eventId": "mom.login.reset",
+        "action": "reset",
+        "cacheEventData": true
+    }, {
+        "eventId": "momLoginComponent.contentUnloaded",
+        "action": "unRegisterMomLoginCtx"
+    } ],
+    "i18n": {}
+}

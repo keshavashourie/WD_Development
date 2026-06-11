@@ -1,0 +1,83 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-image.directive",
+        "js/aw-row.directive",
+        "js/aw-column.directive"
+    ],
+    "data": {
+        "emptyComponentLocalizedText": null
+    },
+    "actions": {
+        "setTypeIconURL": {
+            "actionType": "JSFunctionAsync",
+            "method": "compositeAction",
+            "inputData": {
+                "cfg": {
+                    "vm": "{{data}}",
+                    "action": "getTypeIconURL",
+                    "success": {
+                        "action": "wrapIconPath"
+                    }
+                }
+            },
+            "deps": "js/mom.utils.service"
+        },
+        "getTypeIconURL": {
+            "actionType": "JSFunction",
+            "method": "typeIconPath",
+            "inputData": {
+                "path": "{{ctx.momEmptyComponentTypeIconName || 'ItemRevision'}}"
+            },
+            "deps": "js/mom.utils.service"
+        },
+        "wrapIconPath": {
+            "actionType": "MomGetInputData",
+            "inputData": {
+                "input": {
+                    "typeIconURL": "{{result}}"
+                }
+            },
+            "outputData": {
+                "typeIconURL": "typeIconURL"
+            }
+        },
+        "getEmptyComponentLocalizedText": {
+            "actionType": "MomGetInputData",
+            "inputData": {
+                "input": {
+                    "text": "{{function:getEmptyComponentLocalizedText}}"
+                }
+            },
+            "outputData": {
+                "emptyComponentLocalizedText": "text"
+            },
+            "deps": "js/localeService"
+        }
+    },
+    "functions": {
+        "getEmptyComponentLocalizedText": {
+            "functionName": "getLocalizedText",
+            "parameters": [
+                "{{ctx.momEmptyComponentText.source}}",
+                "{{ctx.momEmptyComponentText.key}}"
+            ],
+            "deps": "js/localeService"
+        }
+    },
+    "onEvent": [ {
+            "eventId": "momEmptyComponent.contentLoaded",
+            "action": "setTypeIconURL"
+        },
+        {
+            "eventId": "momEmptyComponent.contentLoaded",
+            "condition": "ctx.momEmptyComponentText.source && ctx.momEmptyComponentText.key",
+            "action": "getEmptyComponentLocalizedText"
+        }
+    ],
+    "i18n": {
+        "momEmptyComponentText": [
+            "momMessages"
+        ]
+    }
+}

@@ -1,0 +1,155 @@
+<div class="slidecontainer">
+    <p>
+        <label id='isWeb_RefreshInterval'>Refresh Interval:</label>
+        <b>
+            <font>
+                <span id="refreshSeconds">300</span>
+            </font>
+        </b>
+    </p>
+    <input type="range" min="1" max="600" value="300" id="RefreshIntervalRange">
+</div>
+
+<style>
+    .slidecontainer {
+        padding-top: 20px;
+    }
+
+    input[type=range] {
+        -webkit-appearance: none;
+        margin: 18px 0;
+        width: 100%;
+        --webkitProgressPercent: 0%; /* CSS vars not supported by IE, but this will only get used by Chrome which does. */
+    }
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        height: 6px;
+        cursor: pointer;
+        background: #D2D2D2;
+        -webkit-appearance: none;
+        background-image: linear-gradient(90deg, #005F87 var(--webkitProgressPercent), #d2d2d2 var(--webkitProgressPercent));
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        /*background: #005f87;*/
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: #005F87;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -9px;
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+        background: #d2d2d2;
+        border: none;
+    }
+
+    input[type=range]::-moz-range-progress {
+        height: 6px;
+        background: #005f87;
+        border: none;
+    }
+
+    input[type=range]::-moz-range-thumb {
+        border: 1px solid #005f87;
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: #005f87;
+        cursor: pointer;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        border-width: 16px 0;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: #005f87;
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: #d2d2d2;
+    }
+
+    input[type=range]::-ms-thumb {
+        border: 1px solid #005f87;
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: #005f87;
+        cursor: pointer;
+    }
+
+    input[type=range]:focus::-ms-fill-lower {
+        /*background: #005f87;*/
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        /*background: #005f87; */
+    }
+</style>
+
+<script>
+    var isTimerSlider = (function () {
+
+        $(initializeSlider);
+
+        //TODO: find a way to not have to re-initialize after a postback.
+        return {
+            initialize: initializeSlider
+        };
+
+        function initializeSlider() {
+            var isChanging = false;
+            var $element = $('#RefreshIntervalRange');
+            var element = $element[0];
+
+            //TODO: do better check for chrome only, but for the moment, just bail if cannot get --webkitProgressPercent value.
+            var notIE = getComputedStyle(element).getPropertyValue('--webkitProgressPercent').length > 0;
+            if (notIE) {
+                setCSSProperty();
+                $element.on('mousemove', handleMove);
+                $element.on('mousedown', handleDown);
+                $element.on('mouseup', handleUpAndLeave);
+                $element.on('mouseleave', handleUpAndLeave);
+                $element.on('click', setCSSProperty);
+            }
+
+            function setCSSProperty() {
+                var progressPercent = (((element.value - element.min) / (element.max - element.min)) * 100) + '%';
+                element.style.setProperty('--webkitProgressPercent', progressPercent);
+            }
+
+            function handleMove() {
+                if (isChanging)
+                    setCSSProperty();
+            }
+
+            function handleUpAndLeave() {
+                isChanging = false;
+            }
+
+            function handleDown() {
+                isChanging = true;
+            }
+        }
+    })();
+</script>

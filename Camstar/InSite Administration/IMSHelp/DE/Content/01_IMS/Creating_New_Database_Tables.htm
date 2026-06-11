@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Erstellen von neuen Datenbanktabellen</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2NoBreak"><a name="Creating_New_Database_Tables"></a>Erstellen von neuen Datenbanktabellen<a name="kanchor5"></a></p>
+            <p class="_1body">Der nächste Schritt nach dem Hinzufügen von Datenbanken in Management Studio besteht darin, Ihr Datenbank-Managementsystem (DBMS) mit produktbezogenen Tabellen zu füllen. Sie können Tabellen für die Transaktionsdatenbank und die DataStore-Datenbank erstellen. </p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 72px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Hinweis:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Hinweis:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Dieses Thema beschreibt die Erstellung von Datenbanktabellen für die Transaktionsdatenbank. Weitere Informationen zum Erstellen von Tabellen für die DataStore-Datenbank finden Sie im <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics DataStore-Referenzhandbuch</span> oder im <span class="Emphasis">Opcenter Execution Core DataStore-Referenzhandbuch</span>.  </td>
+                </tr>
+            </table>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Creating_New_Database_Tables"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beim Erstellen von neuen Datenbanktabellen</a><a name="When_Creating_New_Database_Tables_PDF"></a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Die Metadatenfelder, Tabellen, Beziehungen, Instanzdaten, Indizes, gespeicherten Prozeduren und Primärschlüssel in der Produktionsdatenbank werden durch Ausführen der Aufgabe "Neue Datenbanktabellen erstellen" erstellt. Diese Aufgabe führen Sie durch, nachdem Sie Opcenter EX MDD oder Opcenter EX CR zum ersten Mal installiert haben.</p>
+                    <p class="_1bodyKeepWithNext">Die Aufgabe "Neue Datenbanktabelle erstellen" ist so konzipiert, dass sie die folgenden Prozesse automatisiert:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Erstellen von produktbezogenen Tabellen, Datenbankindizes und gespeicherten Prozeduren in Ihrem DBMS</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Laden der anfänglichen Standarddaten in Ihr DBMS, einschließlich der Standardrollen für die Sicherheitsverwaltung und der Standardberechtigungen </td>
+                        </tr>
+                    </table>
+                    <p class="_1body">Sie können ggf. die Standard-Portal-Quelldaten laden.</p>
+                    <p class="_1body"><a name="Encrypt_Web_Traffic_Checkbox_edit"></a>Die SSL-Sicherheit ist standardmäßig aktiviert, was darauf hinweist, dass die Opcenter EX MDD- und Opcenter EX CR-Produkte und -Module in einer sicheren Umgebung ausgeführt werden. Wenn Sie die SSL-Sicherheit deaktiviert haben, können Sie beim Generieren von WCF-Diensten das Kontrollkästchen "Web-Datenverkehr verschlüsseln" deaktivieren. Weitere Informationen zur SSL-Sicherheit finden Sie in der <i>Opcenter Execution Medical Device and Diagnostics-Installationsanleitung</i> oder in der <i>Opcenter Execution Core-Installationsanleitung</i>.</p>
+                    <p class="_1bodyKeepWithNext">Im Management Studio-Fenster wird ein Menü "Datenbanken" angezeigt, wenn der Ordner "Datenbanken" oder ein Datenbankknoten ausgewählt wird. Weitere Informationen zum Menü für Datenbanken finden Sie unter "<a href="Management_Studio_Interface.htm#Databases_Menu" class="MCXref xref">Menü "Datenbanken"</a>". </p>
+                    <p class="Head4">In Clusterumgebungen</p>
+                    <p class="_1body">Führen Sie das Erstellen oder Aktualisieren nur einmal für jedes Mitglied des Clusters in einer Clusterumgebung aus.</p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="Create"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Definitionen der Kontrollkästchen des Dialogfelds "Tabellen erstellen"</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Diese Tabelle definiert die Kontrollkästchen im Dialogfeld "Tabellen erstellen".</p>
+                    <table style="mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');width: 95%;caption-side: top;" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col width="138px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Option</p>
+                                </th>
+                                <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">Definition</p>
+                                </th>
+                                <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">Typ </p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Metadaten und Schema aktualisieren</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Bei der Erstellung von Datenbanktabellen deaktiviert.  Aktiviert, wenn eine Datenbankaktualisierung ausgeführt wird. </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBodyIndented">Aktualisierung des Datenbankschemas erzwingen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Bei der Erstellung von Datenbanktabellen deaktiviert.  Aktiviert, wenn eine Datenbankaktualisierung ausgeführt wird. </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">Aktualisierung des ODS-Datenbankschemas erzwingen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Bei der Erstellung von Datenbanktabellen deaktiviert.  Aktiviert, wenn eine Datenbankaktualisierung ausgeführt wird.</p>
+                                    <p class="CellBody" style="color: #000000;"><b>Hinweis:</b> Wenn ODS nicht vorhanden ist oder wenn ODS deaktiviert ist, wird das Kontrollkästchen "Aktualisierung des ODS-Datenbankschemas erzwingen" deaktiviert. Wenn ODS vorhanden ist, wird das Kontrollkästchen "Aktualisierung des ODS-Datenbankschemas erzwingen" automatisch aktiviert, wenn die Option zum Erzwingen der Aktualisierung des Datenbankschemas ausgewählt ist.<a name="US8227_CreatingNewDatabaseTables"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Gespeicherte Prozeduren erstellen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Führt die Datei "InstallProcedures.bat" aus. Die gespeicherten Prozeduren für Opcenter EX MDD&#160;oder Opcenter EX CR sind eine Sammlung von SQL-Anweisungen und logischen Steuerelementen, die in der Datenbank definiert und gespeichert sind und von Programmen aufgerufen werden. Die standardmäßigen gespeicherten Prozeduren enthalten plattformspezifische Regeln, verbessern die Leistung und verringern den Netzwerkverkehr. Da Datenobjekte einen gemeinsamen Satz an Regeln verwenden, ist die Logik zentralisiert. </p>
+                                    <p class="CellBody">Aktivieren Sie diese Option, wenn Sie irgendwelche dieser gespeicherten Prozeduren ändern oder hinzufügen oder wenn Sie die anfängliche Datenbank erstellen.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Indizes erstellen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Löst die Erstellung neuer oder geänderter Indizes aus. Diese Option sollte immer aktiviert sein.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Alle Änderungen, die an Indizes vorgenommen werden, werden in der Protokolldatei des Dienstprogramms zum Ersetzen von Arbeitsbereichsdaten protokolliert. Weitere Informationen zum Hilfsprogramm zum Ersetzen von Arbeitsbereichsdaten finden Sie in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Installationsanleitung</span> oder in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Installationsanleitung</span>.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2" data-mc-conditions="">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Konfiguration laden<a name="Configuration"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Aktualisiert die Datenbank mit allen Konfigurationsänderungen, die im Bereich "Konfiguration" vorgenommen wurden. </p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Diese Option ist immer ausgewählt und deaktiviert.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Anfängliche Daten laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Führt das Skript "csiPopulateReleaseData.bat" aus, um Instanzen wie die Standardanmeldungen (CamstarAdmin, Administrator und InSiteAdmin), Primärschlüssel usw. in den Datenbanktabellen zu erstellen. Dies stellt Ihnen die ersten Modellierungsdefinitionen als Ausgangspunkt für Ihre erstmalige Installation zur Verfügung.</p>
+                                    <p class="CellBody">Dieses Skript lädt auch die anfänglichen Standardrollen und die zugehörigen Berechtigungen.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Menüs neu laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Stellt die Standard-Portalmenüs wieder her. Jegliche Änderungen an den Standardmenüs werden überschrieben. Benutzerdefinierte Menüs werden nicht überschrieben oder gelöscht. Benutzerdefinierte Menüs bleiben in Portal Studio verfügbar.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Dieses Kontrollkästchen ist beim Erstellen von Tabellen nicht zur Auswahl verfügbar.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Änderungsverwaltungs-Quelldaten neu laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Lädt die anfänglichen Daten neu, die mit der Change Management-Anwendung verwendet werden sollen. Änderungen, die an den Standardspezifikationen der Änderungsverwaltung und an den Arbeitsplanmodellierungsobjekten der Änderungsverwaltung vorgenommen wurden, werden überschrieben. Benutzerdefinierte Änderungsverwaltungs-Modellierungsobjekte werden nicht überschrieben oder gelöscht.</p>
+                                    <p class="CellBody"><a name="229962"></a><b>Wichtig:</b> Siemens empfiehlt, diese Option nicht in Ihrer Produktionsumgebung zu verwenden. Wenn diese Option verwendet wird, werden alle ursprünglichen Änderungsverwaltungsinstanzen auf den Zustand nach der Erstinstallation zurückgesetzt und ihre IDs werden geändert. Darüber hinaus werden alle vorhandenen Änderungsverwaltungspakete verwaist.</p>
+                                    <p class="CellBody"><span class="User_Entry">Hinweis:</span> Dieses Kontrollkästchen ist beim Erstellen von Tabellen nicht zur Auswahl verfügbar.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">SPC-Tester-Daten füllen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Lädt Daten herunter, die mit der SPC Testseite verwendet werden können.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Verwaiste Berechtigungen bereinigen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Bei der Erstellung von Datenbanktabellen deaktiviert. Ist aktiviert, wenn eine Datenbankaktualisierung ausgeführt wird. </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Camstar Portal-Objekte laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Füllt das Portal mit Objekten, die in der Modellierung erstellt wurden. Weitere Informationen zum Erstellen und Ändern von Definitionen für die Portalmodellierung finden Sie im <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Modeling-Benutzerhandbuch</span> oder im <span class="Emphasis"> Opcenter Execution Core Modeling-Benutzerhandbuch</span>.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">Alles neu laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Lädt alle Objekte neu, wenn aktiviert.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">Camstar-Wörterbücher laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">Füllt das Portal mit Wörterbuchbeschriftungen aus CSV-Dateien, die sich im Ordner "Insite Administration\Dictionaries" befinden. Das Platzieren von CSV-Dateien, die Übersetzungen für Beschriftungen enthalten, aktiviert fremdsprachliche Beschriftungen oder angepasste Beschriftungen, die im Portal angezeigt werden sollen. Weitere Informationen zum Erstellen und Ändern von Wörterbuchdefinitionen finden Sie im <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Modeling-Benutzerhandbuch</span> oder im <span class="Emphasis"> Opcenter Execution Core Modeling-Benutzerhandbuch</span>.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented" style="color: #000000;">Alles neu laden</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;">Lädt alle Wörterbücher neu, wenn aktiviert. </p>
+                                    <p class="CellBody" style="color: #000000;"><span class="User_Entry">Hinweis:</span> Dieses Kontrollkästchen ist beim Erstellen von Tabellen nicht zur Auswahl verfügbar.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">WCF-Dienste erstellen</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">Erstellt die DLL, die die bereitgestellten Dienste und Datenverträge enthält, indem deren Definitionen aus der MDB extrahiert werden. Sie sollten diese Option aktivieren, wenn Sie Arbeitsbereiche aktivieren oder deaktivieren. Weitere Informationen zum Generieren von WCF-Diensten finden Sie in der <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics-Installationsanleitung</span> oder in der <span class="Emphasis">Opcenter Execution Core-Installationsanleitung</span>.</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">Optional </p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBodyIndented">Web-Datenverkehr verschlüsseln<a name="UseSSL"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">Ermöglicht das Generieren von WCF-Diensten mit SSL-Sicherheit. "Web-Datenverkehr verschlüsseln" ist standardmäßig ausgewählt.<a name="kanchor6"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">Erstellen von REST-API-Diensten<a name="307946"></a></p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">Erzeugt das gesamte REST-API-Modell und startet die REST-API-Dienste, sofern ausgewählt. Diese Option ist <i>nur</i> gültig, wenn Sie statische DLLs verwenden, wie standardmäßig in der Datei "appsettings.json" festgelegt. Wenn ein Fehler auftritt, finden Sie Informationen zu Fehlerantworten in <i>Opcenter Execution Medical Device and Diagnostics&#160;– Technische Referenz: REST API</i> oder in <i>Opcenter Execution Core&#160;– Technische Referenz: REST API</i>. <a name="274529_end"></a> </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">Optional</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Create_New_Database_Tables"></a>Vorgehensweise zum Erstellen von neuen Datenbanktabellen für die Transaktionsdatenbank<a name="kanchor7"></a></p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um neue Datenbanktabellen für die Transaktionsdatenbank zu erstellen:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry"> Start &gt; Opcenter Execution MDD &gt; Management Studio</span>. <span class="Emphasis">Das Fenster "Management Studio" wird angezeigt.</span></td>
+                </tr>
+            </table>
+            <p class="_3body">Oder</p>
+            <p class="_3body">Klicken Sie auf <span class="User_Entry">Start &gt; Opcenter Execution Core &gt; Management Studio</span>. <span class="Emphasis">Das Fenster "Management Studio" wird angezeigt.</span> </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Erweitern Sie <span class="User_Entry">Datenbanken</span> und klicken Sie dann mit der rechten Maustaste auf <span class="User_Entry">Transaktionsdatenbank</span>.<br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">Neue Datenbanktabellen erstellen</span>. <span class="Emphasis">Das Dialogfeld "Tabellen erstellen" wird angezeigt.</span><br /></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Belassen Sie die Standardauswahlen, wie sie sind. </td>
+                </tr>
+            </table>
+            <p class="AboveAndBelow_Frame" style="margin-left: 0pc;">&#160;</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Klicken Sie auf <span class="User_Entry">OK</span>. <span class="Emphasis">Die Meldung "Neue Transaktionsdatenbank erfolgreich erstellt" wird unten im Management Studio-Fenster angezeigt.</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

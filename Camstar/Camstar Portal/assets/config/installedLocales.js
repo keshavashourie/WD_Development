@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('installedLocales',["en_US","cs_CZ","de","es","fr","it","ja_JP","ko_KR","pl_PL","pt_BR","ru_RU","zh_CN","zh_TW"]);

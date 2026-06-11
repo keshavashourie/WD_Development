@@ -1,0 +1,1 @@
+define({r:0.5,st:'Stem',n:1,t:[0],m:[],u:['../Content/01_IMS/About.htm'],s:['+','effectiveness','nam','vorhand'],p:[['+',8],['auf',4],['core',3],['derzeit',20],['enthält',12],['gelöscht',13],['jegliche',14],['modellierung',10],['rechten',7],['ssoproxy',13],['verbundene',22],['x',26]]});

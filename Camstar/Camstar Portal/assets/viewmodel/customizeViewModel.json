@@ -1,0 +1,120 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-textbox.directive",
+        "js/aw-panel-body.directive",
+        "js/aw-panel.directive",
+        "js/aw-row.directive",
+        "js/aw-panel-footer.directive",
+        "js/aw-button.directive",
+        "js/aw-popup2.directive",
+        "js/aw-widget.directive",
+        "js/aw-tab-set.directive",
+        "js/aw-radiobutton.directive",
+        "js/aw-list.directive",
+        "js/aw-listbox.directive",
+        "js/aw-include.directive",
+        "js/aw-label.directive",
+        "js/aw-property-non-edit-val.directive"
+    ],
+    "actions": {
+        "updateAcbConfigForList": {
+            "actionType": "JSFunction",
+            "method": "updateAcbConfigForList",
+            "inputData": {
+                "popupId": "{{data.popupId}}",
+                "targetEvent": "{{$event}}",
+                "defaultViewPref": "{{data.radioViewList}}"
+            },
+            "events": {
+                "success": [ {
+                        "name": "saveSuccessMessageEvent"
+                    },
+                    {
+                        "name": "updateParentViewList"
+                    }
+                ]
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "updateAcbConfig": {
+            "actionType": "JSFunction",
+            "method": "updateAcbConfig",
+            "inputData": {
+                "popupId": "{{data.popupId}}",
+                "targetEvent": "{{$event}}",
+                "defaultViewPref": "{{data.radioViewList}}"
+            },
+            "events": {
+                "success": [ {
+                        "name": "saveSuccessMessageEvent"
+                    },
+                    {
+                        "name": "updateParentView"
+                    }
+                ]
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "closePopupWindow": {
+            "actionType": "JSFunction",
+            "method": "hide",
+            "inputData": {
+                "popupId": "{{data.popupId}}",
+                "targetEvent": "{{$event}}"
+            },
+            "deps": "js/popupService"
+        },
+        "updateListViewFunction": {
+            "actionType": "JSFunction",
+            "method": "updateListViewFunction",
+            "deps": "js/mom.acb.component.service"
+        },
+        "updateSearchViewFunction": {
+            "actionType": "JSFunction",
+            "method": "updateFilterViewFunction",
+            "deps": "js/mom.acb.component.service"
+        }
+    },
+    "data": {
+        "tabModels": [ {
+                "name": "Table Columns",
+                "tabKey": "tableCol"
+            },
+            {
+                "name": "List Properties",
+                "tabKey": "listProp"
+            }
+        ],
+        "radioViewList": {
+            "displayName": "Default View Mode",
+            "type": "BOOLEAN",
+            "isRequired": "false",
+            "isEditable": "true",
+            "dbValue": "",
+            "labelPosition": "PROPERTY_LABEL_AT_SIDE",
+            "propertyRadioTrueText": "Table",
+            "propertyRadioFalseText": "List"
+        }
+    },
+    "conditions": {
+        "showTableSettings": {
+            "expression": "data.selectedTab.tabKey === 'tableCol'"
+        },
+        "showListSettings": {
+            "expression": "data.selectedTab.tabKey === 'listProp'"
+        },
+        "showLabels": {
+            "expression": "false"
+        },
+        "reverseCommands": {
+            "expression": "false"
+        }
+    },
+    "i18n": {},
+    "onEvent": [ {
+            "eventId": "updateParentViewList",
+            "action": "updateListViewFunction"
+        }
+    ]
+}

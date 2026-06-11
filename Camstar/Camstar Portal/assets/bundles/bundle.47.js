@@ -1,0 +1,22 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(self["webpackChunkafx_cep"] = self["webpackChunkafx_cep"] || []).push([[47],{
+
+/***/ "./out/site/afx-cep/assets/js/aw-image.directive.js":
+/*!**********************************************************!*\
+  !*** ./out/site/afx-cep/assets/js/aw-image.directive.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app */ \"./out/site/afx-cep/assets/js/adapters/angularjs/appWrapper.js\");\n/* harmony import */ var js_declUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! js/declUtils */ \"./out/site/afx-cep/assets/js/declUtils.js\");\n// Copyright (c) 2020 Siemens\n\n/**\n * Directive to display a thumbnail img using xrt thumbnail image styling .\n *\n * @module js/aw-image.directive\n */\n\n\n\n/**\n * Directive to display a thumbnail img using xrt thumbnail image styling.\n *\n * @example <aw-image source=\"vpProp.url\"></aw-image>\n *\n * @member aw-image\n * @memberof NgElementDirectives\n */\napp__WEBPACK_IMPORTED_MODULE_0__[\"default\"].directive('awImage', [function () {\n  return {\n    restrict: 'E',\n    scope: {\n      source: '=',\n      isIcon: '='\n    },\n    templateUrl: app__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getBaseUrlPath() + '/html/aw-image.directive.html',\n    replace: true,\n    link: function link($scope) {\n      if (!js_declUtils__WEBPACK_IMPORTED_MODULE_1__[\"default\"].isNil($scope.source)) {\n        $scope.source = $scope.source.replace(/\\bassets\\b\\//gm, app__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getBaseUrlPath() + '/');\n      }\n    }\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9vdXQvc2l0ZS9hZngtY2VwL2Fzc2V0cy9qcy9hdy1pbWFnZS5kaXJlY3RpdmUuanMuanMiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vYWZ4LWNlcC8uL291dC9zaXRlL2FmeC1jZXAvYXNzZXRzL2pzL2F3LWltYWdlLmRpcmVjdGl2ZS5qcz9mY2U1Il0sInNvdXJjZXNDb250ZW50IjpbIi8vIENvcHlyaWdodCAoYykgMjAyMCBTaWVtZW5zXG5cbi8qKlxuICogRGlyZWN0aXZlIHRvIGRpc3BsYXkgYSB0aHVtYm5haWwgaW1nIHVzaW5nIHhydCB0aHVtYm5haWwgaW1hZ2Ugc3R5bGluZyAuXG4gKlxuICogQG1vZHVsZSBqcy9hdy1pbWFnZS5kaXJlY3RpdmVcbiAqL1xuaW1wb3J0IGFwcCBmcm9tICdhcHAnO1xuaW1wb3J0IGRlY2xVdGlscyBmcm9tICdqcy9kZWNsVXRpbHMnO1xuXG4vKipcbiAqIERpcmVjdGl2ZSB0byBkaXNwbGF5IGEgdGh1bWJuYWlsIGltZyB1c2luZyB4cnQgdGh1bWJuYWlsIGltYWdlIHN0eWxpbmcuXG4gKlxuICogQGV4YW1wbGUgPGF3LWltYWdlIHNvdXJjZT1cInZwUHJvcC51cmxcIj48L2F3LWltYWdlPlxuICpcbiAqIEBtZW1iZXIgYXctaW1hZ2VcbiAqIEBtZW1iZXJvZiBOZ0VsZW1lbnREaXJlY3RpdmVzXG4gKi9cbmFwcC5kaXJlY3RpdmUoICdhd0ltYWdlJywgWyBmdW5jdGlvbigpIHtcbiAgICByZXR1cm4ge1xuICAgICAgICByZXN0cmljdDogJ0UnLFxuICAgICAgICBzY29wZToge1xuICAgICAgICAgICAgc291cmNlOiAnPScsXG4gICAgICAgICAgICBpc0ljb246ICc9J1xuICAgICAgICB9LFxuICAgICAgICB0ZW1wbGF0ZVVybDogYXBwLmdldEJhc2VVcmxQYXRoKCkgKyAnL2h0bWwvYXctaW1hZ2UuZGlyZWN0aXZlLmh0bWwnLFxuICAgICAgICByZXBsYWNlOiB0cnVlLFxuICAgICAgICBsaW5rOiBmdW5jdGlvbiggJHNjb3BlICkge1xuICAgICAgICAgICAgaWYoICFkZWNsVXRpbHMuaXNOaWwoICRzY29wZS5zb3VyY2UgKSApIHtcbiAgICAgICAgICAgICAgICAkc2NvcGUuc291cmNlID0gJHNjb3BlLnNvdXJjZS5yZXBsYWNlKCAvXFxiYXNzZXRzXFxiXFwvL2dtLCBhcHAuZ2V0QmFzZVVybFBhdGgoKSArICcvJyApO1xuICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgfTtcbn0gXSApO1xuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./out/site/afx-cep/assets/js/aw-image.directive.js\n");
+
+/***/ })
+
+}]);

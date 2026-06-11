@@ -1,0 +1,68 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-popup2.directive",
+        "js/aw-panel-body.directive",
+        "js/aw-panel-footer.directive",
+        "js/exist-when.directive",
+        "js/aw-button.directive",
+        "js/aw-include.directive",
+        "js/aw-command-bar.directive",
+        "js/aw-splm-table.directive",
+        "js/aw-row.directive",
+        "js/aw-command.directive",
+        "js/aw-advanced-bar.directive",
+        "js/aw-flex-row.directive",
+        "js/aw-flex-column.directive"
+
+    ],
+    "actions": {
+        "doSearch": {
+            "actionType": "JSFunction",
+            "method": "doSearch",
+            "inputData": {
+                "filterInput": {
+                    "searchInput": "{{data.searchBox}}"
+                }
+            },
+            "deps": "js/mom.acb.component.service"
+        },
+        "resetView": {
+            "actionType": "JSFunction",
+            "method": "updateViewFunction",
+            "deps": "js/mom.acb.component.service"
+        },
+        "setUpSortCommands": {
+            "actionType": "JSFunction",
+            "method": "openStandardSortMenu",
+            "deps": "js/mom.acb.component.service"
+        },
+        "setUpGroupCommands": {
+            "actionType": "JSFunction",
+            "method": "openStandardGroupMenu",
+            "deps": "js/mom.acb.component.service"
+        }
+    },
+    "data": {
+        "searchBoxPlaceHolder": {
+            "dbValue": "Search"
+        },
+        "searchBox": {
+            "displayName": "Enter String value in Textbox",
+            "type": "STRING",
+            "isEnabled": true
+        }
+    },
+    "i18n": {
+        "close": [ "momMessages" ]
+    },
+    "onEvent": [ {
+        "eventId": "momACB.contentLoaded",
+        "action": "setUpSortCommands"
+    },
+    {
+        "eventId": "momACB.contentLoaded",
+        "action": "setUpGroupCommands"
+    }
+ ]
+}

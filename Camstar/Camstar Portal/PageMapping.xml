@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<!--
+     Copyright Siemens 2023  
+-->
+<ArrayOfPageMappingItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PageMappingItem Name="EventRecordView">
+    <Targets TargetType="Page" Target="ProductionEventManage_VP" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="Nonconformance" Parameter="Category" ConditionType="Equal" />
+    </Targets>
+    <Targets TargetType="Page" Target="GenericEventManage_VP" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="SubclassificationName" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="ApprovalQualityObjectComplete">
+    <Targets TargetType="Page" Target="QualityObjectResolution_VP" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="ApprovalQualityObjectEntry">
+    <Targets TargetType="Page" Target="SignApproval_VP" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>Identifier</SourceMember>
+        <TargetMember>ApprovalSheetEntry</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>      
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Identifier" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />    
+  </PageMappingItem>
+  <PageMappingItem Name="Triage">
+    <Targets TargetType="Page" Target="Triage" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="CAPARecordView">
+    <Targets TargetType="Page" Target="CAPARecordView" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="CAPA" Parameter="Category" ConditionType="Equal" />
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>ViewProcessObject</SourceMember>
+        <TargetMember>ViewProcessObject</TargetMember>
+      </Links>
+    </Targets>
+    <Targets TargetType="Page" Target="CARRecordView" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="CAR" Parameter="Category" ConditionType="Equal" />
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>ViewProcessObject</SourceMember>
+        <TargetMember>ViewProcessObject</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="ViewProcessObject" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="RecordView">
+    <Targets TargetType="PageMappingItem" Target="EventRecordView" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="Event,Complaint,Nonconformance" Parameter="Category" ConditionType="Contains" />
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>ClassificationName</SourceMember>
+        <TargetMember>ClassificationName</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>SubclassificationName</SourceMember>
+        <TargetMember>SubclassificationName</TargetMember>
+      </Links>
+    </Targets>
+    <Targets TargetType="PageMappingItem" Target="CAPARecordView" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="CAPA,CAR" Parameter="Category" ConditionType="Contains" />
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="ProcessObjectOwnership">
+    <Targets TargetType="PageMappingItem" Target="EventRecordView" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="Event,Complaint,Nonconformance" Parameter="Category" ConditionType="Contains" />
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Identifier</SourceMember>
+        <TargetMember>ViewProcessObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>SubclassificationName</SourceMember>
+        <TargetMember>SubclassificationName</TargetMember>
+      </Links>
+    </Targets>
+    <Targets TargetType="PageMappingItem" Target="CAPARecordView" xmlns="camstar.com/Portal.Personalization.Model">
+      <Conditions ConditionValue="CAPA,CAR" Parameter="Category" ConditionType="Contains" />
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Identifier</SourceMember>
+        <TargetMember>ViewProcessObject</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Identifier" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="SubclassificationName" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="ProcessModelOwnership">
+    <Targets TargetType="PageMappingItem" Target="ProcessObjectOwnership" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Identifier</SourceMember>
+        <TargetMember>Identifier</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>SubclassificationName</SourceMember>
+        <TargetMember>SubclassificationName</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Identifier" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="SubclassificationName" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="PlanOwnership">
+    <Targets TargetType="PageMappingItem" Target="ProcessObjectOwnership" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Category</SourceMember>
+        <TargetMember>Category</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>Identifier</SourceMember>
+        <TargetMember>Identifier</TargetMember>
+      </Links>
+      <Links>
+        <SourceMember>SubclassificationName</SourceMember>
+        <TargetMember>SubclassificationName</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Category" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="Identifier" xmlns="camstar.com/Portal.Personalization.Model" />
+    <Parameters Name="SubclassificationName" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+  <PageMappingItem Name="EventCreatePageflow">
+    <Targets TargetType="Pageflow" Target="CreateGenericEvent_PF.1" xmlns="camstar.com/Portal.Personalization.Model">
+      <Links>
+        <SourceMember>QualityObject</SourceMember>
+        <TargetMember>QualityObject</TargetMember>
+      </Links>
+    </Targets>
+    <Parameters Name="QualityObject" xmlns="camstar.com/Portal.Personalization.Model" />
+  </PageMappingItem>
+</ArrayOfPageMappingItem>

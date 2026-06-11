@@ -1,0 +1,1 @@
+define({numchunks:1,prefix:'Glossary_Chunk',terms:[{t:'Full-text Search',c:0},{t:'Hard disk capacity',c:0},{t:'HTML',c:0},{t:'HTTP',c:0},{t:'Icon',c:0},{t:'Index',c:0},{t:'Memory',c:0},{t:'Newsgroup',c:0},{t:'Page',c:0},{t:'Pane',c:0},{t:'Tour',c:0},{t:'URL',c:0},{t:'Web browser',c:0},{t:'WWW',c:0},{t:'WYSIWYG',c:0}]});

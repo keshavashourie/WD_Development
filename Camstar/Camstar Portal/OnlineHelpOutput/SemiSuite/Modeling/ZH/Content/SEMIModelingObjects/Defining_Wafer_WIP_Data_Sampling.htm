@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="PortalModeling.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="主要建模定义" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>定义晶元 WIP 数据采样</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="Defining"></a><a name="kanchor185"></a>定义晶元 WIP 数据采样</p>
+            <p class="_1body" style="color: #000000;">通过“晶元 WIP 数据采样”页，可以配置用于采样目的的晶元数量或包含晶元的供料槽数量。可以预定义应用程序如何选择批次中晶元数量的方法或规范。通过选中“WIP 数据设置”建模对象上的“强制采样”复选框，可以进一步强制选择。在“WIP 主要”或“设备 WIP 调度”处理期间，“转入”将从方法中（“用户选择”方法除外）标识预选的晶元。如果不强制执行采样，则还可以重新选择晶元。  
+</p>
+            <p class="_1body" style="color: #000000;">“晶元 WIP 数据采样”旨在将标准批次采样流程提高到更具体的基于晶元的采样选择，并消除项处理的 100% 数据收集要求。 </p>
+            <table class="AutoNumber_p_Note1body" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 21px;" />
+                <col style="width: 40px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">
+基于晶元的采样将优先于 AQL 采样。如果现有默认“AQL 采样”和新的“晶元 WIP 数据采样”在同一工步中配置，则仅执行“晶元 WIP 数据采样”。</td>
+                </tr>
+            </table>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="When_Defining_Exp_Auto_Splits"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="When2"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />在定义晶元 WIP 数据采样时</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body" style="color: #000000;">“晶元 WIP 数据采样”建模对象提供根据以下方法配置晶元采样选择的功能： </p>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">用户选择 - 用户手动选择。在“转入”前的“WIP 主要”或“设备 WIP 调度”页中的“项”表格中，可以手动选择批次内要采样的单个晶元或包含晶元的供料槽。</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">正数 N 个 - 基于正数 N 个供料槽数自动选择，其中 N 为要采样的供料槽数。如果选择此选项，则必须在“供料槽数”字段中设置一个值。例如，如果将 5 设为“供料槽数”，应用程序将选择包含当前批次晶元的正数（或前）5 个供料槽。 
+</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">倒数 N 个 - 基于倒数 N 个供料槽数自动选择，其中 N 为要采样的供料槽数。如果选择此选项，则必须在“供料槽数”字段中设置一个值。例如，如果将 5 设为供料槽数，应用程序将选择包含当前批次晶元的倒数（或后）5 个供料槽。 </td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">样本大小 - 按输入的“样本大小”数选择晶元。例如，如果输入 5，则应用程序将选择 5 个晶元进行采样。有关采样计算和选择的信息，请参考“<a href="#When" class="MCXref xref">使用“样本大小”或“样本百分数”方法时</a>”。</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">样本百分数 - 按“样本百分数”值选择晶元。例如，如果输入总计 25 个晶元的 20%，则将选择 5 个晶元进行采样。如果需要，应用程序将执行标准舍入并选择最接近的数字。例如，4.8 将舍入为 5。但是，如果计算的样本大小值小于 1，则应用程序将至少选择 1 个晶元。例如，输入的样本百分数为 1%，计算的样本大小为 0.25，应用程序将选择 1 个晶元。有关采样计算和选择的信息，请参考“<a href="#When" class="MCXref xref">使用“样本大小”或“样本百分数”方法时</a>”。</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <p class="_1bodyKeepWithNext" data-mc-conditions="Default.ScreenOnly"><a name="Exp_Auto_Split_Field_Definitions"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="When"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />使用“样本大小”或“样本百分数”方法时</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body" style="color: #000000;">对于输入的样本大小或样本百分数，应用程序将计算样本工步，以均匀分布批次中的晶元选择。 </p>
+                    <p class="_1body" style="color: #000000;">以下是场景示例，可更好地了解“采样大小”和“样本百分数”选择方法： </p>
+                    <table class="AutoNumber_p_Note1body" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 21px;" />
+                        <col style="width: 40px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">注释:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;注释:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">这些示例中说明的计算样本大小是指在“样本大小”字段中输入的值或基于“样本百分数”字段计算的采样大小。 </td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果计算的样本大小 ≥ 批次中晶元总数，则将选择所有晶元。 </td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果计算的样本大小 = 1，则将选择离中间最近的供料槽中的晶元。</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果计算的样本大小 = 2，则将选择当前批次的顶部供料槽和底部供料槽中的晶元。</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">如果计算的样本大小 &gt; 2，应用程序将选择位于顶部供料槽、底部供料槽上的晶元，并计算“样本工步”以标识中间供料槽位置的其余部分。计算“样本工步”以获取要跳过的晶元数，该数量标识要采样的下一个晶元。 </td>
+                        </tr>
+                    </table>
+                    <p class="_1body" style="text-align: left;color: #000000;">样本工步 = 总晶元 ÷ (样本大小 - 1)。 </p>
+                    <p class="_1body" style="color: #000000;">例如，物料箱的晶元总数为 25 个，输入的“样本大小”为 5。“样本工步”将为 25 ÷ (5 - 1) = 6.25。应用程序将向下舍入样本工步的小数位，例如，4.66 向下舍入为 4，2.98 向下舍入为 2，6.25 向下舍入为 6。因此，在此示例中，应用程序所得到的样本工步 = 6，并将对每个选定晶元跳过 6 个晶元。要为“转入”采样的选定晶元将是晶元 1、晶元 7、晶元 13、晶元 19 和晶元 25。 </p>
+                    <p class="_1bodyKeepWithNext" style="color: #000000;">下表显示了用例 1 和用例 2，其中红色 X 表示要采样的选定晶元。 </p>
+                    <p class="_1bodyKeepWithNext" style="color: #000000;">&#160;</p>
+                    <table style="border-spacing: 0px 0px;border-top-left-radius: 1px 0px;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;margin-left: auto;margin-right: auto;width: 500px;">
+                        <col style="width: 70px;" />
+                        <col style="width: 90px;" />
+                        <col style="width: 100px;" />
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 0px;border-top-width: 0px;border-bottom-width: 0px;background-color: #f5f5f5;border-left-style: solid;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-color: #82a2af;" rowspan="2">&#160;<p class="CellBody" style="color: #000000;text-align: center;font-weight: normal;">晶元 ID</p></td>
+                                <td style="text-align: center;border-left-width: 1px;border-top-width: 1px;border-bottom-width: 1px;background-color: #f5f5f5;border-left-style: solid;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;font-weight: normal;">用例 1</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-top-width: 1px;border-bottom-width: 1px;text-align: center;background-color: #f5f5f5;border-left-style: solid;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;font-weight: normal;">用例 2</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-top-width: 1px;border-bottom-width: 1px;background-color: #f5f5f5;border-left-style: solid;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">总晶元 = 25</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本大小 = 5</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本工步 = 6</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-top-width: 1px;border-bottom-width: 1px;background-color: #f5f5f5;border-left-style: solid;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;"> 总晶元 = 25</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本百分数 = 30%</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本工步 = 3</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 1</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 2</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 3</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 4</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 5</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 6</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 7</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 8</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 9</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 10</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 11</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 12</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 13</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 14</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 15</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 16</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 17</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 18</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 19</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 20</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 21</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 22</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 23</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 24</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 25</p>
+                                </td>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="_1bodyKeepWithNext" style="color: #000000;">下表显示用例 3 和 4，其中两者具有相同的晶元总数、样本大小和样本工步。但晶元的定位方式有所不同。应用程序将忽略空供料槽，并且仅计算包含晶元的供料槽上的样本工步。红色 X 表示选定用于采样的晶元。 </p>
+                    <p class="_1body">&#160;</p>
+                    <table style="border-spacing: 0px 0px;border-top-left-radius: 1px 0px;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 0px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 0px;border-bottom-color: #82a2af;margin-left: auto;margin-right: auto;width: 650px;">
+                        <col style="width: 75px;" />
+                        <col style="width: 75px;" />
+                        <col style="width: 120px;" />
+                        <col style="width: 100px;" />
+                        <col style="width: 125px;" />
+                        <col style="width: 75px;" />
+                        <col style="width: 120px;" />
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;" rowspan="2">&#160;<p class="CellBody" style="color: #000000;text-align: center;"> 槽位置</p></td>
+                                <td style="text-align: center;background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;" rowspan="2">&#160;<p class="CellBody" style="color: #000000;text-align: center;">晶元 ID</p></td>
+                                <td style="text-align: center;background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">用例 3</p>
+                                </td>
+                                <td style="border-top-style: solid;border-top-width: 0px;">&#160;</td>
+                                <td style="background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;" rowspan="2">&#160;<p class="CellBody" style="color: #000000;text-align: center;"> 槽位置</p></td>
+                                <td style="background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;" rowspan="2">&#160;<p class="CellBody" style="color: #000000;text-align: center;">晶元 ID</p></td>
+                                <td style="background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">用例 4</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">总晶元 = 9</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本大小 = 4</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本工步 = 3</p>
+                                </td>
+                                <td>&#160;</td>
+                                <td style="background-color: #f5f5f5;border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">总晶元 = 9</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本大小 = 4</p>
+                                    <p class="CellBody" style="color: #000000; text-align: center;">样本工步 = 3</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">1</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 1</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">1</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 1</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">2</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p>&#160;</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">2</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 2</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">3</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p>&#160;</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">3</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 3</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">4</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 2</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">4</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 4</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">5</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">5</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 5</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">6</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">6</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 6</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">7</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 3</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">7</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 7</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">8</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">8</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 8</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">9</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">9</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 9</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">10</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 4</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">10</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">11</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">11</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">12</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">12</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">13</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 5</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">13</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">14</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">14</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">15</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">15</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">16</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 6</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">16</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">17</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">17</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">18</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">18</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">19</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 7</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">19</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">20</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">20</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">21</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">21</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">22</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 8</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">22</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">&#160;</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">23</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">23</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">24</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">24</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">25</p>
+                                </td>
+                                <td style="border-left-width: 1px;border-left-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;border-right-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-left-style: solid;text-align: center;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">晶元 9</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="text-align: center;color: #8b0000;">X</p>
+                                </td>
+                                <td>&#160;</td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p class="CellBody" style="color: #000000;text-align: center;">25</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">
+                                    <p>&#160;</p>
+                                </td>
+                                <td style="border-left-style: solid;border-left-width: 1px;border-left-color: #82a2af;border-right-style: solid;border-right-width: 1px;border-right-color: #82a2af;border-top-style: solid;border-top-width: 1px;border-top-color: #82a2af;border-bottom-style: solid;border-bottom-width: 1px;border-bottom-color: #82a2af;">&#160;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />“晶元 WIP 数据采样”页字段定义</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext" style="color: #000000;">此表定义“晶元 WIP 数据采样”页中的字段。</p>
+                    <table style="caption-side: top;width: 95%;mc-table-style: url('../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width:140px" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width:90px" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">字段</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">定义</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">类型</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody" style="color: #000000;">晶元 WIP 数据采样 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody" style="color: #000000;">“晶元 WIP 数据采样”建模对象的唯一名称。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">必需</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2" colspan="3">
+                                    <p class="CellSectionHeader">详细信息</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;"> 晶元采样方法</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #000000;">
+                                    <p class="CellBody" style="color: #000000;"> 有关如何选择批次内晶元或供料槽进行采样的方法。 </p>
+                                    <table class="AutoNumber_p_CellNumA" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                        <col style="width: 41px;" />
+                                        <col style="width: 30px;" />
+                                        <col style="width: auto;" />
+                                        <tr>
+                                            <td valign="top" />
+                                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                            </td>
+                                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">用户选择</td>
+                                        </tr>
+                                    </table>
+                                    <table class="AutoNumber_p_CellNumA" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                        <col style="width: 41px;" />
+                                        <col style="width: 30px;" />
+                                        <col style="width: auto;" />
+                                        <tr>
+                                            <td valign="top" />
+                                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                            </td>
+                                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">正数 N 个 </td>
+                                        </tr>
+                                    </table>
+                                    <table class="AutoNumber_p_CellNumA" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                        <col style="width: 41px;" />
+                                        <col style="width: 30px;" />
+                                        <col style="width: auto;" />
+                                        <tr>
+                                            <td valign="top" />
+                                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                            </td>
+                                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">倒数 N 个</td>
+                                        </tr>
+                                    </table>
+                                    <table class="AutoNumber_p_CellNumA" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                        <col style="width: 41px;" />
+                                        <col style="width: 30px;" />
+                                        <col style="width: auto;" />
+                                        <tr>
+                                            <td valign="top" />
+                                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                            </td>
+                                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">样本大小</td>
+                                        </tr>
+                                    </table>
+                                    <table class="AutoNumber_p_CellNumA" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                                        <col style="width: 41px;" />
+                                        <col style="width: 30px;" />
+                                        <col style="width: auto;" />
+                                        <tr>
+                                            <td valign="top" />
+                                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                                            </td>
+                                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">样本百分数</td>
+                                        </tr>
+                                    </table>
+                                    <p class="CellBody" style="color: #000000;">有关信息，请参考“<a href="#When2" class="MCXref xref">在定义晶元 WIP 数据采样时</a>”。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">必需</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">供料槽数 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">要从当前批次中选择的供料槽数。参考“正数 N 个”和“倒数 N 个”方法中的“N”值。 </p>
+                                    <p class="CellBody" style="color: #000000;"><b>注：</b>仅当已选择“正数 N 个”或“倒数 N 个”时，才会启用该字段。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">如果选择“正数 N 个”或“倒数 N 个”方法，则为必填项。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;">样本大小</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1" style="color: #008b8b;">
+                                    <p class="CellBody" style="color: #000000;">要采样的晶元数。 </p>
+                                    <p class="CellBody" style="color: #000000;"><b>注：</b>仅当已选择“样本大小”方法时，才会启用该字段。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody" style="color: #000000;">如果已选择“样本大小”方法，则为必填项。</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">样本百分数</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2" style="color: #008b8b;">
+                                    <p class="CellBody" style="color: #000000;">要采样的晶元百分数。 </p>
+                                    <p class="CellBody" style="color: #000000;"><b>注：</b>仅当已选择“样本百分数”方法时，才会启用该字段。该字段仅接受 1-100 中的值。 </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody" style="color: #000000;">如果已选择“样本百分数”方法，则为必填项。</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How"></a><a name="kanchor186"></a>如何定义晶元 WIP 数据采样</p>
+            <p class="Head4" style="color: #000000;">按照以下步骤定义“晶元 WIP 数据采样”：</p>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">打开<span class="User_Entry">晶元 WIP 数据采样</span>页。<span class="Emphasis">随即“建模”页中将显示“晶元 WIP 数据采样”页。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">单击<span class="User_Entry">新建</span>。<span class="Emphasis">显示用于定义新实例的空白字段。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">在<span class="User_Entry">晶元 WIP 数据采样</span>字段中输入唯一的名称。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">选择<span class="User_Entry">晶元采样方法</span>字段。 </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">如果选择了“正数 N 个”或“倒数 N 个”方法，则输入<span class="User_Entry">供料槽数</span>字段。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;"><a name="If"></a>如果选择“样本大小”或“样本百分数”方法，则输入<span class="User_Entry">样本大小</span>或<span class="User_Entry">样本百分数</span>值。 </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">根据您的业务需求输入可选信息。<span class="Emphasis">有关可选字段的信息，请参考字段定义表。</span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">单击<span class="User_Entry">保存</span>。<span class="Emphasis">应用程序保存建模对象并显示成功消息。</span><a name="end_exp_auto_split"></a></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

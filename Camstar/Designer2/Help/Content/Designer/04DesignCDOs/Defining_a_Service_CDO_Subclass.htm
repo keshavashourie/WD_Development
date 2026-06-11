@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Configurable Data Objects" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Defining a Service CDO Subclass</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Defining a Service CDO Subclass</p>
+            <p class="_1body">Service objects represent the work performed on Container objects. In Defining a Container CDO Subclass, the Start service subclass is automatically created. In Defining a NamedDataObject Subclass and Defining a RevisionedObject Subclass, a Maintenance service subclass is automatically created. Other services are available, such as inquiries and transactions. Most day-to-day tasks performed by employees are through shop floor transactions on containers. </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a name="When"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Defining a Service CDO Subclass</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Workspace prefixes are automatically&#160;inserted before the name of an item when adding a new item, if a prefix has been assigned to the highest active workspace. Workspace prefixes  indicate which workspace Designer is applying changes to.  For example, the prefix "C200"  would be associated to the workspace with a prefix set as "C200"  in Management Studio. It is recommended you use the prefix supplied by  Designer when adding new items.</p>
+                    <p class="_1body">You can assign or modify workspace prefixes in Management Studio.  Refer to the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics System Administration Guide </span>or the<span class="Emphasis"> Opcenter Execution Core System Administration Guide</span> for information.</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 50px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">The base application workspace (csi) cannot have a workspace prefix assigned to it.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Task Overview</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">The Service class contains subclasses representing the Container transactions performed on the shop floor, such as the Start, MoveTxn, and Associate CDOs, to name a few. A step-by-step exercise follows this general discussion.</p>
+                    <p class="Head4-Side">Add a Service CDO subclass</p>
+                    <p class="_1body">You will add your service subclass under the appropriate Siemens&#8209;provided service CDO. </p>
+                    <p class="_1body">Defining a service object, for example the MoveStd transaction under ContainerTxn, uses the same procedure as used for CDOs in general. No database tables are associated with transactions, although history information is collected and stored to keep track of the transactions used on a Container, when the transactions were performed, and who performed them.</p>
+                    <p class="Head4-Side">Create a ServiceDetails subentity</p>
+                    <p class="_1body">Some services have a ServiceDetails subentity containing information needed by the service. The simple services do not need a ServiceDetails subentity; all the information needed by the service are in the service itself. For services that have a ServiceDetails subentity, you will create a ServiceDetails subentity subclass for the new service CDO subclass. Concepts and instructions were explained in Defining a Subentity CDO Subclass and demonstrated in Exercise to Add a Subentity Through a Field.</p>
+                    <p class="Head4-Side">Add fields to the service or ServiceDetails CDO subclass</p>
+                    <p class="_1body">For service CDOs with a ServiceDetails field, you will add the fields to the ServiceDetails subentity. For service CDOs without a ServiceDetails field (or its equivalent, like ToContainerDetails for the Split service), you will add the fields directly to the service CDO.</p>
+                    <p class="Head4-Side">Override CDO references</p>
+                    <p class="_1body">If the new service CDO inherits a Details field, the field points to its parent CDO’s Service Details subentity, rather than to the ServiceDetails subentity belonging to the newly created service CDO. In this case, you will change the reference in the Details field of the new service CDO to point to the new ServiceDetails subentity CDO. </p>
+                    <p class="_1body">The new service CDO needs to point to the correct Container CDO. For services that have a ServiceDetails subentity, you will override the Container field in the subentity to point to the correct Container CDO. For services that do not have a ServiceDetails subentity, you will override the Container field in the service CDO to point to the correct Container CDO. </p>
+                    <p class="Head4-Side">Add fields to the History CDO</p>
+                    <p class="_1bodyKeepWithNext">If you extend a service by creating a subclass and adding your own fields, and if you want those new fields to be written to the service’s history records, you will add the same fields to the appropriate type of History CDO subclass and then map these additional fields from the extended service CDO to the new History CDO subclass. The three types of History CDOs for your use include:</p>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ServiceHistoryDetail (for services that have ServiceDetails).</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ServiceHistorySummary (for services that do not have ServiceDetails).</td>
+                        </tr>
+                    </table>
+                    <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">StartHistoryDetail (for Start service only, in addition to ServiceHistoryDetail).</td>
+                        </tr>
+                    </table>
+                    <p class="Head4-Side">Add fields to the HistoryDetails subentity CDO</p>
+                    <p class="_1body">Any field that you intend to record must be copied to the HistoryDetails CDO from the service CDO. Proper recording of data will occur if you map the fields from the source CDO to its destination CDO. </p>
+                    <p class="_1body">First you will add a subclass to the appropriate HistoryDetails subentity, and then add the new fields to this History CDO. This will enable you to record historical information for the new Container fields every time the service is performed against the Container. </p>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Add_a_Service_CDO"></a><a name="kanchor123"></a>How to Add a Service CDO</p>
+            <p class="_1body">The Start service and all the associated CDOs and references are automatically created when you create a subclass of the Container CDO and select Create &amp; Configure a Start Service. Maintenance services are automatically created when you add a subclass of a NamedDataObject or a Revisioned Object CDO and select Create &amp; Configure a Maintenance Service. For all other container services, you need to create a subclass for the needed service. </p>
+            <p class="_1bodyKeepWithNext">The following procedure explains how to create a subclass for the Thruput service. Follow these steps to add a service CDO:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Open Designer.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Select the <span class="User_Entry">Thruput </span>service CDO from the list of  classes:</td>
+                </tr>
+            </table>
+            <p class="ProgramCode2">Service&gt;Update&gt;ShopFloor&gt;ContainerTxn&gt;Thruput<br /></p>
+            <p class="AboveAndBelow_Frame">&#160;</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Click <span class="User_Entry">Add</span> below the CDO selection pane. <span class="Emphasis">The Create a New CDO Definition appears</span>.</td>
+                </tr>
+            </table>
+            <p class="_3body">This window enables you to add a new subclass to this  Service CDO. </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Enter the name of this new service subclass, <span class="User_Entry">MyThruput </span>in the <span class="User_Entry">New CDO Name</span> field. </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Important3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 57px;" />
+                <col style="width: 80px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Important1body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">Important:</span></span></b></span>
+                    </td>
+                    <td class="AutoNumber_p_Important1body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;Important:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">The name of the CDO can be as many as 30 characters in length, and cannot contain spaces, illegal characters, or reserved words. Refer to “<a href="../AppA_ValidChars/A_01_Valid_Characters_and_Reserved_Words.htm#Valid" class="MCXref xref" xrefformat="{paratext}" data-mc-unresolved-link="import-link:appa_validchars_3077106998_26389">Valid&#160;Characters and Reserved Words</a>” for information.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Enter a description in the <span class="User_Entry">Description</span> field. <span class="Emphasis">The Create button is enabled if both Name and Description fields are filled</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Keep the default values for <span class="User_Entry">CDO Usage</span> of <span class="User_Entry">Service Shopfloor Reversible</span> and <span class="User_Entry">Storage Category</span> of <span class="User_Entry">None</span>.<br />Service CDOs are non-persistent and do not require storage.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Click <span class="User_Entry">Create</span>. <span class="Emphasis">MyThruput</span><span class="Emphasis" style="font-family: Bembo;font-weight: bold;"> </span><span class="Emphasis">is now a subclass of Thruput</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>8.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;8.&lt;/b&gt;">Select <b>Save</b> from the <b>File</b> menu. <i>The application saves your changes.</i></td>
+                </tr>
+            </table>
+            <p class="Head4-Side">Add a ServiceDetails CDO</p>
+            <p class="_1body">To continue the example, create <span class="User_Entry">MyThruputDetail</span> subentity CDO as a subclass of ThruputDetail (following the class structure of Thruput). </p>
+            <p class="Head3-Side"><a name="How_to_Add_MyThruputDetail"></a>How to Add MyThruputDetail</p>
+            <p class="_1bodyKeepWithNext">Follow these steps to addMyThruputDetail subclass: </p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Select the <span class="User_Entry">Thruput</span> CDO.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Right-click <span class="User_Entry">ServiceDetails</span> field.<span class="User_Entry"> </span></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Select <span class="User_Entry">Position to CDO Definition</span> to go to the <span class="User_Entry">ThruputDetails</span> subentity.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Derive (add) the subclass, <span class="User_Entry">MyThruputDetail</span>, and enter a description. Keep the other default values. <span class="Emphasis">The subentity is added to the class structure as follows</span>:</td>
+                </tr>
+            </table>
+            <p class="ProgramCode2">	Subentity&gt;ServiceData&gt;ServiceDetails&gt;ThruputDetails&gt;MyThruputDetail</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Select <b>Save</b> from the <b>File</b> menu. <i>The application saves your changes.</i></td>
+                </tr>
+            </table>
+            <p class="_2body">Service CDOs and their subentities do not require storage category definitions. Review how to define a Subentity CDO Subclass if necessary. You will add fields to this subentity in the next procedure. </p>
+            <p class="Head4-Side">Adding fields to the Service or ServiceDetails CDO</p>
+            <p class="_1body">You can add fields to the ServiceDetails CDO (or to the Service CDO if it does not have a ServiceDetails CDO) if appropriate to your business purposes.</p>
+            <p class="Head3-Side"><a name="How_to_Add_a_Field_to_MyThruputDetail"></a>How to Add a Field to MyThruputDetail</p>
+            <p class="_1bodyKeepWithNext">Follow these steps to add field to MyThruputDetail subclass:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Select <span class="User_Entry">MyThruputDetail</span> that you just created. </td>
+                </tr>
+            </table>
+            <p class="_3body">The <span class="User_Entry">Fields</span> tab is displayed.</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Click <span class="User_Entry">Add</span> below the fields area.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Keep the data type as String. In the <span class="User_Entry">Name</span> field, enter <span class="User_Entry">MyThruputField1</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 62px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Fields names need to be unique only within the CDO.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Click <span class="User_Entry">Create</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Select <b>Save</b> from the <b>File</b> menu. <i>The application saves your changes.</i></td>
+                </tr>
+            </table>
+            <p class="Head4-Side">Creating the HistoryDetails CDO subclass</p>
+            <p class="_1body">Instead of using the existing default HistoryDetails CDO for Thruput, add a new subclass to the appropriate HistoryDetails CDO, then add fields to the subclass.</p>
+            <p class="Head3-Side"><a name="How_to_Add_MyThruputHistoryDetail"></a>How to Add MyThruputHistoryDetail</p>
+            <p class="_1bodyKeepWithNext">Follow these steps to add MyThruputHistoryDetail subclass:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Go to</td>
+                </tr>
+            </table>
+            <p class="AboveAndBelow_Frame">&#160;</p>
+            <p class="ProgramCode2">Subentity&gt;HistoryDetails&gt;ServiceHistoryDetail&gt;ThruputHistoryDetail</p>
+            <table class="AutoNumber_p_Note3body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 62px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">You can also click Include inherited fields to expose them, right-click the HistoryDetail field, and select Position to CDO Definition to go to ThruputHistoryDetail.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">With <span class="User_Entry">ThruputHistoryDetail</span> selected, click <span class="User_Entry">Add</span> below the selection pane. <span class="Emphasis">The Create a new CDO definition window appears</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>3.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;3.&lt;/b&gt;">Enter <span class="User_Entry">MyThruputHistoryDetail</span> in the <span class="User_Entry">New CDO Name</span> field.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>4.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;4.&lt;/b&gt;">Enter a description appropriate to your business requirements.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>5.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;5.&lt;/b&gt;">Click <span class="User_Entry">Create</span>.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>6.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;6.&lt;/b&gt;">Click <b>Update DB</b>. <i>A dialog box appears asking you to confirm you want to save the current MDB file and update the database according to the settings in the Preferences dialog box.</i></td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>7.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;7.&lt;/b&gt;">Click <b>Yes</b>. <i>A status bar appears at the bottom of the window to indicate the update is in progress. The application saves and updates the database.</i></td>
+                </tr>
+            </table>
+            <p class="Head4-Side">Adding fields to the HistoryDetails CDO</p>
+            <p class="_1body">Add the same fields to this CDO (in this case, <span class="User_Entry">MyThruputField1</span>) that you added to the Service or ServiceDetails CDO. </p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Either add the MyThruputField1 field manually or copy it from MyThruputDetails and paste in to MyThruputHistoryDetail. If you want to copy and paste, use the CDO field shortcut menu and not the Windows keyboard shortcuts.</td>
+                </tr>
+            </table>
+            <p class="_1body">The next step is to map the fields, explained in Viewing Field Maps.</p>
+            <p class="_1body">This completes the exercise of creating a Thruput service subclass and all related CDO configurations.</p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">Siemens provides a wizard to create subclasses of the ChgContainerAttribute service. Refer to “<a href="../05CDOSubclassAutoDefine/Defining_a_ChgContainerAttribute_Subclass.htm" class="MCXref xref" xrefformat="{paratext}" data-mc-unresolved-link="import-link:05cdosubclassautodefine_1683622071_31406">Defining a ChgContainerAttribute Subclass</a>” for specific steps.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;"> Refer to "<a href="../03DesignGettingStarted/Applying_Designer_Changes_and_Maintaining_Designer_Users.htm#Preferences_Dialog_Box_DB_Update_Tab_PDF" class="MCXref xref" xrefformat="{paratext}">Preferences Dialog Box, DB Update Tab</a>" for information on the settings available in the Preferences dialog box. Refer to the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics System Administration Guide </span>or the<span class="Emphasis"> Opcenter Execution Core System Administration Guide</span> for more detailed information on updating the database.</td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

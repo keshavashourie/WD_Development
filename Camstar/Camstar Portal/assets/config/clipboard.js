@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('clipboard',{"momClipboard":{"dep":"js/mom.clipboard"}});

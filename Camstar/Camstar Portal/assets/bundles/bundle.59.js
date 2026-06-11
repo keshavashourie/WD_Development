@@ -1,0 +1,22 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(self["webpackChunkafx_cep"] = self["webpackChunkafx_cep"] || []).push([[59],{
+
+/***/ "./out/site/afx-cep/assets/js/aw-togglebutton.directive.js":
+/*!*****************************************************************!*\
+  !*** ./out/site/afx-cep/assets/js/aw-togglebutton.directive.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app */ \"./out/site/afx-cep/assets/js/adapters/angularjs/appWrapper.js\");\n/* harmony import */ var js_aw_property_label_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! js/aw-property-label.directive */ \"./out/site/afx-cep/assets/js/aw-property-label.directive.js\");\n/* harmony import */ var js_aw_property_toggle_button_val_directive__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! js/aw-property-toggle-button-val.directive */ \"./out/site/afx-cep/assets/js/aw-property-toggle-button-val.directive.js\");\n// Copyright (c) 2020 Siemens\n\n/**\n * Directive to display a toggle button styling.\n *\n * @module js/aw-togglebutton.directive\n */\n\n\n\n\n/**\n * Directive to display a toggle button styling.\n *\n * @example <aw-togglebutton prop=\"data.xxx\"></aw-togglebutton>\n *\n * @member aw-togglebutton\n * @memberof NgElementDirectives\n * @deprecated : 'changeAction' is deprecated we should use action instead.\n */\napp__WEBPACK_IMPORTED_MODULE_0__[\"default\"].directive('awTogglebutton', [function () {\n  return {\n    restrict: 'E',\n    scope: {\n      // 'prop' is defined in the parent (i.e. controller's) scope\n      prop: '=',\n      changeAction: '@?',\n      action: '@?'\n    },\n    templateUrl: app__WEBPACK_IMPORTED_MODULE_0__[\"default\"].getBaseUrlPath() + '/html/aw-togglebutton.directive.html'\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9vdXQvc2l0ZS9hZngtY2VwL2Fzc2V0cy9qcy9hdy10b2dnbGVidXR0b24uZGlyZWN0aXZlLmpzLmpzIiwibWFwcGluZ3MiOiI7Ozs7QUFBQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZXMiOlsid2VicGFjazovL2FmeC1jZXAvLi9vdXQvc2l0ZS9hZngtY2VwL2Fzc2V0cy9qcy9hdy10b2dnbGVidXR0b24uZGlyZWN0aXZlLmpzPzkyYzMiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gQ29weXJpZ2h0IChjKSAyMDIwIFNpZW1lbnNcblxuLyoqXG4gKiBEaXJlY3RpdmUgdG8gZGlzcGxheSBhIHRvZ2dsZSBidXR0b24gc3R5bGluZy5cbiAqXG4gKiBAbW9kdWxlIGpzL2F3LXRvZ2dsZWJ1dHRvbi5kaXJlY3RpdmVcbiAqL1xuaW1wb3J0IGFwcCBmcm9tICdhcHAnO1xuaW1wb3J0ICdqcy9hdy1wcm9wZXJ0eS1sYWJlbC5kaXJlY3RpdmUnO1xuaW1wb3J0ICdqcy9hdy1wcm9wZXJ0eS10b2dnbGUtYnV0dG9uLXZhbC5kaXJlY3RpdmUnO1xuXG4vKipcbiAqIERpcmVjdGl2ZSB0byBkaXNwbGF5IGEgdG9nZ2xlIGJ1dHRvbiBzdHlsaW5nLlxuICpcbiAqIEBleGFtcGxlIDxhdy10b2dnbGVidXR0b24gcHJvcD1cImRhdGEueHh4XCI+PC9hdy10b2dnbGVidXR0b24+XG4gKlxuICogQG1lbWJlciBhdy10b2dnbGVidXR0b25cbiAqIEBtZW1iZXJvZiBOZ0VsZW1lbnREaXJlY3RpdmVzXG4gKiBAZGVwcmVjYXRlZCA6ICdjaGFuZ2VBY3Rpb24nIGlzIGRlcHJlY2F0ZWQgd2Ugc2hvdWxkIHVzZSBhY3Rpb24gaW5zdGVhZC5cbiAqL1xuYXBwLmRpcmVjdGl2ZSggJ2F3VG9nZ2xlYnV0dG9uJywgWyBmdW5jdGlvbigpIHtcbiAgICByZXR1cm4ge1xuICAgICAgICByZXN0cmljdDogJ0UnLFxuICAgICAgICBzY29wZToge1xuICAgICAgICAgICAgLy8gJ3Byb3AnIGlzIGRlZmluZWQgaW4gdGhlIHBhcmVudCAoaS5lLiBjb250cm9sbGVyJ3MpIHNjb3BlXG4gICAgICAgICAgICBwcm9wOiAnPScsXG4gICAgICAgICAgICBjaGFuZ2VBY3Rpb246ICdAPycsXG4gICAgICAgICAgICBhY3Rpb246ICdAPydcbiAgICAgICAgfSxcbiAgICAgICAgdGVtcGxhdGVVcmw6IGFwcC5nZXRCYXNlVXJsUGF0aCgpICsgJy9odG1sL2F3LXRvZ2dsZWJ1dHRvbi5kaXJlY3RpdmUuaHRtbCdcbiAgICB9O1xufSBdICk7XG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./out/site/afx-cep/assets/js/aw-togglebutton.directive.js\n");
+
+/***/ })
+
+}]);

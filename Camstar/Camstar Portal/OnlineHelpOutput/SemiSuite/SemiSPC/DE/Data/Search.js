@@ -1,0 +1,1 @@
+define({r:0.5,st:'Stem',n:1,t:[0],m:[],u:['../Content/AdHoc/AdHoc_Intro.htm'],s:['$','datenbanktreib','kein','speichert'],p:[['$',39],['anmerkungen',41],['bereichsgrenze',22],['dcd',9],['drücken',8],['fehleraktion',24],['hinzufügen',8],['kurze',47],['ob',9],['replace',41],['speichert',10],['unterklasse',17],['wird',12]]});

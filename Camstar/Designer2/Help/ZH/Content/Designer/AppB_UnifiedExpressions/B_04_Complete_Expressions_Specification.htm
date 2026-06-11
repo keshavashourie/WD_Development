@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="统一表达式" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>完整表达式规范</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">完整表达式规范</p>
+            <p class="_1body">简化 BNF 用于表达式规范。每个生产规则替代都显示在单独的行上。非终端符号使用尖括号括起来。终端符号按原样显示，但两端有空格。大括号表示封闭元素的重复（零次或多次）。</p>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Lexical_Grammar"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />词汇语法</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">&lt;input&gt;::=</p>
+                    <p class="_3body">{&lt;input-element&gt;} </p>
+                    <p class="_1body">&lt;input-element&gt;::=</p>
+                    <p class="_3body">&lt;token&gt;</p>
+                    <p class="_3body">&lt;whitespace&gt;</p>
+                    <p class="_3body">&lt;comment&gt;</p>
+                    <p class="_1body">&lt;whitespace&gt;::=</p>
+                    <p class="_3body">&lt;whitespace-character&gt; {&lt;whitespace-character&gt;}</p>
+                    <p class="_3body">&lt;whitespace-character&gt;::=</p>
+                    <p class="_3body">&lt;space&gt;</p>
+                    <p class="_3body">&lt;tab&gt;</p>
+                    <p class="_1body">&lt;comment&gt;::=</p>
+                    <p class="_3body">// {&lt;any-character&gt;}</p>
+                    <p class="_1body">&lt;token&gt;::=</p>
+                    <p class="_3body">&lt;identifier&gt;            </p>
+                    <p class="_3body">&lt;literal&gt;</p>
+                    <p class="_3body">&lt;operator-or-punctuator&gt; </p>
+                    <p class="_3body">&lt;keyword&gt;</p>
+                    <p class="_1body">&lt;identifier&gt;::=         </p>
+                    <p class="_3body">&lt;letter-or-underscore&gt; {&lt;digit-or-letter-or-underscore&gt;}</p>
+                    <p class="_1body">&lt;letter-or-underscore&gt;::=</p>
+                    <p class="_3body">&lt;letter&gt;</p>
+                    <p class="_3body">_</p>
+                    <p class="_1body">&lt;digit-or-letter-or-underscore&gt;::=</p>
+                    <p class="_3body">&lt;digit&gt;</p>
+                    <p class="_3body">&lt;letter&gt;</p>
+                    <p class="_3body">_</p>
+                    <p class="_1body">&lt;digit&gt;::=</p>
+                    <p class="_3body">[0-9]</p>
+                    <p class="_1body">&lt;letter&gt;::=</p>
+                    <p class="_3body">[A-Z]</p>
+                    <p class="_3body">[a-z]</p>
+                    <p class="_1body">&lt;literal&gt;::= </p>
+                    <p class="_3body">&lt;boolean-literal&gt;       </p>
+                    <p class="_3body">&lt;integer-literal&gt;</p>
+                    <p class="_3body">&lt;real-literal&gt;          </p>
+                    <p class="_3body">&lt;string-literal&gt;        </p>
+                    <p class="_3body">&lt;null-literal&gt;          </p>
+                    <p class="_1body">&lt;boolean-literal&gt;::=</p>
+                    <p class="_3body">true</p>
+                    <p class="_3body">false</p>
+                    <p class="_1body">&lt;integer-literal&gt;::=</p>
+                    <p class="_3body">&lt;digit&gt; {&lt;digit&gt;}</p>
+                    <p class="_1body">&lt;real-literal&gt;::=</p>
+                    <p class="_3body">&lt;digit&gt; {&lt;digit&gt;} .{&lt;digit&gt;}</p>
+                    <p class="_3body">{&lt;digit&gt;} .&lt;digit&gt; {&lt;digit&gt;}</p>
+                    <p class="_1body">&lt;string-literal&gt;::=</p>
+                    <p class="_3body">“ {&lt;string-character&gt;} “</p>
+                    <p class="_3body">\ {&lt;any-character&gt;}</p>
+                    <p class="_1body">&lt;string-character&gt;::=</p>
+                    <p class="_3body">&lt;any-character-except-double-quote&gt; </p>
+                    <p class="_3body">&lt;double-quote-escape-sequence&gt;</p>
+                    <p class="_1body">&lt;double-quote-escape-sequence&gt;::=</p>
+                    <p class="_3body">“”</p>
+                    <p class="_1body">&lt;null-literal&gt;::=</p>
+                    <p class="_3body">空值</p>
+                    <p class="_1body">&lt;operator-or-punctuator&gt;::= 任一</p>
+                    <p class="_3body">::</p>
+                    <p class="_3body">.[ ] ( )</p>
+                    <p class="_3body">!</p>
+                    <p class="_3body">+ - * /  </p>
+                    <p class="_3body">&lt;&gt; &lt; &gt; &lt;= &gt;= </p>
+                    <p class="_3body">= == ! =  </p>
+                    <p class="_3body">&amp;&amp; ||</p>
+                    <p class="_3body">? : </p>
+                    <p class="_3body">;</p>
+                    <p class="_1body">&lt;keyword&gt;::=</p>
+                    <p class="_3body">true</p>
+                    <p class="_3body">false</p>
+                    <p class="_3body">与</p>
+                    <p class="_3body">或</p>
+                    <p class="_3body">非</p>
+                    <p class="_3body">空值</p>
+                    <p class="_3body">this_value</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Syntactic_Grammar"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />句法语法</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">表达式 =</p>
+                    <p class="_2body">chain-expression</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">chain-expression =</p>
+                    <p class="_2body">chain-expression-element [“;” chain-expression ] [“;”]</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">chain-expression-element =</p>
+                    <p class="_2body">This_Value</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">multi-value-param-expression</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">multi-value-param-expression =</p>
+                    <p class="_2body">simple-expression-or-list-initializer { ",“ simple-expression-or-list-initializer }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">simple-expression-or-list-initializer =</p>
+                    <p class="_2body">list-initializer</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">simple-expression</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">list-initializer =</p>
+                    <p class="_2body">“{“ simple-expression { ",“ simple-expression } “}”</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">simple-expression =</p>
+                    <p class="_2body">conditional-or-expression “?”</p>
+                    <p class="_2body">simple-expression-or-list-initializer “:” simple-expression-or-list-initializer</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">LabelId</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">标签</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">conditional_or_expression =</p>
+                    <p class="_2body">conditional-and-expression { (“||” | “Or”) conditional-or-expression }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">conditional-and-expression =</p>
+                    <p class="_2body">equality-expression { (“&amp;&amp;” | “And”) conditional-and-expression }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">equality-expression =</p>
+                    <p class="_2body">relational-expression { (“==” | “=” | “! =”) relational-expression }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">relational-expression =</p>
+                    <p class="_2body">additive-expression { (“&lt;“ | “&gt;” | “&lt;=” | “&gt;=”) &lt;additive-expression&gt; }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">additive-expression =</p>
+                    <p class="_2body">multiplicative-expression { (“+” | “-”) multiplicative-expression }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">multiplicative-expression =</p>
+                    <p class="_2body">unary-expression { (“*” | “/”) unary-expression }</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">unary-expression =</p>
+                    <p class="_2body">(“+” | “-” | “!”)unary-expression</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">primary-expression</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">primary-expression =</p>
+                    <p class="_2body">literal</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">parenthesized-expression</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">variable-expression</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">invocation-expression</p>
+                    <p class="_3body">;</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">input-parameter</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">user-constant</p>
+                    <p class="_2body" style="margin-top: 3pt;">;</p>
+                    <p class="Body" style="margin-left: 0pc;margin-top: 0pt;text-indent: 0px;">&#160;</p>
+                    <p class="_2body">input-parameter =</p>
+                    <p class="_2body">	"?"identifier</p>
+                    <p class="_2body">	;</p>
+                    <p class="_2body">&#160;</p>
+                    <p class="_2body">user-constant :</p>
+                    <p class="_2body">	"Constant::" identifier</p>
+                    <p class="_2body">	; </p>
+                    <p class="_1body">parenthesized-expression =</p>
+                    <p class="_2body">“(“simple-expression “)”</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">variable-expression =</p>
+                    <p class="_2body">field-expression</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">variable [ "."field-expression ]</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">"::" “SessionValues” [ "."field-expression ]</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">field-expression =</p>
+                    <p class="_2body">identifier [ "[“ simple-expression “]” ] [“.”field-expression ]</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">variable =</p>
+                    <p class="_2body">(“Transaction” | “CLF”) “::” identifier</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">LabelId =</p>
+                    <p class="_2body">“LabelId” “::” identifier</p>
+                    <p class="_2body">;</p>
+                    <p class="_2body">Label =</p>
+                    <p class="_2body">“Label” “::” identifier</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">invocation-expression =</p>
+                    <p class="_2body">execution-name “(" [ parameter-expression {“,” parameter-expression } ] ")"</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">execution-name =</p>
+                    <p class="_2body">identifier</p>
+                    <p class="_2body">;</p>
+                    <p class="_1body">parameter-expression =</p>
+                    <p class="_2body">“(“ simple-expression-or-list-initializer { ",“ simple-expression-or-list-initializer }- “)”</p>
+                    <p class="_2body">|</p>
+                    <p class="_2body">simple-expression-or-list-initializer</p>
+                    <p class="_2body">;</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="Keywords"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />关键字</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">true</p>
+                    <p class="_1body">false</p>
+                    <p class="_1body">与</p>
+                    <p class="_1body">或</p>
+                    <p class="_1body">非</p>
+                    <p class="_1body">空值</p>
+                    <p class="_1body">this_value</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Primary.Online"><a name="BNF_Notation"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />BNF 表示法</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">Opcenter EX MDD 和 Opcenter EX CR 使用扩展 BNF 表示法以及简化 BNF 表示法。这些表汇总了该表示法。</p>
+                    <p class="Head4-Side">扩展 BNF</p>
+                    <p class="_1bodyKeepWithNext">此表定义扩展 BNF 表示法：</p>
+                    <table class="TableStyle-Horiz-rules_Table" style="width: 95%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');caption-side: top;" cellspacing="0">
+                        <col width="126px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">扩展 BNF </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">意义</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">未加引号的词</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">非终端符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">' ...'</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">终端符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">"..."</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">终端符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">( ... )</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">括号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">[... ]</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">可选符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">{ ... }</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">重复零次或多次的符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">{ ... }-</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">重复一次或多次的符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">&#160;</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">定义符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">;</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">规则终止符</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">|</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">替代</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">,</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">连接</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">-</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">除外</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">*</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">出现次数</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">(*... *)</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">备注</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                                    <p class="CellBody">?... ?</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                                    <p class="CellBody">特殊序列</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="Head4-Side">缩减的 BNF</p>
+                    <p class="_1bodyKeepWithNext">此表定义缩减 BNF 表示法：</p>
+                    <table class="TableStyle-Horiz-rules_Table" style="caption-side: top;width: 95%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');" cellspacing="0">
+                        <col width="127px" class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                        <thead>
+                            <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                                <td class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                                    <p class="CellHead-Left">缩减的 BNF </p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                                    <p class="CellHead-Left">意义</p>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">::=</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">定义为</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">literal</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">终端符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">&lt;&gt;</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">非终端符号</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                                    <p class="CellBody">{}</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                                    <p class="CellBody">可选</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                                <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                                    <p class="CellBody">[]</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                                    <p class="CellBody">正则表达式，表示以字母或基于 ASCII 的一类字符；一个范围</p>
+                                </td>
+                            </tr>
+                            <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                                <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                                    <p class="CellBody">换行符</p>
+                                </td>
+                                <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                                    <p class="CellBody">或</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

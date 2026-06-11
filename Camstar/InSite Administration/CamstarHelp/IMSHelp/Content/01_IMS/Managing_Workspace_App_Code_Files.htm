@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-US" xml:lang="en-US" data-mc-search-type="Stem" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Managing Workspace App Code Files</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Managing Workspace App Code Files</p>
+            <p class="_1body">Siemens provides a MergeAppCode executable to merge app code files across your active workspaces. </p>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Managing_Workspace_App_Code_Files"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Managing Workspace App&#160;Code Files</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">The MergeAppCode executable (MergeAppCode.exe) works through each workspace subfolder and changes the inheritance on each app code file to inherit from the workspace above it. For example, if the csi, 180, and 190 workspaces are all active, then the MoveStd_190 inheritance would change from ":MoveStd" to ":MoveStd_180." The executable is available at the file path C:\Program Files (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode.</p>
+                    <p class="_1body">A configuration file (MergeAppCode.exe.config) for modifying the executable is available at the file path C:\Program Files (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode. You can modify the WebPortletPath key with the relative or absolute path to the WebPortlet folder.</p>
+                    <table class="AutoNumber_p_Important1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 81px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Important4body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">Important:</span></span></b></span>
+                            </td>
+                            <td class="AutoNumber_p_Important4body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;Important:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">Do not alter the mdbConnectionString key in the MergeAppCode.config file.</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">You must add workspace subfolders at the file path C:\Program Files (x86)\Camstar\Camstar Portal\App_Code\WebPortlets\Workspaces to store your app code files for merging. Workspace subfolders must  be named the code of the associated workspace. For example, the subfolder associated with workspace 200 must be named "200."</p>
+                    <p class="_1body">You must append all custom controls, functions, and property names with the associated workspace code. For example, a control named "ControlName" in workspace 200 must be named "ControlName_200" to allow the executable to determine the associated workspace and inheritance. All files must be stored in their associated workspace subfolder.</p>
+                    <p class="_1body">An error message appears if no active workspaces are available, excluding the base csi workspace, or if the WebPortletPath cannot be found. Errors are logged in the Event Viewer.</p>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Merge_App_Code_Files"></a>How to Merge App&#160;Code Files</p>
+            <p class="_1bodyKeepWithNext">Follow these steps to merge app code files:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Navigate to the file path C:\Program Files (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Double-click <span class="User_Entry">MergeAppCode.exe</span>. <span class="Emphasis">A Command Prompt pop-up appears as the executable merges the app code files and displays a success message when finished.</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

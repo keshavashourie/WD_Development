@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="PortalSFUG.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>AQL Sampling</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2NoBreak" data-mc-conditions="Default.ScreenOnly">AQL Sampling<a name="kanchor266"></a></p>
+            <p class="_1bodyKeepWithNext">在制造过程中，采样检验<a name="kanchor267"></a> 是通过对容器和容器组（也称为批次）进行建模并执行采样计划来估计生产质量的统计学方法。这种方法通常测试批次的一部分，而非整个批次。可接受质量标准 (AQL) 采样计划定义了所需的样本数量（采样率）和相关的验收与拒绝标准。如果容器不需要队列，则在“启动”或“移动”事务过程中确定容器的采样要求。如果容器需要队列，则在“移入”事务过程中确定采样要求。 </p>
+            <p class="_1body"> 单独许可的 AQL Sampling 模块提供两种类型的采样：容器采样和批次采样。使用容器采样，可以对照采样要求评估单个的容器。使用批次采样，可以对照采样要求，将一组容器作为一个单位进行评估。</p>
+            <p class="_1body">使用容器采样时，AQL Sampling 模块需先验证是否已完成所有必需的采样，然后才会允许容器移至下一工步。AQL Sampling 将根据样本的检验数据确定是接受还是拒绝容器。如果拒绝数超过了可接受的拒绝限制，则容器采样失败。失败的容器将被标记为采样失败，而且在“样本测试”对象上进行替代前不能移至下一工步。可以随时间推移逐步完成采样数据收集，以避免需要一次输入所有样本结果，并允许分批完成采样的情况。如果在“采样计划”建模页中选择了“完成时移动容器”选项，容器将在数据采样完成后自动移出到下一工步。</p>
+            <p class="_1bodyKeepWithNext">批次采样过程从创建采样批次开始。要将多个容器组合成一个批次，可以在启动容器时将它指派给采样批次，或者使用“容器维护”页将它们添加到现有批次中。应用程序使用采样批次的数量来确定采样所需的样本数以及可接受的拒绝数量。如果数量大于原始批次数量，则采样要求可以根据指派给容器的批次数量进行调整。在为采样计划中每一采样测试收集批次内每个容器的采样数据时，应用程序积累批次的数据。然后，应用程序将使用此数据来验证批次是否通过检验。如果选中了规范上的“验证批次采样”复选框，则必须在完成容器的所有必需采样后才能移至下一工步。即使选择了“完成时移动容器”选项，也是如此。</p>
+            <p class="_1bodyKeepWithNext" style="color: #000000;" data-mc-conditions="Default.ScreenOnly">以下主题提供有关使用 AQL Sampling 的信息：</p>
+            <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a href="CollectSampleData.htm#top" class="MCXref xref" xrefformat="{paratext}">收集采样数据</a>
+                    </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a href="Sampling_Current_Status.htm#Current_Sampling_Status_Update" class="MCXref xref" xrefformat="{paratext}">当前采样状态更新</a>
+                    </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a href="Create_Sampling_Lot.htm" class="MCXref xref" xrefformat="{paratext}">创建采样批次</a>
+                    </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a href="Update_Sampling_Lot.htm" class="MCXref xref" xrefformat="{paratext}">更新采样批次</a>
+                    </td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="color: #000000; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a href="Collect_Lot_Sampling_Data.htm#Collect_Lot_Sampling_Data" class="MCXref xref" xrefformat="{paratext}">收集批次采样数据</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

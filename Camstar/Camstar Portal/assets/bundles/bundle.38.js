@@ -1,0 +1,22 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(self["webpackChunkafx_cep"] = self["webpackChunkafx_cep"] || []).push([[38],{
+
+/***/ "./out/site/afx-cep/assets/js/aw-enter-key.directive.js":
+/*!**************************************************************!*\
+  !*** ./out/site/afx-cep/assets/js/aw-enter-key.directive.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! app */ \"./out/site/afx-cep/assets/js/adapters/angularjs/appWrapper.js\");\n/* harmony import */ var js_viewModelService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! js/viewModelService */ \"./out/site/afx-cep/assets/js/viewModelService.js\");\n// Copyright (c) 2020 Siemens\n\n/**\n * Directive to perform action on enter\n *\n * @module js/aw-enter-key.directive\n */\n\n\n\n// eslint-disable-next-line valid-jsdoc\n/**\n * Directive to perform action on enter key\n *\n * @example aw-enter-key=\"<Name of action>\"\n *\n * @member aw-enter-key\n * @memberof NgAttributeDirectives\n */\napp__WEBPACK_IMPORTED_MODULE_0__[\"default\"].directive('awEnterKey', ['viewModelService', function (viewModelSvc) {\n  return function ($scope, $element, attrs) {\n    $element.bind('keydown keypress', function (event) {\n      if (event.which === 13) {\n        $scope.$evalAsync(function () {\n          var declViewModel = viewModelSvc.getViewModel($scope, true);\n          viewModelSvc.executeCommand(declViewModel, attrs.awEnterKey, $scope);\n        });\n        event.preventDefault();\n      }\n    });\n  };\n}]);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9vdXQvc2l0ZS9hZngtY2VwL2Fzc2V0cy9qcy9hdy1lbnRlci1rZXkuZGlyZWN0aXZlLmpzLmpzIiwibWFwcGluZ3MiOiI7OztBQUFBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBR0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUVBO0FBQ0E7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vYWZ4LWNlcC8uL291dC9zaXRlL2FmeC1jZXAvYXNzZXRzL2pzL2F3LWVudGVyLWtleS5kaXJlY3RpdmUuanM/OTU2NCJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBDb3B5cmlnaHQgKGMpIDIwMjAgU2llbWVuc1xuXG4vKipcbiAqIERpcmVjdGl2ZSB0byBwZXJmb3JtIGFjdGlvbiBvbiBlbnRlclxuICpcbiAqIEBtb2R1bGUganMvYXctZW50ZXIta2V5LmRpcmVjdGl2ZVxuICovXG5pbXBvcnQgYXBwIGZyb20gJ2FwcCc7XG5pbXBvcnQgJ2pzL3ZpZXdNb2RlbFNlcnZpY2UnO1xuXG4vLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgdmFsaWQtanNkb2Ncbi8qKlxuICogRGlyZWN0aXZlIHRvIHBlcmZvcm0gYWN0aW9uIG9uIGVudGVyIGtleVxuICpcbiAqIEBleGFtcGxlIGF3LWVudGVyLWtleT1cIjxOYW1lIG9mIGFjdGlvbj5cIlxuICpcbiAqIEBtZW1iZXIgYXctZW50ZXIta2V5XG4gKiBAbWVtYmVyb2YgTmdBdHRyaWJ1dGVEaXJlY3RpdmVzXG4gKi9cbmFwcC5kaXJlY3RpdmUoICdhd0VudGVyS2V5JywgW1xuICAgICd2aWV3TW9kZWxTZXJ2aWNlJyxcbiAgICBmdW5jdGlvbiggdmlld01vZGVsU3ZjICkge1xuICAgICAgICByZXR1cm4gZnVuY3Rpb24oICRzY29wZSwgJGVsZW1lbnQsIGF0dHJzICkge1xuICAgICAgICAgICAgJGVsZW1lbnQuYmluZCggJ2tleWRvd24ga2V5cHJlc3MnLCBmdW5jdGlvbiggZXZlbnQgKSB7XG4gICAgICAgICAgICAgICAgaWYoIGV2ZW50LndoaWNoID09PSAxMyApIHtcbiAgICAgICAgICAgICAgICAgICAgJHNjb3BlLiRldmFsQXN5bmMoIGZ1bmN0aW9uKCkge1xuICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGRlY2xWaWV3TW9kZWwgPSB2aWV3TW9kZWxTdmMuZ2V0Vmlld01vZGVsKCAkc2NvcGUsIHRydWUgKTtcblxuICAgICAgICAgICAgICAgICAgICAgICAgdmlld01vZGVsU3ZjLmV4ZWN1dGVDb21tYW5kKCBkZWNsVmlld01vZGVsLCBhdHRycy5hd0VudGVyS2V5LCAkc2NvcGUgKTtcbiAgICAgICAgICAgICAgICAgICAgfSApO1xuXG4gICAgICAgICAgICAgICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgfSApO1xuICAgICAgICB9O1xuICAgIH1cbl0gKTtcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./out/site/afx-cep/assets/js/aw-enter-key.directive.js\n");
+
+/***/ })
+
+}]);

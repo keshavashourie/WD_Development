@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="Execution" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Execution Architecture</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top"></a>SPC&#160;Execution Architecture<a name="kanchor13"></a></p>
+            <p class="_1bodyKeepWithNext" style="color: #000000;"><a name="kanchor14"></a>This topic explains how the SPC execution architecture work.  Inline SPC is using an in-house SPC common component which incorporates two engines; SPC Calculation Engine
+and SPC Display Engine. These common components allow transactions to provide various calculation and visualization functions for a better shop floor experience. </p>
+            <p class="_1bodyKeepWithNext">SPC processing can be triggered from a shop floor event, for example, an operator entering data into a WIP Data Setup. Transaction data is committed to the database before the call to SPC.</p>
+            <p class="Head3-Side"><a name="kanchor15"></a>Example Use Case </p>
+            <p class="_1body">A manufacturer wants to monitor wafer thickness during the production process.  If a wafer measurement falls outside of the established range, they want to place the lot or lots on hold before slicing the wafer into die.  Additionally, they need to know if measurements are trending towards the upper or lower range limits so that they can investigate the equipment to determine whether repairs may be needed.</p>
+            <p class="_1body">The Opcenter Execution Semiconductor administrator defines a WIP Data Setup to capture thickness measurements and an SPC&#160;Setup with failure actions to execute when measurements are out of range. The administrator associates the SPC&#160;Setup with the WIP&#160;Data Setup.</p>
+            <p class="_1body"> During shop floor Track Out, the WIP&#160;Data Setup requirement prompts the operator for the required measurement. The operator enters the measurement and the application begins the SPC request configured in the associated SPC&#160;Setup. </p>
+            <p class="_1body">Opcenter Execution Semiconductor creates and temporarily saves the pre-SPC execution data, commits the shop floor transaction data to the database, and executes a procedure named Trigger_SPC passing in the saved SPC data. The Trigger_SPC procedure then executes the Execute SPC Transaction.</p>
+            <p class="_1body">For each record in SPC Txn Data List, the Execute SPC transaction calls a custom procedure also called Execute SPC which in turn calls the appropriate SPC engine based on the SPC Setup configuration.</p>
+            <p class="_1body">The desired SPC engine identifies the thickness measurement to be out of limits and returns the results to Opcenter Execution Semiconductor. The Execute SPC transaction commits all the Post-SPC Execution Data,  places the lot on hold, and displays the SPC results including chart or charts to the user.</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

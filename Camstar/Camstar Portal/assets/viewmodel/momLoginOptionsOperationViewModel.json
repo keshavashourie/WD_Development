@@ -1,0 +1,111 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-include.directive",
+        "js/aw-icon.directive",
+        "js/aw-link.directive",
+        "js/aw-button.directive",
+        "js/aw-widget.directive",
+        "js/aw-password.directive",
+        "js/aw-textbox.directive",
+        "js/aw-label.directive",
+        "js/aw-enter-key.directive",
+        "js/aw-command-panel.directive",
+        "js/visible-when.directive",
+        "js/enable-when.directive",
+        "js/aw-repeat.directive",
+        "js/aw-panel-body.directive",
+        "js/aw-command-panel-section.directive",
+        "js/aw-panel-footer.directive"
+    ],
+    "data": {},
+    "actions": {
+        "storeDataLocally": {
+            "actionType": "MomCompositeAction",
+            "inputData": {
+                "cfg": {
+                    "vm": "{{data}}",
+                    "action": "storeLoginDataLocally",
+                    "success": {
+                        "action": "cloneObjectProperty"
+                    }
+                }
+            }
+        },
+        "storeLoginDataLocally": {
+            "actionType": "MomGetInputData",
+            "inputData": {
+                "input": {
+                    "loginData": "{{ctx.momLoginComponentData}}"
+                }
+            },
+            "outputData": {
+                "loginData": "loginData"
+            }
+        },
+        "cloneObjectProperty": {
+            "actionType": "JSFunction",
+            "method": "_cloneObjectProperty",
+            "inputData": {
+                "object": "{{data.loginData}}",
+                "property": "options"
+            },
+            "outputData": {
+                "loginData.options": "options"
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "requestSaveLoginOptions": {
+            "actionType": "MomCompositeAction",
+            "inputData": {
+                "cfg": {
+                    "vm": "{{data}}",
+                    "action": "updateOptions",
+                    "success": {
+                        "action": "fireRequestSaveLoginOptions"
+                    }
+                }
+            }
+        },
+        "updateOptions": {
+            "actionType": "JSFunction",
+            "method": "_updateOptions",
+            "inputData": {
+                "data": "{{data.loginData}}"
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "fireRequestSaveLoginOptions": {
+            "actionType": "Event",
+            "method": "Event",
+            "inputData": {
+                "events": [ {
+                    "name": "mom.login.onSaveLoginOptionsRequested",
+                    "eventData": {
+                        "data": "{{data.loginData}}"
+                    },
+                    "excludeLocalDataCtx": true
+                } ]
+            }
+        },
+        "cancelLoginOptions": {
+            "actionType": "Event",
+            "method": "Event",
+            "inputData": {
+                "events": [ {
+                    "name": "mom.login.onLoginOptionsCanceled",
+                    "eventData": {
+                        "data": "{{subPanelContext}}"
+                    },
+                    "excludeLocalDataCtx": true
+                } ]
+            }
+        }
+    },
+    "onEvent": [ {
+        "eventId": "momLoginOptionsOperation.contentLoaded",
+        "action": "storeDataLocally"
+    } ],
+    "conditions": {},
+    "i18n": {}
+}

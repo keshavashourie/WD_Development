@@ -1,0 +1,61 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+    ],
+    "data": {
+    },
+    "actions": {
+        "getLineAssignment": {
+            "actionType": "JSFunction",
+            "method": "getLineAssignment",
+            "inputData": {},
+            "outputData": {
+                "workcenter": "workcenter",
+                "operation": "operation",
+                "spec":  "spec",
+                "resource": "resource",
+                "workstation": "workstation",
+                "namespace": "namespace",
+                "pod": "pod"
+            },
+            "deps": "js/cepPortalService"
+        },
+        "updateLineAssignment": {
+            "actionType": "JSFunction",
+            "method": "updateLineAssignment",
+            "inputData": {
+                "lineAssignment": "{{data.eventData}}"                
+            },
+            "outputData": {
+                "workcenter": "workcenter",
+                "operation": "operation",
+                "spec":  "spec",
+                "resource": "resource",
+                "workstation": "workstation",
+                "namespace": "namespace",
+                "pod": "pod"
+            },
+            "deps": "js/cepPortalService"
+        }
+    },
+    "dataProviders": {},    
+    "messages": {},
+    "i18n": {
+        "resourceLbl": ["portalMessages"],
+        "workCenterLbl": ["portalMessages"],
+        "operationLbl": [ "portalMessages"],
+        "specLbl": ["portalMessages"],
+        "workstationLbl": ["portalMessages"],
+        "namespaceLbl": ["portalMessages"],
+        "podLbl": ["portalMessages"]
+    },
+    "onEvent": [{ 
+            "eventId": "lineAssignment.contentLoaded",
+            "action": "getLineAssignment"
+        },
+        {
+            "eventId": "cep.line.assignment.update",
+            "action": "updateLineAssignment",
+            "cacheEventData": true
+        }]
+}

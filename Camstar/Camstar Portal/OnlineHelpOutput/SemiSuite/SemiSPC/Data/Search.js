@@ -1,0 +1,1 @@
+define({r:0.5,st:'Stem',n:1,t:[0],m:[],u:['../Content/AdHoc/AdHoc_Intro.htm'],s:['$','gpie','spline'],p:[['$',39],['application',18],['click',29],['disabled',18],['for',20],['is',9],['null',40],['point',19],['search',27],['stats',10],['this',41],['wdn',32]]});

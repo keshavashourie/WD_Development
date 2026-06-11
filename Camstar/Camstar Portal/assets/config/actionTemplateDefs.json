@@ -1,0 +1,284 @@
+{
+  "actionTemplateDefs": {
+    "GraphQL": {
+      "actionType": "JSFunctionAsync",
+      "method": "callGraphQL",
+      "inputData": {
+        "input": "{{inputData}}",
+        "endPoint": "{{inputData.endPoint}}"
+      },
+      "deps": "js/graphQLService"
+    },
+    "Command": {
+      "actionType": "JSFunction",
+      "method": "executeCommandIfVisibleAndEnabled",
+      "inputData": {
+        "commandId": "{{inputData.commandId}}",
+        "commandContext": "{{inputData.commandContext}}"
+      },
+      "deps": "js/command.service"
+    },
+    "activateCommandPanel": {
+      "actionType": "JSFunction",
+      "method": "activateCommandPanel",
+      "deps": "js/commandPanel.service",
+      "inputData": {
+        "commandId": "{{inputData.commandId}}",
+        "location": "{{inputData.location}}",
+        "context": "{{inputData.context}}",
+        "push": "{{inputData.push}}",
+        "closeWhenCommandHidden": "{{inputData.closeWhenCommandHidden}}",
+        "config": "{{inputData.config}}"
+      }
+    },
+    "showInfoMessage": {
+      "actionType": "JSFunction",
+      "method": "showInfo",
+      "inputData": {
+        "message": "{{inputData.message}}",
+        "params": "{{inputData.params}}"
+      },
+      "deps": "js/NotyModule"
+    },
+    "showWarningMessage": {
+      "actionType": "JSFunction",
+      "method": "showWarning",
+      "inputData": {
+        "message": "{{inputData.message}}",
+        "params": "{{inputData.params}}"
+      },
+      "deps": "js/NotyModule"
+    },
+    "showErrorMessage": {
+      "actionType": "JSFunction",
+      "method": "showError",
+      "inputData": {
+        "message": "{{inputData.message}}",
+        "params": "{{inputData.params}}"
+      },
+      "deps": "js/NotyModule"
+    },
+    "modifyCtx": {
+      "actionType": "JSFunction",
+      "method": "modifyCtx",
+      "deps": "js/modifyCtxService",
+      "inputData": {
+        "methodType": "{{inputData.methodType}}",
+        "name": "{{inputData.name}}",
+        "value": "{{inputData.value}}",
+        "path": "{{inputData.path}}"
+      }
+    },
+    "updateFormData": {
+      "actionType": "JSFunction",
+      "method": "updateFormData",
+      "deps": "js/declUtils",
+      "inputData": {
+        "fileData": "{{inputData.fileData}}",
+        "data": "{{inputData.data}}"
+      }
+    },
+    "openFile": {
+      "actionType": "JSFunction",
+      "method": "openFile",
+      "deps": "js/fmsUtils",
+      "inputData": {
+        "fileTicket": "{{inputData.fileTicket}}",
+        "openFileName": "{{inputData.openFileName}}"
+      }
+    },
+    "openGlobalNavigationPanelCustomAction": {
+      "actionType": "JSFunction",
+      "method": "registerCtx",
+      "inputData": {
+        "key": "globalNavigationToolbar",
+        "value": {
+          "showPanel": "{{!(ctx.globalNavigationToolbar.showPanel=='true' && ctx.globalNavigationToolbar.viewName == inputData.viewName)}}",
+          "viewName": "{{inputData.viewName}}"
+        }
+      },
+      "deps": "js/appCtxService"
+    },
+    "MomActivatePrimaryNavigationPanel": {
+      "actionType": "JSFunction",
+      "method": "activatePrimaryNavigationPanel",
+      "inputData": {
+        "cfg": "{{inputData.cfg}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomStartTableEditing": {
+      "actionType": "JSFunction",
+      "method": "startTableEditing",
+      "inputData": {
+        "data": "{{inputData.data}}",
+        "uid": "{{inputData.uid}}",
+        "props": "{{inputData.props}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomStartEditing": {
+      "actionType": "JSFunction",
+      "method": "startEditing",
+      "inputData": {
+        "object": "{{inputData.object}}",
+        "editMap": "{{inputData.editMap}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomCancelEditing": {
+      "actionType": "JSFunction",
+      "method": "cancelEditing",
+      "inputData": {
+        "object": "{{inputData.object}}",
+        "editMap": "{{inputData.editMap}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpRequest": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpRequest",
+      "inputData": {
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpGet": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpGet",
+      "inputData": {
+        "url": "{{inputData.url}}",
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpHead": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpHead",
+      "inputData": {
+        "url": "{{inputData.url}}",
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpDelete": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpDelete",
+      "inputData": {
+        "url": "{{inputData.url}}",
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpPost": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpPost",
+      "inputData": {
+        "url": "{{inputData.url}}",
+        "data": "{{inputData.data}}",
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpPut": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpPut",
+      "inputData": {
+        "url": "{{inputData.url}}",
+        "data": "{{inputData.data}}",
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomHttpPatch": {
+      "actionType": "JSFunctionAsync",
+      "method": "httpPatch",
+      "inputData": {
+        "url": "{{inputData.url}}",
+        "data": "{{inputData.data}}",
+        "config": "{{inputData.config}}",
+        "options": "{{inputData.options}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomGetInputData": {
+      "actionType": "JSFunctionAsync",
+      "method": "getInputData",
+      "inputData": {
+        "input": "{{inputData.input}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomUpdateDataProvider": {
+      "actionType": "JSFunction",
+      "method": "updateDataProvider",
+      "inputData": {
+        "dataProvider": "{{inputData.dataProvider}}",
+        "collection": "{{inputData.collection}}",
+        "total": "{{inputData.total}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomGetCfg": {
+      "actionType": "JSFunctionAsync",
+      "method": "getCfg",
+      "inputData": {
+        "file": "{{inputData.file}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "MomCompositeAction": {
+      "actionType": "JSFunctionAsync",
+      "method": "compositeAction",
+      "inputData": {
+        "cfg": "{{inputData.cfg}}"
+      },
+      "deps": "js/mom.utils.service"
+    },
+    "createViewModelObject": {
+      "actionType": "JSFunction",
+      "method": "createViewModelObject",
+      "deps": "js/viewModelObjectService",
+      "inputData": {
+        "source": "{{inputData.source}}",
+        "operationName": "{{inputData.operationName}}",
+        "owningObjUid": "{{inputData.owningObjUid}}",
+        "serverVMO": "{{inputData.serverVMO}}"
+      }
+    },
+    "arrangeTableColumns": {
+      "actionType": "JSFunctionAsync",
+      "method": "arrangeColumns",
+      "deps": "js/columnArrangeService",
+      "inputData": {
+        "declViewModel": "{{inputData.declViewModel}}",
+        "eventData": "{{inputData.eventData}}"
+      }
+    },
+    "updateFilterCategories": {
+      "actionType": "JSFunction",
+      "method": "updateCategoryResults",
+      "deps": "js/filterPanelService",
+      "inputData": {
+        "category": "{{inputData.category}}",
+        "skipClientFiltering": "{{inputData.skipClientFiltering}}"
+      }
+    },
+    "setSelection": {
+      "actionType": "JSFunction",
+      "method": "setSelection",
+      "deps": "js/selectionModelFactory",
+      "inputData": {
+        "selectionModel": "{{inputData.selectionModel}}",
+        "newSelection": "{{inputData.newSelection}}"
+      }
+    }
+  }
+}

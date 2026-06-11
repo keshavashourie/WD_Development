@@ -1,0 +1,46 @@
+/****** Object:  UserDefinedFunction [csiGetResourcesList]    Script Date: 01/06/2012 13:50:59 ******/
+/****** © 2017 Siemens Product Lifecycle Management Software Inc. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:	<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+
+CREATE FUNCTION [csiGetResourcesList] (@resgroup nvarchar(20))
+RETURNS @retEQList TABLE (EquipmentName nvarchar(20))
+AS
+
+BEGIN
+	DECLARE @curEQ CURSOR
+	DECLARE @EQid nvarchar(20)
+	
+	INSERT INTO @retEQList
+		SELECT RD.ResourceName
+		FROM ResourceGroup RG
+			LEFT OUTER JOIN  ResourceGroupEntries RGE ON RG.ResourceGroupId = RGE.ResourceGroupId
+			LEFT OUTER JOIN  ResourceDef RD ON RGE.EntriesId = RD.ResourceId
+		WHERE (RG.ResourceGroupId = @resgroup)
+		
+	SET @curEQ = CURSOR FOR
+		SELECT
+			RGG.GroupsId
+		FROM
+			ResourceGroup RG
+			INNER JOIN ResourceGroupGroups RGG ON RG.ResourceGroupId = RGG.ResourceGroupId
+		WHERE
+			(RG.ResourceGroupId = @resgroup)
+	OPEN @curEQ
+	FETCH NEXT FROM @curEQ INTO @EQid
+	
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		INSERT INTO @retEQList
+		SELECT * FROM [csiGetResourcesList] (@EQid)
+		FETCH NEXT FROM @curEQ INTO @EQid
+	END
+	RETURN
+END

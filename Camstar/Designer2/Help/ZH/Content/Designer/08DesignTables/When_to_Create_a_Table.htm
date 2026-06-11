@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="表" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>何时创建表</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">何时创建表</p>
+            <p class="_1body">如果要为已具有特定表的 CDO 创建子类（例如，准备创建一个 Product 子类，而 Product CDO 已具有 Product 和 ProductBase 表），则通常不会创建新表。这种情况下，创建新表会对报告造成影响（除非没有任何报告使用这些表）。</p>
+            <p class="_1body">如果将子类放在新表中，则必须始终专门引用它。例如，可以创建 MyEmployee 子类和表。然后，必须为使用的每个车间事务创建新子类，并且此子类必须将其员工字段重定向（替代）到 MyEmployee 子类。这并不可行。</p>
+            <p class="_1body">仅当始终专门引用某子类时，才可将该子类放在不同的表（而不是它的超类）中。对象组很好地说明了什么情况下可以这么做。通常，如果要创建对象组的新子类，则需要专门引用它。例如，可能创建了一个 CustomerGroup 对象组，希望将它放在特定的表中，而不保留在 NamedObjectGroup 表中，因为通常始终会专门引用 CustomerGroup（例如，在产品系列中的特定“客户”字段中）。 </p>
+            <p class="_1body">如果要为没有特定表的 CDO 创建子类（例如，创建 NamedDataObject、RevisionedObject、UserCode 或 Subentity 的子类），则必须创建新表。否则，将没有数据库表用来存储该新子类的实例数据。</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

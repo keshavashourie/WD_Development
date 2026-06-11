@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="siemens.DependencyGraph.DependencyGraph" pluginWidget="true" needsEntityContext="true" offlineCapable="true"
+        supportedPlatform="Web"
+        xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd">
+    <name>OPC EX FN Graph</name>
+    <description>Renders a graph with nodes and edges visualizing the dependencies and relation of the nodes</description>
+    <studioProCategory>Opcenter EX FN</studioProCategory>
+    <studioCategory>Opcenter EX FN</studioCategory>
+    <icon/>
+    <properties>
+        <propertyGroup caption="Graph">
+            <propertyGroup caption="General">
+                <property key="graphParentNodeAttr" type="attribute" required="false">
+                    <caption>Parent node ID *</caption>
+                    <description>If a graph of nested nodes needs to be rendered a parent node id should be supplied. This can then be used in the edges and nodes datasources to retrieve the correct data. The widget will also change this attribute on double-clicking a node</description>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                    </attributeTypes>
+                </property>
+                <property key="zoomToNodeAttr" type="attribute" required="false">
+                    <caption>Zoom to node</caption>
+                    <description>When a change to this attribute is detected the widget will zoom to the node ID supplied in the attribute. After this the attribute will be cleared.</description>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                    </attributeTypes>
+                </property>
+                <property key="zoomNodePadNr" type="expression" required="false">
+                    <caption>Zoom nodes</caption>
+                    <description>Default: 2. Defines how many nodes around the target node (the node to zoom in on) should be visible on both the left and right side.</description>
+                    <returnType type="Integer"/>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Overrides / advanced">
+                <property key="graphMinHeight" type="expression" required="false">
+                    <caption>Graph min height</caption>
+                    <description>Default: 500px, minimal height of the graph.</description>
+                    <returnType type="Integer"/>
+                </property>
+                <property key="nodeWidthExp" type="expression" required="false">
+                    <caption>Node width</caption>
+                    <description>Default: 250px</description>
+                    <returnType type="Integer"/>
+                </property>
+                <property key="nodeHeightExp" type="expression" required="false">
+                    <caption>Node height</caption>
+                    <description>Default: 75px</description>
+                    <returnType type="Integer"/>
+                </property>
+                <property key="nodeSpacingXExp" type="expression" required="false">
+                    <caption>Node spacing x</caption>
+                    <description>Default: 100px</description>
+                    <returnType type="Integer"/>
+                </property>
+                <property key="nodeSpacingYExp" type="expression" required="false">
+                    <caption>Node spacing y</caption>
+                    <description>Default: 20px</description>
+                    <returnType type="Integer"/>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Nodes">
+            <propertyGroup caption="Nodes">
+                <property key="nodeDatasource" type="datasource" isList="true">
+                    <caption>Datasource *</caption>
+                    <description/>
+                </property>
+                <property key="nodeId" type="attribute" dataSource="nodeDatasource">
+                    <caption>Node ID *</caption>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                        <attributeType name="AutoNumber"/>
+                        <attributeType name="Integer"/>
+                        <attributeType name="Long"/>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="hasChildrenAttr" type="attribute" dataSource="nodeDatasource" required="false">
+                    <caption>Has children *</caption>
+                    <description>If the node has nested/sub nodes</description>
+                    <attributeTypes>
+                        <attributeType name="Boolean"/>
+                    </attributeTypes>
+                </property>
+                <property key="nodeElementCreator" type="widgets" dataSource="nodeDatasource">
+                    <caption>Node widgets *</caption>
+                    <description/>
+                </property>
+                <property key="nodeClass" type="expression" dataSource="nodeDatasource" required="false">
+                    <caption>CSS Class</caption>
+                    <description/>
+                    <returnType type="String"/>
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Actions">
+                <property key="onClickAction" type="action" dataSource="nodeDatasource" required="false">
+                    <caption>On click action</caption>
+                    <description>Define a single click action. Double-click will show the sub graph if possible and ctrl + click will zoom on the node</description>
+                </property>
+                <property key="onDoubleClickAction" type="action" dataSource="nodeDatasource" required="false">
+                    <caption>On double-click</caption>
+                    <description>This action will be triggered along with opening the sub graph (if the node has children). The double click action will always be performed so it can be used to provide feedback when no children are available.</description>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Edges">
+            <propertyGroup caption="Edges">
+                <property key="edgeDatasource" type="datasource" isList="true">
+                    <caption>Datasource *</caption>
+                    <description/>
+                </property>
+                <property key="edgeFromId" type="attribute" dataSource="edgeDatasource">
+                    <caption>From ID *</caption>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                        <attributeType name="AutoNumber"/>
+                        <attributeType name="Integer"/>
+                        <attributeType name="Long"/>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="edgeToId" type="attribute" dataSource="edgeDatasource">
+                    <caption>To ID *</caption>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                        <attributeType name="AutoNumber"/>
+                        <attributeType name="Integer"/>
+                        <attributeType name="Long"/>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="edgeLabel" type="expression" dataSource="edgeDatasource" required="false">
+                    <caption>Edge Label</caption>
+                    <description>Label applied above the edge.</description>
+                    <returnType type="String"/>
+                </property>
+                <property key="edgeLabelSubtitle" type="expression" dataSource="edgeDatasource" required="false">
+                    <caption>Edge Label Subtitle</caption>
+                    <description>Label applied below the edge.</description>
+                    <returnType type="String"/>
+                </property>
+                <property key="edgeClass" type="expression" dataSource="edgeDatasource" required="false">
+                    <caption>CSS Class</caption>
+                    <description>The class will be applied to both the polyline and the label elements.</description>
+                    <returnType type="String"/>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Breadcrumbs">
+            <propertyGroup caption="Data">
+                <property key="breadcrumbDatasource" type="datasource" isList="true" required="false">
+                    <caption>Datasource</caption>
+                    <description/>
+                </property>
+                <property key="breadcrumbNodeId" type="attribute" dataSource="breadcrumbDatasource" required="false">
+                    <caption>Node ID *</caption>
+                    <description/>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                        <attributeType name="AutoNumber"/>
+                        <attributeType name="Integer"/>
+                        <attributeType name="Long"/>
+                        <attributeType name="Decimal"/>
+                    </attributeTypes>
+                </property>
+                <property key="breadcrumbLabel" type="expression" dataSource="breadcrumbDatasource" required="false">
+                    <caption>Label *</caption>
+                    <description/>
+                    <returnType type="String"/>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+        <propertyGroup caption="Highlights">
+            <propertyGroup caption="Highlighting">
+                <property key="highlightedFromNodeId" type="attribute" required="false">
+                    <caption>Highlighted Source Node ID</caption>
+                    <description>ID of the source node to highlight in the graph.</description>
+                    <attributeTypes>
+                        <attributeType name="String"/>
+                    </attributeTypes>
+                </property>
+                <property key="highlightedToNodeId" type="attribute" required="false">
+                    <caption>Highlighted Destination Node ID</caption>
+                    <description>ID of the destination node to highlight in the graph.</description>
+                    <attributeTypes>
+                        <attributeType name="String"/>                       
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>

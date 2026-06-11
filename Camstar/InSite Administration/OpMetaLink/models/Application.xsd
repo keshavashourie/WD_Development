@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ExcludeSuperClass">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CDOSuperClass" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="ExcludeSingleClass">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CDOSingleClass" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="PurgeTables">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Table" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="SetupTable" type="xs:string" />
+										<xs:element name="SetupColumn" type="xs:string" />
+										<xs:element name="ParentTable" type="xs:string" />
+										<xs:element name="ParentColumn" type="xs:string" />
+										<xs:element name="ParentColumnIsPrimaryKey" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>				
+</xs:schema>

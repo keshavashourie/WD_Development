@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('workspace',{"newWorkspace":{"schemaVersion":"1.0.0","workspaceId":"newWorkspace","workspaceName":{"source":"/i18n/helloModuleMessages","key":"newWorkspaceName"},"workspaceType":"Inclusive","defaultPage":"portal"}});

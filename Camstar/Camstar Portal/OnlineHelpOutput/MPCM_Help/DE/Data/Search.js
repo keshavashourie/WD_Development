@@ -1,0 +1,1 @@
+define({r:0.5,st:'Stem',n:1,t:[0],m:[],u:['../Content/Back_Cover_Page.htm'],s:['+1','entsprech','paketaktivierungsprozess','zeichnet'],p:[['+1',48],['anhand',36],['aussehen',10],['dann',15],['der',36],['durch',26],['ergriffen',47],['gemachtes',15],['in',15],['können',14],['nach',7],['pakete',22],['rolle',14],['spalte',17],['und',19],['wenn',17],['zum',18]]});

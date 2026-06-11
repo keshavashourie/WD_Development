@@ -1,0 +1,78 @@
+<%-- Copyright Siemens 2023   --%>
+<%@ master language="C#" codefile="FloatAJAXMasterPage.master.cs" autoeventwireup="true" inherits="Camstar.Portal.FloatAJAXMasterPage" %>
+
+<!doctype html>
+<html>
+    <head runat="server">
+        <title>Opcenter Execution</title>
+            <asp:PlaceHolder runat="server">
+            <%= this.styleSheetString %>
+            </asp:PlaceHolder>
+    </head>
+    <body class="body-float <%=currentTheme%>-theme <%=frameStyle%> FloatAJAXMaster-page">
+        <div id="mod" class="mod" style="display: none">
+            <div id="modImage" class="modImage">
+                <img src="themes/<%= currentTheme %>/images/icons/loading-128x128.gif" alt="" />
+            </div>
+        </div>
+        <form id="AJAXForm" runat="server">
+           <cwpf:webpartframeworkmanager ID="WebPartManager" runat="server" EnableClientScript="false" />
+            <asp:scriptmanager ID="ScriptManager" runat="server" enablepartialrendering="true" EnableScriptGlobalization="true">
+                <scripts>
+                    <asp:ScriptReference Name="jquery"/>
+                    <asp:ScriptReference Name="camstar"/>
+                    <asp:ScriptReference Name="camstar.webcontrols"/>
+                    <asp:ScriptReference Name="camstar.scripts"/>
+                    <asp:ScriptReference Path="~/Scripts/jquery/tiny_mce/tinymce.min.js" /> 
+                    <asp:ScriptReference Path="~/Scripts/jquery/datepicker/jquery-ui-timepicker-addon.js" /> 
+                    <asp:ScriptReference Name="camstar.webcontrols.jqGrid"/>
+                    <asp:ScriptReference Path="~/Scripts/jsPlumb/jsplumb.js" />
+                    <asp:ScriptReference Name="workspaceoverride"/>  
+                    <asp:ScriptReference Path="~/Scripts/User/User.js" />
+                    <asp:scriptreference path="~/Scripts/User/SmartScan.js" />
+                </scripts>
+                   
+            </asp:scriptmanager>
+    
+            <cwfw:Label runat="server" visible="false" ID="YesLabel" labelname="Web_Yes" labeltype="Designer"></cwfw:Label>
+            <cwfw:Label runat="server" visible="false" ID="NoLabel" labelname="Web_No" labeltype="Designer"></cwfw:Label>
+            <cwfw:Label runat="server" visible="false" ID="OkLabel" labelname="OKButton" labeltype="Designer"></cwfw:Label>
+            <cwfw:Label runat="server" visible="false" ID="CloseLabel" labelname="Web_Close" labeltype="Designer"></cwfw:Label>
+            <cwfw:Label runat="server" visible="false" ID="MessageTitleLabel" labelname="ConfirmationMessageTitle" labeltype="Designer"></cwfw:Label>
+    
+        <div class="float-form-container">
+            <div id="scrollablepanel" class="form-scrollablepanel" >
+            <cwpf:webpartbasezone ID="StaticZoneTop" cssclassbrowse="zone-static" runat="server">
+                <zonetemplate>
+                    <cwpfc:statusbarcontrol id="StatusBar" runat="server" />
+                </zonetemplate>
+            </cwpf:webpartbasezone>
+            <div id="DynamicContentDiv" >
+                <div id="TemplateContentDiv" class="ui-form-contentpanel">
+                    <asp:contentplaceholder id="AJAXContentPlaceHolder" runat="server" />
+                </div>
+            </div>
+            </div>
+            <div class="status-bar-fixed" id="nonscrollablepanel" >
+            <cwpf:webpartbasezone ID="StaticZoneBottom" cssclassbrowse="zone-static" runat="server">
+                <zonetemplate>
+                    <cwpfc:buttonsbarcontrol ID="ButtonsBar" runat="server" />
+                </zonetemplate>
+            </cwpf:webpartbasezone>
+            </div>
+        </div>
+            <csc:FloatingFrame ID="FloatingFrame" runat="server" />
+        </form>
+        <script type="text/javascript">
+            Sys.Application.add_load(function(sender, args)
+            {
+                __page = $find("__Page");
+                var path = document.location.pathname;
+                __page.set_virtualPageName(path.substring(path.lastIndexOf('/') + 1, path.length - 5));
+                __page.setFocusOnLoad();
+
+                $(">form", document.body).trigger("page.initialized");
+            });
+        </script>
+    </body>
+</html>

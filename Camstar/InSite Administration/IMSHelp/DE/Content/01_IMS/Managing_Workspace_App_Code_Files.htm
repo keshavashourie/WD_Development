@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Verwalten von Anwendungscodedateien für Arbeitsbereiche</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Verwalten von Anwendungscodedateien für Arbeitsbereiche</p>
+            <p class="_1body">Siemens stellt die ausführbare Datei "MergeAppCode" zur Verfügung, mit der die Anwendungscodedateien der aktiven Arbeitsbereiche zusammengeführt werden können. </p>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Managing_Workspace_App_Code_Files"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Geschlossen" data-mc-alt2="Offen" />Beim Verwalten von Anwendungscodedateien für Arbeitsbereiche</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">Die ausführbare Datei "MergeAppCode.exe" verarbeitet die Unterordner der einzelnen Arbeitsbereiche und legt die Erbfolge der einzelnen Anwendungscodedateien so fest, dass die Vererbung vom darüber liegenden Arbeitsbereich erfolgt. Wenn z. B. die Arbeitsbereiche "csi", "180" und "190" aktiv sind, wird die Erbfolge von MoveStd_190 von ":MoveStd" in ":MoveStd_180" geändert. Die ausführbare Datei befindet sich im Dateipfad "C:\Programme (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode".</p>
+                    <p class="_1body">Eine Konfigurationsdatei (MergeAppCode.exe.config) zum Ändern der ausführbaren Datei befindet sich ebenfalls im Dateipfad "C:\Programme (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode". Sie können den Schlüssel "WebPortletPath" in den relativen oder absoluten Pfad zum Ordner "WebPortlet" ändern.</p>
+                    <table class="AutoNumber_p_Important1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 72px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Important4body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">Wichtig:</span></span></b></span>
+                            </td>
+                            <td class="AutoNumber_p_Important4body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;Wichtig:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">Ändern Sie keinesfalls den Schlüssel "mdbConnectionString" in der Datei "MergeAppCode.config".</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">Sie müssen Arbeitsbereichsunterordner zum Dateipfad "C:\Programme (x86)\Camstar\Camstar Portal\App_Code\WebPortlets\Workspaces" hinzufügen und darin die Anwendungscodedateien speichern, die zusammengeführt werden sollen. Die Arbeitsbereichsunterordner müssen entsprechend dem Code des zugehörigen Arbeitsbereichs benannt werden. Der Name des Unterordners für den Arbeitsbereich "200" muss z. B. "200" sein.</p>
+                    <p class="_1body">Sie müssen den zugehörigen Arbeitsbereichscode an alle Namen von benutzerdefinierten Steuerelementen, Funktionen und Eigenschaften anhängen. Ein Steuerelement namens "ControlName" im Arbeitsbereich "200" muss den Namen "ControlName_200" aufweisen, damit die ausführbare Datei den zugehörigen Arbeitsbereich und die Erbfolge bestimmen kann. Alle Dateien müssen im zugehörigen Arbeitsbereichsunterordner gespeichert werden.</p>
+                    <p class="_1body">Wenn außer dem Basisarbeitsbereich "csi" keine aktiven Arbeitsbereiche verfügbar sind oder WebPortletPath nicht gefunden werden kann, wird eine Fehlermeldung angezeigt. Fehler werden in der Ereignisanzeige protokolliert.</p>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Merge_App_Code_Files"></a>Vorgehensweise zum Zusammenführen von Anwendungscodedateien</p>
+            <p class="_1bodyKeepWithNext">Gehen Sie folgendermaßen vor, um Anwendungscodedateien zusammenzuführen:</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">Navigieren Sie zum Dateipfad "C:\Programme (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode".</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">Doppelklicken Sie auf <span class="User_Entry">MergeAppCode.exe</span>. <span class="Emphasis">Während die ausführbare Datei die Anwendungscodedateien zusammenführt, wird ein Popup "Eingabeaufforderung" angezeigt. Nach Abschluss wird eine Erfolgsmeldung angezeigt.</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

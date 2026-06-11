@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="Anhang A: SPC-Abfragedetails" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>SQL-Basisabfrageskript</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">SQL-Basisabfrageskript</p>
+            <p class="_1bodyKeepWithNext" style="padding-bottom:12px">Dies ist ein Beispiel für die SQL-Basisabfrage ss_TrackInOutSPCBasicQuery, mit der die für einen SPC-Basisaufruf erforderlichen Opcenter Execution Semiconductor-Daten gesammelt werden. Die allgemeine Struktur einer SPC-Basisabfrage ist identisch mit der SPCDataValues-Abfrage, die in "<a href="SQL_Code.htm" class="MCXref xref" xrefformat="{paratext}">SQL-Abfrageskript</a>" beschrieben wird. Sie können das SQL-Basisabfrageskript wie folgt anpassen:</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">DATAVALUE </p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, INSTANCEID </p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, COMMENTS</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;"> , CONTAINER</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, WAFERSCRIBENUMBER</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, TXNTIMESTAMP <span style="color: #696969; font-family: 'Calibri Light';">/*Added to support the X AXIS&#160;display value.*/</span></p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, COMMENTABREV <span style="color: #696969; font-family: 'Calibri Light';">/*Hold the SPC annotation category or default comment abbreviation if allowed by the chart.*/</span></p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, GROUPSEQ</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, RN</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, BYLOTID</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, BYWAFERID</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, ORIGINALVALUE</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">(</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">DATAVALUE</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, INSTANCEID</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, COMMENTS</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, CAST(CASE WHEN ?SUBGROUPPLOTMETHOD = -1 THEN ROW_NUMBER() OVER (ORDER BY DataSource ASC, TxnTimestamp DESC , DisplaySequence DESC) ELSE ROW_NUMBER() OVER (ORDER BY DATASOURCE ASC, GROUPID DESC, WAFERSCRIBENUMBER DESC, DISPLAYSEQUENCE DESC) END AS INT) RN <span style="color: #696969; font-family: 'Calibri Light';">/*Adjusts the order of the data points based on the configured SUBGROUP plot method.*/</span></p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, CONTAINER</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, WAFERSCRIBENUMBER</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, TXNTIMESTAMP</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, CASE WHEN SS_SPCANNOTATIONCATEGORYNAME IS NULL THEN '[i]' ELSE SS_SPCANNOTATIONCATEGORYNAME END AS COMMENTABREV</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, CASE WHEN DATASOURCE = 1 THEN 'ffffffffffffffff' ELSE GROUPID END ?ConcatSymbol '/' ?ConcatSymbol GROUPID ?ConcatSymbol '/' ?ConcatSymbol CONTAINERID BYLOTID  <span style="color: #696969; font-family: 'Calibri Light';">/*Format used to create the appropriate grouping for "BY LOT" processing.*/</span></p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, CASE WHEN DATASOURCE = 1 THEN 'ffffffffffffffff' ELSE GROUPID END ?ConcatSymbol '/' ?ConcatSymbol CONTAINERID ?ConcatSymbol '/' ?ConcatSymbol WAFERSCRIBENUMBER BYWAFERID  <span style="color: #696969; font-family: 'Calibri Light';">/*Format used to create the appropriate grouping for "BY WAFER" processing.*/</span></p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, CAST(DENSE_RANK() OVER (ORDER BY GROUPID) AS INT) GROUPSEQ <span style="color: #696969; font-family: 'Calibri Light';">/*Allows the Macro to analyze the Last Group if configured on the SPC rule data point analysis method.*/</span></p>
+            <p class="ProgramCode2" style="page-break-after: always;margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, ORIGINALVALUE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">(</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">CASE WHEN STDP.OverrideValue IS NULL THEN CAST(WLDD.WIPDataValue AS FLOAT) ELSE STDP.OverrideValue END DATAVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.WIPDataValue ORIGINALVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.WIPLotDetailsDataId INSTANCEID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, '' COMMENTS</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.TxnTimestamp</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.DisplaySequence</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.WaferScribeNumber</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, 1 DataSource</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, C.CONTAINERNAME CONTAINER</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.WIPLOTDETAILSID GROUPID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, STDP.SS_SPCANNOTATIONCATEGORYNAME</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">Container C</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPLotDetails WLD ON C.CurrentWIPLotId = WLD.WIPLotId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPLotDetailsData WLDD ON WLD.WIPLotDetailsId = WLDD.WIPLotDetailsId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">LEFT OUTER  JOIN A_WIPEquipment WE ON WLD.WIPLotDetailsId = WE.WIPLotDetailsLinkId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">LEFT OUTER JOIN RESOURCEDEF RD ON WLDD.EQUIPMENTID = RD.RESOURCEID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPDataName WDN ON WLDD.WIPDataNameId = WDN.WIPDataNameId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">LEFT OUTER JOIN A_SPCTxnDataPoint STDP ON WLDD.WIPLotDetailsDataId= STDP.SPCTxnDataPointName</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">WDN.WIPDataNameName LIKE ?WIPDATANAME</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WLDD.WIPDataValue IS NOT NULL</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WDN.FieldType = 'NUMBER'</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WLDD.ServiceName LIKE ?ServiceName</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND ((?ServiceName &lt;&gt; 'TrackInLot' AND WE.TrackStatus = 'INPROCESS' AND WE.EquipmentName LIKE ?EQUIPMENT) OR (?ServiceName = 'TrackInLot' AND RD.ResourceName LIKE ?EQUIPMENT))</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND C.ContainerName = ?CONTAINER</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">UNION ALL </p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">CASE WHEN STDP.OverrideValue IS NULL THEN CAST(WEDH.WIPDataValue AS FLOAT) ELSE STDP.OverrideValue END DATAVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.WIPDataValue ORIGINALDATAVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, CASE WHEN WEDH.SS_WIPLOTDETAILSDATAID IS NULL THEN WIPEquipmentDataHistoryId ELSE WEDH.SS_WIPLOTDETAILSDATAID END INSTANCEID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, STDP.Description COMMENTS</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.TxnTimestamp</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.DisplaySequence</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.WaferScribeNumber</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, 2 DataSource</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, C.CONTAINERNAME CONTAINER</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, C.CONTAINERID CONTAINERID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.WIPEQUIPMENTHISTORYID GROUPID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, STDP.SS_SPCANNOTATIONCATEGORYNAME</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">Container C</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPEquipmentHistory WE ON C.ContainerId = WE.ContainerId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPEquipmentDataHistory WEDH ON WE.WIPEquipmentHistoryId = WEDH.WIPEquipmentHistoryId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPDataName WDN ON WEDH.WIPDataNameId = WDN.WIPDataNameId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">LEFT OUTER JOIN A_SPCTxnDataPoint STDP ON (WEDH.SS_WIPLOTDETAILSDATAID = STDP.SPCTxnDataPointName OR WEDH.WIPEQUIPMENTDATAHISTORYID = STDP.SPCTxnDataPointName)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN PRODUCT P ON C.ProductID = P.ProductID</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">WDN.WIPDataNameName LIKE ?WIPDATANAME</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WEDH.WIPDataValue IS NOT NULL</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WEDH.ServiceName LIKE ?ServiceName</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WDN.FieldType = 'NUMBER'</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WE.EquipmentName LIKE ?EQUIPMENT</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND ((?SPCMatrixID &lt;&gt; '%' AND WE.SPCMATRIXID LIKE ?SPCMatrixID) OR (?SPCMatrixID = '%'))</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND (CASE WHEN STDP.ExcludeData IS NULL THEN 0 ELSE STDP.ExcludeData END) = 0</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">?CustomFilters <span style="color: #696969; font-family: 'Calibri Light';">/*Utilized when working with the SPC Matrix.  All custom filters will be applied to the historical SPC results.*/</span></p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">) Query1</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">(?SUBGROUPPLOTMETHOD = 0 ) OR (?SUBGROUPPLOTMETHOD = 1 AND WAFERSCRIBENUMBER IS NOT NULL) OR (?SUBGROUPPLOTMETHOD = -1)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">) Query2</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">WHERE RN &lt;= ?ResultSetSizeLimit</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">ORDER BY RN DESC</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

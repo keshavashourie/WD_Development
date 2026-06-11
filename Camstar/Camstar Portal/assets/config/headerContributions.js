@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('headerContributions',[{"view":"momHeaderProperties","visibleWhen":"ctx.momHeaderProperties.length > 0","priority":1},{"view":"lineAssignment","visibleWhen":"true","priority":1}]);

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Execute SPCSetupQuery Queries</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Execute SPCSetupQuery Queries</p>
+            <p class="_1body">The primary objective of this section of the macro is to execute the Query text that was previously retrieved in “Fetch SPCSetupQuery.” Prior to executing the query, it is necessary to replace the query parameters with the appropriate parameter values.  Both the list of parameter names and parameter values were submitted to the macro as input parameters by the Opcenter Execution Semiconductor function (_SPCExecuteSPC).  After the parameters are replaced, the queries are executed and the results are stored in variables for future reference.</p>
+            <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">You should use unique parameter names within the SPC query configuration unless you want to use the same resolved query parameter value in each query when configuring multiple SPC&#160;setup queries. </td>
+                </tr>
+            </table>
+            <p class="Head3-Side">Code in this Section</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5px;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5px;">## Execute SPCSetupQuery Queries</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5px;">##---------------------</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5px;">FOR $QueryIndex = 1 to CASE(ddsSPCSetupQuery.QueryText)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">%SQLQueryText = ddsSPCSetupQuery.QueryText($QueryIndex)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">%SQLQueryName = ddsSPCSetupQuery.QueryName($QueryIndex)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">##---------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">## Replace Query Parameters in the QueryText with the ParamNames and ParamValues passed in</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">##---------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">$ParamNameStartPos = 1</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">$ParamNameStopPos = 1</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">$ParamValueStartPos = 1</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">$ParamValueStopPos = 1</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">%CustomFilterParamExist = "false"</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">WHILE ($ParamNameStopPos &gt; 0)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5px;">$ParamNameStopPos = INSTR($ParamNameStartPos, %ParamNamesList, %ParamDelimiter)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5px;">IF ($ParamNameStopPos &gt; 0) THEN</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">%ParamName = "?" &amp; MID(%ParamNamesList, $ParamNameStartPos, $ParamNameStopPos - $ParamNameStartPos)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">$ParamNameStartPos = $ParamNameStopPos + 1</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">$ParamValueStopPos = INSTR($ParamValueStartPos, %ParamValuesList, %ParamDelimiter)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">IF ($ParamValueStopPos &gt; 0) THEN</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">IF (%ParamName = "?CustomFilters") THEN</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5px;">%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5px;">%CustomFilterParamExist = "true"</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">ELSE IF (%ParamName = "?ConcatSymbol") THEN</p>
+            <p class="ProgramCode4" style="page-break-after: always;margin-bottom: 0.5px;">/*</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">*/</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5px;">%ParamValue = MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos)</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">ELSE</p>
+            <p class="ProgramCode5" style="margin-bottom: 0.5px;">%ParamValue = "'" &amp; MID(%ParamValuesList, $ParamValueStartPos, $ParamValueStopPos - $ParamValueStartPos) &amp; "'"</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">ENDIF</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">$ParamValueStartPos = $ParamValueStopPos + 1</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">ELSE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5px;">%ParamValue = "''"</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">END IF</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5px;">%SQLQueryText = CHANGE(%SQLQueryText, %ParamName, %ParamValue, 10)</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5px;">END IF</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">WEND</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">##---------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">## Replace Query CustomFilters Parameter in the QueryText with with empty value</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">##---------------------</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">IF (%CustomFilterParamExist = "false") THEN</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5px;">%ParamName = "?CustomFilters"</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5px;">%ParamValue = ""</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5px;">%SQLQueryText = CHANGE(%SQLQueryText, %ParamName, %ParamValue, 10)</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5px;">END IF</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5px;">NEXT</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

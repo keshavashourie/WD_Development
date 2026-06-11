@@ -1,0 +1,21 @@
+<aw-command-panel hide-title="true">
+    <aw-panel-header>
+        <aw-include name="momLoginPanelHeader" sub-panel-context="subPanelContext"></aw-include>
+    </aw-panel-header>
+    <aw-panel-body>
+        <aw-command-panel-section caption="{{subPanelContext.labels.login}}" anchor="'mom_loginOptions'">
+            <aw-textbox aw-enter-key="requestLogin" prop="subPanelContext.username" exist-when="!subPanelContext.email && !subPanelContext.hideUsername"></aw-textbox>
+            <aw-textbox aw-enter-key="requestLogin" prop="subPanelContext.email" exist-when="subPanelContext.email && !subPanelContext.hideEmail"></aw-textbox>
+            <aw-password aw-enter-key="requestLogin" prop="subPanelContext.password"></aw-password>
+            <aw-link tabindex="0" aw-enter-key="requestResetPassword" class="mom-login-reset-password" prop="subPanelContext.resetPassword" action="requestResetPassword" visible-when="conditions.isResetPasswordEnabled"></aw-link>
+            <aw-textbox aw-enter-key="requestLogin" prop="subPanelContext.domain" exist-when="subPanelContext.domain"></aw-textbox>
+            <aw-widget aw-enter-key="requestLogin" aw-repeat="prop: ctx.momLoginComponentData.requiredOptions" prop="prop"></aw-widget>
+        </aw-command-panel-section>
+    </aw-panel-body>
+    <aw-panel-footer mom-update-ctx-on-change="momValidLoginOperationForm: awPanelBody.$valid">
+        <aw-button action="requestLogin" enable-when="true">
+            {{subPanelContext.labels.login}}
+        </aw-button>
+        <aw-include name="momLoginCopyright" sub-panel-context="subPanelContext"></aw-include>
+    </aw-panel-footer>
+</aw-command-panel>

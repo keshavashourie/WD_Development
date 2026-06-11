@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="Ausführung" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Ausführungsarchitektur</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top"></a>SPC-Ausführungsarchitektur<a name="kanchor79"></a></p>
+            <p class="_1bodyKeepWithNext" style="color: #000000;"><a name="kanchor80"></a>In diesem Thema wird erläutert, wie die SPC-Ausführungsarchitektur funktioniert. Inline SPC verwendet eine unternehmensspezifische gemeinsame SPC-Komponente, die zwei Engines umfasst: die SPC-Berechnungsengine und die SPC-Anzeigeengine. Mithilfe dieser gemeinsamen Komponenten können Transaktionen verschiedene Berechnungs- und Visualisierungsfunktionen für eine optimierte Fertigungsumgebung bereitstellen. </p>
+            <p class="_1bodyKeepWithNext">Die SPC-Verarbeitung kann durch ein Ereignis in der Fertigung ausgelöst werden, z. B. durch einen Bediener, der Daten in eine Umlaufbestandsdateneinrichtung eingibt. Transaktionsdaten werden in der Datenbank festgeschrieben, bevor der Aufruf an SPC weitergeleitet wird.</p>
+            <p class="Head3-Side"><a name="kanchor81"></a>Beispielanwendungsfall </p>
+            <p class="_1body">Ein Hersteller möchte die Waferdicke während des Produktionsprozesses überwachen. Wenn eine Wafermessung außerhalb des festgelegten Bereichs liegt, sollen die Lose angehalten werden, bevor der Wafer geschnitten wird. Darüber hinaus muss der Hersteller wissen, ob Messungen gegen die obere oder untere Bereichsgrenze tendieren. Dann kann er die Ausrüstung untersuchen und bestimmen, ob Reparaturen erforderlich sind.</p>
+            <p class="_1body">Der Opcenter Execution Semiconductor-Administrator definiert eine Umlaufbestandsdateneinrichtung zum Erfassen von Dickenmessungen und eine SPC-Einrichtung mit Fehleraktionen, die ausgeführt werden, wenn Messungen außerhalb des zulässigen Bereichs liegen. Der Administrator verknüpft die SPC-Einrichtung mit der Umlaufbestandsdateneinrichtung.</p>
+            <p class="_1body"> Beim Ausbringen in der Fertigung wird der Bediener aufgrund der Anforderung in der Umlaufbestandsdateneinrichtung nach der erforderlichen Messung gefragt. Der Bediener gibt die Messung ein und die Anwendung beginnt mit der SPC-Anforderung, die in der zugeordneten SPC-Einrichtung konfiguriert wurde. </p>
+            <p class="_1body">Opcenter Execution Semiconductor erstellt und speichert den Datenstand vor SPC-Ausführung temporär, schreibt die Fertigungstransaktionsdaten in der Datenbank fest und führt die Prozedur Trigger_SPC aus, die die gespeicherten SPC-Daten einspielt. Die Prozedur Trigger_SPC führt anschließend die Transaktion "SPC ausführen" aus.</p>
+            <p class="_1body">Für jeden Datensatz in "SPC-Transaktionsdaten: Liste" ruft die Transaktion "SPC ausführen" eine benutzerdefinierte Prozedur auf, die ebenfalls "SPC ausführen" heißt und die ihrerseits die entsprechende SPC-Engine auf Basis der Konfiguration der SPC-Einrichtung aufruft.</p>
+            <p class="_1body">Die gewünschte SPC-Engine erkennt, dass die Dickenmessung außerhalb des zulässigen Bereichs liegt, und gibt die Ergebnisse an Opcenter Execution Semiconductor zurück. Die Transaktion "SPC ausführen" schreibt alle nach der SPC-Ausführung erstellten Daten fest, hält das Los an und zeigt dem Nutzer die SPC-Ergebnisse einschließlich Charts an.</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

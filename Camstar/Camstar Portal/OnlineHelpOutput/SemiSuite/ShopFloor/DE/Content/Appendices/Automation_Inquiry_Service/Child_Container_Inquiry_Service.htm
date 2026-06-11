@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalHelp.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Anhang C: Automatisierungsabfragedienste" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Prozesstimer in Semiconductor Suite</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <link href="../../Resources/TableStyles/Horiz-rules_Table.css" rel="stylesheet" data-mc-stylesheet-type="table" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Kind-Container-Abfragedienst</p>
+            <p class="_1body">Der Kind-Container-Abfragedienst <i>(scsChildContainerInquiry)</i> kann von einem externen Dienst wie Semiconductor Automation verwendet werden, um die Kind-Container abzurufen, die einem bereitgestellten Eltern-Container zugeordnet sind. Ein Codebeispiel für Anforderung und Antwort wird nachstehend bereitgestellt.</p>
+            <p class="Head2" data-mc-conditions="Default.ScreenOnly">Kind-Container-Abfragedienst</p>
+            <p class="Head3">Beispiel für eine Anforderung</p>
+            <p class="_1body">Dieser Code ist ein Beispiel für eine Anforderung: </p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="ProgramCode0">&lt;__InSite __version="1.1" __encryption="2"&gt;</p>
+            <p class="ProgramCode1">&lt;__session&gt;&lt;/__session&gt;</p>
+            <p class="ProgramCode1">&lt;__service __serviceType="scsChildContainerInquiry"&gt;</p>
+            <p class="ProgramCode1">&lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;</p>
+            <p class="ProgramCode1">&lt;__inputData&gt;</p>
+            <p class="ProgramCode2">&lt;Container&gt;</p>
+            <p class="ProgramCode3">&lt;__name&gt;&lt;![CDATA[PC001]]&gt;&lt;/__name&gt;</p>
+            <p class="ProgramCode2">&lt;/Container&gt;</p>
+            <p class="ProgramCode1">&lt;/__inputData&gt;</p>
+            <p class="ProgramCode1">&lt;__requestData&gt;</p>
+            <p class="ProgramCode2">&lt;CompletionMsg&gt;&lt;/CompletionMsg&gt;</p>
+            <p class="ProgramCode2">&lt;ChildContainer&gt;</p>
+            <p class="ProgramCode3">&lt;__requestSelectionValuesEx&gt;&lt;/__requestSelectionValuesEx&gt;</p>
+            <p class="ProgramCode2">&lt;/ChildContainer&gt;</p>
+            <p class="ProgramCode1">&lt;/__requestData&gt;</p>
+            <p class="ProgramCode1">&lt;/__service&gt;</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="_1body">Diese Tabelle definiert die Felder für das Anforderungscodebeispiel.</p>
+            <table style="width: 95%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 146px;" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Anforderungscode</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Definition</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellSectionHeader">Eingabedaten</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">&#160;</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Container</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Name des Eltern-Containers.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1" colspan="2">
+                            <p class="CellSectionHeader">Daten anfordern</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">CompletionMsg</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Anforderung des Ausführungsstatus.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body1">
+                            <p class="CellBody">ChildContainer</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body1">
+                            <p class="CellBody">Anforderung aller Kind-Container, die mit dem Eltern-Container verbunden sind.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="Head3">Antwortbeispiel</p>
+            <p class="_1body">Dieser Code ist ein Beispiel für eine Antwort vom vorherigen Anforderungsbeispiel. Informationen zum Feld und zur Definition finden Sie in der Tabelle am Ende des Codes.</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="ProgramCode0">&lt;?xml version="1.0"?&gt;</p>
+            <p class="ProgramCode0">InSite __version="1.1" __encryption="2"&gt;</p>
+            <p class="ProgramCode1">&lt;__service __serviceType="scsChildContainerInquiry"&gt;</p>
+            <p class="ProgramCode2">&lt;__utcOffset&gt;-05:00:00&lt;/__utcOffset&gt;</p>
+            <p class="ProgramCode2">&lt;__responseData&gt;</p>
+            <p class="ProgramCode3">&lt;CompletionMsg __empty="yes" __genericType="String" __nodeType="DataField" __specificType="MessageText"/&gt;</p>
+            <p class="ProgramCode3">&lt;ChildContainer __genericType="Object" __nodeType="ContainerObjRef" __referenceType="Container" __specificType="Container"&gt;</p>
+            <p class="ProgramCode4">&lt;__selectionValuesEx&gt;</p>
+            <p class="ProgramCode5">&lt;__recordSetHeader __columnCount="8"&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;Container&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663184&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_Container]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;-&lt;![CDATA[Container]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;-&lt;![CDATA[Container]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt; </p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;Level&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663185&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_Level]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Level]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Level]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;Status&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;1048671&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Container_Status]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Status]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Status]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;Product&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663178&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_Product]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Product]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Product]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;Revision&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663163&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_Revision]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Revision]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Revision]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;ProductDescription&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663180&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_ProductDescription]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Product Description]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Product Description]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;Qty&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;Float&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663205&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_Qty]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Qty]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[Qty]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode6">&lt;__column&gt;</p>
+            <p class="ProgramCode7">&lt;__name&gt;UOM&lt;/__name&gt;</p>
+            <p class="ProgramCode7">&lt;__fieldType&gt;</p>
+            <p class="ProgramCode8">&lt;__genericType&gt;String&lt;/__genericType&gt;</p>
+            <p class="ProgramCode8">&lt;__specificType/&gt;</p>
+            <p class="ProgramCode8">&lt;__referenceType/&gt;</p>
+            <p class="ProgramCode8">&lt;__isList&gt;false&lt;/__isList&gt;</p>
+            <p class="ProgramCode7">&lt;/__fieldType&gt;</p>
+            <p class="ProgramCode7">&lt;__label&gt;</p>
+            <p class="ProgramCode8">&lt;__Id&gt;15663183&lt;/__Id&gt;</p>
+            <p class="ProgramCode8">&lt;__name&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[SelVal_UOM]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__name&gt;</p>
+            <p class="ProgramCode8">&lt;__defaultValue&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[UOM]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__defaultValue&gt;</p>
+            <p class="ProgramCode8">&lt;__value&gt;</p>
+            <p class="ProgramCode9">&lt;![CDATA[UOM]]&gt;</p>
+            <p class="ProgramCode8">&lt;/__value&gt;</p>
+            <p class="ProgramCode7">&lt;/__label&gt;</p>
+            <p class="ProgramCode6">&lt;/__column&gt;</p>
+            <p class="ProgramCode5">&lt;/__recordSetHeader&gt;</p>
+            <p class="ProgramCode5">&lt;__recordSet __rowCount="5"&gt;</p>
+            <p class="ProgramCode6">&lt;__row&gt;</p>
+            <p class="ProgramCode7">&lt;Container&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PC001 - 01]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Container&gt;</p>
+            <p class="ProgramCode7">&lt;Level&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[LOT]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Level&gt;</p>
+            <p class="ProgramCode7">&lt;Status&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[Active]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Status&gt;</p>
+            <p class="ProgramCode7">&lt;Product&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PA-001]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Product&gt;</p>
+            <p class="ProgramCode7">&lt;Revision&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[1]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Revision&gt;</p>
+            <p class="ProgramCode7">&lt;ProductDescription/&gt;</p>
+            <p class="ProgramCode7">&lt;Qty&gt;1&lt;/Qty&gt;</p>
+            <p class="ProgramCode7">&lt;UOM&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[DIE]]&gt;</p>
+            <p class="ProgramCode7">&lt;/UOM&gt;</p>
+            <p class="ProgramCode6">&lt;/__row&gt;</p>
+            <p class="ProgramCode6">&lt;__row&gt;</p>
+            <p class="ProgramCode7">&lt;Container&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PC001 - 02]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Container&gt;</p>
+            <p class="ProgramCode7">&lt;Level&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[LOT]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Level&gt;</p>
+            <p class="ProgramCode7">&lt;Status&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[Active]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Status&gt;</p>
+            <p class="ProgramCode7">&lt;Product&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PA-001]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Product&gt;</p>
+            <p class="ProgramCode7">&lt;Revision&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[1]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Revision&gt;</p>
+            <p class="ProgramCode7">&lt;ProductDescription/&gt;</p>
+            <p class="ProgramCode7">&lt;Qty&gt;1&lt;/Qty&gt;</p>
+            <p class="ProgramCode7">&lt;UOM&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[DIE]]&gt;</p>
+            <p class="ProgramCode7">&lt;/UOM&gt;</p>
+            <p class="ProgramCode6">&lt;/__row&gt;</p>
+            <p class="ProgramCode6">&lt;__row&gt;</p>
+            <p class="ProgramCode7">&lt;Container&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PC001 - 03]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Container&gt;</p>
+            <p class="ProgramCode7">&lt;Level&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[LOT]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Level&gt;</p>
+            <p class="ProgramCode7">&lt;Status&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[Active]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Status&gt;</p>
+            <p class="ProgramCode7">&lt;Product&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PA-001]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Product&gt;</p>
+            <p class="ProgramCode7">&lt;Revision&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[1]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Revision&gt;</p>
+            <p class="ProgramCode7">&lt;ProductDescription/&gt;</p>
+            <p class="ProgramCode7">&lt;Qty&gt;1&lt;/Qty&gt;</p>
+            <p class="ProgramCode7">&lt;UOM&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[DIE]]&gt;</p>
+            <p class="ProgramCode7">&lt;/UOM&gt;</p>
+            <p class="ProgramCode6">&lt;/__row&gt;</p>
+            <p class="ProgramCode6">&lt;__row&gt;</p>
+            <p class="ProgramCode7">&lt;Container&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PC001 - 04]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Container&gt;</p>
+            <p class="ProgramCode7">&lt;Level&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[LOT]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Level&gt;</p>
+            <p class="ProgramCode7">&lt;Status&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[Active]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Status&gt;</p>
+            <p class="ProgramCode7">&lt;Product&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PA-001]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Product&gt;</p>
+            <p class="ProgramCode7">&lt;Revision&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[1]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Revision&gt;</p>
+            <p class="ProgramCode7">&lt;ProductDescription/&gt;</p>
+            <p class="ProgramCode7">&lt;Qty&gt;1&lt;/Qty&gt;</p>
+            <p class="ProgramCode7">&lt;UOM&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[DIE]]&gt;</p>
+            <p class="ProgramCode7">&lt;/UOM&gt;</p>
+            <p class="ProgramCode6">&lt;/__row&gt;</p>
+            <p class="ProgramCode6">&lt;__row&gt;</p>
+            <p class="ProgramCode7">&lt;Container&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PC001 - 05]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Container&gt;</p>
+            <p class="ProgramCode7">&lt;Level&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[LOT]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Level&gt;</p>
+            <p class="ProgramCode7">&lt;Status&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[Active]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Status&gt;</p>
+            <p class="ProgramCode7">&lt;Product&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[PA-001]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Product&gt;</p>
+            <p class="ProgramCode7">&lt;Revision&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[1]]&gt;</p>
+            <p class="ProgramCode7">&lt;/Revision&gt;</p>
+            <p class="ProgramCode7">&lt;ProductDescription/&gt;</p>
+            <p class="ProgramCode7">&lt;Qty&gt;1&lt;/Qty&gt;</p>
+            <p class="ProgramCode7">&lt;UOM&gt;</p>
+            <p class="ProgramCode8">&lt;![CDATA[DIE]]&gt;</p>
+            <p class="ProgramCode7">&lt;/UOM&gt;</p>
+            <p class="ProgramCode6">&lt;/__row&gt;</p>
+            <p class="ProgramCode5">&lt;/__recordSet&gt;</p>
+            <p class="ProgramCode4">&lt;/__selectionValuesEx&gt;</p>
+            <p class="ProgramCode3">&lt;/ChildContainer&gt;</p>
+            <p class="ProgramCode2">&lt;/__responseData&gt;</p>
+            <p class="ProgramCode1">&lt;/__service&gt;</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="_1body">Diese Tabelle definiert die Felder für das Antwortcodebeispiel. </p>
+            <table style="width: 95%;mc-table-style: url('../../Resources/TableStyles/Horiz-rules_Table.css');" class="TableStyle-Horiz-rules_Table" cellspacing="0">
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" style="width: 146px;" />
+                <col class="TableStyle-Horiz-rules_Table-Column-Column1" />
+                <thead>
+                    <tr class="TableStyle-Horiz-rules_Table-Head-Header1">
+                        <th class="TableStyle-Horiz-rules_Table-HeadE-Column1-Header1">
+                            <p class="CellHead-Left">Feld</p>
+                        </th>
+                        <th class="TableStyle-Horiz-rules_Table-HeadD-Column1-Header1">
+                            <p class="CellHead-Left">Definition</p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Container</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Name des Kind-Containers.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Level</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Feld "Kind-Containerlevel". Typische Werte sind "Batch", "Los" und "Palette".</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Status</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Fertigungsprozessstatus des Kind-Containers. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Produkt</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Dem Kind-Container zugeordnetes Produkt.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Revision</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Revisionsnummer des Kind-Containers. </p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body2">
+                            <p class="CellBody">Produktbeschreibung</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body2">
+                            <p class="CellBody">Beschreibung des Produkts.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body1">
+                        <td class="TableStyle-Horiz-rules_Table-BodyE-Column1-Body1">
+                            <p class="CellBody">Menge</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyD-Column1-Body1">
+                            <p class="CellBody">Menge des Kind-Containers.</p>
+                        </td>
+                    </tr>
+                    <tr class="TableStyle-Horiz-rules_Table-Body-Body2">
+                        <td class="TableStyle-Horiz-rules_Table-BodyB-Column1-Body2">
+                            <p class="CellBody">Maßeinheit</p>
+                        </td>
+                        <td class="TableStyle-Horiz-rules_Table-BodyA-Column1-Body2">
+                            <p class="CellBody">Die Maßeinheit für die Menge.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

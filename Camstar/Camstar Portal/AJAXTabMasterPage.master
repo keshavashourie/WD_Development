@@ -1,0 +1,173 @@
+<%-- Copyright Siemens 2025   --%>
+
+<%@ Master Language="C#" CodeFile="AJAXTabMasterPage.master.cs" AutoEventWireup="true"
+    Inherits="Camstar.Portal.AJAXTabMasterPage" %>
+
+<%@ Register TagPrefix="nmuc" Src="Controls/NavigationMenuUserControl.ascx" TagName="NavigationMenuUserControl" %>
+<%@ Register TagPrefix="cwpfcc" Namespace="Camstar.WebPortal.WebPortlets.Concierge" %>
+<!doctype html>
+<html>
+    <head id="Head1" runat="server">
+        <title>Opcenter Execution</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <asp:PlaceHolder runat="server">
+            <%= this.styleSheetString %>
+        </asp:PlaceHolder>
+
+        <% if (IsApollo){ %>
+            <script type="text/javascript" src="./assets/lib/babel-polyfill/polyfill.min.js"></script>
+            <script type="text/javascript" src="./assets/lib/@swac/swac-boot.js"></script>
+            <script type="text/javascript" src="./assets/lib/@swac/swac-base.js"></script>
+            <script type="text/javascript" src="./Scripts/ClientFramework/Camstar.WebPortal.PortalFramework/SWACCompBase.js"></script>
+        <% } %>
+
+        </head>
+  
+       <body class="<%=BodyCssClass%> <%=currentTheme%>-theme  AJAXTabMaster-page" onload="<% = this.KillSessionScript %>">
+            <form id="AJAXForm" runat="server">
+            <cwpf:WebPartFrameworkManager ID="WebPartManager" runat="server" EnableClientScript="false" />
+            <asp:ScriptManager ID="ScriptManager" runat="server" EnablePartialRendering="true" EnableCdn="false" EnableScriptGlobalization="true">
+                <Scripts>
+                    <asp:ScriptReference Name="jquery"/>
+                    <asp:ScriptReference Name="camstar"/>
+                    <asp:ScriptReference Name="camstar.webcontrols"/> 
+                    <asp:ScriptReference Name="camstar.scripts"/>
+                    <asp:ScriptReference Path="~/Scripts/jquery/tiny_mce/tinymce.min.js" />               
+                    <asp:ScriptReference Name="session"/>
+                    <asp:ScriptReference Name="workspaceoverride"/>
+                    <asp:ScriptReference Path="~/Scripts/User/User.js" />
+                </Scripts>
+            </asp:ScriptManager>
+            <cwfw:label runat="server" Visible="false" ID="YesLabel" LabelName="Web_Yes" LabelType="Designer" />
+            <cwfw:label runat="server" Visible="false" ID="NoLabel" LabelName="Web_No" LabelType="Designer" />
+            <cwfw:label runat="server" Visible="false" ID="OkLabel" LabelName="OKButton" LabelType="Designer" />
+            <cwfw:label runat="server" Visible="false" ID="CloseLabel" LabelName="Web_Close" LabelType="Designer" />
+            <cwfw:label runat="server" Visible="false" ID="MessageTitleLabel" LabelName="ConfirmationMessageTitle" LabelType="Designer" />
+            <cwfw:label runat="server" Visible="false" ID="LoadingLabel" LabelName="Lbl_PopupLoadingTitle" LabelType="Designer" />
+        
+            <div class="form-container <% if (IsResponsive) Response.Write("form-responsive"); %>">
+                
+                <% if (IsClassicDesktop) { %>
+		<nav id="primary-navigation-more" arialabelledby="subnav-title">
+            <ul id="primaryNavMenuMore" class="primaryNavMenuMore">
+
+            </ul>
+        </nav>
+
+		<nav id="secondary-navigation"  arialabelledby="subnav-title"  >
+			<ol id="secondary-nav-menu-pin" class="subnav-list ">
+				<li>
+					<span id="subnav-title" style="font-size:17.3px"></span>
+					<button type="button" tabindex="0" onclick="pin_click()" class="button-chromeless-reverse button-icon-only">
+						<svg id="pin_1" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" arialabelledby="svg-title-pin">
+							<title id="svg-title-pin">Pin</title>
+							<path  data-tabindex="0"  d="M11.8,3.1,8.9.2A1.075,1.075,0,0,0,8.3,0a.675.675,0,0,0-.6.4,2.2,2.2,0,0,0-.2,1.4L5.6,3.6a3.912,3.912,0,0,0-3.5.8c0,.1-.1.2-.1.3s.1.3.1.4l2,2h0L.5,10.6a.483.483,0,0,0-.017.683L.5,11.3c.1.1.2.1.4.1a.6.6,0,0,0,.4-.1L4.9,7.8h0l2,2a.517.517,0,0,0,.4.2c.2,0,.3-.1.4-.1a4.2,4.2,0,0,0,.7-3.5l1.9-1.9a2.4,2.4,0,0,0,1.4-.2.852.852,0,0,0,.3-.6A1.075,1.075,0,0,0,11.8,3.1Z" transform="translate(-0.35)" fill="#464646"/>
+						</svg>
+						<span>Pin</span>
+					</button>	
+				</li>
+				
+			</ol>
+			<button type="button" class="button-chromeless-reverse button-icon-only" id="button-resize">
+				<svg id="resize_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" arialabelledby="svg-title-pin">
+					<title id="svg-title-pin">Resize</title>
+					<rect x="9" width="1" height="16" fill="#fff"/>
+  					<rect x="6" width="1" height="16" fill="#fff"/>
+				</svg>
+				<span>Resize</span>
+			</button>
+		
+		</nav>
+         <nav id="primary-navigation" aria-label="Application Name">
+			<ul id="primaryNavMenu" class="primaryNavMenu " >
+				<li id="nav-item-app-homeIcon">
+					<img style="width:32px; height: 32px" src="/CamstarPortal/assets/image/appOcEx32.svg" />
+					
+				</li>
+				<li id="nav-item-app-back">
+					<a href="javascript:void(0)" tabindex="1" onclick="history.back()">
+					<img style="width:50px; height: 24px ; margin-top: 16px; filter: brightness(0) invert(1);" src="/CamstarPortal/assets/image/cmdBack24.svg" />
+					<span id="span-item-app-back">Back</span>
+						</a>
+				</li>
+				<li id="nav-item-app-home">
+					<a href="javascript:void(0)" tabindex="2" onclick="home_click()">
+					<img style="width:24px; height: 24px ;filter: brightness(0) invert(1);" src="/CamstarPortal/assets/image/cmdHome24.svg" />
+					<span id="span-item-app-home">Home Page</span>
+						</a>
+				</li>
+				
+			</ul>
+		</nav>
+                  <%--  <csc:header id="Header" Visible ="false" runat="server" />--%>
+                <%--    <nmuc:navigationmenuusercontrol ID="NavigationMenu" Visible ="false" runat="server" />--%>
+                   <header id="app-header">
+			<h1 id ="header-title"></h1>
+			<svg id="Siemens-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 32">
+				<title>Siemens</title>
+				<path id="Path_7467" data-name="Path 7467" d="M3.575,22.749a17.84,17.84,0,0,0,7.33,1.814c2.285,0,3.664-1.124,3.664-2.975,0-1.451-.545-1.886-4.607-3.555A20.4,20.4,0,0,1,5.029,15.6a5.568,5.568,0,0,1-2.215-4.754A7.619,7.619,0,0,1,5.679,4.681a9.4,9.4,0,0,1,5.915-1.668,25.178,25.178,0,0,1,8.017,1.378L18.442,8.963a16.735,16.735,0,0,0-6.493-1.521c-2.067,0-3.3,1.015-3.3,2.648,0,1.342.543,1.776,4.245,3.3a21.075,21.075,0,0,1,5.414,2.647,6.041,6.041,0,0,1,2.176,5.08c0,5.114-3.263,7.872-9.287,7.872a23.179,23.179,0,0,1-8.417-1.414Z" fill="#fff"/>
+				<path id="Path_7468" data-name="Path 7468" d="M25.057,3.45h5.659V28.555H25.057Z" fill="#fff"/>
+				<path id="Path_7469" data-name="Path 7469" d="M36.68,3.45H52.564V7.874H42.34v5.732h9.721v4.427H42.34v6.094H53.113v4.426H36.68Z" fill="#fff"/>
+				<path id="Path_7470" data-name="Path 7470" d="M57.951,3.45h8.377l4.357,13.569c.508,1.67.87,2.866,1.451,5.08.585-2.177.906-3.412,1.452-5.08L77.969,3.45h8.319V28.555H80.847V8.239c-.548,2.176-.657,2.5-1.38,4.788L74.423,28.555H69.592L64.7,13.427l-.509-1.522c-.144-.434-.29-.945-.434-1.414L63.464,9.4c-.074-.39-.183-.762-.29-1.169V28.557H57.953V3.45Z" fill="#fff"/>
+				<path id="Path_7471" data-name="Path 7471" d="M92.256,3.45h15.89V7.874H97.915v5.732h9.722v4.427H97.915v6.094h10.774v4.426H92.256Z" fill="#fff"/>
+				<path id="Path_7472" data-name="Path 7472" d="M113.525,3.45h6.234l6.677,11.282a61.2,61.2,0,0,1,3.084,5.913c-.109-1.451-.109-1.814-.109-4.789V3.45h5.441V28.555h-6.125L122.45,18.034c-1.7-2.9-2.249-3.953-3.593-6.711.109,2.1.109,2.394.109,5.987V28.557h-5.441Z" fill="#fff"/>
+				<path id="Path_7473" data-name="Path 7473" d="M140.315,22.751a17.832,17.832,0,0,0,7.339,1.812c2.285,0,3.663-1.124,3.663-2.975,0-1.451-.544-1.886-4.606-3.555a20.541,20.541,0,0,1-4.937-2.432,5.569,5.569,0,0,1-2.213-4.754,7.617,7.617,0,0,1,2.866-6.166,9.393,9.393,0,0,1,5.9-1.666,25.182,25.182,0,0,1,8.017,1.378l-1.169,4.572a16.721,16.721,0,0,0-6.493-1.521c-2.067,0-3.3,1.015-3.3,2.647,0,1.343.544,1.777,4.242,3.3a21.01,21.01,0,0,1,5.406,2.647,6.04,6.04,0,0,1,2.176,5.08c0,5.114-3.263,7.872-9.287,7.872a23.17,23.17,0,0,1-8.416-1.414Z" fill="#fff"/>
+				<rect width="160" height="32" fill="none"/>
+			</svg>
+			<h2> <csc:header id="Header1"  runat="server" /></h2>
+		</header>
+                <%} else if (IsClassicMobile) { %>
+                    <nav class="navbar navbar-static-top">
+                        <csc:HeaderMobileControl runat="server" ID="NavbarHeader" ClientIDMode="Static"/>
+                    </nav>
+                    <csc:NavigationMenuMobileControl runat="server" id="NavigationMenuMobile"/>
+                <%} %>
+				 <% if (IsClassicDesktop) { %>
+						<main>
+					 <%} %>
+					 <cwpf:webpartbasezone id="StaticZoneTop" cssclassbrowse="ui-zone-static-top" runat="server">
+                    <zonetemplate>
+                    </zonetemplate>
+                </cwpf:webpartbasezone>
+                <div id="DynamicContentDiv" class="ui-form-contentpanel ui-helper-clearfix">
+                    <asp:ContentPlaceHolder ID="AJAXContentPlaceHolder" Visible="false" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>                
+            <div id="tabContainerControl" class="tabs-navigation ui-page-tab">
+                <div id="tabs-strip" class="">
+                    <ul id="tablist" class="pageTablist"></ul>
+                </div>
+            </div>
+                <cwpf:webpartbasezone id="StaticZoneBottom" cssclassbrowse="ui-zone-static-bottom" runat="server">
+                    <zonetemplate>
+                        <cwpfc:buttonsbarcontrol ID="ButtonsBar" runat="server" />
+                        <cwpfc:workflownavigationbuttons id="NavigationButtonsBar" runat="server" />
+                    </zonetemplate>
+                </cwpf:webpartbasezone>
+            
+                <% if (IsClassicDesktop || IsApollo) { %>
+                    <div id="ConciergeContainer" class='concierge-container <% if (IsApollo || IsClassicDesktop) Response.Write("apollo-concierge");  %>'>
+                        <cwpf:ConciergeZone ID="ConciergeZone" Visible="true"  class="ConciergeZone" runat="server">
+                            <zonetemplate>
+                                <cwpfcc:ConciergePanel ID="ConciergeControl" runat="server"></cwpfcc:ConciergePanel>
+                            </zonetemplate>
+                        </cwpf:ConciergeZone>
+                    </div>
+                    
+                <%} %>
+                 <div id="plchat-element" class="hidden"> </div>                   
+                <%if (IsClassicDesktop) { %>
+              <%--  <csc:footer ID="MasterFooter" runat="server" timeoutinterval="15" />--%>
+                <%} %>
+						<%if (IsClassicDesktop) { %>
+				</main>
+				 <%} %>
+               
+            </div> 
+            <csc:floatingframe ID="FloatingFrame" runat="server" />
+        </form>            
+    </body>
+     
+   
+      
+</html>

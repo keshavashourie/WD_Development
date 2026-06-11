@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="Designer2Help.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Automated Steps in Defining a CDO Subclass" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Defining a RevisionedObject Subclass</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Defining a RevisionedObject Subclass</p>
+            <p class="_1bodyKeepWithNext"><a name="kanchor125"></a><a name="kanchor126"></a>There are specific steps that are required when creating a RevisionedObject CDO. When creating the RO, you can select the option to automatically create the required associated CDOs and required fields. <br /></p>
+            <p class="_1body">The overall steps to define a RevisionedObject are similar to those used to define a NamedDataObject CDO. The only additional steps address adding a RevisionBase CDO and changing the CDO associations for the RevisionedObject and the RevisionBase CDOs, which are performed automatically if you select the check box on the Create a new CDO Definition window to Create a Maintenance Service.</p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="The_RevisionBase_CDO"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">The RevisionBase CDO</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body"><a name="kanchor127"></a>RevisionBase is a named data object for providing the ROR (revision of record) and revisions. The ROR attribute provides the ID of the current revision of record. The Revisions attribute provides a list of revision instances associated with the revisioned object. For each RevisionBase, there is at least one RevisionedObject. </p>
+                </div>
+            </div>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" /></a><a name="Automatically_Generated_Associated_CDOs"></a><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_" aria-expanded="false">Automatically Generated Associated CDOs</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1bodyKeepWithNext">When you add a RevisionedObject (RO), if you select the check box to Create &amp; Configure a Maintenance Service, the actions listed immediately below are performed automatically:</p>
+                    <table class="AutoNumber_p__1bullet" style="font-family: Bembo; font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Add a RevisionedObjectChanges CDO</td>
+                        </tr>
+                    </table>
+                    <p class="_3body">The purpose of adding an ObjectChanges CDO is to provide a scratch area to hold changes before committing them to the RevisionedObject. The ObjectChanges CDO is exposed to the Client. This means that if changes are made to the ObjectChanges CDO, the changes are validated first before they are written to the RevisionedObject. This feature provides a layer of protection from accidental changes. The validated changes to the RevisionedObject are in turn written to the database.</p>
+                    <table class="AutoNumber_p__1bullet" style="font-family: Bembo; font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Add a RevisionBase CDO (actually a NamedDataObject CDO)</td>
+                        </tr>
+                    </table>
+                    <p class="_3body">The purpose of adding a RevisionBase CDO is to contain the common things associated with all the revisions for this object, such as the name, the list of IDs, and the revision of record.</p>
+                    <table class="AutoNumber_p__1bullet" style="font-family: Bembo; font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Link the RevisionedObject (RO) and the ObjectChanges CDO</td>
+                        </tr>
+                    </table>
+                    <p class="_3body">Overriding field properties within a CDO is a method of linking two CDOs together. Inherited fields inherit the field properties from the superclass from which the CDO is derived. The process of overriding a field is changing a field property of an inherited field for the specified CDO. Linking objects together through a field is the process of changing the field type to be the name of the CDO to which it is being linked. This causes the field within one CDO to point to another CDO. Here you are linking the ObjectChanges CDO to the RevisionedObject CDO.</p>
+                    <table class="AutoNumber_p__1bullet" style="font-family: Bembo; font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Add a maintenance CDO to maintain the RevisionedObject</td>
+                        </tr>
+                    </table>
+                    <p class="_3body">The purpose of adding a Maintenance CDO is to maintain the RevisionedObject CDO.</p>
+                    <table class="AutoNumber_p__1bullet" style="font-family: Bembo; font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Reference the new RevisionedObject in the Maintenance CDO</td>
+                        </tr>
+                    </table>
+                    <p class="_3body">The purpose is the same as for creating an override in the ObjectChanges CDO except here you are linking the Maintenance CDO to the RevisionedObject, ObjectChanges, and the RevisionBase CDOs.</p>
+                    <table class="AutoNumber_p__1bullet" style="font-family: Bembo; font-weight: normal; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 45px;" />
+                        <col style="width: 30px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                            </td>
+                            <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Change the CDO associations for RevisionedObject and RevisionBase CDO</td>
+                        </tr>
+                    </table>
+                    <p class="_3body">The purpose of changing the CDO associations is to link the RevisionedObject CDO to the RevisionBase CDO.</p>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

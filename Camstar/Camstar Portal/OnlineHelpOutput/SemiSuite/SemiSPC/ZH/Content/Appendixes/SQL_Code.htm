@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="附录 A：SPC 查询详细信息" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>SQL 代码</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">SQL 查询脚本</p>
+            <p class="_1bodyKeepWithNext" style="padding-bottom:12px">这是 SQL 查询的示例，用于收集 SPC 调用所需的 Opcenter Execution Semiconductor 数据。有关此查询的其他重要信息，注意查看签入式注释，并参考“<a href="SQL_Query_Script_Notes.htm" class="MCXref xref" xrefformat="{paratext}">SQL 查询脚本注释</a>”。</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">DATAVALUE <span style="color: #696969; font-family: 'Calibri Light';">/*&#160;Numeric value to be plotted on chart based on chart type. */</span></p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, INSTANCEID <span style="color: #696969; font-family: 'Calibri Light';">/*&#160;Unique Id of each set of  data.&#160;Required to show comments or exclusions.*/</span></p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, COMMENTS <span style="color: #696969; font-family: 'Calibri Light';">&#160;/*&#160;Historical&#160;comments. */</span></p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, COMMENTABREV</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">, ORIGINALVALUE</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">(</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">DATAVALUE</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, INSTANCEID</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, COMMENTS</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, ROW_NUMBER() OVER (ORDER BY DataSource DESC, TxnTimestamp ASC, DisplaySequence DESC) RN <span style="color: #696969; font-family: 'Calibri Light';">&#160;/*&#160;Clause must remain as is with the exception that you can add "Waferscribenumber ASC"&#160;as explained in <a href="SQL_Query_Script_Notes.htm" title="SQL Script Notes" alt="SQL Script Notes">Notes</a>.*/ </span></p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">,CASE WHEN SS_SPCANNOTATIONCATEGORYNAME IS NULL THEN '[i]' ELSE SS_SPCANNOTATIONCATEGORYNAME END AS COMMENTABREV</p>
+            <p class="ProgramCode2" style="margin-bottom: 0.5em;">, ORIGINALVALUE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">FROM  /*&#160;Return field names must be the same for both sub-queries below. */</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;"><span style="color: #696969; font-family: 'Calibri Light';">&#160;</span>( SELECT <span style="color: #696969; font-family: 'Calibri Light';">/* Get WIP&#160;processing data on current lot */</span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">CASE WHEN STDP.OverrideValue IS NULL THEN CAST(WLDD.WIPDataValue AS FLOAT) ELSE STDP.OverrideValue END DATAVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, CAST(WLDD.WIPDataValue AS FLOAT) ORIGINALVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.WIPLotDetailsDataId INSTANCEID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, '' COMMENTS</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.TxnTimestamp</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WLDD.DisplaySequence</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, 1 DataSource</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, STDP.SS_SPCANNOTATIONCATEGORYNAME</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">Container C</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPLotDetails WLD ON C.CurrentWIPLotId = WLD.WIPLotId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPLotDetailsData WLDD ON  WLD.WIPLotDetailsId = WLDD.WIPLotDetailsId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPEquipment WE ON WLD.WIPLotDetailsId = WE.WIPLotDetailsLinkId <span style="color: #696969; font-family: 'Calibri Light';">/* Allows SPC&#160;to be evaluated by equipment*/</span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPDataName WDN ON WLDD.WIPDataNameId = WDN.WIPDataNameId <span style="color: #696969; font-family: 'Calibri Light';">/*Allows retrieval of WIP&#160;Data specified in query parameters */</span></p>
+            <p class="ProgramCode4" style="page-break-after: always;margin-bottom: 0.5em;">/*</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">*/</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">LEFT OUTER JOIN A_SPCTxnDataPoint STDP ON WLDD.WIPLotDetailsDataId= STDP.SPCTxnDataPointName <span style="color: #696969; font-family: 'Calibri Light';">/*Allows for retrieval of any overridden values on current lot.*/ </span></p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">WDN.WIPDataNameName LIKE ?WIPDATANAME <span style="color: #696969; font-family: 'Calibri Light';">/*Maps to the WIP&#160;Data query parameter */</span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WLDD.WIPDataValue IS NOT NULL</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WDN.FieldType = 'NUMBER'</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WLDD.ServiceName = 'TrackOutLot' <span style="color: #696969; font-family: 'Calibri Light';">/*&#160;Change as needed to represent the service*/ </span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WE.TrackStatus = 'INPROCESS' <span style="color: #696969; font-family: 'Calibri Light';">/* Remains INPROCESS as long as query is retrieving data from a Lot that is still on a piece of equipment. */ </span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WE.EquipmentName = ?EQUIPMENT<span style="color: #696969; font-family: 'Calibri Light';"> /* Maps to equipment query parameter */</span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND C.ContainerName = ?CONTAINER <span style="color: #696969; font-family: 'Calibri Light';"> /* Maps to container query parameter */</span></p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">UNION ALL <span style="color: #696969; font-family: 'Calibri Light';"> /* Add historical data */</span></p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">SELECT</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">CASE WHEN STDP.OverrideValue IS NULL THEN CAST(WEDH.WIPDataValue AS FLOAT) ELSE STDP.OverrideValue END DATAVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, CAST(WEDH.WIPDataValue AS FLOAT) ORIGINALVALUE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.WIPEquipmentDataHistoryId INSTANCEID</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, STDP.Description COMMENTS</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.TxnTimestamp</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, WEDH.DisplaySequence</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, 2 DataSource</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">, STDP.SS_SPCANNOTATIONCATEGORYNAME</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">FROM</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">Container C</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPEquipmentHistory WE ON C.ContainerId = WE.ContainerId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPEquipmentDataHistory WEDH ON WE.WIPEquipmentHistoryId = WEDH.WIPEquipmentHistoryId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">INNER JOIN A_WIPDataName WDN ON WEDH.WIPDataNameId = WDN.WIPDataNameId</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">LEFT OUTER JOIN A_SPCTxnDataPoint STDP ON (WEDH.SS_WIPLOTDETAILSDATAID IS NOT NULL AND WEDH.SS_WIPLOTDETAILSDATAID = STDP.SPCTxnDataPointName) OR ( WEDH.SS_WIPLOTDETAILSDATAID IS NULL AND WEDH.WIPEquipmentDataHistoryId = STDP.SPCTxnDataPointName)</p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">WDN.WIPDataNameName LIKE ?WIPDATANAME </p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WEDH.WIPDataValue IS NOT NULL</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WEDH.ServiceName = 'TrackOutLot' <span style="color: #696969; font-family: 'Calibri Light';"> /*If the same WIP Data name is being collected during TrackIn and TrackOut, specify which transaction. */ </span></p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WDN.FieldType = 'NUMBER'</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND WE.EquipmentName = ?EQUIPMENT</p>
+            <p class="ProgramCode4" style="margin-bottom: 0.5em;">AND (CASE WHEN STDP.ExcludeData IS NULL THEN 0 ELSE STDP.ExcludeData END) = 0 <span style="color: #696969; font-family: 'Calibri Light';"> /* Exclude data points that were previously marked for exclusion by end user. */ </span></p>
+            <p class="ProgramCode3" style="margin-bottom: 0.5em;">) Query1</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">) Query2</p>
+            <p class="ProgramCode0" style="margin-bottom: 0.5em;">WHERE</p>
+            <p class="ProgramCode1" style="margin-bottom: 0.5em;">RN &lt;= 200 <span style="color: #696969; font-family: 'Calibri Light';">/*&#160;Ensures that no more than 200 rows are returned. Refer to "<a href="SQL_Query_Script_Notes.htm" class="MCXref xref" xrefformat="{paratext}">SQL 查询脚本注释</a>" for details.*/ </span></p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

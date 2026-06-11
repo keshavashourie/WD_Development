@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="zh-cn" xml:lang="zh-cn" data-mc-search-type="NGram" data-mc-help-system-file-name="IMS.xml" data-mc-path-to-help-system="../../" data-mc-toc-path="" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>管理工作区应用程序代码文件</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_zhCN.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">管理工作区应用程序代码文件</p>
+            <p class="_1body">Siemens 提供了一个 MergeAppCode 可执行文件，可合并各活动工作区之间的应用程序代码文件。 </p>
+            <p class="_1body" data-mc-conditions="SysAdmin.ScreenOnly"><a name="When_Managing_Workspace_App_Code_Files"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="关闭" data-mc-alt2="打开" />管理工作区应用程序代码文件</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">MergeAppCode 可执行文件 (MergeAppCode.exe) 通过每个工作区子文件夹进行工作，并更改每个应用程序代码文件的继承，以便从其上面的工作区继承。例如，如果 csi、180 和 190 工作区都处于活动状态，则 MoveStd_190 继承将从“:MoveStd”更改为“:MoveStd_180”。可从文件路径 C:\Program Files (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode 找到该可执行文件。</p>
+                    <p class="_1body">可从文件路径 C:\Program Files (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode 找到修改该可执行文件的配置文件 (MergeAppCode.exe.config)。可以使用 WebPortlet 文件夹的相对或绝对路径修改 WebPortletPath 键。</p>
+                    <table class="AutoNumber_p_Important1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 72px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Important4body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">重要提示:</span></span></b></span>
+                            </td>
+                            <td class="AutoNumber_p_Important4body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;重要提示:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">不要更改 MergeAppCode.config 文件中的 mdbConnectionString 键。</td>
+                        </tr>
+                    </table>
+                    <p class="_1body">必须在文件路径 C:\Program Files (x86)\Camstar\Camstar Portal\App_Code\WebPortlets\Workspaces 中添加工作区子文件夹，以存储用于合并的应用程序代码文件。工作区子文件夹必须命名为关联工作区的代码。例如，与工作区 200 关联的子文件夹必须命名为“200”。</p>
+                    <p class="_1body">必须将所有自定义控件、函数和属性名称附加到关联工作区代码中。例如，工作区 200 中名为“ControlName”的控件必须命名为“ControlName_200”，以使可执行文件能确定关联工作区和继承。所有文件都必须存储在其关联工作区子文件夹中。</p>
+                    <p class="_1body">如果没有可用的活动工作区（不包括基础 csi 工作区），或者找不到 WebPortletPath，则会显示错误消息。错误会记录在事件查看器中。</p>
+                </div>
+            </div>
+            <p class="Head3-Side"><a name="How_to_Merge_App_Code_Files"></a>如何合并应用程序代码文件</p>
+            <p class="_1bodyKeepWithNext">按照以下步骤合并应用程序代码文件：</p>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>1.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;1.&lt;/b&gt;">导航至文件路径 C:\Program Files (x86)\Camstar\Insite Conversion&#160;Tool\MergeAppCode。</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Step1" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Step1" valign="top"><span class="Number"><b>2.</b></span>
+                    </td>
+                    <td class="AutoNumber_p_Step1" valign="top" data-mc-autonum="&lt;b&gt;2.&lt;/b&gt;">双击 <span class="User_Entry">MergeAppCode.exe</span>。<span class="Emphasis">当可执行文件合并应用程序代码文件并在完成后显示成功消息时，将显示一个命令提示符弹出窗口。</span></td>
+                </tr>
+            </table>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

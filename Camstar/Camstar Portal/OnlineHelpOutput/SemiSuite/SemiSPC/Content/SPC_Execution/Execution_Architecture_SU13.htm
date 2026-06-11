@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Execution Architecture SU13</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">SPC&#160;Execution Architecture<a name="kanchor27"></a></p>
+            <p class="_1bodyKeepWithNext">SPC processing can be triggered from a shop floor event, for example, an operator entering data into a WIP Data Setup. Transaction data is committed to the database before the call to SPC.</p>
+            <p class="Head3-Side"><a name="kanchor28"></a>Example Use Case</p>
+            <p class="_1body">A manufacturer wants to monitor wafer thickness during the production process.  If a wafer measurement falls outside of the established range, they want to place the lot or lots on hold before slicing the wafer into die.  Additionally, they need to know if measurements are trending towards the upper or lower range limits so that they can investigate the equipment to determine whether repairs may be needed.</p>
+            <p class="_1body">The Opcenter Execution Semiconductor administrator defines a WIP Data Setup to capture thickness measurements and an SPC&#160;Setup with failure actions to execute when measurements are out of range. The administrator associates the SPC&#160;Setup with the WIP&#160;Data Setup.</p>
+            <p class="_1body"> During shop floor Track Out, the WIP&#160;Data Setup requirement prompts the operator for the required measurement. The operator enters the measurement and the application begins the SPC request configured in the associated SPC&#160;Setup. </p>
+            <p class="_1body">Opcenter Execution Semiconductor creates and temporarily saves the pre-SPC execution data, commits the shop floor transaction data to the database, and executes a procedure named Trigger_SPC passing in the saved SPC data. The Trigger_SPC procedure then executes the Execute SPC Transaction.</p>
+            <p class="_1body">For each record in SPC Txn Data List, the Execute SPC transaction calls a custom procedure also called Execute SPC which in turn calls the Statit e-Server to execute the SPC Macro defined in the SPC Setup.</p>
+            <p class="_1body">Statit e-Server identifies the thickness measurement to be out of limits and returns the results to Opcenter Execution Semiconductor. The Execute SPC transaction commits all the Post-SPC Execution Data,  places the lot on hold, and displays the SPC results including chart or charts to the user.</p>
+            <p class="Head2"><a name="kanchor29"></a>SPC Data Objects</p>
+            <p class="_1bodyKeepWithNext">There are two named data objects (NDOs) that support SPC:</p>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a name="kanchor30"></a>SPC&#160;Txn Data:&#160;Opcenter Execution Semiconductor uses a two-commit cycle to execute SPC. For each SPC Setup executed, the system creates a record in SPC Txn Data. Each SPC Txn Data instance has two sets of information:</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Pre-SPC Execution Data – This is information pertaining to what to execute. Examples include:&#160;SPC Setup, the user and transaction timestamp, the lot, equipment, or both that were used, the transaction name, and resolved parameters.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__2bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 72px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">Post-SPC Execution Data – This is information Statit e-Server returns after executing SPC. Examples include error message, SPC result, SPC result filename, and final failure action.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;"><a name="kanchor31"></a>SPC&#160;Txn Data Point:&#160;Each record corresponds to a data point that is used to exclude, annotate and/or specify an override value. The sample SPC Queries that are provided with Opcenter Execution Semiconductor SPC have a link (outer join) to the counterpart SPC Txn Data Point. Note that not all points plotted require a record in SPC Txn Data Point. SPC Txn Data Point is only created if the data value requires annotation, exclusion or value override.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ss_SPCGPCChartData:&#160;Stores historical data such as cp, cpk, pp, and ppk values for GPC charts with rule violations.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p__1bullet" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 45px;" />
+                <col style="width: 30px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p__1bullet" valign="top"><span class="Dingbat-SqBullet"><span style="font-size: 120%;" class="mcFormatSize">•</span></span>
+                    </td>
+                    <td class="AutoNumber_p__1bullet" valign="top" data-mc-autonum="&lt;span style=&quot;font-size: 120%;&quot; class=&quot;mcFormatSize&quot;&gt;•&lt;/span&gt;">ss_SPCTxnDataPointDetails:&#160;Stores the raw data points of which plotted data points are comprised. Data is stored for XBar, RChart, and Moving Range charts that have rule violations and are configured with the SAVE parameter. This table cross references with A_SPCTxnDataDetails table.</td>
+                </tr>
+            </table>
+            <table class="AutoNumber_p_Important1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 81px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Important1body" valign="top"><span class="Note"><b><span style="color: #006487;" class="mcFormatColor"><span style="font-family: 'Arial';" class="mcFormatFamily">Important:</span></span></b></span>
+                    </td>
+                    <td class="AutoNumber_p_Important1body" valign="top" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;Important:&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;">You should not modify SPC Txn Data or SPC Txn Data Point in the modeling environment.</td>
+                </tr>
+            </table>
+            <p class="Head3-Side">Data Flow</p>
+            <p class="_1bodyKeepWithNext">When a user executes a transaction configured to call SPC, the transaction creates a record containing pre-SPC execution data in the SPC Txn Data object. When the transaction completes and commits its data (first commit cycle), it calls the Trigger SPC procedure and passes in the SPC Txn Data List. Trigger SPC then calls the Execute SPC transaction in the same server instance passing along the SPC Txn Data List.</p>
+            <p class="_1bodyKeepWithNext">For each record in SPC Txn Data List, the Execute SPC transaction calls a procedure named Execute SPC which calls the Statit e-Server to execute the SPC Macro. The results or errors from the Statit e-Server are passed back to the Opcenter Execution Semiconductor server.</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

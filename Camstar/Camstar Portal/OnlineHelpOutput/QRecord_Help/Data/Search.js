@@ -1,0 +1,1 @@
+define({r:0.5,st:'Stem',n:1,t:[0],m:[],u:['../Content/1_EventRecording/Adding_Attachments.htm'],s:['+','note'],p:[['+',7],['and',51],['bulleted',4],['containing',27],['enables',45],['grid',5],['level',25],['of',14],['prior',37],['review',53],['tab',33],['thickness',1],['was',14]]});

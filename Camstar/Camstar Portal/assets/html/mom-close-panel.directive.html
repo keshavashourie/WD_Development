@@ -1,0 +1,24 @@
+<div style="height: max-content;width: 200px;">
+    <div style="display: flow-root;width: 100%;" aw-repeat="visitedStates : visitedStatesResults">
+        <div class="aw-layout-panelSectionTitle aw-layout-flexRow" style="margin-bottom: 8px;height: 35px;">
+            <div style="float: left;width: 83%;">
+                <label style="font-weight: 600;font-size: 14.4px;padding-left:16px">{{visitedStates.name}}</label></div>
+            <div ng-click="CloseAllLocationsFromState(visitedStates.name, visitedStates)" style="float: right;height: 24px;width: 24px;cursor: pointer;">
+                <aw-pic icon-id="closeAll.dbValue"></aw-pic>
+            </div>
+        </div>
+        <div style="height: 30px;margin-left: 16px;" aw-repeat="state : visitedStates.states">
+            <div style="float: left;width: 85%;">
+                <div style="float: left;width: 80%;">
+                    <a  style="font-size: 15px;" class="aw-aria-border ng-binding" aria-label="{{state.name}}" ng-click="navigateToState(state)" tabindex="0" title="{{state.localizedName}}">{{state.localizedName}}</a>
+                </div>
+                <div style="float: left;margin-top: 2.5px;">
+                    <aw-pic visible-when="CurrentState === state.name" icon-id="buttonCheckMark.dbValue"></aw-pic>
+                </div>
+            </div>
+            <div ng-click="CloseLocation(visitedStates.name , state)" style="width: 10%;float: left;cursor: pointer;margin-top: 2.5px;">
+                <aw-pic icon-id="buttonCommand.dbValue"></aw-pic>
+            </div>
+        </div>
+    </div>
+</div>

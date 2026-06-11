@@ -1,0 +1,80 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-panel-body.directive",
+        "js/aw-list.directive",
+        "js/aw-default-cell.directive"
+    ],
+
+    "actions": {
+        "reveal": {
+            "actionType": "dataProvider",
+            "method": "momBreadcrumbDataProvider"
+        },
+        "setCrumbs": {
+            "actionType": "MomGetInputData",
+            "inputData": {
+                "input": {
+                    "crumbs": "{{data.eventData.crumbs}}"
+                }
+            },
+            "outputData": {
+                "crumbs": "crumbs"
+            },
+            "events": {
+                "success": [
+                    {
+                        "name": "momNavigateBreadcrumb.refresh"
+                    }
+                ]
+            }
+        },
+        "buildCrumbs": {
+            "actionType": "JSFunction",
+            "method": "setCrumbs",
+            "inputData": {
+                "crumbs": "{{data.crumbs}}",
+                "breadcrumbConfig": "{{data.breadcrumbConfig}}"
+            },
+            "outputData": {
+                "crumbs": "crumbs"
+            },
+            "deps": "js/mom.breadcrumb.service"
+        },
+        "onSelect": {
+            "actionType": "JSFunction",
+            "method": "select",
+            "inputData": {
+                "crumb": "{{data.eventData}}"
+            },
+            "deps": "js/mom.breadcrumb.service"
+        }
+
+    },
+    "dataProviders": {
+        "momBreadcrumbDataProvider": {
+            "action": "buildCrumbs",
+            "response": "{{data.crumbs}}",
+            "totalFound": "{{data.crumbs.length}}"
+        }
+    },
+    "onEvent": [ {
+            "eventId": "momNavigateBreadcrumb.selectCrumb",
+            "action": "onSelect",
+            "cacheEventData": true
+        },
+        {
+            "eventId": "momNavigateBreadcrumb.contentLoaded",
+            "action": "reveal"
+        },
+        {
+            "eventId": "momNavigateBreadcrumb.refresh",
+            "action": "reveal"
+        },
+        {
+            "eventId": "momNavigateBreadcrumb.reset",
+            "cacheEventData": true,
+            "action": "setCrumbs"
+        }
+    ]
+}

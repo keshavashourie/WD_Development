@@ -1,0 +1,1 @@
+import cfgSvc from 'js/configurationService'; cfgSvc.add('viewAndViewModelRepoConfiguration',{"actionType":"GET","viewUrl":"{{baseUrl}}","viewModelUrl":"{{baseUrl}}"});

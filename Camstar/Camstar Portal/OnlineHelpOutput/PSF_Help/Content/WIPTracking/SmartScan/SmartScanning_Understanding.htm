@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-US" xml:lang="en-US" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalSFUG.xml" data-mc-path-to-help-system="../../../" data-mc-toc-path="Smart Scanning" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Understanding Smart Scanning</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Understanding Smart Scanning</p>
+            <p class="_1bodyKeepWithNext"><a name="kanchor157"></a>Smart scanning is available for all Portal pages. Information on enabling the Smart Scanning feature, the two types of Smart Scanning available, and how to configure them is provided in the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics System Administration Guide</span> or the <span class="Emphasis">Opcenter Execution Core System Administration Guide</span>.</p>
+            <p class="_1bodyKeepWithNext">When Rule-Based Smart Scanning is implemented, the application also checks whether a Smart Scan Rule is configured on the Factory or the Resource of the logged-on user’s line assignment and whether the rule is active. Refer to “Defining Smart Scan Rules” in the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Modeling User Guide </span>or the <span class="Emphasis">Opcenter Execution Core Modeling User Guide </span>for more detailed information.</p>
+            <p class="_1bodyKeepWithNext" data-mc-conditions="Default.ScreenOnly"> <a name="When_Scanning_a_Barcode"></a></p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />When Scanning a Barcode</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">The logic used by the application to evaluate barcode data depends partly upon whether default or Rule-Based Smart Scanning is implemented. Default Smart Scanning relies on the barcode having prefixes or smart tags. Rule-Based Smart Scanning relies on data that matches configured patterns. These barcodes will not have smart tags.</p>
+                </div>
+            </div>
+            <p class="_1body" data-mc-conditions="Default.ScreenOnly"><a name="Cursor_Placement"></a>
+            </p>
+            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="javascript:void(0)" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../../../Skins/Default/Stylesheets/Images/transparent.gif" height="11" width="16" alt="Closed" data-mc-alt2="Open" />Cursor Placement</a></span>
+                <div class="MCDropDownBody dropDownBody">
+                    <p class="_1body">When a barcode is scanned with a terminator (for example, a horizontal tab, set by the scanning device), the application moves the cursor to the next logical field after populating the scanned field regardless of whether the barcode is Smart (contains a preamble) or Not Smart. Dependent fields are resolved the same as they are for values entered manually. If the barcode is scanned without a terminator, the application does not move the cursor to the next field and the barcode type (Smart or Not Smart) determines whether the application populates the field.</p>
+                    <p class="_1body">If the barcode is Not Smart, the application populates the field the cursor is on with the entity name and the cursor sits at the end of the last character. If the barcode is Smart, the application populates the field when the focus is removed from the target field. Regardless of barcode type, the focus may be removed automatically by the scanning device if a terminator has been configured for the device or manually by tabbing off of the target field.</p>
+                    <table class="AutoNumber_p_Note1body" style="width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                        <col style="width: 20px;" />
+                        <col style="width: 50px;" />
+                        <col style="width: auto;" />
+                        <tr>
+                            <td valign="top" />
+                            <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                            </td>
+                            <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">The terminator coming from the scanning device must match the terminator value defined in the Portal Studio SmartScanningSettings sections. Refer to the <span class="Emphasis">Opcenter Execution Medical Device and Diagnostics Portal Studio User Guide</span> or the <span class="Emphasis">Opcenter Execution Core Portal Studio User Guide</span> for information on Smart Scanning Settings and defining terminators. Refer to the documentation supplied with the device for information on configuring a terminator for a scanning device.</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-US" xml:lang="en-US" data-mc-search-type="Stem" data-mc-help-system-file-name="PortalHelp.xml" data-mc-path-to-help-system="../../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Carrier Unload Automation Service</title>
+        <link href="../../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Resources/Stylesheets/LDCSS1.2.5.css" rel="stylesheet" type="text/css" />
+        <script src="../../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="../../Resources/Scripts/redirect.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+			var xhttp;
+
+			var userLang;
+			if (window.XMLHttpRequest)
+                                
+			xhttp = new XMLHttpRequest();
+                
+			else
+
+			xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			try
+                                
+			{
+			xhttp.open('HEAD', "../Scripts/UserLanguage.aspx", false);
+			xhttp.send(null);
+
+			userLang = xhttp.getResponseHeader("UserLanguage");
+                                
+			}
+                                
+			catch(e)
+			{
+			var langCode = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+			userLang = langCode.toUpperCase().substr(0, 2);     // browser's language: EN, DE, ZH, etc.
+			}
+			if (userLang !== "EN")
+			navigateToLanguageFolder(userLang);
+		/* ]]> */</script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2"><a name="top"></a>Carrier Unload Automation Service</p>
+            <p class="_1body" style="color: #4682b4;">Containers can be unload from a carrier at automation layer using a service called "scsCarrierPositionAssign". You may either unload specified containers, or unload all containers from a carrier. To unload specified containers, you must specify the container name as well as the carrier name. To unload all containers from carrier, you may speficy the carrier name ans set Unload to True. </p>
+            <p class="_1body" style="color: #4682b4;">You are not required to specify any Slot Position information during the unloading process. The application will automatically identify and resolve the related slot position. </p>
+            <table class="AutoNumber_p_Note1body" style="color: #4682b4; width: 100%; margin-left: 0;" cellspacing="0" cellpadding="0">
+                <col style="width: 20px;" />
+                <col style="width: 50px;" />
+                <col style="width: auto;" />
+                <tr>
+                    <td valign="top" />
+                    <td class="AutoNumber_p_Note1body" valign="top"><span class="Note"><span style="font-family: 'Arial';" class="mcFormatFamily"><b><span style="color: #006487;" class="mcFormatColor">Note:</span></b></span></span>
+                    </td>
+                    <td class="AutoNumber_p_Note1body" valign="top" data-mc-autonum="&lt;span style=&quot;font-family: 'Arial';&quot; class=&quot;mcFormatFamily&quot;&gt;&lt;b&gt;&lt;span style=&quot;color: #006487;&quot; class=&quot;mcFormatColor&quot;&gt;Note:&lt;/span&gt;&lt;/b&gt;&lt;/span&gt;">It is important to enter the right container name during the unloading process, if it is not unload all. The application will prompt an error if container is not found in the carrier. </td>
+                </tr>
+            </table>
+            <p class="Head2" data-mc-conditions="Default.ScreenOnly">Carrier Unload Automation Service</p>
+            <p class="Head3">Sample to Unload Specified Containers from a Carrier </p>
+            <p class="_1body" style="color: #4682b4;">The code below shows a sample of unloading specified containers from a carrier. You must provide the carrier name &lt;Carrier&gt;, container name &lt;Container __CDOTypeName="Lot"&gt; and specify the Setup Action for Load (specify "0" ) and Unload (specify "1"). </p>
+            <p class="ProgramCode0">&lt;__InSite __version="1.1" __encryption="3"&gt;
+</p>
+            <p class="ProgramCode1">    &lt;__service __serviceType="scsCarrierPositionAssign"&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+</p>
+            <p class="ProgramCode2">        &lt;__inputData&gt;
+            </p>
+            <p class="ProgramCode3">&lt;Carrier&gt;
+</p>
+            <p class="ProgramCode4">                &lt;__name&gt;&lt;![CDATA[Carrier Name]]&gt;&lt;/__name&gt;
+            </p>
+            <p class="ProgramCode3">&lt;/Carrier&gt;
+</p>
+            <p class="ProgramCode3">&lt;CloseCarrierContainer&gt;&lt;![CDATA[false]]&gt;&lt;/CloseCarrierContainer&gt;
+</p>
+            <p class="ProgramCode3">            &lt;Details&gt;
+                </p>
+            <p class="ProgramCode4">&lt;__listItem&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;Container __CDOTypeName="Lot"&gt;
+                        </p>
+            <p class="ProgramCode6">&lt;__name&gt;&lt;![CDATA[Container Name]]&gt;&lt;/__name&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;/Container&gt;
+                    </p>
+            <p class="ProgramCode5">&lt;SetupAction&gt;&lt;![CDATA[1]]&gt;&lt;/SetupAction&gt;
+                </p>
+            <p class="ProgramCode4">&lt;/__listItem&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/Details&gt;
+            </p>
+            <p class="ProgramCode3">&lt;UnloadAll&gt;&lt;![CDATA[false]]&gt;&lt;/UnloadAll&gt;
+</p>
+            <p class="ProgramCode2">        &lt;/__inputData&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+</p>
+            <p class="ProgramCode2">        &lt;/__execute&gt;
+        </p>
+            <p class="ProgramCode2">&lt;__requestData&gt;
+</p>
+            <p class="ProgramCode3">            &lt;CompletionMsg&gt;
+</p>
+            <p class="ProgramCode3">            &lt;/CompletionMsg&gt;
+        </p>
+            <p class="ProgramCode2">&lt;/__requestData&gt;
+</p>
+            <p class="ProgramCode1">    &lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="Head3">Sample to Unload All Containers from a Carrier </p>
+            <p class="_1body" style="color: #4682b4;">The code below shows the sample of unloading all containers from a carrier. You must provide the carrier name ans set the Unload All to True. </p>
+            <p class="ProgramCode0">
+&lt;__InSite __version="1.1" __encryption="3"&gt;
+&#160;</p>
+            <p class="ProgramCode1"> &#160; &lt;__service __serviceType="scsCarrierPositionAssign"&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;__utcOffset&gt;&lt;![CDATA[-05:00:00]]&gt;&lt;/__utcOffset&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;__inputData&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;Carrier&gt;
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode4">&lt;__name&gt;&lt;![CDATA[Carrier Name]]&gt;&lt;/__name&gt;
+&#160; &#160; &#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode3">&lt;/Carrier&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;CloseCarrierContainer&gt;&lt;![CDATA[false]]&gt;&lt;/CloseCarrierContainer&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;UnloadAll&gt;&lt;![CDATA[true]]&gt;&lt;/UnloadAll&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;/__inputData&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;__execute&gt;
+&#160; &#160; &#160; &#160; </p>
+            <p class="ProgramCode2">&lt;/__execute&gt;
+</p>
+            <p class="ProgramCode2"> &#160; &#160; &#160; &lt;__requestData&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;CompletionMsg&gt;
+&#160;</p>
+            <p class="ProgramCode3"> &#160; &#160; &#160; &#160; &#160; &lt;/CompletionMsg&gt;
+&#160;</p>
+            <p class="ProgramCode2"> &#160; &#160; &#160; &lt;/__requestData&gt;
+</p>
+            <p class="ProgramCode1"> &lt;/__service&gt;
+</p>
+            <p class="ProgramCode0">&lt;/__InSite&gt;
+
+</p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2022</p>
+        </MadCap:pageFooter>
+    </body>
+</html>

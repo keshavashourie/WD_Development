@@ -1,0 +1,316 @@
+{
+    "schemaVersion": "1.0.0",
+    "imports": [
+        "js/aw-include.directive"
+    ],
+    "data": {
+        "username": {
+            "type": "STRING",
+            "dbValue": "",
+            "isRequired": true,
+            "displayName": "User Name",
+            "autofocus": true
+        },
+        "password": {
+            "type": "STRING",
+            "dbValue": "",
+            "displayName": "Password",
+            "isRequired": true
+
+        },
+        "domain": {
+            "type": "STRING",  
+            "displayName": "Domain",
+            "dataProvider": "domains",
+            "hasLov": true,
+            "isRequired": true
+        },
+        "domainValues": {
+            "type": "STRING",
+            "dbValue": ""
+        },    
+        "options:language": {
+            "type": "STRING",
+            "dataProvider": "languages",
+            "displayName": "Language"
+        },
+        "languageValues": {
+            "type": "STRING",
+            "dbValue": ""
+        },
+        "options:timezone": {
+            "type": "STRING",
+            "dataProvider": "timezones",
+            "displayName": "Time Zone"            
+        },
+        "timezoneValues": {
+            "type": "OBJECT",
+            "dbValue": ""
+        },
+        "theme": {
+            "type": "STRING",
+            "displayName": "Theme",
+            "hasLov": "true"
+        },
+        "themeValues": {
+            "type": "STRING",
+            "dbValue": ""
+        },
+        "labels": {
+            "login": "Log In",
+            "requestVerificationCode": "Request Verification Code",
+            "resetPassword": "Reset Password",
+            "options": "Options",
+            "cancel": "Cancel",
+            "save": "Save"
+        },
+        "settings": {
+            "company": "Siemens Digital Industries Software",
+            "product": "Opcenter Execution Core",
+            "copyright": "Copyright Siemens 2023 ",
+            "operation": "Login"
+        }
+    },
+    "dataProviders": {
+        "domains": {
+            "response": "{{data.domainValues.dbValue}}"
+        },
+        "timezones": {
+            "response": "{{data.timezoneValues.dbValue}}"
+        },
+        "languages": {
+            "response": "{{data.languageValues.dbValue}}"
+        }
+    },
+    "actions": {
+        "goToLogin": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {                
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLogin",
+                    "settings": {
+                        "operation": "Login"
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToLoginAfterSuccessfulReset": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLoginAfterSuccessfulReset",
+                    "password": {
+                        "dbValue": ""
+                    },
+                    "settings": {
+                        "operation": "Login"
+                    },
+                    "message": {
+                        "messageType": "INFO",
+                        "messageText": "Password reset successfully."
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToLoginAfterSuccessfulLogin": {
+            "actionType": "JSFunction",
+            "method": "loginWithForm",
+            "inputData": {
+                "data": "{{data}}"
+            },
+            "deps": "js/cepLoginService"
+        },
+        "goToLoginAfterCanceledResetPassword": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLoginAfterCanceledResetPassword",
+                    "password": {
+                        "dbValue": ""
+                    },
+                    "settings": {
+                        "operation": "Login"
+                    },
+                    "message": {
+                        "messageType": "INFO",
+                        "messageText": "Reset password canceled."
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToLoginAfterCanceledRequestVerificationCode": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLoginAfterCanceledRequestVerificationCode",
+                    "password": {
+                        "dbValue": ""
+                    },
+                    "settings": {
+                        "operation": "Login"
+                    },
+                    "message": {
+                        "messageType": "INFO",
+                        "messageText": "Request verification code canceled."
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToLoginAfterCanceledLoginOptions": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLoginAfterCanceledLoginOptions",
+                    "settings": {
+                        "operation": "Login"
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToLoginAfterSaveLoginOptions": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLoginAfterSaveLoginOptions",
+                    "settings": {
+                        "operation": "Login"
+                    },
+                    "message": {
+                        "messageType": "INFO",
+                        "messageText": "Login options saved."
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToResetPassword": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToResetPassword",
+                    "settings": {
+                        "operation": "ResetPassword"
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "goToRequestVerificationCode": {
+            "actionType": "Event",
+            "method": "Event",
+            "inputData": {
+                "events": [{
+                    "name": "mom.login.reset",
+                    "eventData": {
+                        "data": "{{data}}",
+                        "newData": {
+                            "action": "goToRequestVerificationCode",
+                            "settings": {
+                                "operation": "RequestVerificationCode"
+                            }
+                        }
+                    },
+                    "excludeLocalDataCtx": true
+                }]
+            }
+        },
+        "goToLoginOptions": {
+            "actionType": "JSFunction",
+            "method": "reset",
+            "inputData": {
+                "data": "{{data}}",
+                "newData": {
+                    "action": "goToLoginOptions",
+                    "settings": {
+                        "operation": "LoginOptions"
+                    }
+                }
+            },
+            "deps": "js/mom.login.component.service"
+        },
+        "initializeLoginView": {
+            "actionType": "JSFunctionAsync",
+            "method": "getLoginSettings",
+            "inputData": {
+                "data": "{{data}}"
+            },
+            "outputData": {
+                "domain.dbValue": "domain.dbValue",
+                "domain.uiValue": "domain.uiValue",
+                "options:language.dbValue": "options:language.dbValue",
+                "options:language.uiValue": "options:language.uiValue",
+                "options:timezone.dbValue": "options:timezone.dbValue",
+                "options:timezone.uiValue": "options:timezone.uiValue"
+            },
+            "deps": "js/cepLoginService"
+        }
+    },
+    "onEvent": [
+        {
+            "eventId": "login.contentLoaded",
+			"action": "initializeLoginView"
+        },
+        {
+            "eventId": "mom.login.onResetPasswordCanceled",
+            "action": "goToLogin"
+        },
+        {
+            "eventId": "mom.login.onResetPasswordRequested",
+            "condition": "data.settings.operation === 'Login'",
+            "action": "goToRequestVerificationCode"
+        },
+        {
+            "eventId": "mom.login.onResetPasswordRequested",
+            "condition": "data.settings.operation === 'ResetPassword'",
+            "action": "goToLoginAfterSuccessfulReset"
+        },
+        {
+            "eventId": "mom.login.onVerificationCodeRequested",
+            "action": "goToResetPassword"
+        },
+        {
+            "eventId": "mom.login.onResetPasswordCanceled",
+            "action": "goToLoginAfterCanceledResetPassword"
+        },
+        {
+            "eventId": "mom.login.onRequestVerificationCodeCanceled",
+            "action": "goToLoginAfterCanceledRequestVerificationCode"
+        },
+        {
+            "eventId": "mom.login.onLoginRequested", 
+            "action": "goToLoginAfterSuccessfulLogin"
+        },
+        {
+            "eventId": "mom.login.onLoginOptionsRequested",
+            "action": "goToLoginOptions"
+        },
+        {
+            "eventId": "mom.login.onLoginOptionsCanceled",
+            "action": "goToLoginAfterCanceledLoginOptions"
+        },
+        {
+            "eventId": "mom.login.onSaveLoginOptionsRequested",
+            "action": "goToLoginAfterSaveLoginOptions"
+        }
+    ],
+    "i18n": {}
+}

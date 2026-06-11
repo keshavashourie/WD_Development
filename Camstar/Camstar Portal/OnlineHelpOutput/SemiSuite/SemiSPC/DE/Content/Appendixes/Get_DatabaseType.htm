@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="de" xml:lang="de" data-mc-search-type="Stem" data-mc-help-system-file-name="SPC.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-medium="non-print">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Get DatabaseType</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Resources/Stylesheets/LDCSS1.2.5_DE.css" rel="stylesheet" type="text/css" />
+        <script src="../../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+    </head>
+    <body>
+        <div role="main" id="mc-main-content">
+            <p class="Head2">Get DatabaseType</p>
+            <p class="_1body">Der Abschnitt "Get DatabaseType" ruft die DatabaseType-Variable ab, um zu bestimmen, ob es sich um eine SQL Server- oder Oracle-Datenbank handelt. </p>
+            <p class="Head3-Side">Code in diesem Abschnitt</p>
+            <p class="ProgramCode0">##---------------------</p>
+            <p class="ProgramCode0">##Get DatabaseType</p>
+            <p class="ProgramCode0">##---------------------</p>
+            <p class="ProgramCode0">SET DEFAULTDATASET ddsDatabaseType</p>
+            <p class="ProgramCode0">BEGINSQL</p>
+            <p class="ProgramCode1">SELECT</p>
+            <p class="ProgramCode2">DB.DatabaseType AS "DatabaseType"</p>
+            <p class="ProgramCode1">FROM</p>
+            <p class="ProgramCode2">DBDataSourceNames DB</p>
+            <p class="ProgramCode1">WHERE</p>
+            <p class="ProgramCode2">DBDataSourceUsageId=1</p>
+            <p class="ProgramCode0">ENDSQL</p>
+            <p class="ProgramCode0">&#160;</p>
+            <p class="ProgramCode0">%DataBaseType = ddsDatabaseType.DataBaseType(1)</p>
+            <p class="ProgramCode0">%ConcatSymbol = ""</p>
+            <p class="ProgramCode0">IF %DataBaseType = "Oracle" THEN</p>
+            <p class="ProgramCode1">%ConcatSymbol = " || "</p>
+            <p class="ProgramCode0">ELSE IF %DataBaseType = "SQLServer"</p>
+            <p class="ProgramCode1">%ConcatSymbol = " + "</p>
+            <p class="ProgramCode0">END IF</p>
+            <p class="ProgramCode0">%ParamNamesList = %ParamNamesList &amp; "ConcatSymbol$"</p>
+            <p class="ProgramCode0">%ParamValuesList = %ParamValuesList &amp; %ConcatSymbol &amp; "$"<a name="get_databasetype_end"></a></p>
+        </div>
+        <MadCap:pageFooter class="FirstPage">
+            <p class="copyright">© Siemens 2025</p>
+        </MadCap:pageFooter>
+    </body>
+</html>
